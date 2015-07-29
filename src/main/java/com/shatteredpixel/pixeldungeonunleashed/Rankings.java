@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
+import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.watabou.noosa.Game;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
 import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
@@ -105,7 +106,7 @@ public enum Rankings {
 	}
 
 	private int score( boolean win ) {
-		return (Statistics.goldCollected + Dungeon.hero.lvl * (win ? 26 : Dungeon.depth ) * 100) * (win ? 2 : 1);
+		return (Statistics.goldCollected + Dungeon.hero.lvl * (win ? Level.MAX_DEPTH : Dungeon.depth ) * 100) * (win ? 2 : 1);
 	}
 	
 	private static final String RECORDS	= "records";
@@ -215,12 +216,12 @@ public enum Rankings {
 			} else
 				depth = bundle.getInt( DEPTH );
 
-			//0.2.3d, fixes a case where a player who died to dm-300 would have a recorded depth of 30015.
-			if (depth == 30015) depth = 15;
+			//fixes a case where a player who died to dm-300 would have a recorded depth of 300xx.
+			if (depth > 3000) depth = 18;
 
 			//basically every patch until 0.2.3d, extracts the hero's level from the bundle structure.
 			//the second condition in the if is important, helps account for bugged rankings from pre 0.2.3d
-			if (!bundle.contains(LEVEL) || bundle.getInt(LEVEL) == 0 && ShatteredPixelDungeon.version() < 30) {
+			if (!bundle.contains(LEVEL) || bundle.getInt(LEVEL) == 0) {
 				try {
 
 					InputStream input = Game.instance.openFileInput(gameFile);

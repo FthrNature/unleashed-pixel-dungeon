@@ -139,8 +139,8 @@ public class InterlevelScene extends PixelScene {
 						fall();
 						break;
 					}
-					
-					if ((Dungeon.depth % 5) == 0) {
+
+					if ((Dungeon.bossLevel())) {
 						Sample.INSTANCE.load( Assets.SND_BOSS );
 					}
 					

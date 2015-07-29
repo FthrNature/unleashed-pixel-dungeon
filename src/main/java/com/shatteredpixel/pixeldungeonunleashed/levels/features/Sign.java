@@ -43,6 +43,8 @@ public class Sign {
 				"you can also lower equipment strength requirements with Scrolls of Upgrade.\n\n\n" +
 				"Items found in the dungeon will often be unidentified. Some items will have unknown effects, others " +
 				"may be upgraded, or degraded and cursed! Unidentified items are unpredictable, so be careful!",
+		"Your game auto-saves when you leave, but you can also Save your game into a save-slot when you are adjacent" +
+			    " to one of these signs!\n\nYou can reload a saved game at any point through the action menu!",
 		"Charging forward recklessly is a great way to get killed.\n\n" +
 				"Slowing down a bit to examine enemies and use the environment and items to your advantage can make a" +
 				" big difference.\n\nThe dungeon is full of traps and hidden passageways as well, keep your eyes open!",
@@ -50,15 +52,17 @@ public class Sign {
 				"Hunger may keep you moving in search of more food, but don't be afraid to slow down a little and train." +
 				"\n\n\nHunger and health are both resources, and using them well can mean starving yourself in order" +
 				" to help conserve food, if you have some health to spare.",
-		"The rogue isn't the only character that benefits from being sneaky. You can retreat to the other side of a " +
-				"door to ambush a chasing opponent for a guaranteed hit!" +
-				"\n\nAny attack on an unaware opponent is guaranteed to hit them.",
+		"When you level up you regain some of your health and sate some of your hunger.  Consider it a reward for" +
+				" levelling!",
 
 		"Note to all sewer maintenance & cleaning crews: TURN BACK NOW. Some sort of sludge monster has made its home" +
 				" here and several crews have been lost trying to deal with it.\n\n" +
 				"Approval has been given to seal off the lower sewers, this area has been condemned, LEAVE NOW.",
 
 		"Pixel-Mart - all you need for successful adventure!",
+		"The rogue isn't the only character that benefits from being sneaky. You can retreat to the other side of a " +
+				"door to ambush a chasing opponent for a guaranteed hit!" +
+				"\n\nAny attack on an unaware opponent is guaranteed to hit them.",
 		"Identify your potions and scrolls as soon as possible. Don't put it off to the moment " +
 				"when you actually need them.",
 		"Being hungry doesn't hurt, but starving does hurt.",
@@ -72,6 +76,9 @@ public class Sign {
 		"If you are burning, you can't put out the fire in the water while levitating.",
 		"There is no sense in possessing more than one unblessed Ankh at the same time, " +
 				"because you will lose them upon resurrecting.",
+		"The more powerful the item the easier it is to be upgraded.\n\nThere is also a maximum" +
+			    " enchantment bonus items can receive.  As you get closer to the maximum bonus" +
+			    " the chance of failure increases.",
 
 		"DANGER! Heavy machinery can cause injury, loss of limbs or death!",
 
@@ -79,6 +86,7 @@ public class Sign {
 		"When you upgrade an enchanted weapon, there is a chance to destroy that enchantment.",
 		"In a Well of Transmutation you can get an item, that cannot be obtained otherwise.",
 		"The only way to enchant a weapon is by upgrading it with a Scroll of Magical Infusion.",
+		"The minotaur likes to hide around corners, try luring him into the open.",
 
 		"No weapons allowed in the presence of His Majesty!",
 
@@ -87,7 +95,8 @@ public class Sign {
 		//hmm.. I wonder what this is?
 		"standOfF roW",
 		"fraCtion doWnpOur",
-		"gaffe MaSts"
+		"gaffe MaSts",
+		"reTicul4ting sP1n3s"
 	};
 	
 	private static final String TXT_BURN =
@@ -106,7 +115,7 @@ public class Sign {
 			if (index < TIPS.length) {
 				GameScene.show( new WndMessage( TIPS[index] ) );
 
-				if (index >= 21) {
+				if (index >= 26) {
 
 					Level.set( pos, Terrain.EMBERS );
 					GameScene.updateMap( pos );

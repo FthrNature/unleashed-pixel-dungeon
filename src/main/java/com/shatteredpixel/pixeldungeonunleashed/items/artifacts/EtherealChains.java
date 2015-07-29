@@ -89,7 +89,7 @@ public class EtherealChains extends Artifact {
 			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
 
 				//ballistica does not go through walls on pre-rework boss arenas
-				int missileProperties = (Dungeon.depth == 10 || Dungeon.depth == 15 || Dungeon.depth == 20 || Dungeon.depth == 25) ?
+				int missileProperties = (Dungeon.depth == 12 || Dungeon.depth == 18 || Dungeon.depth == 24 || Dungeon.depth == 30) ?
 						Ballistica.PROJECTILE : Ballistica.STOP_CHARS | Ballistica.STOP_TARGET;
 
 				final Ballistica chain = new Ballistica(curUser.pos, target, missileProperties);

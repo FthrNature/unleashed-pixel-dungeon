@@ -99,6 +99,7 @@ public abstract class Level implements Bundlable {
 	
 	public static final int WIDTH = 40;
 	public static final int HEIGHT = 38;
+	public static final int MAX_DEPTH = 31;
 	public static final int LENGTH = WIDTH * HEIGHT;
 	
 	public static final int[] NEIGHBOURS4 = {-WIDTH, +1, +WIDTH, -1};
@@ -979,7 +980,7 @@ public abstract class Level implements Bundlable {
 				//outside map array
 		return !((tile <= -1 || tile >= LENGTH) ||
 				//top and bottom row
-				 (tile <= WIDTH || tile >= LENGTH - WIDTH) ||
+				 (tile < WIDTH || tile >= LENGTH - WIDTH) ||
 				//left and right column
 				(tile % WIDTH == 0 || tile % WIDTH == (WIDTH - 1)));
 	}

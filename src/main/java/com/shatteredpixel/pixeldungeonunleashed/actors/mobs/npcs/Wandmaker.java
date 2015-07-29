@@ -210,7 +210,7 @@ public class Wandmaker extends NPC {
 		}
 		
 		public static void spawn( PrisonLevel level, Room room ) {
-			if (!spawned && Dungeon.depth > 6 && Random.Int( 10 - Dungeon.depth ) == 0) {
+			if (!spawned && Dungeon.depth > 7 && Random.Int( 12 - Dungeon.depth ) == 0) {
 				
 				Wandmaker npc = new Wandmaker();
 				do {
