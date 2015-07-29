@@ -1116,7 +1116,14 @@ public class Hero extends Char {
 				GLog.p( "You cannot grow stronger, but your experiences do give you a surge of power!");
 				Sample.INSTANCE.play( Assets.SND_LEVELUP );
 			}
-			
+
+			// some bonuses for leveling up, you regain up to 10% of your health and 10% of your hunger
+			HP = HP + (HT / 10);
+			if (HP > HT) {
+				HP = HT;
+			}
+			(buff( Hunger.class )).reduceHunger(  buff( Hunger.class ).STARVING / 10 );
+
 			if (lvl < 10) {
 				updateAwareness();
 			}
@@ -1133,7 +1140,7 @@ public class Hero extends Char {
 	}
 	
 	public int maxExp() {
-		return 5 + lvl * 5;
+		return lvl * 10;
 	}
 	
 	void updateAwareness() {
