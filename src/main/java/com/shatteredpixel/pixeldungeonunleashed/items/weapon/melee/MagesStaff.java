@@ -39,8 +39,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.ColorMath;
-import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -161,14 +159,14 @@ public class MagesStaff extends MeleeWeapon {
 		int staffLevelDiff = targetLevel - this.level;
 		if (staffLevelDiff > 0)
 			this.upgrade(staffLevelDiff);
-		else if (staffLevelDiff < 0)
-			this.degrade(Math.abs(staffLevelDiff));
+		//else if (staffLevelDiff < 0)
+		//	this.degrade(Math.abs(staffLevelDiff));
 
 		int wandLevelDiff = targetLevel - wand.level;
 		if (wandLevelDiff > 0)
 			wand.upgrade(wandLevelDiff);
-		else if (wandLevelDiff < 0)
-			wand.degrade(Math.abs(wandLevelDiff));
+		//else if (wandLevelDiff < 0)
+		//	wand.degrade(Math.abs(wandLevelDiff));
 
 		this.wand = wand;
 		wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
