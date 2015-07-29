@@ -20,9 +20,7 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.scenes;
 
-import com.shatteredpixel.pixeldungeonunleashed.Badges;
 import com.shatteredpixel.pixeldungeonunleashed.Chrome;
-import com.shatteredpixel.pixeldungeonunleashed.Rankings;
 import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
 import com.shatteredpixel.pixeldungeonunleashed.ui.Archs;
 import com.shatteredpixel.pixeldungeonunleashed.ui.RedButton;
@@ -44,9 +42,9 @@ public class WelcomeScene extends PixelScene {
 	private static final String TTL_Future = "Wait What?";
 
 	private static final String TXT_Welcome =
-			"Unleashed Pixel Dungeon is a rework/expansion of Watabou's Pixel Dungeon.\n\n"+
+			"Unleashed Pixel Dungeon is a rework/expansion of Shattered Pixel Dungeon.\n\n"+
+			"I'm hoping to make changes to all areas of the game as a learning exercise."+
 			"The goal is to try out some new ideas and content and see where it goes!\n\n"+
-			"Unleashed Pixel Dungeon is being constantly updated, so expect more new content soon!\n\n"+
 			"Happy Dungeoneering!";
 
 	private static final String TXT_Update =
@@ -54,12 +52,19 @@ public class WelcomeScene extends PixelScene {
 					"- Initial Code Port from Shattered Pixel Dungeon\n" +
 					"- Allow Saving if adjacent to a level entrance sign\n" +
 					"- Bigger Map Size, more loot, more mobs\n" +
+					"- Five new Dungeon levels with new mobs\n" +
+					"- New Burnt Dungeon Level Layout\n"+
 					"- More useful drops in High Grass, Treasuries and Graveyards\n" +
 					"- Level Caps on upgradable items\n" +
 					"- Higher upgrades sometimes fail\n" +
+					"- Donate goods at Altars\n"+
+					"- Artifact and Glowing Weapons\n"+
 					"- Leveling up heals the Hero and fills his belly a bit\n" +
 					"- Beneficial potions also provide some nourishment\n" +
-					"- Various tweaks and mods";
+					"- Quickslot items now Auto-Aim on a visible mob\n"+
+					"- Various tweaks and mods\n\n"+
+			"v01.1:\n"+
+			        "- Graphics and Text rework to give Unleashed Pixel Dungeon a unique stamp.";
 
 	private static final String TXT_Future =
 			"It seems that your current saves are from a future version of Unleashed Pixel Dungeon!\n\n"+

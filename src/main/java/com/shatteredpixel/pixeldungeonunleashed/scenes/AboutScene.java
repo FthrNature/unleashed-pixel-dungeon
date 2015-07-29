@@ -40,10 +40,12 @@ public class AboutScene extends PixelScene {
 
 	private static final String TTL_TITLE = "Unleashed Pixel Dungeon";
 
-	private static final String TXT_SHPX =
-			"Based on the Shattered Pixel Dungeon code base by Evan\n\n" +
+	private static final String TXT_UNLSH =
+			"Code & Graphics: David Mitchell\n\n" +
+			"Based on the Shattered Pixel Dungeon by Evan\n\n" +
 			"and the Original Pixel Dungeon by Watabou.";
 
+	private static final String LNK_UNLSH = "father-natures.blogspot.com";
 	private static final String LNK_SHPX = "ShatteredPixel.com";
 
 
@@ -64,12 +66,12 @@ public class AboutScene extends PixelScene {
 		final float colTop = (Camera.main.height / 2) - (ShatteredPixelDungeon.landscape() ? 30 : 90);
 		final float wataOffset = ShatteredPixelDungeon.landscape() ? colWidth : 0;
 
-		Image shpx = Icons.SHPX.get();
-		shpx.x = align( (colWidth - shpx.width()) / 2 );
-		shpx.y = align( colTop );
-		add( shpx );
+		Image unlsh = Icons.UNLEASHED.get();
+		unlsh.x = align( (colWidth - unlsh.width()) / 2 );
+		unlsh.y = align( colTop );
+		add( unlsh );
 
-		new Flare( 7, 64 ).color( 0x225511, true ).show( shpx, 0 ).angularSpeed = +20;
+		new Flare( 7, 64 ).color( 0xFFFF66, true ).show( unlsh, 0 ).angularSpeed = +20;
 
 		BitmapTextMultiline shpxtitle = createMultiline( TTL_TITLE, 8 );
 		shpxtitle.maxWidth = (int) Math.min( colWidth, 120 );
@@ -78,9 +80,9 @@ public class AboutScene extends PixelScene {
 		add( shpxtitle );
 
 		shpxtitle.x = align( (colWidth - shpxtitle.width()) / 2 );
-		shpxtitle.y = align( shpx.y + shpx.height + 5 );
+		shpxtitle.y = align( unlsh.y + unlsh.height + 5 );
 
-		BitmapTextMultiline shpxtext = createMultiline( TXT_SHPX, 8 );
+		BitmapTextMultiline shpxtext = createMultiline( TXT_UNLSH, 8 );
 		shpxtext.maxWidth = shpxtitle.maxWidth;
 		shpxtext.measure();
 		add( shpxtext );
@@ -88,7 +90,7 @@ public class AboutScene extends PixelScene {
 		shpxtext.x = align( (colWidth - shpxtext.width()) / 2 );
 		shpxtext.y = align( shpxtitle.y + shpxtitle.height() + 12 );
 
-		BitmapTextMultiline shpxlink = createMultiline( LNK_SHPX, 8 );
+		BitmapTextMultiline shpxlink = createMultiline( LNK_UNLSH, 8 );
 		shpxlink.maxWidth = shpxtitle.maxWidth;
 		shpxlink.measure();
 		shpxlink.hardlight( Window.SHPX_COLOR );
@@ -100,7 +102,7 @@ public class AboutScene extends PixelScene {
 		TouchArea shpxhotArea = new TouchArea( shpxlink ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://shatteredpixel.tumblr.com") );
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://father-natures.blogspot.com") );
 				Game.instance.startActivity( intent );
 			}
 		};
