@@ -22,6 +22,7 @@ package com.shatteredpixel.pixeldungeonunleashed.ui;
 
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
 import com.shatteredpixel.pixeldungeonunleashed.items.EquipableItem;
+import com.shatteredpixel.pixeldungeonunleashed.items.wands.Wand;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Button;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
@@ -32,6 +33,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.PixelScene;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndBag;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -50,8 +52,7 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 	private static Image crossM;
 	
 	private static boolean targeting = false;
-	private static Char lastTarget= null;
-	
+
 	public QuickSlotButton( int slotNum ) {
 		super();
 		this.slotNum = slotNum;
@@ -69,8 +70,6 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 
 	public static void reset() {
 		instance = new QuickSlotButton[4];
-
-		lastTarget = null;
 	}
 	
 	@Override
@@ -81,10 +80,10 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 			@Override
 			protected void onClick() {
 				if (targeting) {
-					GameScene.handleCell( lastTarget.pos );
+					GameScene.handleCell( Dungeon.hero.lastTarget.pos );
 				} else {
 					Item item = select(slotNum);
-					if (item instanceof EquipableItem)
+					if (item instanceof EquipableItem || item instanceof Wand)
 						useTargeting();
 					item.execute( Dungeon.hero );
 				}
@@ -165,18 +164,34 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 	}
 	
 	private void useTargeting() {
-		
-		targeting = lastTarget != null && lastTarget.isAlive() && Dungeon.visible[lastTarget.pos];
-		
+		// DSM-xxxx rework this logic when I get back from vacation...
+		targeting = Dungeon.hero.lastTarget != null && Dungeon.hero.lastTarget.isAlive() && Dungeon.visible[Dungeon.hero.lastTarget.pos];
+
+		if (!targeting) {
+			// we don't have a pre-selected target, try to choose a new one
+			int v = Dungeon.hero.visibleEnemies();
+			candidates.clear();
+			for (int i=0; i < v; i++) {
+				Mob mob = Dungeon.hero.visibleEnemy( i );
+				candidates.add( mob );
+			}
+
+			if (! candidates.isEmpty()) {
+				active = true;
+				Dungeon.hero.lastTarget = Random.element(candidates);
+				targeting = true;
+			}
+		}
+
 		if (targeting) {
-			if (Actor.all().contains( lastTarget )) {
-				lastTarget.sprite.parent.add( crossM );
-				crossM.point( DungeonTilemap.tileToWorld( lastTarget.pos ) );
+			if (Actor.all().contains( Dungeon.hero.lastTarget )) {
+				Dungeon.hero.lastTarget.sprite.parent.add( crossM );
+				crossM.point( DungeonTilemap.tileToWorld( Dungeon.hero.lastTarget.pos ) );
 				crossB.x = PixelScene.align( x + (width - crossB.width) / 2 );
 				crossB.y = PixelScene.align( y + (height - crossB.height) / 2 );
 				crossB.visible = true;
 			} else {
-				lastTarget = null;
+				Dungeon.hero.lastTarget = null;
 			}
 		}
 	}
@@ -191,7 +206,7 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 	
 	public static void target( Char target ) {
 		if (target != Dungeon.hero) {
-			lastTarget = target;
+			Dungeon.hero.lastTarget = target;
 			
 			HealthIndicator.instance.target( target );
 		}

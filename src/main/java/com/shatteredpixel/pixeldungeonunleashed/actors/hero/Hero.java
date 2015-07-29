@@ -159,6 +159,8 @@ public class Hero extends Char {
 	public HeroAction curAction = null;
 	public HeroAction lastAction = null;
 
+	public Char lastTarget = null;
+
 	private Char enemy;
 	
 	private Item theKey;
