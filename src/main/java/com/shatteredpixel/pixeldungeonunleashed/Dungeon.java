@@ -75,6 +75,7 @@ import java.util.HashSet;
 public class Dungeon {
 
 	public static int transmutation;	// depth number for a well of transmutation
+	public static int altarLevel;       // depth number for an altar
 
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
@@ -166,6 +167,8 @@ public class Dungeon {
 			a.count = 0;
 
 		transmutation = Random.IntRange( 6, 14 );
+		altarLevel = Random.IntRange(2, 4);
+
 		
 		chapters = new HashSet<Integer>();
 		
@@ -387,6 +390,7 @@ public class Dungeon {
 	private static final String LIMDROPS    = "limiteddrops";
 	private static final String DV			= "dewVial";
 	private static final String WT			= "transmutation";
+	private static final String ATLEV       = "altarLevel";
 	private static final String CHAPTERS	= "chapters";
 	private static final String QUESTS		= "quests";
 	private static final String BADGES		= "badges";
@@ -440,6 +444,7 @@ public class Dungeon {
 			quickslot.storePlaceholders( bundle );
 
 			bundle.put( WT, transmutation );
+			bundle.put( ATLEV, altarLevel );
 
 			int[] dropValues = new int[limitedDrops.values().length];
 			for (limitedDrops value : limitedDrops.values())
@@ -551,6 +556,7 @@ public class Dungeon {
 
 			if (fullLoad) {
 				transmutation = bundle.getInt(WT);
+				altarLevel = bundle.getInt(ATLEV);
 
 				int[] dropValues = bundle.getIntArray(LIMDROPS);
 				for (limitedDrops value : limitedDrops.values())

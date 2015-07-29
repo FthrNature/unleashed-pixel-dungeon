@@ -31,6 +31,7 @@ public class Journal {
 		WELL_OF_HEALTH			( "Well of Health" ),
 		WELL_OF_AWARENESS		( "Well of Awareness" ),
 		WELL_OF_TRANSMUTATION	( "Well of Transmutation" ),
+		ALTAR                   ( "Altar" ),
 		ALCHEMY					( "Alchemy pot" ),
 		GARDEN					( "Garden" ),
 		STATUE					( "Animated statue" ),

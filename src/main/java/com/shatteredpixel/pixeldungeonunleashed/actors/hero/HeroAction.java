@@ -82,6 +82,10 @@ public class HeroAction {
 			this.dst = pot;
 		}
 	}
+
+	public static class Donate extends HeroAction {
+		public Donate( int altar ) { this.dst = altar; }
+	}
 	
 	public static class Attack extends HeroAction {
 		public Char target;

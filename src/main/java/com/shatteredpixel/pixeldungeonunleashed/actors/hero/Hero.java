@@ -93,6 +93,7 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Terrain;
 import com.shatteredpixel.pixeldungeonunleashed.levels.features.AlchemyPot;
 import com.shatteredpixel.pixeldungeonunleashed.levels.features.Chasm;
+import com.shatteredpixel.pixeldungeonunleashed.levels.features.HolyAltar;
 import com.shatteredpixel.pixeldungeonunleashed.levels.features.Sign;
 import com.shatteredpixel.pixeldungeonunleashed.plants.Earthroot;
 import com.shatteredpixel.pixeldungeonunleashed.plants.Sungrass;
@@ -177,6 +178,7 @@ public class Hero extends Char {
 	
 	public int lvl = 1;
 	public int exp = 0;
+	public int donatedLoot = 0;
 	
 	private ArrayList<Mob> visibleEnemies;
 	
@@ -208,7 +210,8 @@ public class Hero extends Char {
 	private static final String STRENGTH	= "STR";
 	private static final String LEVEL		= "lvl";
 	private static final String EXPERIENCE	= "exp";
-	
+	private static final String DONATE      = "donation";
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 
@@ -224,6 +227,7 @@ public class Hero extends Char {
 		
 		bundle.put( LEVEL, lvl );
 		bundle.put( EXPERIENCE, exp );
+		bundle.put( DONATE, donatedLoot );
 
 		belongings.storeInBundle(bundle);
 	}
@@ -243,6 +247,7 @@ public class Hero extends Char {
 		
 		lvl = bundle.getInt( LEVEL );
 		exp = bundle.getInt( EXPERIENCE );
+		donatedLoot = bundle.getInt( DONATE );
 		
 		belongings.restoreFromBundle( bundle );
 	}
@@ -498,6 +503,9 @@ public class Hero extends Char {
 
 				return actCook( (HeroAction.Cook)curAction );
 				
+			} else
+			if (curAction instanceof HeroAction.Donate) {
+				return actDonate( (HeroAction.Donate)curAction );
 			}
 		}
 		
@@ -603,6 +611,24 @@ public class Hero extends Char {
 
 			ready();
 			AlchemyPot.operate( this, dst );
+			return false;
+
+		} else if (getCloser( dst )) {
+
+			return true;
+
+		} else {
+			ready();
+			return false;
+		}
+	}
+
+	private boolean actDonate( HeroAction.Donate action ) {
+		int dst = action.dst;
+		if (Dungeon.visible[dst]) {
+
+			ready();
+			HolyAltar.operate(this, dst);
 			return false;
 
 		} else if (getCloser( dst )) {
@@ -1035,6 +1061,10 @@ public class Hero extends Char {
 			
 			curAction = new HeroAction.Cook( cell );
 			
+		} else if (Dungeon.level.map[cell] == Terrain.ALTAR && cell != pos) {
+
+			curAction = new HeroAction.Donate( cell );
+
 		} else if (Level.fieldOfView[cell] && (ch = Actor.findChar( cell )) instanceof Mob) {
 
 			if (ch instanceof NPC) {

@@ -338,7 +338,12 @@ public class Heap implements Bundlable {
 			}
 		}
 	}
-	
+
+	public void donate() {
+		CellEmitter.center( pos ).burst( Speck.factory( Speck.EVOKE ), 3 );
+		destroy();
+	}
+
 	public Item transmute() {
 		
 		CellEmitter.get( pos ).burst( Speck.factory( Speck.BUBBLE ), 3 );

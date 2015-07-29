@@ -28,6 +28,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Alchemy;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Blob;
+import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Donations;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.WellWater;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Awareness;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Blindness;
@@ -819,6 +820,12 @@ public abstract class Level implements Bundlable {
 				Alchemy.transmute( cell );
 			}
 			break;
+
+		case Terrain.ALTAR:
+			if (ch == null) {
+				Donations.donate( cell );
+			}
+			break;
 			
 		case Terrain.DOOR:
 			Door.enter( cell );
@@ -1052,6 +1059,10 @@ public abstract class Level implements Bundlable {
 			return "Bookshelf";
 		case Terrain.ALCHEMY:
 			return "Alchemy pot";
+		case Terrain.ALTAR:
+			return "Altar";
+		case Terrain.ARCHWAY:
+			return "Archway";
 		default:
 			return "???";
 		}
@@ -1090,6 +1101,8 @@ public abstract class Level implements Bundlable {
 			return "Drop some seeds here to cook a potion.";
 		case Terrain.EMPTY_WELL:
 			return "The well has run dry.";
+		case Terrain.ALTAR:
+			return "An ancient stone Altar, a relic of ages past for the old Gods.";
 		default:
 			if (tile >= Terrain.WATER_TILES) {
 				return tileDesc( Terrain.WATER );

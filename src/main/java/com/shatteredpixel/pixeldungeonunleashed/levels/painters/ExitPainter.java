@@ -32,7 +32,7 @@ public class ExitPainter extends Painter {
 		fill( level, room, 1, Terrain.EMPTY );
 		
 		for (Room.Door door : room.connected.values()) {
-			door.set( Room.Door.Type.REGULAR );
+			door.set( Room.Door.Type.ARCHWAY );
 		}
 		
 		level.exit = room.random( 1 );

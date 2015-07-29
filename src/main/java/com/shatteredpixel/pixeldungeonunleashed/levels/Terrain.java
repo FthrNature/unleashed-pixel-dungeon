@@ -20,9 +20,6 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.levels;
 
-import com.shatteredpixel.pixeldungeonunleashed.levels.traps.*;
-import com.watabou.utils.SparseArray;
-
 public class Terrain {
 
 	public static final int CHASM			= 0;
@@ -61,6 +58,8 @@ public class Terrain {
 	public static final int CHASM_FLOOR_SP	= 30;
 	public static final int CHASM_WALL		= 31;
 	public static final int CHASM_WATER		= 32;
+	public static final int ALTAR           = 33;
+	public static final int ARCHWAY         = 34;
 
 	public static final int WATER_TILES	    = 48;
 	public static final int WATER		    = 63;
@@ -115,6 +114,8 @@ public class Terrain {
 		flags[CHASM_FLOOR]		= flags[CHASM];
 		flags[CHASM_FLOOR_SP]	= flags[CHASM];
 		flags[CHASM_WATER]		= flags[CHASM];
+		flags[ALTAR]            = AVOID;
+        flags[ARCHWAY]          = flags[EMPTY];
 		
 		for (int i=WATER_TILES; i < WATER_TILES + 16; i++) {
 			flags[i] = flags[WATER];
