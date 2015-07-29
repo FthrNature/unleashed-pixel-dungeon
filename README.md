@@ -17,3 +17,7 @@ Unleashed Pixel Dungeon is a game based on the Open Source Shattered Pixel Dunge
 - lots of tweaks to maintain game balance and fun
 
 I hope you enjoy the changes, and I look forward to adding new features in the near future.  Please stay tuned for updates!
+
+NOTES:
+Based off of the awesome Pixel Dungeon and Shattered Pixel Dungeon Open-Source games.
+To build the game you will need the watabou game library: https://github.com/watabou/PD-classes
