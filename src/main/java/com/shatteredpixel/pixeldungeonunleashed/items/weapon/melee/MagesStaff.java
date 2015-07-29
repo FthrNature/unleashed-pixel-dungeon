@@ -72,6 +72,7 @@ public class MagesStaff extends MeleeWeapon {
 		super(1, 1f, 1f);
 		MIN = 1;
 		MAX = 5;
+		levelCap = 6;
 
 		wand = null;
 	}
@@ -183,19 +184,55 @@ public class MagesStaff extends MeleeWeapon {
 	}
 
 	@Override
-	public Item upgrade(boolean enchant) {
-		super.upgrade( enchant );
-		STR = 10;
-		//does not lose strength requirement
+	public Item upgrade( int n ) {
+		cursed = false;
+		cursedKnown = true;
+		this.level = n;
 
 		if (wand != null) {
-			int curCharges = wand.curCharges;
-			wand.upgrade();
-			//gives the wand one additional charge
-			wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
-			wand.curCharges = curCharges+1;
-			updateQuickslot();
+			for (int i = 0; i < n; i++) {
+				int curCharges = wand.curCharges;
+				cursed = false;
+				cursedKnown = true;
+
+				wand.updateLevel();
+				curCharges = Math.min(curCharges + 1, wand.maxCharges);
+
+				//gives the wand one additional charge
+				wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
+				wand.curCharges = curCharges + 1;
+				updateQuickslot();
+			}
 		}
+		STR = 10;
+		updateQuickslot();
+
+		return this;
+	}
+
+	@Override
+	public Item upgrade(boolean enchant) {
+		int oldValue = level;
+		super.upgrade( enchant );
+		if (level != oldValue)
+		{
+			// our upgrade succeeded so we can apply the rest of the changes now...
+			if (wand != null) {
+				int curCharges = wand.curCharges;
+				cursed = false;
+				cursedKnown = true;
+
+				wand.updateLevel();
+				curCharges = Math.min( curCharges + 1, wand.maxCharges );
+
+				//gives the wand one additional charge
+				wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
+				wand.curCharges = curCharges+1;
+			}
+		}
+		STR = 10;
+		updateQuickslot();
+		//does not lose strength requirement
 
 		return this;
 	}

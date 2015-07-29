@@ -61,7 +61,7 @@ public class ChaliceOfBlood extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (isEquipped( hero ) && level < levelCap && !cursed)
+		if (isEquipped( hero ) && (level < levelCap) && !cursed)
 			actions.add(AC_PRICK);
 		return actions;
 	}
@@ -127,7 +127,9 @@ public class ChaliceOfBlood extends Artifact {
 			Dungeon.fail(Utils.format( ResultDescriptions.ITEM, name ));
 			GLog.n("The Chalice sucks your life essence dry...");
 		} else {
-			upgrade();
+			if (level < levelCap) {
+				upgrade();
+			}
 		}
 	}
 
@@ -137,7 +139,12 @@ public class ChaliceOfBlood extends Artifact {
 			image = ItemSpriteSheet.ARTIFACT_CHALICE3;
 		else if (level >= 2)
 			image = ItemSpriteSheet.ARTIFACT_CHALICE2;
-		return super.upgrade();
+		if (level < levelCap) {
+			return super.upgrade();
+		} else {
+			return this;
+		}
+
 	}
 
 	@Override

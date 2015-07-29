@@ -26,6 +26,8 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.ItemSpriteSheet;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.MissileSprite;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
+import com.watabou.utils.Random;
 
 public class Boomerang extends MissileWeapon {
 
@@ -37,6 +39,7 @@ public class Boomerang extends MissileWeapon {
 		
 		MIN = 1;
 		MAX = 5;
+		levelCap = 6;
 
 		stackable = false;
 
@@ -46,9 +49,24 @@ public class Boomerang extends MissileWeapon {
 	
 	@Override
 	public boolean isUpgradable() {
-		return true;
+		return (level < levelCap);
 	}
-	
+
+	@Override
+	public Item upgrade( int n ) {
+		cursed = false;
+		cursedKnown = true;
+		this.level = n;
+
+		for (int i = 0; i < n; i++) {
+			MIN += 1;
+			MAX += 2;
+		}
+		updateQuickslot();
+
+		return this;
+	}
+
 	@Override
 	public Item upgrade() {
 		return upgrade( false );
@@ -56,12 +74,19 @@ public class Boomerang extends MissileWeapon {
 	
 	@Override
 	public Item upgrade( boolean enchant ) {
-		MIN += 1;
-		MAX += 2;
-		super.upgrade( enchant );
-		
-		updateQuickslot();
-		
+		if (upgradeSucceds()) {
+			MIN += 1;
+			MAX += 2;
+			updateQuickslot();
+			return super.upgrade( enchant );
+		} else {
+			if (enchant == true) {
+				GLog.n("The magic failed to bind to your weapon fully.");
+				return super.upgrade( enchant );
+			} else {
+				GLog.n("The magic failed to bind to your weapon.");
+			}
+		}
 		return this;
 	}
 	

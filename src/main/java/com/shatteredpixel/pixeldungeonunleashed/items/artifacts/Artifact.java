@@ -50,7 +50,7 @@ public class Artifact extends KindofMisc {
 	//exp is used to count progress towards levels for some artifacts
 	protected int exp = 0;
 	//levelCap is the artifact's maximum level
-	protected int levelCap = 0;
+	public int levelCap = 0;
 
 	//the current artifact charge
 	protected int charge = 0;
@@ -165,6 +165,9 @@ public class Artifact extends KindofMisc {
 	//transfers upgrades from another artifact, transfer level will equal the displayed level
 	public void transferUpgrade(int transferLvl) {
 		upgrade(Math.round((float)(transferLvl*levelCap)/10));
+		if (level > levelCap) {
+			level = levelCap;
+		}
 	}
 
 	@Override

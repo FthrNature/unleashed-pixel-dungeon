@@ -168,7 +168,11 @@ public class SandalsOfNature extends Artifact {
 		else if (level >= 2)
 			image = ItemSpriteSheet.ARTIFACT_GREAVES;
 		name = NAMES[level+1];
-		return super.upgrade();
+		if (level < levelCap) {
+			return super.upgrade();
+		} else {
+			return this;
+		}
 	}
 
 

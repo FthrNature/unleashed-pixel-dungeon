@@ -141,7 +141,11 @@ public class TimekeepersHourglass extends Artifact {
 		while (level+1 > sandBags)
 			sandBags ++;
 
-		return super.upgrade();
+		if (level < levelCap) {
+			return super.upgrade();
+		} else {
+			return this;
+		}
 	}
 
 	@Override

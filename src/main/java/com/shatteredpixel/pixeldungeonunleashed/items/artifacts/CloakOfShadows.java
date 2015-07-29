@@ -135,8 +135,12 @@ public class CloakOfShadows extends Artifact {
 
 	@Override
 	public Item upgrade() {
-		chargeCap++;
-		return super.upgrade();
+		if (level < levelCap) {
+			chargeCap++;
+			return super.upgrade();
+		} else {
+			return this;
+		}
 	}
 
 	@Override

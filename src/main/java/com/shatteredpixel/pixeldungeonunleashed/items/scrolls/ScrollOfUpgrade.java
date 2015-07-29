@@ -30,8 +30,6 @@ import com.shatteredpixel.pixeldungeonunleashed.windows.WndBag;
 
 public class ScrollOfUpgrade extends InventoryScroll {
 
-	private static final String TXT_LOOKS_BETTER	= "your %s certainly looks better now";
-	
 	{
 		name = "Scroll of Upgrade";
 		initials = "Up";
@@ -49,7 +47,6 @@ public class ScrollOfUpgrade extends InventoryScroll {
 		item.upgrade();
 
 		upgrade( curUser );
-		GLog.p( TXT_LOOKS_BETTER, item.name() );
 		
 		Badges.validateItemLevelAquired( item );
 	}

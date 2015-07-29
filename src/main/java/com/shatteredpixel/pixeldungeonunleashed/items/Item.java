@@ -44,6 +44,7 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,6 +75,7 @@ public class Item implements Bundlable {
 	protected int quantity = 1;
 	
 	public int level = 0;
+	public int levelCap = 3;
 	public boolean levelKnown = false;
 	
 	public boolean cursed;
@@ -274,11 +276,13 @@ public class Item implements Bundlable {
 		return this;
 	}
 	
-	final public Item upgrade( int n ) {
-		for (int i=0; i < n; i++) {
-			upgrade();
-		}
-		
+	public Item upgrade( int n ) {
+		cursed = false;
+		cursedKnown = true;
+		this.level = n;
+
+		updateQuickslot();
+
 		return this;
 	}
 	
@@ -305,8 +309,21 @@ public class Item implements Bundlable {
 		return cursed && cursedKnown;
 	}
 	
-	public boolean isUpgradable() {
-		return true;
+	public boolean isUpgradable() { return (level < levelCap); }
+
+	public boolean upgradeSucceds() {
+		String TXT_LOOKS_BETTER	= "your %s certainly looks better now";
+
+		int testValue = levelCap * levelCap;
+		int failRate = testValue - (level * (level + 1));
+		if (level < 2) {
+			GLog.p( TXT_LOOKS_BETTER, name() );
+			return true;
+		} else if (Random.Int(testValue) < failRate) {
+			GLog.p( TXT_LOOKS_BETTER, name() );
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean isIdentified() {
@@ -441,6 +458,9 @@ public class Item implements Bundlable {
 			upgrade( level );
 		} else if (level < 0) {
 			degrade( -level );
+		}
+		if (this.level > this.levelCap) {
+			this.level = this.levelCap;
 		}
 		
 		cursed	= bundle.getBoolean( CURSED );

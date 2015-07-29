@@ -23,6 +23,7 @@ package com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
 import com.watabou.utils.Random;
 
@@ -34,7 +35,8 @@ public class MeleeWeapon extends Weapon {
 		super();
 		
 		this.tier = tier;
-		
+		levelCap = tier + 2;
+
 		ACU = acu;
 		DLY = dly;
 		
@@ -51,18 +53,43 @@ public class MeleeWeapon extends Weapon {
 	private int max() {
 		return (int)((tier * tier - tier + 10) / ACU * DLY);
 	}
-	
+
+	@Override
+	public Item upgrade( int n ) {
+		cursed = false;
+		cursedKnown = true;
+		this.level = n;
+
+		for (int i = 0; i < n; i++) {
+			STR--;
+			MIN++;
+			MAX += tier;
+		}
+		updateQuickslot();
+
+		return this;
+	}
+
 	@Override
 	public Item upgrade() {
 		return upgrade( false );
 	}
 	
 	public Item upgrade( boolean enchant ) {
-		STR--;
-		MIN++;
-		MAX += tier;
-		
-		return super.upgrade( enchant );
+		if (upgradeSucceds()) {
+			STR--;
+			MIN++;
+			MAX += tier;
+			return super.upgrade( enchant );
+		} else {
+			if (enchant == true) {
+				GLog.n("The magic failed to bind to your weapon fully.");
+				return super.upgrade( enchant );
+			} else {
+				GLog.n("The magic failed to bind to your weapon.");
+			}
+		}
+		return this;
 	}
 	
 	public Item safeUpgrade() {

@@ -189,6 +189,14 @@ public class Weapon extends KindOfWeapon {
 	}
 
 	@Override
+	public boolean isUpgradable() {
+		if (enchantment != null && enchantment.getClass() == Ancient.class) {
+			return false;
+		}
+		return super.isUpgradable();
+	}
+
+	@Override
 	public Item random() {
 		if (Random.Float() < 0.4) {
 			int n = 1;

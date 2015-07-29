@@ -78,6 +78,7 @@ public abstract class Wand extends Item {
 	
 	{
 		defaultAction = AC_ZAP;
+		levelCap = 5;
 	}
 	
 	@Override
@@ -196,16 +197,34 @@ public abstract class Wand extends Item {
 			return null;
 		}
 	}
-	
+
+	@Override
+	public Item upgrade( int n ) {
+		cursed = false;
+		cursedKnown = true;
+		this.level = n;
+
+		for (int i = 0; i < n; i++) {
+			updateLevel();
+			curCharges = Math.min( curCharges + 1, maxCharges );
+		}
+		updateQuickslot();
+
+		return this;
+	}
+
 	@Override
 	public Item upgrade() {
 
-		super.upgrade();
-		
-		updateLevel();
-		curCharges = Math.min( curCharges + 1, maxCharges );
-		updateQuickslot();
-		
+		if (upgradeSucceds()) {
+			super.upgrade();
+			updateLevel();
+			curCharges = Math.min( curCharges + 1, maxCharges );
+			updateQuickslot();
+		} else {
+			GLog.n("The magic failed to bind to your wand.");
+		}
+
 		return this;
 	}
 	

@@ -63,7 +63,7 @@ public class Armor extends EquipableItem {
 	public Armor( int tier ) {
 		
 		this.tier = tier;
-		
+		levelCap = tier + 2;
 		STR = typicalSTR();
 		DR = typicalDR();
 	}
@@ -147,6 +147,21 @@ public class Armor extends EquipableItem {
 		return hero.belongings.armor == this;
 	}
 	
+    @Override
+	public Item upgrade( int n ) {
+		cursed = false;
+		cursedKnown = true;
+		this.level = n;
+
+		for (int i = 0; i < n; i++) {
+			DR += tier;
+			STR--;
+		}
+		updateQuickslot();
+
+		return this;
+	}
+
 	@Override
 	public Item upgrade() {
 		return upgrade( false );
@@ -163,11 +178,16 @@ public class Armor extends EquipableItem {
 				inscribe( Glyph.random() );
 			}
 		};
-		
-		DR += tier;
-		STR--;
-		
-		return super.upgrade();
+
+		if (upgradeSucceds()) {
+			DR += tier;
+			STR--;
+			super.upgrade();
+		} else {
+			GLog.n("The magic failed to bind to your armor.");
+		}
+
+		return this;
 	}
 	
 	@Override

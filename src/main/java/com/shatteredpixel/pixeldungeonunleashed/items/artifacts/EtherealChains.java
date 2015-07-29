@@ -233,8 +233,10 @@ public class EtherealChains extends Artifact {
 
 			if (exp > 100+level*50){
 				exp -= 100+level*50;
-				GLog.p("Your chains grow stronger!");
-				upgrade();
+				if (level < levelCap) {
+					GLog.p("Your chains grow stronger!");
+					upgrade();
+				}
 			}
 
 		}

@@ -174,7 +174,11 @@ public class DriedRose extends Artifact {
 		//For upgrade transferring via well of transmutation
 		droppedPetals = Math.max( level, droppedPetals );
 
-		return super.upgrade();
+		if (level < levelCap) {
+			return super.upgrade();
+		} else {
+			return this;
+		}
 	}
 
 	private static final String TALKEDTO =      "talkedto";

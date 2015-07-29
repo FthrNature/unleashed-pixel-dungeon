@@ -81,7 +81,11 @@ public class Ring extends KindofMisc {
 	private String gem;
 	
 	private int ticksToKnow = TICKS_TO_KNOW;
-	
+
+	{
+		levelCap = 6;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static void initGems() {
 		handler = new ItemStatusHandler<Ring>( (Class<? extends Ring>[])rings, gems, images );
@@ -177,12 +181,35 @@ public class Ring extends KindofMisc {
 	public boolean isEquipped( Hero hero ) {
 		return hero.belongings.misc1 == this || hero.belongings.misc2 == this;
 	}
-	
+
+	@Override
+	public Item upgrade( int n ) {
+		cursed = false;
+		cursedKnown = true;
+		this.level = n;
+
+		if (buff != null) {
+			Char owner = buff.target;
+			buff.detach();
+			if ((buff = buff()) != null) {
+				buff.attachTo( owner );
+			}
+		}
+
+		updateQuickslot();
+
+		return this;
+	}
+
 	@Override
 	public Item upgrade() {
-		
-		super.upgrade();
-		
+
+		if (upgradeSucceds()) {
+			super.upgrade();
+		} else {
+			GLog.n("The magic failed to bind to your ring.");
+		}
+
 		if (buff != null) {
 			
 			Char owner = buff.target;

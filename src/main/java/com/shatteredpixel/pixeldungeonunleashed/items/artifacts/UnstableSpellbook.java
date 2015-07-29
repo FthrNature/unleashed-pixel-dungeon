@@ -134,7 +134,11 @@ public class UnstableSpellbook extends Artifact {
 		while (scrolls.size() > (levelCap-1-level))
 			scrolls.remove(0);
 
-		return super.upgrade();
+		if (level < levelCap) {
+			return super.upgrade();
+		} else {
+			return this;
+		}
 	}
 
 	@Override
@@ -234,7 +238,9 @@ public class UnstableSpellbook extends Artifact {
 						scrolls.remove(i);
 						item.detach(hero.belongings.backpack);
 
-						upgrade();
+						if (level < levelCap) {
+							upgrade();
+						}
 						GLog.i("You infuse the scroll's energy into the book.");
 						return;
 					}
