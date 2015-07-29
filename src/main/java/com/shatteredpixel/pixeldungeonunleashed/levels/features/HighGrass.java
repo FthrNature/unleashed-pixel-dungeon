@@ -33,10 +33,14 @@ import com.shatteredpixel.pixeldungeonunleashed.items.Dewdrop;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.SandalsOfNature;
+import com.shatteredpixel.pixeldungeonunleashed.items.bags.ScrollHolder;
+import com.shatteredpixel.pixeldungeonunleashed.items.bags.SeedPouch;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
+import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfIdentify;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.Dart;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Terrain;
 import com.shatteredpixel.pixeldungeonunleashed.plants.BlandfruitBush;
-import com.shatteredpixel.pixeldungeonunleashed.plants.Plant;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.watabou.utils.Random;
 
@@ -81,6 +85,51 @@ public class HighGrass {
 					level.drop(new Dewdrop(), pos).sprite.drop();
 				}
 			}
+
+			if ((Random.Int(50) == 0) && (!Dungeon.limitedDrops.seedBag.dropped())) {
+				level.drop(new SeedPouch(), pos).sprite.drop();
+				Dungeon.limitedDrops.seedBag.count++;
+			}
+		}
+
+		if (!Dungeon.isChallenged( Challenges.NO_FOOD )) {
+			if (Random.Int(25) == 0) {
+				Item food = Generator.random(Generator.Category.FOOD);
+				level.drop(food, pos).sprite.drop();
+			}
+		}
+
+		if (!Dungeon.isChallenged( Challenges.NO_HEALING )) {
+			if (Random.Int(22) == 0) {
+				level.drop(new PotionOfHealing().identify(), pos).sprite.drop();
+			}
+		}
+
+		if (Random.Int(20) == 0) {
+			level.drop(new Dart(Random.Int(3)+1), pos).sprite.drop();
+		}
+
+		if (!Dungeon.isChallenged( Challenges.NO_SCROLLS )) {
+			if ((Random.Int(50) == 0) && (!Dungeon.limitedDrops.scrollBag.dropped())) {
+				level.drop(new ScrollHolder(), pos).sprite.drop();
+				Dungeon.limitedDrops.scrollBag.count++;
+			}
+
+			if (Random.Int(25) == 0) {
+				level.drop(new ScrollOfIdentify().identify(), pos).sprite.drop();
+			}
+
+			if (Random.Int(80) == 0) {
+				level.drop(Generator.random(Generator.Category.SCROLL), pos).sprite.drop();
+			}
+		}
+
+		if (Random.Int(80) == 0) {
+			level.drop(Generator.random(Generator.Category.POTION), pos).sprite.drop();
+		}
+
+		if (Random.Int(100) == 0) {
+			level.drop(Generator.random(Generator.Category.RING), pos).sprite.drop();
 		}
 
 		int leaves = 4;

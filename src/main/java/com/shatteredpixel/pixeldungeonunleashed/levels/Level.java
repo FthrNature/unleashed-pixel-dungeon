@@ -431,7 +431,17 @@ public abstract class Level implements Bundlable {
 	public String waterTex() {
 		return null;
 	}
-	
+
+	public<T extends Item> boolean isItemOnLevel(Class<T> itemClass) {
+		for (Heap heap : Dungeon.level.heaps.values())
+		{
+			if (itemClass.isInstance(heap.peek())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	abstract protected boolean build();
 
 	abstract protected void decorate();
@@ -969,7 +979,7 @@ public abstract class Level implements Bundlable {
 				//outside map array
 		return !((tile <= -1 || tile >= LENGTH) ||
 				//top and bottom row
-				 (tile < WIDTH || tile >= LENGTH - WIDTH) ||
+				 (tile <= WIDTH || tile >= LENGTH - WIDTH) ||
 				//left and right column
 				(tile % WIDTH == 0 || tile % WIDTH == (WIDTH - 1)));
 	}
