@@ -365,8 +365,8 @@ public class Dungeon {
 		return Random.Int( 12 * (1 + limitedDrops.arcaneStyli.count) ) < depth;
 	}
 	
-	private static final String RG_GAME_FILE	= "game.dat";
-	private static final String RG_DEPTH_FILE	= "depth%d.dat";
+	private static final String RG_GAME_FILE	= "rogue.dat";
+	private static final String RG_DEPTH_FILE	= "rogue%d.dat";
 	
 	private static final String WR_GAME_FILE	= "warrior.dat";
 	private static final String WR_DEPTH_FILE	= "warrior%d.dat";
@@ -374,8 +374,8 @@ public class Dungeon {
 	private static final String MG_GAME_FILE	= "mage.dat";
 	private static final String MG_DEPTH_FILE	= "mage%d.dat";
 	
-	private static final String RN_GAME_FILE	= "ranger.dat";
-	private static final String RN_DEPTH_FILE	= "ranger%d.dat";
+	private static final String RN_GAME_FILE	= "huntress.dat";
+	private static final String RN_DEPTH_FILE	= "huntress%d.dat";
 	
 	private static final String VERSION		= "version";
 	private static final String CHALLENGES	= "challenges";

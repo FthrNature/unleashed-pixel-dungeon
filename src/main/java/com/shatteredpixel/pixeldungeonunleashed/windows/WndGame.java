@@ -29,6 +29,7 @@ import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.InterlevelScene;
+import com.shatteredpixel.pixeldungeonunleashed.scenes.LoadSaveScene;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.RankingsScene;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.TitleScene;
 import com.shatteredpixel.pixeldungeonunleashed.ui.Icons;
@@ -45,6 +46,7 @@ public class WndGame extends Window {
 	private static final String TXT_MENU		= "Main Menu";
 	private static final String TXT_EXIT		= "Exit Game";
 	private static final String TXT_RETURN		= "Return to Game";
+	private static final String TXT_LOADSAVE	= "Load/Save";
 	
 	private static final int WIDTH		= 120;
 	private static final int BTN_HEIGHT	= 20;

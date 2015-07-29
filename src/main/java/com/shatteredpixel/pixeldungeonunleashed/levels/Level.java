@@ -1100,4 +1100,12 @@ public abstract class Level implements Bundlable {
 			return "";
 		}
 	}
+
+	public boolean isAdjacentTo(int pos, int targetTerrain) {
+		for (int j=0; j < NEIGHBOURS9.length; j++) {
+			int n = pos + NEIGHBOURS9[j];
+			if (map[n] == targetTerrain) return true;
+		}
+		return false;
+	}
 }
