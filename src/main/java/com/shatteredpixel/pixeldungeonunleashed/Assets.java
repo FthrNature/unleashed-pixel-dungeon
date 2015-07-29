@@ -54,6 +54,7 @@ public class Assets {
 	public static final String RAT		= "rat.png";
 	public static final String GNOLL	= "gnoll.png";
 	public static final String CRAB		= "crab.png";
+	public static final String SLIME    = "slime.png";
 	public static final String GOO		= "goo.png";
 	public static final String SWARM	= "swarm.png";
 	public static final String SKELETON	= "skeleton.png";
