@@ -54,7 +54,7 @@ public class PrisonLevel extends RegularLevel {
 	}
 	
 	protected boolean[] grass() {
-		return Patch.generate( feeling == Feeling.GRASS ? 0.60f : 0.40f, 3 );
+		return Patch.generate( (feeling == Feeling.GRASS || feeling == Feeling.BURNT) ? 0.60f : 0.40f, 3 );
 	}
 	
 	@Override

@@ -74,7 +74,7 @@ public abstract class RegularLevel extends Level {
 	
 		int distance;
 		int retry = 0;
-		int maxRooms = 16;
+		int maxRoomRetry = 16;
 		int minDistance = (int)Math.sqrt( rooms.size() );
 		do {
 			do {
@@ -88,7 +88,7 @@ public abstract class RegularLevel extends Level {
 			Graph.buildDistanceMap( rooms, roomExit );
 			distance = roomEntrance.distance();
 
-			if (retry++ > maxRooms) {
+			if (retry++ > maxRoomRetry) {
 				return false;
 			}
 			
@@ -168,9 +168,17 @@ public abstract class RegularLevel extends Level {
 		paint();
 		paintWater();
 		paintGrass();
-		
 		placeTraps();
-		
+
+		if (feeling == Feeling.BURNT) {
+			// go through and burn all the grass and unlocked doors
+			for (int i=WIDTH+1; i < LENGTH-WIDTH-1; i++) {
+				if (map[i] == Terrain.GRASS || map[i] == Terrain.HIGH_GRASS || map[i] == Terrain.DOOR) {
+					map[i] = Terrain.EMBERS;
+				}
+			}
+		}
+
 		return true;
 	}
 
@@ -206,6 +214,14 @@ public abstract class RegularLevel extends Level {
 	protected boolean assignRoomType() {
 		
 		int specialRooms = 0;
+		if (Dungeon.depth < Dungeon.altarLevel) {
+			// make sure that this room doesn't appear too early
+			specials.remove( Type.ALTAR );
+		}
+
+		if (feeling == Feeling.BURNT) {
+			specials.remove( Type.GARDEN );
+		}
 
 		for (Room r : rooms) {
 			if (r.type == Type.NULL &&
@@ -213,7 +229,7 @@ public abstract class RegularLevel extends Level {
 
 				if (specials.size() > 0 &&
 					r.width() > 3 && r.height() > 3 &&
-					Random.Int( specialRooms * specialRooms + 2 ) == 0) {
+					Random.Int( specialRooms * specialRooms + 2 ) < 2) {
 
 					if (pitRoomNeeded) {
 
@@ -228,7 +244,8 @@ public abstract class RegularLevel extends Level {
 						specials.remove( Type.TREASURY );
 						specials.remove( Type.VAULT );
 						specials.remove( Type.WEAK_FLOOR );
-						
+						specials.remove( Type.PRISON );
+
 					} else if (Dungeon.depth % 6 == 2 && specials.contains( Type.LABORATORY )) {
 						
 						r.type = Type.LABORATORY;
@@ -237,14 +254,20 @@ public abstract class RegularLevel extends Level {
 						
 						r.type = Type.MAGIC_WELL;
 						
-					} else {
-						
-						int n = specials.size();
-						r.type = specials.get( Math.min( Random.Int( n ), Random.Int( n ) ) );
-						if (r.type == Type.WEAK_FLOOR) {
-							weakFloorCreated = true;
-						}
+					} else if (Dungeon.depth >= Dungeon.altarLevel && specials.contains( Type.ALTAR )) {
 
+						r.type = Type.ALTAR;
+						Dungeon.altarLevel = Dungeon.depth + Random.IntRange(3,5); // no more altars for at least a few levels
+
+					} else {
+
+							int n = specials.size();
+							r.type = specials.get( Math.min( Random.Int( n ), Random.Int( n ) ) );
+							if (r.type == Type.WEAK_FLOOR) {
+								weakFloorCreated = true;
+							
+
+						}
 					}
 					
 					Room.useType( r.type );
@@ -268,7 +291,7 @@ public abstract class RegularLevel extends Level {
 				}
 			}
 		}
-		
+
 		int count = 0;
 		for (Room r : rooms) {
 			if (r.type == Type.NULL) {
@@ -292,6 +315,27 @@ public abstract class RegularLevel extends Level {
 			}
 		}
 
+		/*
+		//DSM-xxxx this following chunk is for debug purposes...
+		GLog.i("Feeling: " + feeling.toString());
+		count = 0;
+		for (Room r : rooms) {
+			switch (r.type) {
+				case NULL:
+				case TUNNEL:
+				case STANDARD:
+				case PASSAGE:
+				    break;
+				default:
+					GLog.i("Room " + count + " : " + r.type.toString() +
+							" (" + r.left + ", " + r.top + ", " + r.right + ", " + r.bottom +  ")");
+					break;
+			}
+			count++;
+		}
+		GLog.i("AltarLevel = " + Dungeon.altarLevel);
+        */
+
 		return true;
 	}
 	
@@ -307,7 +351,7 @@ public abstract class RegularLevel extends Level {
 	protected void paintGrass() {
 		boolean[] grass = grass();
 		
-		if (feeling == Feeling.GRASS) {
+		if (feeling == Feeling.GRASS || feeling == Feeling.BURNT) {
 			
 			for (Room room : rooms) {
 				if (room.type != Type.NULL && room.type != Type.PASSAGE && room.type != Type.TUNNEL) {
@@ -497,6 +541,9 @@ public abstract class RegularLevel extends Level {
 			case UNLOCKED:
 				map[door] = Terrain.DOOR;
 				break;
+			case ARCHWAY:
+				map[door] = Terrain.ARCHWAY;
+				break;
 			case HIDDEN:
 				map[door] = Terrain.SECRET_DOOR;
 				break;
@@ -679,7 +726,12 @@ public abstract class RegularLevel extends Level {
 			case 2:
 			case 3:
 			case 4:
-				type = Heap.Type.CHEST;
+				if (feeling == Feeling.BURNT) {
+					// burnt levels drop skeletons instead of chests
+					type = Heap.Type.SKELETON;
+				} else {
+					type = Heap.Type.CHEST;
+				}
 				break;
 			case 5:
 				type = Dungeon.depth > 1 ? Heap.Type.MIMIC : Heap.Type.CHEST;

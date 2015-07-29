@@ -203,8 +203,14 @@ public class Ghost extends NPC {
 					questBoss = new GnollTrickster();
 					txt_quest = Utils.format(TXT_GNOLL1, Dungeon.hero.givenName()); break;
 				case 3:
-					questBoss = new GreatCrab();
-					txt_quest = Utils.format(TXT_CRAB1, Dungeon.hero.givenName()); break;
+					if (Dungeon.level.feeling == Level.Feeling.BURNT) {
+						questBoss = new GnollTrickster();
+						txt_quest = Utils.format(TXT_GNOLL1, Dungeon.hero.givenName()); break;
+					} else {
+						questBoss = new GreatCrab();
+						txt_quest = Utils.format(TXT_CRAB1, Dungeon.hero.givenName());
+						break;
+					}
 			}
 
 			questBoss.pos = Dungeon.level.randomRespawnCell();

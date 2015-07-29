@@ -94,7 +94,8 @@ public abstract class Level implements Bundlable {
 		CHASM,
 		WATER,
 		GRASS,
-		DARK
+		DARK,
+		BURNT
 	}
 	
 	public static final int WIDTH = 40;
@@ -249,6 +250,9 @@ public abstract class Level implements Bundlable {
 					feeling = Feeling.DARK;
 					addItemToSpawn(new Torch());
 					viewDistance = (int)Math.ceil(viewDistance/3f);
+					break;
+				case 4:
+					feeling = Feeling.BURNT;
 					break;
 				}
 			}
