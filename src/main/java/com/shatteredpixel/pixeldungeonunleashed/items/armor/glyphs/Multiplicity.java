@@ -38,7 +38,8 @@ import com.watabou.utils.Random;
 public class Multiplicity extends Glyph {
 
 	private static final String TXT_MULTIPLICITY	= "%s of multiplicity";
-	
+	private static final String TXT_DESCRIPTION = "When struck, this armor can create a mirror image of the defender.";
+
 	private static ItemSprite.Glowing PINK = new ItemSprite.Glowing( 0xCCAA88 );
 	
 	@Override
@@ -71,7 +72,10 @@ public class Multiplicity extends Glyph {
 		
 		return damage;
 	}
-	
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
+
 	@Override
 	public String name( String weaponName) {
 		return String.format( TXT_MULTIPLICITY, weaponName );

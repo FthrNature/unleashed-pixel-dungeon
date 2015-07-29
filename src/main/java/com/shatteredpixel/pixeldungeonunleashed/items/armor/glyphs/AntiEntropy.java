@@ -37,7 +37,8 @@ import com.watabou.utils.Random;
 public class AntiEntropy extends Glyph {
 
 	private static final String TXT_ANTI_ENTROPY	= "%s of anti-entropy";
-	
+	private static final String TXT_DESCRIPTION = "This armor can transfer large amounts of heat from the defender to the attacker.";
+
 	private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing( 0x0000FF );
 	
 	@Override
@@ -46,18 +47,32 @@ public class AntiEntropy extends Glyph {
 		int level = Math.max( 0, armor.level );
 		
 		if (Level.adjacent( attacker.pos, defender.pos ) && Random.Int( level + 6 ) >= 5) {
-			
-			Buff.prolong( attacker, Frost.class, Frost.duration( attacker ) * Random.Float( 1f, 1.5f ));
-			CellEmitter.get( attacker.pos ).start( SnowParticle.FACTORY, 0.2f, 6 );
-			
-			Buff.affect( defender, Burning.class ).reignite( defender );
-			defender.sprite.emitter().burst( FlameParticle.FACTORY, 5 );
+			if (Random.Int(4) == 0) {
+				Buff.prolong(attacker, Frost.class, Frost.duration(attacker) * Random.Float(1f, 1.5f));
+				CellEmitter.get(attacker.pos).start(SnowParticle.FACTORY, 0.2f, 6);
+
+				if (Random.Int(2) == 0) {
+					Buff.affect(defender, Burning.class).reignite(defender);
+					defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
+				}
+			} else {
+				Buff.affect(attacker, Burning.class).reignite(attacker);
+				attacker.sprite.emitter().burst(FlameParticle.FACTORY, 5);
+
+				if (Random.Int(2) == 0) {
+					Buff.prolong(defender, Frost.class, Frost.duration(defender) * Random.Float(1f, 1.5f));
+					CellEmitter.get(defender.pos).start(SnowParticle.FACTORY, 0.2f, 6);
+				}
+			}
 
 		}
 		
 		return damage;
 	}
-	
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
+
 	@Override
 	public String name( String weaponName) {
 		return String.format( TXT_ANTI_ENTROPY, weaponName );

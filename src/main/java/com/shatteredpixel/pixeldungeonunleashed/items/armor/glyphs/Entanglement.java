@@ -36,7 +36,8 @@ import com.watabou.utils.Random;
 public class Entanglement extends Glyph {
 
 	private static final String TXT_ENTANGLEMENT	= "%s of entanglement";
-	
+	private static final String TXT_DESCRIPTION = "This armor encases the defender in protective bands of energy, this can make it difficult to move though.";
+
 	private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing( 0x448822 );
 	
 	@Override
@@ -45,17 +46,22 @@ public class Entanglement extends Glyph {
 		int level = Math.max( 0, armor.level );
 		
 		if (Random.Int( 4 ) == 0) {
-			
-			Buff.prolong( defender, Roots.class, 5 - level / 5 );
-			Buff.affect( defender, Earthroot.Armor.class ).level( 5 * (level + 1) );
+			if (Random.Int( 2 ) == 0) {
+				Buff.prolong(defender, Roots.class, 5 - level / 5);
+				Buff.affect(defender, Earthroot.Armor.class).level(5 * (level + 1));
+			} else {
+				Buff.affect(defender, Earthroot.Armor.class).level(3 * (level + 1));
+			}
 			CellEmitter.bottom( defender.pos ).start( EarthParticle.FACTORY, 0.05f, 8 );
 			Camera.main.shake( 1, 0.4f );
-			
 		}
 
 		return damage;
 	}
-	
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
+
 	@Override
 	public String name( String weaponName) {
 		return String.format( TXT_ENTANGLEMENT, weaponName );

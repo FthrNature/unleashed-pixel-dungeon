@@ -258,7 +258,7 @@ public class Armor extends EquipableItem {
 		}
 		
 		if (glyph != null) {
-			info.append( "It is inscribed." );
+			info.append( "It is inscribed; " +  glyph.glyphDescription() );
 		}
 		
 		if (isEquipped( Dungeon.hero )) {
@@ -371,7 +371,9 @@ public class Armor extends EquipableItem {
 		private static final float[] chances= new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 			
 		public abstract int proc( Armor armor, Char attacker, Char defender, int damage );
-		
+
+		public String glyphDescription() { return ""; }
+
 		public String name() {
 			return name( "glyph" );
 		}

@@ -35,6 +35,7 @@ import com.watabou.utils.Random;
 public class Affection extends Glyph {
 
 	private static final String TXT_AFFECTION	= "%s of affection";
+	private static final String TXT_DESCRIPTION = "This armor can charm an attacker.";
 	
 	private static ItemSprite.Glowing PINK = new ItemSprite.Glowing( 0xFF4488 );
 	
@@ -50,14 +51,19 @@ public class Affection extends Glyph {
 			Buff.affect( attacker, Charm.class, Charm.durationFactor( attacker ) * duration ).object = defender.id();
 			attacker.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
 
-			duration *= Random.Float( 0.5f, 1 );
+			if (Random.Int(2) == 0) {
+				duration *= Random.Float(0.5f, 1);
 
-			Buff.affect( defender, Charm.class, Charm.durationFactor( defender ) * duration ).object = attacker.id();
-			defender.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
+				Buff.affect(defender, Charm.class, Charm.durationFactor(defender) * duration).object = attacker.id();
+				defender.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
+			}
 		}
 		
 		return damage;
 	}
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
 	
 	@Override
 	public String name( String weaponName) {

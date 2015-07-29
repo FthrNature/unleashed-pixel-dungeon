@@ -34,7 +34,8 @@ import com.watabou.utils.Random;
 public class Metabolism extends Glyph {
 
 	private static final String TXT_METABOLISM	= "%s of metabolism";
-	
+	private static final String TXT_DESCRIPTION = "This armor can heal the defender at a cost of some personal energy.";
+
 	private static ItemSprite.Glowing RED = new ItemSprite.Glowing( 0xCC0000 );
 	
 	@Override
@@ -51,7 +52,7 @@ public class Metabolism extends Glyph {
 				
 				if (hunger != null && !hunger.isStarving()) {
 					
-					hunger.reduceHunger( -Hunger.STARVING / 10 );
+					hunger.reduceHunger( -Hunger.STARVING / 16 );
 					BuffIndicator.refreshHero();
 					
 					defender.HP += healing;
@@ -64,7 +65,10 @@ public class Metabolism extends Glyph {
 		
 		return damage;
 	}
-	
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
+
 	@Override
 	public String name( String weaponName) {
 		return String.format( TXT_METABOLISM, weaponName );

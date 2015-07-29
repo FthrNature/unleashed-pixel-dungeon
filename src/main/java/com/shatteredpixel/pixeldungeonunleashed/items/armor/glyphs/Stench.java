@@ -23,6 +23,8 @@ package com.shatteredpixel.pixeldungeonunleashed.items.armor.glyphs;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Blob;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.ToxicGas;
+import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
+import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.GasesImmunity;
 import com.shatteredpixel.pixeldungeonunleashed.items.armor.Armor;
 import com.shatteredpixel.pixeldungeonunleashed.items.armor.Armor.Glyph;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
@@ -34,7 +36,8 @@ import com.watabou.utils.Random;
 public class Stench extends Glyph {
 
 	private static final String TXT_STENCH	= "%s of stench";
-	
+	private static final String TXT_DESCRIPTION = "This armor emits a noxious stench to throw off an attacker.";
+
 	private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing( 0x22CC44 );
 	
 	@Override
@@ -43,14 +46,19 @@ public class Stench extends Glyph {
 		int level = Math.max( 0, armor.level );
 		
 		if (Level.adjacent( attacker.pos, defender.pos ) && Random.Int( level + 5 ) >= 4) {
-			
 			GameScene.add( Blob.seed( attacker.pos, 20, ToxicGas.class ) );
-			
+			if (Random.Int(4) < 3) {
+				Buff.prolong(defender, GasesImmunity.class, GasesImmunity.DURATION);
+			}
+
 		}
 		
 		return damage;
 	}
-	
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
+
 	@Override
 	public String name( String weaponName) {
 		return String.format( TXT_STENCH, weaponName );

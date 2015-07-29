@@ -33,7 +33,8 @@ import com.watabou.utils.Random;
 public class Bounce extends Glyph {
 
 	private static final String TXT_BOUNCE	= "%s of bounce";
-	
+	private static final String TXT_DESCRIPTION = "This armor can push an attacker back.";
+
 	@Override
 	public int proc( Armor armor, Char attacker, Char defender, int damage) {
 
@@ -66,7 +67,10 @@ public class Bounce extends Glyph {
 		
 		return damage;
 	}
-	
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
+
 	@Override
 	public String name( String weaponName) {
 		return String.format( TXT_BOUNCE, weaponName );

@@ -39,9 +39,13 @@ import com.watabou.utils.Random;
 public class Viscosity extends Glyph {
 
 	private static final String TXT_VISCOSITY	= "%s of viscosity";
-	
+	private static final String TXT_DESCRIPTION = "This armor can defer damage until some time later.";
+
 	private static ItemSprite.Glowing PURPLE = new ItemSprite.Glowing( 0x8844CC );
-	
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
+
 	@Override
 	public int proc( Armor armor, Char attacker, Char defender, int damage ) {
 
@@ -87,14 +91,14 @@ public class Viscosity extends Glyph {
 		
 		@Override
 		public void storeInBundle( Bundle bundle ) {
-			super.storeInBundle( bundle );
+			super.storeInBundle(bundle);
 			bundle.put( DAMAGE, damage );
 			
 		}
 		
 		@Override
 		public void restoreFromBundle( Bundle bundle ) {
-			super.restoreFromBundle( bundle );
+			super.restoreFromBundle(bundle);
 			damage = bundle.getInt( DAMAGE );
 		}
 		

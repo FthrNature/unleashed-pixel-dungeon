@@ -35,7 +35,8 @@ import com.watabou.utils.Random;
 public class Potential extends Glyph {
 
 	private static final String TXT_POTENTIAL	= "%s of potential";
-	
+	private static final String TXT_DESCRIPTION = "This armor can generate an electrical charge when hit, affecting those around it.";
+
 	private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing( 0x66CCEE );
 	
 	@Override
@@ -47,6 +48,7 @@ public class Potential extends Glyph {
 			
 			int dmg = Random.IntRange( 1, damage );
 			attacker.damage( dmg, LightningTrap.LIGHTNING );
+			dmg = Random.IntRange( 1, dmg );
 			dmg = Random.IntRange( 1, dmg );
 			defender.damage( dmg, LightningTrap.LIGHTNING );
 			
@@ -61,7 +63,10 @@ public class Potential extends Glyph {
 		
 		return damage;
 	}
-	
+
+	@Override
+	public String glyphDescription() { return TXT_DESCRIPTION; };
+
 	@Override
 	public String name( String weaponName) {
 		return String.format( TXT_POTENTIAL, weaponName );
