@@ -71,7 +71,7 @@ public class CryptPainter extends Painter {
 		
 		Item prize = Generator.random( Generator.Category.ARMOR );
 
-		for (int i=0; i < 3; i++) {
+		for (int i=0; i < 4; i++) {
 			Item another = Generator.random( Generator.Category.ARMOR );
 			if (another.level > prize.level) {
 				prize = another;

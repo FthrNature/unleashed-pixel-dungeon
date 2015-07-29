@@ -55,7 +55,7 @@ public class TreasuryPainter extends Painter {
 				do {
 					pos = room.random();
 				} while (level.map[pos] != Terrain.EMPTY);
-				level.drop( new Gold( Random.IntRange( 5, 12 ) ), pos );
+				level.drop( new Gold( Random.IntRange( 5, 15 ) ), pos );
 			}
 		}
 		
