@@ -50,7 +50,7 @@ public class Artifact extends KindofMisc {
 	//exp is used to count progress towards levels for some artifacts
 	protected int exp = 0;
 	//levelCap is the artifact's maximum level
-	public int levelCap = 0;
+	//public int levelCap = 0;
 
 	//the current artifact charge
 	protected int charge = 0;
