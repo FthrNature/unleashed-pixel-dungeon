@@ -97,8 +97,8 @@ public abstract class Level implements Bundlable {
 		DARK
 	}
 	
-	public static final int WIDTH = 32;
-	public static final int HEIGHT = 32;
+	public static final int WIDTH = 40;
+	public static final int HEIGHT = 38;
 	public static final int LENGTH = WIDTH * HEIGHT;
 	
 	public static final int[] NEIGHBOURS4 = {-WIDTH, +1, +WIDTH, -1};

@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.shatteredpixel.pixeldungeonunleashed.*;
-import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
 import com.shatteredpixel.pixeldungeonunleashed.items.Honeypot;
 import com.shatteredpixel.pixeldungeonunleashed.items.bags.PotionBandolier;
 import com.shatteredpixel.pixeldungeonunleashed.items.bags.ScrollHolder;
@@ -32,7 +31,6 @@ import com.shatteredpixel.pixeldungeonunleashed.items.bags.SeedPouch;
 import com.shatteredpixel.pixeldungeonunleashed.items.bags.WandHolster;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.Potion;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfTeleportation;
-import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.pixeldungeonunleashed.levels.traps.Trap;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.TrapSprite;
 import com.shatteredpixel.pixeldungeonunleashed.ui.LootIndicator;
@@ -95,6 +93,7 @@ public class GameScene extends PixelScene {
 	private static final String TXT_GRASS	= "The smell of vegetation is thick in the air.";
 	private static final String TXT_DARK	= "You can hear enemies moving in the darkness...";
 	private static final String TXT_SECRETS	= "The atmosphere hints that this floor hides many secrets.";
+	private static final String TXT_BURNT   = "The smell of burnt grass fills the air...";
 	
 	static GameScene scene;
 
@@ -284,10 +283,13 @@ public class GameScene extends PixelScene {
 		case DARK:
 			GLog.w( TXT_DARK );
 			break;
+		case BURNT:
+			GLog.w( TXT_BURNT );
+			break;
 		default:
 		}
 		if (Dungeon.level instanceof RegularLevel &&
-			((RegularLevel)Dungeon.level).secretDoors > Random.IntRange( 3, 4 )) {
+			((RegularLevel)Dungeon.level).secretDoors > Random.IntRange( 4, 6 )) {
 			GLog.w( TXT_SECRETS );
 		}
 
@@ -313,20 +315,20 @@ public class GameScene extends PixelScene {
 			case 1:
 				WndStory.showChapter( WndStory.ID_SEWERS );
 				break;
-			case 6:
+			case 7:
 				WndStory.showChapter( WndStory.ID_PRISON );
 				break;
-			case 11:
+			case 13:
 				WndStory.showChapter( WndStory.ID_CAVES );
 				break;
-			case 16:
+			case 19:
 				WndStory.showChapter( WndStory.ID_METROPOLIS );
 				break;
-			case 22:
+			case 25:
 				WndStory.showChapter( WndStory.ID_HALLS );
 				break;
 			}
-			if (Dungeon.hero.isAlive() && Dungeon.depth != 22) {
+			if (Dungeon.hero.isAlive() && Dungeon.depth != Level.MAX_DEPTH) {
 				Badges.validateNoKilling();
 			}
 			break;

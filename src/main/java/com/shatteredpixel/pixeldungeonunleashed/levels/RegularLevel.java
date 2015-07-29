@@ -74,6 +74,7 @@ public abstract class RegularLevel extends Level {
 	
 		int distance;
 		int retry = 0;
+		int maxRooms = 16;
 		int minDistance = (int)Math.sqrt( rooms.size() );
 		do {
 			do {
@@ -86,8 +87,8 @@ public abstract class RegularLevel extends Level {
 	
 			Graph.buildDistanceMap( rooms, roomExit );
 			distance = roomEntrance.distance();
-			
-			if (retry++ > 10) {
+
+			if (retry++ > maxRooms) {
 				return false;
 			}
 			
@@ -569,14 +570,14 @@ public abstract class RegularLevel extends Level {
 				//mobs are not randomly spawned on floor 1.
 				return 0;
 			default:
-				return 2 + Dungeon.depth % 5 + Random.Int(5);
+				return 3 + Dungeon.depth % 5 + Random.Int(6);
 		}
 	}
 	
 	@Override
 	protected void createMobs() {
-		//on floor 1, 10 rats are created so the player can get level 2.
-		int mobsToSpawn = Dungeon.depth == 1 ? 10 : nMobs();
+		//on floor 1, enough rats are created so the player can get level 2.
+		int mobsToSpawn = Dungeon.depth == 1 ? 13 : nMobs();
 
 		HashSet<Room> stdRooms = new HashSet<>();
 		for (Room room : rooms) {
@@ -657,14 +658,14 @@ public abstract class RegularLevel extends Level {
 	@Override
 	protected void createItems() {
 		
-		int nItems = 3;
+		int nItems = (Dungeon.depth == 1) ? 3 : 4;
 		int bonus = 0;
 		for (Buff buff : Dungeon.hero.buffs(RingOfWealth.Wealth.class)) {
 			bonus += ((RingOfWealth.Wealth) buff).level;
 		}
 		//just incase someone gets a ridiculous ring, cap this at 80%
-		bonus = Math.min(bonus, 10);
-		while (Random.Float() < (0.3f + bonus*0.05f)) {
+		bonus = Math.min(bonus, 9);
+		while (Random.Float() < (0.35f + bonus*0.05f)) {
 			nItems++;
 		}
 		
