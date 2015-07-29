@@ -51,10 +51,10 @@ public class Generator {
 		ARMOR	( 100,	Armor.class ),
 		POTION	( 500,	Potion.class ),
 		SCROLL	( 400,	Scroll.class ),
-		WAND	( 40,	Wand.class ),
-		RING	( 15,	Ring.class ),
-		ARTIFACT( 15,   Artifact.class),
-		SEED	( 50,	Plant.Seed.class ),
+		WAND	( 65,	Wand.class ),
+		RING	( 30,	Ring.class ),
+		ARTIFACT( 10,   Artifact.class),
+		SEED	( 40,	Plant.Seed.class ),
 		FOOD	( 0,	Food.class ),
 		GOLD	( 500,	Gold.class );
 		
@@ -101,7 +101,7 @@ public class Generator {
 			ScrollOfMagicalInfusion.class,
 			ScrollOfPsionicBlast.class,
 			ScrollOfMirrorImage.class };
-		Category.SCROLL.probs = new float[]{ 30, 10, 15, 0, 15, 15, 12, 8, 8, 0, 4, 10 };
+		Category.SCROLL.probs = new float[]{ 26, 10, 15, 0, 15, 15, 12, 8, 8, 0, 4, 10 };
 		
 		Category.POTION.classes = new Class<?>[]{
 			PotionOfHealing.class,
@@ -116,7 +116,7 @@ public class Generator {
 			PotionOfInvisibility.class,
 			PotionOfMight.class,
 			PotionOfFrost.class };
-		Category.POTION.probs = new float[]{ 45, 4, 15, 10, 15, 10, 0, 20, 12, 10, 0, 10 };
+		Category.POTION.probs = new float[]{ 40, 4, 15, 10, 15, 10, 0, 20, 12, 10, 0, 10 };
 
 		//TODO: add last ones when implemented
 		Category.WAND.classes = new Class<?>[]{
