@@ -60,7 +60,7 @@ public class HornOfPlenty extends Artifact {
 
 	private static final float TIME_TO_EAT	= 3f;
 
-	private float energy = 36f;
+    private float energy = 45f;
 
 	public static final String AC_EAT = "EAT";
 	public static final String AC_STORE = "STORE";
@@ -94,7 +94,7 @@ public class HornOfPlenty extends Artifact {
 					switch (hero.heroClass) {
 						case WARRIOR:
 							if (hero.HP < hero.HT) {
-								hero.HP = Math.min(hero.HP + 5, hero.HT);
+								hero.HP = Math.min(hero.HP + 7, hero.HT);
 								hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 							}
 							break;
@@ -102,9 +102,17 @@ public class HornOfPlenty extends Artifact {
 							//1 charge
 							Buff.affect( hero, ScrollOfRecharging.Recharging.class, 4f );
 							ScrollOfRecharging.charge(hero);
+                            if (hero.HP < hero.HT) {
+                                hero.HP = Math.min(hero.HP + 2, hero.HT);
+                                hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
+                            }
 							break;
 						case ROGUE:
 						case HUNTRESS:
+                            if (hero.HP < hero.HT) {
+                                hero.HP = Math.min(hero.HP + 2, hero.HT);
+                                hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
+                            }
 							break;
 					}
 

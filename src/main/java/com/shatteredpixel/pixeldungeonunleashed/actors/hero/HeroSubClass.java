@@ -34,7 +34,7 @@ public enum HeroSubClass {
 		"significantly increasing his damage output." ),
 	
 	WARLOCK( "warlock",
-		"Normal food grants the _Warlock_ additional wand recharge, but does not satisfy his hunger. " +
+		"Normal food grants the _Warlock_ additional wand recharge, but does very little to satisfy his hunger. " +
 		"Instead, after killing an enemy, he consumes its soul to heal his wounds and satisfy hunger." ),
 	BATTLEMAGE( "battlemage",
 		"When fighting with his staff, the _Battlemage_ conjures bonus effects depending on the wand " +

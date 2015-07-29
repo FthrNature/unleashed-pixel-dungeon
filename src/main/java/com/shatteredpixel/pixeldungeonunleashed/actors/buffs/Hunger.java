@@ -39,8 +39,8 @@ public class Hunger extends Buff implements Hero.Doom {
 
 	private static final float STEP	= 10f;
 
-	public static final float HUNGRY	= 260f;
-	public static final float STARVING	= 360f;
+	public static final float HUNGRY	= 320f;
+	public static final float STARVING	= 400f;
 
 	private static final String TXT_HUNGRY		= "You are hungry.";
 	private static final String TXT_STARVING	= "You are starving!";
@@ -122,7 +122,8 @@ public class Hunger extends Buff implements Hero.Doom {
 	public void satisfy( float energy ) {
 		if (((Hero) target).subClass == HeroSubClass.WARLOCK){
 			Buff.affect( target, ScrollOfRecharging.Recharging.class, energy/50f);
-			return;
+			energy *= 0.15f;
+			GLog.i("The food does not satisfy your hunger.");
 		}
 
 		Artifact.ArtifactBuff buff = target.buff( HornOfPlenty.hornRecharge.class );

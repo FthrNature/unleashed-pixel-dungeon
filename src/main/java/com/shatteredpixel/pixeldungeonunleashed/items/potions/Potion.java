@@ -28,6 +28,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Fire;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Burning;
+import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Hunger;
 import com.watabou.noosa.audio.Sample;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Badges;
@@ -205,6 +206,14 @@ public class Potion extends Item {
 		Sample.INSTANCE.play( Assets.SND_DRINK );
 		
 		hero.sprite.operate( hero.pos );
+
+		if (this instanceof PotionOfLiquidFlame || this instanceof PotionOfToxicGas || this instanceof PotionOfParalyticGas) {
+			// this is a harmful potion, it could have an adverse effect on hunger level
+		} else {
+			// non-harmful potions can appease hunger to some extent (5%)
+			Hunger hunger = hero.buff(Hunger.class);
+			hunger.reduceHunger(hunger.HUNGRY / 20);
+		}
 	}
 	
 	@Override
