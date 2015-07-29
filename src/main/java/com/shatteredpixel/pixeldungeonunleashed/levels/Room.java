@@ -55,6 +55,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		SHOP		( ShopPainter.class ),
 		BLACKSMITH	( BlacksmithPainter.class ),
 		TREASURY	( TreasuryPainter.class ),
+		PRISON      ( PrisonPainter.class ),
 		ARMORY		( ArmoryPainter.class ),
 		LIBRARY		( LibraryPainter.class ),
 		LABORATORY	( LaboratoryPainter.class ),
@@ -92,7 +93,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	
 	public static final ArrayList<Type> SPECIALS = new ArrayList<Type>( Arrays.asList(
 		Type.WEAK_FLOOR, Type.MAGIC_WELL, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.ARMORY,
-		Type.TREASURY, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.LABORATORY, Type.VAULT, Type.ALTAR
+		Type.TREASURY, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.LABORATORY, Type.VAULT, Type.PRISON, Type.ALTAR
 	) );
 	
 	public Type type = Type.NULL;

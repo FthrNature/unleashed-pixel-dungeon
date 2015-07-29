@@ -244,6 +244,7 @@ public abstract class RegularLevel extends Level {
 						specials.remove( Type.TREASURY );
 						specials.remove( Type.VAULT );
 						specials.remove( Type.WEAK_FLOOR );
+						specials.remove( Type.PRISON );
 
 					} else if (Dungeon.depth % 6 == 2 && specials.contains( Type.LABORATORY )) {
 						
