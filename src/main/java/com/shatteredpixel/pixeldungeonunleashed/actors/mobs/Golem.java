@@ -41,7 +41,7 @@ public class Golem extends Mob {
 		defenseSkill = 18;
 		
 		EXP = 12;
-		maxLvl = 22;
+		maxLvl = 27;
 	}
 	
 	@Override

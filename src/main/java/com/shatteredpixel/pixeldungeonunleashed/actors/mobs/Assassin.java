@@ -38,7 +38,7 @@ public class Assassin extends Mob {
         defenseSkill = 10;
 
         EXP = 6;
-        maxLvl = 12;
+        maxLvl = 15;
     }
 
     @Override

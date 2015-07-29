@@ -50,7 +50,7 @@ public class Thief extends Mob {
 		defenseSkill = 12;
 		
 		EXP = 5;
-		maxLvl = 10;
+		maxLvl = 12;
 		
 		loot = new MasterThievesArmband().identify();
 		lootChance = 0.01f;

@@ -49,7 +49,7 @@ public class Swarm extends Mob {
 		HP = HT = 80;
 		defenseSkill = 5;
 		
-		maxLvl = 10;
+		maxLvl = 12;
 		
 		flying = true;
 

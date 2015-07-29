@@ -38,8 +38,8 @@ public class Slime extends Mob {
         HP = HT = 18;
         defenseSkill = 6;
 
-        EXP = 5;
-        maxLvl = 10;
+        EXP = 4;
+        maxLvl = 11;
 
         loot = new PotionOfToxicGas();
         lootChance = 0.167f;

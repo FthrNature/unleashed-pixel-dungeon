@@ -125,7 +125,7 @@ public class Hero extends Char {
 	
 	private static final String TXT_LEAVE = "One does not simply leave Pixel Dungeon.";
 	
-	public static final int MAX_LEVEL = 30;
+	public static final int MAX_LEVEL = 35;
 	private static final String TXT_LEVEL_UP = "level up!";
 	private static final String TXT_NEW_LEVEL =
 		"Welcome to level %d! Now you are healthier and more focused. " +
@@ -1104,8 +1104,9 @@ public class Hero extends Char {
 				lvl++;
 				levelUp = true;
 
-				HT += 5;
-				HP += 5;
+				// scaled to reach ~135 hp by level 30
+				HT += 5 - ((int) ( lvl / 13));
+				HP += 5 - ((int) ( lvl / 13));
 
 				attackSkill++;
 				defenseSkill++;
@@ -1140,7 +1141,13 @@ public class Hero extends Char {
 	}
 	
 	public int maxExp() {
-		return lvl * 10;
+		// scaled so that we need 3000 total experience to reach level 30
+		if (lvl < 13) {
+			return (5 + (lvl * 5));
+		}
+		else {
+			return (60 + ((lvl - 12) * 10));
+		}
 	}
 	
 	void updateAwareness() {
