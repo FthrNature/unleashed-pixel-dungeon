@@ -37,23 +37,39 @@ public class WelcomeScene extends PixelScene {
 
 	private static final String TTL_Welcome = "Welcome!";
 
-	private static final String TTL_Update = "v0.1.3: Updates for Reddit Compliance";
+	private static final String TTL_Update = "v0.1.4: Difficulty Levels";
 
 	private static final String TTL_Future = "Wait What?";
 
 	private static final String TXT_Welcome =
 			"Unleashed Pixel Dungeon is a rework/expansion of Shattered Pixel Dungeon.\n\n"+
-			"I'm hoping to make changes to all areas of the game as a learning exercise."+
-			"The goal is to try out some new ideas and content and see where it goes!\n\n"+
-			"Happy Dungeoneering!";
+			"The latest round of updates finishes up our Difficulty Level Fixes!\n"+
+			"To change difficulty levels click on the Out-of-Game Settings (little gears) in"+
+			"the top left corner, difficulty will also change when you load games.\n\n"+
+			"Enjoy";
 
 	private static final String TXT_Update =
-			"v01.3:\n"+
-					"DSM-0003   interface changes for reddit guideline compliance.\n"+
-					"DSM-0048   fix Horn of Plenty upgrades.\n"+
-					"DSM-0027   slow down assassin animations.\n"+
-					"DSM-0056   change altar donation rewards.";
-
+			"v01.3: Changes for Reddit Compliance\n"+
+				"DSM-0003   interface changes\n"+
+				"DSM-0048   fix Horn of Plenty upgrades.\n"+
+				"DSM-0027   slow down assassin animations.\n"+
+				"DSM-0056   change altar donation rewards.\n\n"+
+			"v01.4: Difficulty Levels\n"+
+			    "DSM-0004   click version (v01.4) for change history\n"+
+				"DSM-0005   return to title scene after visiting links\n"+
+				"DSM-0049   increase level-caps for items\n"+
+				"DSM-0057   altar donation changes (simplified)\n"+
+			    "DSM-0060   add difficulty levels\n"+
+			    "DSM-0061   apply difficulty levels out-of-game.\n"+
+			    "     - badges, scores, display on new/load buttons\n"+
+			    "DSM-0062   apply difficulty levels to actors.\n"+
+			    "     - hero - stats/equipment, leveling up, regeneration\n"+
+			    "     - mobs - health, attack and defense skills\n"+
+			    "DSM-0063   apply difficulty levels to the dungeon.\n"+
+			    "     - number of mobs, number of items, drop tables\n"+
+			    "     - item levels, upgrade failures, cursed status\n"+
+			    "DSM-0064   tutorial level messages.\n"+
+				"DSM-xxxx   bug fixes";
 	private static final String TXT_Future =
 			"It seems that your current saves are from a future version of Unleashed Pixel Dungeon!\n\n"+
 			"Either you're messing around with older versions of the app, or something has gone buggy.\n\n"+

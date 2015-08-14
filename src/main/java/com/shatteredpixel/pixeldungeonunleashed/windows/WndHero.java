@@ -97,7 +97,7 @@ public class WndHero extends WndTabbed {
 	
 	private class StatsTab extends Group {
 		
-		private static final String TXT_TITLE		= "Level %d %s";
+		private static final String TXT_TITLE		= "Level %d %s %s";
 		private static final String TXT_CATALOGUS	= "Catalogus";
 		private static final String TXT_JOURNAL		= "Journal";
 		
@@ -109,9 +109,29 @@ public class WndHero extends WndTabbed {
 			
 			Hero hero = Dungeon.hero;
 
+			String TXT_DIFF;
+			switch (Dungeon.difficultyLevel) {
+				case Dungeon.DIFF_TUTOR:
+					TXT_DIFF="TUTOR";
+					break;
+				case Dungeon.DIFF_EASY:
+					TXT_DIFF="EASY";
+					break;
+				case Dungeon.DIFF_HARD:
+					TXT_DIFF="HARD";
+					break;
+				case Dungeon.DIFF_NTMARE:
+					TXT_DIFF="NTMARE";
+					break;
+				default:
+					TXT_DIFF="NORMAL";
+					break;
+			}
+
+
 			IconTitle title = new IconTitle();
 			title.icon( HeroSprite.avatar(hero.heroClass, hero.tier()) );
-			title.label(Utils.format( TXT_TITLE, hero.lvl, hero.className() ).toUpperCase( Locale.ENGLISH ), 9);
+			title.label(Utils.format( TXT_TITLE, hero.lvl, hero.className(), TXT_DIFF ).toUpperCase( Locale.ENGLISH ), 9);
 			title.color(Window.SHPX_COLOR);
 			title.setRect( 0, 0, WIDTH, 0 );
 			add(title);

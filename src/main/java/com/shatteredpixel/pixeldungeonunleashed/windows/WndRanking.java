@@ -24,6 +24,7 @@ import java.util.Locale;
 
 
 import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
+import com.shatteredpixel.pixeldungeonunleashed.scenes.TitleScene;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
@@ -153,6 +154,7 @@ public class WndRanking extends WndTabbed {
 		
 		private static final String TXT_CHALLENGES	= "Challenges";
 
+		private static final String TXT_DIFF = "Difficulty";
 		private static final String TXT_HEALTH	= "Health";
 		private static final String TXT_STR		= "Strength";
 		
@@ -168,51 +170,77 @@ public class WndRanking extends WndTabbed {
 		
 		public StatsTab() {
 			super();
-			
-			String heroClass = Dungeon.hero.className();
-			
-			IconTitle title = new IconTitle();
-			title.icon( HeroSprite.avatar( Dungeon.hero.heroClass, Dungeon.hero.tier() ) );
-			title.label( Utils.format( TXT_TITLE, Dungeon.hero.lvl, heroClass ).toUpperCase( Locale.ENGLISH ) );
-			title.color(Window.SHPX_COLOR);
-			title.setRect( 0, 0, WIDTH, 0 );
-			add( title );
-			
-			float pos = title.bottom();
+			try { // DSM-xxxx
 
-			if (Dungeon.challenges > 0) {
-				RedButton btnCatalogus = new RedButton( TXT_CHALLENGES ) {
-					@Override
-					protected void onClick() {
-						Game.scene().add( new WndChallenges( Dungeon.challenges, false ) );
-					}
-				};
-				btnCatalogus.setRect( 0, pos + GAP, btnCatalogus.reqWidth() + 2, btnCatalogus.reqHeight() + 2 );
-				add( btnCatalogus );
+				String heroClass = Dungeon.hero.className();
 
-				pos = btnCatalogus.bottom();
+				IconTitle title = new IconTitle();
+				title.icon(HeroSprite.avatar(Dungeon.hero.heroClass, Dungeon.hero.tier()));
+				title.label(Utils.format(TXT_TITLE, Dungeon.hero.lvl, heroClass).toUpperCase(Locale.ENGLISH));
+				title.color(Window.SHPX_COLOR);
+				title.setRect(0, 0, WIDTH, 0);
+				add(title);
+
+				float pos = title.bottom();
+
+				if (Dungeon.challenges > 0) {
+					RedButton btnCatalogus = new RedButton(TXT_CHALLENGES) {
+						@Override
+						protected void onClick() {
+							Game.scene().add(new WndChallenges(Dungeon.challenges, false));
+						}
+					};
+					btnCatalogus.setRect(0, pos + GAP, btnCatalogus.reqWidth() + 2, btnCatalogus.reqHeight() + 2);
+					add(btnCatalogus);
+
+					pos = btnCatalogus.bottom();
+				}
+
+				pos += GAP + GAP;
+
+				switch (Dungeon.difficultyLevel) {
+					case Dungeon.DIFF_TUTOR:
+						pos = statSlot(this, TXT_DIFF, "Tutorial", pos);
+						break;
+					case Dungeon.DIFF_EASY:
+						pos = statSlot(this, TXT_DIFF, "Easy", pos);
+						break;
+					case Dungeon.DIFF_HARD:
+						pos = statSlot(this, TXT_DIFF, "Hard", pos);
+						break;
+					case Dungeon.DIFF_NTMARE:
+						pos = statSlot(this, TXT_DIFF, "Nightmare", pos);
+						break;
+					default:
+						pos = statSlot(this, TXT_DIFF, "Normal", pos);
+						break;
+				}
+
+				pos += GAP;
+
+				pos = statSlot(this, TXT_STR, Integer.toString(Dungeon.hero.STR), pos);
+				pos = statSlot(this, TXT_HEALTH, Integer.toString(Dungeon.hero.HT), pos);
+
+				pos += GAP;
+
+				pos = statSlot(this, TXT_DURATION, Integer.toString((int) Statistics.duration), pos);
+
+				pos += GAP;
+
+				pos = statSlot(this, TXT_DEPTH, Integer.toString(Statistics.deepestFloor), pos);
+				pos = statSlot(this, TXT_ENEMIES, Integer.toString(Statistics.enemiesSlain), pos);
+				pos = statSlot(this, TXT_GOLD, Integer.toString(Statistics.goldCollected), pos);
+
+				pos += GAP;
+
+				pos = statSlot(this, TXT_FOOD, Integer.toString(Statistics.foodEaten), pos);
+				pos = statSlot(this, TXT_ALCHEMY, Integer.toString(Statistics.potionsCooked), pos);
+				pos = statSlot(this, TXT_ANKHS, Integer.toString(Statistics.ankhsUsed), pos);
+			} catch (Exception ex) {
+			    // something went wrong... null pointer exception
+				// back out to the previous screen
+				hide();
 			}
-
-			pos += GAP + GAP;
-			
-			pos = statSlot( this, TXT_STR, Integer.toString( Dungeon.hero.STR ), pos );
-			pos = statSlot( this, TXT_HEALTH, Integer.toString( Dungeon.hero.HT ), pos );
-			
-			pos += GAP;
-			
-			pos = statSlot( this, TXT_DURATION, Integer.toString( (int)Statistics.duration ), pos );
-			
-			pos += GAP;
-			
-			pos = statSlot( this, TXT_DEPTH, Integer.toString( Statistics.deepestFloor ), pos );
-			pos = statSlot( this, TXT_ENEMIES, Integer.toString( Statistics.enemiesSlain ), pos );
-			pos = statSlot( this, TXT_GOLD, Integer.toString( Statistics.goldCollected ), pos );
-			
-			pos += GAP;
-			
-			pos = statSlot( this, TXT_FOOD, Integer.toString( Statistics.foodEaten ), pos );
-			pos = statSlot( this, TXT_ALCHEMY, Integer.toString( Statistics.potionsCooked ), pos );
-			pos = statSlot( this, TXT_ANKHS, Integer.toString( Statistics.ankhsUsed ), pos );
 		}
 		
 		private float statSlot( Group parent, String label, String value, float pos ) {

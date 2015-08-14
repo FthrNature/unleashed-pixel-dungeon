@@ -248,7 +248,16 @@ public class Badges {
 		}
 	}
 
+	public static boolean validateDifficulty() {
+		if (Dungeon.difficultyLevel < Dungeon.DIFF_NORM) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	public static void validateMonstersSlain() {
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		
 		if (!local.contains( Badge.MONSTERS_SLAIN_1 ) && Statistics.enemiesSlain >= 10) {
@@ -272,6 +281,8 @@ public class Badges {
 	}
 	
 	public static void validateGoldCollected() {
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		
 		if (!local.contains( Badge.GOLD_COLLECTED_1 ) && Statistics.goldCollected >= 100) {
@@ -295,6 +306,8 @@ public class Badges {
 	}
 	
 	public static void validateLevelReached() {
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		
 		if (!local.contains( Badge.LEVEL_REACHED_1 ) && Dungeon.hero.lvl >= 6) {
@@ -318,6 +331,8 @@ public class Badges {
 	}
 	
 	public static void validateStrengthAttained() {
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		
 		if (!local.contains( Badge.STRENGTH_ATTAINED_1 ) && Dungeon.hero.STR >= 13) {
@@ -341,6 +356,8 @@ public class Badges {
 	}
 	
 	public static void validateFoodEaten() {
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		
 		if (!local.contains( Badge.FOOD_EATEN_1 ) && Statistics.foodEaten >= 10) {
@@ -364,6 +381,8 @@ public class Badges {
 	}
 	
 	public static void validatePotionsCooked() {
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		
 		if (!local.contains( Badge.POTIONS_COOKED_1 ) && Statistics.potionsCooked >= 3) {
@@ -387,6 +406,8 @@ public class Badges {
 	}
 	
 	public static void validatePiranhasKilled() {
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		
 		if (!local.contains( Badge.PIRANHAS ) && Statistics.piranhasKilled >= 6) {
@@ -398,7 +419,8 @@ public class Badges {
 	}
 	
 	public static void validateItemLevelAquired( Item item ) {
-		
+		if (validateDifficulty()) return;
+
 		// This method should be called:
 		// 1) When an item is obtained (Item.collect)
 		// 2) When an item is upgraded (ScrollOfUpgrade, ScrollOfWeaponUpgrade, ShortSword, WandOfMagicMissile)
@@ -431,6 +453,8 @@ public class Badges {
 	}
 	
 	public static void validateAllPotionsIdentified() {
+		if (validateDifficulty()) return;
+
 		if (Dungeon.hero != null && Dungeon.hero.isAlive() &&
 			!local.contains( Badge.ALL_POTIONS_IDENTIFIED ) && Potion.allKnown()) {
 			
@@ -443,6 +467,8 @@ public class Badges {
 	}
 	
 	public static void validateAllScrollsIdentified() {
+		if (validateDifficulty()) return;
+
 		if (Dungeon.hero != null && Dungeon.hero.isAlive() &&
 			!local.contains( Badge.ALL_SCROLLS_IDENTIFIED ) && Scroll.allKnown()) {
 			
@@ -455,6 +481,8 @@ public class Badges {
 	}
 	
 	public static void validateAllRingsIdentified() {
+		if (validateDifficulty()) return;
+
 		if (Dungeon.hero != null && Dungeon.hero.isAlive() &&
 			!local.contains( Badge.ALL_RINGS_IDENTIFIED ) && Ring.allKnown()) {
 			
@@ -468,7 +496,9 @@ public class Badges {
 
 	//TODO: no longer in use, deal with new wand related badges in the badge rework.
 	/**public static void validateAllWandsIdentified() {
-		if (Dungeon.hero != null && Dungeon.hero.isAlive() &&
+	 if (validateDifficulty()) return;
+
+	 if (Dungeon.hero != null && Dungeon.hero.isAlive() &&
 			!local.contains( Badge.ALL_WANDS_IDENTIFIED ) && Wand.allKnown()) {
 			
 			Badge badge = Badge.ALL_WANDS_IDENTIFIED;
@@ -480,7 +510,8 @@ public class Badges {
 	}*/
 	
 	public static void validateAllBagsBought( Item bag ) {
-		
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		if (bag instanceof SeedPouch) {
 			badge = Badge.BAG_BOUGHT_SEED_POUCH;
@@ -510,6 +541,8 @@ public class Badges {
 	}
 	
 	public static void validateAllItemsIdentified() {
+		if (validateDifficulty()) return;
+
 		if (!global.contains( Badge.ALL_ITEMS_IDENTIFIED ) &&
 			global.contains( Badge.ALL_POTIONS_IDENTIFIED ) &&
 			global.contains( Badge.ALL_SCROLLS_IDENTIFIED ) &&
@@ -578,6 +611,8 @@ public class Badges {
 	}
 	
 	public static void validateBossSlain() {
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		switch (Dungeon.depth) {
 		case 6:
@@ -688,7 +723,8 @@ public class Badges {
 	}
 	
 	public static void validateMastery() {
-		
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		switch (Dungeon.hero.heroClass) {
 		case WARRIOR:
@@ -712,6 +748,8 @@ public class Badges {
 	}
 	
 	public static void validateMasteryCombo( int n ) {
+		if (validateDifficulty()) return;
+
 		if (!local.contains( Badge.MASTERY_COMBO ) && n == 7) {
 			Badge badge = Badge.MASTERY_COMBO;
 			local.add( badge );
@@ -721,6 +759,8 @@ public class Badges {
 
 	//TODO: Replace this badge, delayed until an eventual badge rework
 	public static void validateRingOfHaggler() {
+		if (validateDifficulty()) return;
+
 		if (!local.contains( Badge.RING_OF_HAGGLER )/* && new RingOfThorns().isKnown()*/) {
 			Badge badge = Badge.RING_OF_HAGGLER;
 			local.add( badge );
@@ -730,6 +770,8 @@ public class Badges {
 
 	//TODO: Replace this badge, delayed until an eventual badge rework
 	public static void validateRingOfThorns() {
+		if (validateDifficulty()) return;
+
 		if (!local.contains( Badge.RING_OF_THORNS )/* && new RingOfThorns().isKnown()*/) {
 			Badge badge = Badge.RING_OF_THORNS;
 			local.add( badge );
@@ -738,7 +780,8 @@ public class Badges {
 	}
 	
 	public static void validateRare( Mob mob ) {
-		
+		if (validateDifficulty()) return;
+
 		Badge badge = null;
 		if (mob instanceof Albino) {
 			badge = Badge.RARE_ALBINO;
@@ -768,6 +811,7 @@ public class Badges {
 	}
 	
 	public static void validateVictory() {
+		if (validateDifficulty()) return;
 
 		Badge badge = Badge.VICTORY;
 		displayBadge( badge );
@@ -819,6 +863,8 @@ public class Badges {
 	}
 	
 	public static void validateNightHunter() {
+		if (validateDifficulty()) return;
+
 		if (!local.contains( Badge.NIGHT_HUNTER ) && Statistics.nightHunt >= 15) {
 			Badge badge = Badge.NIGHT_HUNTER;
 			local.add( badge );
@@ -827,7 +873,6 @@ public class Badges {
 	}
 	
 	public static void validateSupporter() {
-
 		global.add( Badge.SUPPORTER );
 		saveNeeded = true;
 		
@@ -853,10 +898,14 @@ public class Badges {
 	}
 	
 	public static void validateHappyEnd() {
+		if (validateDifficulty()) return;
+
 		displayBadge( Badge.HAPPY_END );
 	}
 
 	public static void validateChampion() {
+		if (validateDifficulty()) return;
+
 		displayBadge(Badge.CHAMPION);
 	}
 	

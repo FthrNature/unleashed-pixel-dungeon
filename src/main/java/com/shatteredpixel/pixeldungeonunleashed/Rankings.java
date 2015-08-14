@@ -106,7 +106,20 @@ public enum Rankings {
 	}
 
 	private int score( boolean win ) {
-		return (Statistics.goldCollected + Dungeon.hero.lvl * (win ? Level.MAX_DEPTH : Dungeon.depth ) * 100) * (win ? 2 : 1);
+		int scoreMult = 100;
+		switch (Dungeon.difficultyLevel) {
+			case Dungeon.DIFF_TUTOR:
+			case Dungeon.DIFF_EASY:
+				scoreMult = 50;
+				break;
+			case Dungeon.DIFF_HARD:
+				scoreMult = 125;
+				break;
+			case Dungeon.DIFF_NTMARE:
+				scoreMult = 150;
+				break;
+		}
+		return (Statistics.goldCollected + Dungeon.hero.lvl * (win ? Level.MAX_DEPTH : Dungeon.depth ) * scoreMult) * (win ? 2 : 1);
 	}
 	
 	private static final String RECORDS	= "records";
@@ -175,6 +188,7 @@ public enum Rankings {
 		private static final String LEVEL	= "level";
 		private static final String DEPTH	= "depth";
 		private static final String GAME	= "gameFile";
+		private static final String DIFFICULTY = "difficulty";
 		
 		public String info;
 		public boolean win;
@@ -185,6 +199,7 @@ public enum Rankings {
 		public int depth;
 		
 		public int score;
+		public int difficulty;
 		
 		public String gameFile;
 
@@ -194,6 +209,7 @@ public enum Rankings {
 			info	= bundle.getString( REASON );
 			win		= bundle.getBoolean( WIN );
 			score	= bundle.getInt( SCORE );
+			difficulty = bundle.getInt( DIFFICULTY, 12);
 			
 			heroClass	= HeroClass.restoreInBundle( bundle );
 			armorTier	= bundle.getInt( TIER );
@@ -248,6 +264,7 @@ public enum Rankings {
 			bundle.put( TIER, armorTier );
 			bundle.put( LEVEL, herolevel );
 			bundle.put( DEPTH, depth );
+			bundle.put( DIFFICULTY, difficulty );
 			
 			bundle.put( GAME, gameFile );
 		}

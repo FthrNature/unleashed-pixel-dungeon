@@ -20,6 +20,7 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.scenes;
 
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.BitmapTextMultiline;
 import com.watabou.noosa.Camera;
@@ -95,16 +96,17 @@ public class RankingsScene extends PixelScene {
 			
 			for (Rankings.Record rec : Rankings.INSTANCE.records) {
 				Record row = new Record( pos, pos == Rankings.INSTANCE.lastRecord, rec );
-				float offset =
-						rowHeight <= 14 ?
-								pos %2 == 1?
-										5 :
-										-5
+				float offset = rowHeight <= 14 ?
+								pos %2 == 1? 5 : -5
 								: 0;
 				row.setRect( left+offset, top + pos * rowHeight, w - left * 2, rowHeight );
-				add(row);
-				
-				pos++;
+				try {
+					add(row);
+
+					pos++;
+				} catch (Exception e) {
+					//
+				}
 			}
 			
 			if (Rankings.INSTANCE.totalNumber >= Rankings.TABLE_SIZE) {
@@ -194,7 +196,7 @@ public class RankingsScene extends PixelScene {
 				position.text(" ");
 			position.measure();
 			
-			desc.text( rec.info );
+			desc.text( rec.info ); // DSM-xxxx start debugging crashes around here...
 
 			desc.measure();
 
@@ -234,29 +236,37 @@ public class RankingsScene extends PixelScene {
 		
 		@Override
 		protected void createChildren() {
-			
-			super.createChildren();
-			
-			shield = new ItemSprite( ItemSpriteSheet.TOMB, null );
-			add( shield );
-			
-			position = new BitmapText( PixelScene.font1x );
-			position.alpha(0.8f);
-			add( position );
-			
-			desc = createMultiline( 7 );
-			add( desc );
+			try {
+				super.createChildren();
 
-			depth = new BitmapText( PixelScene.font1x );
-			depth.alpha(0.8f);
+				shield = new ItemSprite(ItemSpriteSheet.TOMB, null);
+				//add(shield);
 
-			steps = new Image();
-			
-			classIcon = new Image();
-			add( classIcon );
+				position = new BitmapText(PixelScene.font1x);
+				position.alpha(0.8f);
+				//add(position);
 
-			level = new BitmapText( PixelScene.font1x );
-			level.alpha(0.8f);
+				desc = createMultiline(7);
+				//add( desc );
+
+				depth = new BitmapText(PixelScene.font1x);
+				depth.alpha(0.8f);
+
+				steps = new Image();
+
+				classIcon = new Image();
+
+
+				add(shield);
+				add(position);
+				add(desc);
+				add(classIcon);
+
+				level = new BitmapText(PixelScene.font1x);
+				level.alpha(0.8f);
+			} catch (Exception e) {
+				//
+			}
 		}
 		
 		@Override

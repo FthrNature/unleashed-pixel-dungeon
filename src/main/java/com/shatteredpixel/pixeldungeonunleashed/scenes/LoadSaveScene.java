@@ -67,6 +67,7 @@ public class LoadSaveScene extends PixelScene {
 
     private static final String HERO		= "hero";
     private static final String DEPTH		= "depth";
+    private static final String DIFLEV      = "diflev";
     private static final String LEVEL		= "lvl";
 
     private static final String TXT_REALLY	= "Load";
@@ -135,7 +136,9 @@ public class LoadSaveScene extends PixelScene {
                     add( buttonCapton1 );
 
                     // add the save button..
-                    if (Dungeon.hero.isAlive() && Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN)) {
+                    if (Dungeon.hero.isAlive() &&
+                            (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) ||
+                            (Dungeon.difficultyLevel <= Dungeon.DIFF_HARD && Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN))) {
                         GameButton btnSave = new GameButton( this, true, TXT_SAVE, "", classInfo, saveSlot );
                         add( btnSave );
                         btnSave.visible = true;
@@ -151,11 +154,31 @@ public class LoadSaveScene extends PixelScene {
                             input = new FileInputStream(saveSlotFolder +"/" + classInfo +".dat");
                             Bundle bundle = Bundle.read( input );
                             input.close();
-                            int savedDepth = bundle.getInt( DEPTH );
+                            int savedDepth = bundle.getInt( DEPTH, 1 );
                             Bundle savedHero = bundle.getBundle( HERO );
+                            int savedDif = bundle.getInt(DIFLEV);
                             int savedLevel = savedHero.getInt( LEVEL );
                             String savedProgress = Utils.format( TXT_DPTH_LVL, savedDepth, savedLevel );
-                            GameButton btnLoad1A = new GameButton( this, false, TXT_LOAD , savedProgress, classInfo, saveSlot );
+                            String loadLevel;
+                            switch (savedDif) {
+                                case Dungeon.DIFF_TUTOR:
+                                    loadLevel = TXT_LOAD + " TUTOR";
+                                    break;
+                                case Dungeon.DIFF_EASY:
+                                    loadLevel = TXT_LOAD + " EASY";
+                                    break;
+                                case Dungeon.DIFF_HARD:
+                                    loadLevel = TXT_LOAD + " HARD";
+                                    break;
+                                case Dungeon.DIFF_NTMARE:
+                                    loadLevel = TXT_LOAD + " NTMARE";
+                                    break;
+                                default:
+                                    loadLevel = TXT_LOAD + " NORMAL";
+                                    break;
+                            }
+                            //GameButton btnLoad1A = new GameButton( this, false, TXT_LOAD , savedProgress, classInfo, saveSlot );
+                            GameButton btnLoad1A = new GameButton( this, false, loadLevel , savedProgress, classInfo, saveSlot );
 
                             add( btnLoad1A );
                             btnLoad1A.visible = true;
@@ -163,6 +186,8 @@ public class LoadSaveScene extends PixelScene {
                         } catch (FileNotFoundException e) {
                             //e.printStackTrace();
                         } catch (IOException e) {
+                            //e.printStackTrace();
+                        } catch (NullPointerException e ) {
                             //e.printStackTrace();
                         }
                     }

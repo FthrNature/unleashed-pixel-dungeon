@@ -128,7 +128,26 @@ public class StartScene extends PixelScene {
 		buttonX = left;
 		buttonY = bottom - BUTTON_HEIGHT;
 
-		btnNewGame = new GameButton( TXT_NEW ) {
+		String TXT_NEW_DIF;
+		switch (ShatteredPixelDungeon.getDifficulty()) {
+			case 10:
+				TXT_NEW_DIF = "New TUTOR";
+				break;
+			case 11:
+				TXT_NEW_DIF = "New EASY";
+				break;
+			case 13:
+				TXT_NEW_DIF = "New HARD";
+				break;
+			case 14:
+				TXT_NEW_DIF = "NEW NTMARE";
+				break;
+			default:
+				TXT_NEW_DIF = "New NORMAL";
+				break;
+		}
+
+		btnNewGame = new GameButton( TXT_NEW_DIF ) {
 			@Override
 			protected void onClick() {
 				if (GamesInProgress.check( curClass ) != null) {
@@ -278,10 +297,28 @@ public class StartScene extends PixelScene {
 
 				float w = (Camera.main.width - GAP) / 2 - buttonX;
 
-				btnLoad.setRect(
-						buttonX, buttonY, w, BUTTON_HEIGHT );
-				btnNewGame.setRect(
-						btnLoad.right() + GAP, buttonY, w, BUTTON_HEIGHT );
+				btnLoad.setRect( buttonX, buttonY, w, BUTTON_HEIGHT );
+				btnNewGame.setRect( btnLoad.right() + GAP, buttonY, w, BUTTON_HEIGHT );
+
+				String TXT_LOAD_DIF;
+				switch (info.difLev) {
+					case 10:
+						TXT_LOAD_DIF = "Load TUTOR";
+						break;
+					case 11:
+						TXT_LOAD_DIF = "Load EASY";
+						break;
+					case 13:
+						TXT_LOAD_DIF = "Load HARD";
+						break;
+					case 14:
+						TXT_LOAD_DIF = "Load NTMARE";
+						break;
+					default:
+						TXT_LOAD_DIF = "Load NORMAL";
+						break;
+				}
+				btnLoad.text(TXT_LOAD_DIF);
 
 			} else {
 				btnLoad.visible = false;
@@ -303,6 +340,7 @@ public class StartScene extends PixelScene {
 	private void startNewGame() {
 
 		Dungeon.hero = null;
+		Dungeon.difficultyLevel = ShatteredPixelDungeon.getDifficulty();
 		InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
 
 		if (ShatteredPixelDungeon.intro()) {
