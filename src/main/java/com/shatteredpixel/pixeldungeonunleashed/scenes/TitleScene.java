@@ -24,10 +24,12 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLES20;
 
+import com.watabou.input.Touchscreen;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.TouchArea;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
@@ -157,7 +159,15 @@ public class TitleScene extends PixelScene {
 		version.y = h - version.height() - source.height();
 
 		add( version );
-		
+
+		TouchArea shpxhotArea = new TouchArea( version ) {
+			@Override
+			protected void onClick( Touchscreen.Touch touch ) {
+				Game.switchScene(WelcomeScene.class);
+			}
+		};
+		add( shpxhotArea );
+
 		PrefsButton btnPrefs = new PrefsButton();
 		btnPrefs.setPos( 0, 0 );
 		add( btnPrefs );
