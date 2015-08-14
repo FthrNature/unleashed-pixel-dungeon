@@ -38,6 +38,10 @@ import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Ancient;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Glowing;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Luck;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -106,24 +110,40 @@ public class Donations extends Blob {
                 // in order to get here you either have to donate a lot of goods all at once,
                 // or you have been doing a lot of donations and collecting the lower rewards
                 GLog.p("The Gods are very pleased and reward you!");
-                switch (Random.Int(20)) {
+                switch (Random.Int(12)) {
                     case 0:
                     case 1:
-                    case 2:
                         // level-up
                         GLog.p("The Gods flood your mind with visions of battles past.");
                         hero.earnExp( hero.maxExp() );
                         hero.donatedLoot -= 650;
                         break;
+                    case 2:
                     case 3:
                     case 4:
                     case 5:
                     case 6:
                     case 7:
                         // upgrade an item
-                        GLog.p("One of your items is blessed.");
-                        ScrollOfUpgrade.upgrade(hero);
-                        hero.donatedLoot -= 450;
+                        Weapon wpn = (Weapon) Generator.random(Generator.Category.WEAPON);
+                        try {
+                            switch (Random.Int(3)) {
+                                case 0:
+                                    wpn.enchant(Glowing.class.newInstance()).collect();
+                                    break;
+                                case 1:
+                                    wpn.enchant(Ancient.class.newInstance()).collect();
+                                    break;
+                                default:
+                                    wpn.enchant(Luck.class.newInstance()).collect();
+                                    break;
+                            }
+                        } catch (InstantiationException e) {
+                            wpn.enchant().collect();;
+                        } catch (IllegalAccessException e) {
+                            wpn.enchant().collect();;
+                        }
+                        hero.donatedLoot -= 500;
                         break;
                     case 8:
                         // an artifact
@@ -146,12 +166,12 @@ public class Donations extends Blob {
                     GLog.p("The Gods heal your wounds.");
                     PotionOfHealing.heal(hero);
                     hero.donatedLoot -= 80;
-                } else if (Random.Int(5) < 2) {
+                } else if (Random.Int(4) == 0) {
                     GLog.p("The Gods reveal secrets of your surroundings.");
                     Buff.affect(hero, Awareness.class, Awareness.DURATION);
                     Dungeon.observe();
-                    hero.donatedLoot -= 60;
-                } else if (! hero.buffs().contains(Bless.class)){
+                    hero.donatedLoot -= 50;
+                } else if ((! hero.buffs().contains(Bless.class)) && (Random.Int(5) == 0)){
                     GLog.p("The Gods bless you.");
                     hero.belongings.uncurseEquipped();
                     Buff.affect(hero, Bless.class);
