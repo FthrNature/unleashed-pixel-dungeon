@@ -79,7 +79,7 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 		slot = new ItemSlot() {
 			@Override
 			protected void onClick() {
-				if (targeting) {
+				if (targeting && Dungeon.hero.lastTarget != null) {
 					GameScene.handleCell( Dungeon.hero.lastTarget.pos );
 				} else {
 					Item item = select(slotNum);
