@@ -142,8 +142,26 @@ public class Dungeon {
 	public static SparseArray<ArrayList<Item>> droppedItems;
 
 	public static int version;
-	
+
+	// these following variables are for displaying tutorial-mode messages to the player
+	// I don't want to store these variables in the bundle, because if they leave the
+	// game and come back into a tutorial level game I want to repeat some of these to
+	// the player to ensure they remember them.  There is probably a better way to do
+	// this, but I am drawing a blank right now.
+	public static boolean tutorial_mob_seen = (depth == 1 ? false : true);
+	public static boolean tutorial_tactics_tip = (depth == 1 ? false : true);
+	public static boolean tutorial_food_found = (depth == 1 ? false : true);
+	public static boolean tutorial_sign_seen = (depth == 1 ? false : true);
+	public static boolean tutorial_key_found = (depth == 1 ? false : true);
+	public static boolean tutorial_altar_seen = (depth <= 7 ? false : true);
+	public static boolean tutorial_wellA_seen = (depth <= 7 ? false : true);
+	public static boolean tutorial_wellT_seen = (depth <= 7 ? false : true);
+	public static boolean tutorial_wellH_seen = (depth <= 7 ? false : true);
+	public static boolean tutorial_boss_found = (depth <= 7 ? false : true);
+	public static boolean tutorial_garden_found = (depth <= 7 ? false : true);
+
 	public static void init() {
+		difficultyLevel = ShatteredPixelDungeon.getDifficulty();
 
 		version = Game.versionCode;
 		challenges = ShatteredPixelDungeon.challenges();
@@ -167,6 +185,20 @@ public class Dungeon {
 		
 		depth = 0;
 		gold = 0;
+
+		if (difficultyLevel == DIFF_TUTOR) {
+			tutorial_mob_seen = false;
+			tutorial_tactics_tip = false;
+			tutorial_food_found = false;
+			tutorial_sign_seen = false;
+			tutorial_key_found = false;
+			tutorial_altar_seen = false;
+			tutorial_wellA_seen = false;
+			tutorial_wellT_seen = false;
+			tutorial_wellH_seen = false;
+			tutorial_boss_found = false;
+			tutorial_garden_found = false;
+		}
 
 		droppedItems = new SparseArray<ArrayList<Item>>();
 
@@ -640,6 +672,24 @@ public class Dungeon {
 				}
 				if (!dropped.isEmpty()) {
 					droppedItems.put(i, dropped);
+				}
+			}
+			if (fullLoad) {
+				if (difficultyLevel == DIFF_TUTOR) {
+					tutorial_mob_seen = (depth == 1 ? false : true);
+					tutorial_tactics_tip = (depth == 1 ? false : true);
+					tutorial_food_found = (depth == 1 ? false : true);
+					tutorial_sign_seen = (depth == 1 ? false : true);
+					tutorial_key_found = (depth == 1 ? false : true);
+					tutorial_altar_seen = (depth <= 7 ? false : true);
+					tutorial_wellA_seen = (depth <= 7 ? false : true);
+					tutorial_wellT_seen = (depth <= 7 ? false : true);
+					tutorial_wellH_seen = (depth <= 7 ? false : true);
+					tutorial_boss_found = (depth <= 7 ? false : true);
+					tutorial_garden_found = (depth <= 7 ? false : true);
+					GLog.i("696 - tutorial values: " + depth + " - " + tutorial_mob_seen + ", " + tutorial_tactics_tip + ", " + tutorial_food_found + ", " +
+							tutorial_sign_seen + ", " + tutorial_key_found + ", " + tutorial_altar_seen + ", " + tutorial_wellA_seen + ", " +
+							tutorial_wellT_seen + ", " + tutorial_wellH_seen + ", " + tutorial_boss_found + ", " + tutorial_garden_found);
 				}
 			}
 		}

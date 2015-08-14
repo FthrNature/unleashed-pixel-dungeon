@@ -29,6 +29,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Terrain;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
+import com.shatteredpixel.pixeldungeonunleashed.windows.WndMessage;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -55,10 +56,27 @@ public class WellWater extends Blob {
 		if (Dungeon.visible[pos]) {
 			if (this instanceof WaterOfAwareness) {
 				Journal.add( Feature.WELL_OF_AWARENESS );
-			} else if (this instanceof WaterOfHealth) {
+				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && Dungeon.tutorial_wellA_seen == false) {
+					Dungeon.tutorial_wellA_seen = true;
+					GameScene.show(new WndMessage("Taking a drink from a Well of Awareness identifies your equipped (and only " +
+						"your equipped) items, reveals secrets about this dungeon level, and any uncollected items. " +
+						"you could also try throwing an unidentified item in and see what happens."));
+				}
+			} else if (this instanceof WaterOfHealth && Dungeon.tutorial_wellH_seen == false) {
+				Dungeon.tutorial_wellH_seen = true;
 				Journal.add( Feature.WELL_OF_HEALTH );
-			} else if (this instanceof WaterOfTransmutation) {
+				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
+					GameScene.show(new WndMessage("Taking a drink from a Well of Health restores you to full health and " +
+						"satisfies your hunger."));
+				}
+			} else if (this instanceof WaterOfTransmutation && Dungeon.tutorial_wellT_seen == false) {
+				Dungeon.tutorial_wellT_seen = true;
 				Journal.add( Feature.WELL_OF_TRANSMUTATION );
+				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
+					GameScene.show(new WndMessage("A Well of Transmutation allows you to exchange one item for another of " +
+						" similar value; an enchanted tier-3 weapon for a different enchanted tier-3 weapon, an artifact for " +
+						" an artifact.  Some rare items can only be obtained through a Well of Transmutation."));
+				}
 			}
 		}
 	}

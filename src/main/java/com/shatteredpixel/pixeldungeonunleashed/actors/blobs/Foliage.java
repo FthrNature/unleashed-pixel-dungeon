@@ -30,6 +30,7 @@ import com.shatteredpixel.pixeldungeonunleashed.effects.particles.ShaftParticle;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Terrain;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
+import com.shatteredpixel.pixeldungeonunleashed.windows.WndMessage;
 
 public class Foliage extends Blob {
 	
@@ -73,6 +74,11 @@ public class Foliage extends Blob {
 		
 		if (visible) {
 			Journal.add( Journal.Feature.GARDEN );
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && Dungeon.tutorial_garden_found == false) {
+				Dungeon.tutorial_garden_found = true;
+				GameScene.show(new WndMessage("A feeling of peace and serenity overcome you in this room." +
+					" This room is fairly safe, you will see it is added to your journal."));
+			}
 		}
 	}
 	

@@ -43,7 +43,9 @@ import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Ancien
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Glowing;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Luck;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
+import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
+import com.shatteredpixel.pixeldungeonunleashed.windows.WndMessage;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -68,6 +70,12 @@ public class Donations extends Blob {
 
         if (Dungeon.visible[pos]) {
             Journal.add( Journal.Feature.ALTAR );
+            if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && Dungeon.tutorial_altar_seen == false) {
+                Dungeon.tutorial_altar_seen = true;
+                GameScene.show(new WndMessage("An Altar room allows you to donate items in the hopes of " +
+                    "divine interention.  More expensive donations provide better rewards, including some difficult " +
+                    "to obtain enchanted weapons, artifacts and instant level-ups.  Your donated loot is cumulative."));
+            }
         }
     }
 

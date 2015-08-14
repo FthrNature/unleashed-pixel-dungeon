@@ -46,7 +46,9 @@ public class WndStory extends Window {
 	public static final int ID_CAVES		= 2;
 	public static final int ID_METROPOLIS	= 3;
 	public static final int ID_HALLS		= 4;
-	
+	public static final int ID_TUTOR_1      = 5;
+	public static final int ID_TUTOR_2      = 6;
+
 	private static final SparseArray<String> CHAPTERS = new SparseArray<String>();
 	
 	static {
@@ -78,6 +80,17 @@ public class WndStory extends Window {
 		"dwarves were too weakened to clear them of remaining demons. Gradually demons have tightened their grip on this place " +
 		"and now it's called Demon Halls.\n\n" +
 		"Very few adventurers have ever descended this far..." );
+
+		CHAPTERS.put (ID_TUTOR_1,
+		"Welcome to Unleashed Pixel Dungeon! You are currently in Tutorial mode, you can change modes from the Out-of-Game " +
+		"settings menu (it's shaped like little gears). The signs contain can contain useful information about the level, and " +
+		"are worth reading. You can also save when you are next to them by pressing the In-Game settings button (top right corner).\n\n" +
+		"For the moment you should start looking for the stairway down to the next level.");
+
+		CHAPTERS.put (ID_TUTOR_2,
+		"This is your first Boss level.  On this level you will see a locked door leading to the next level, you will have to " +
+		"find the special Boss Key somewhere on this level before descending.");
+
 	};
 	
 	private BitmapTextMultiline tf;

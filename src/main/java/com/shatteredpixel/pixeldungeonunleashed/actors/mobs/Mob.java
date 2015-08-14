@@ -42,9 +42,11 @@ import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfAccuracy;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfWealth;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level.Feeling;
+import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.CharSprite;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
+import com.shatteredpixel.pixeldungeonunleashed.windows.WndMessage;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -432,6 +434,16 @@ public abstract class Mob extends Char {
 				Dungeon.hero.sprite.showStatus( CharSprite.POSITIVE, TXT_EXP, EXP );
 				Dungeon.hero.earnExp( EXP );
 			}
+
+			if ((Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) && (Dungeon.tutorial_tactics_tip == false)) {
+				Dungeon.tutorial_tactics_tip = true;
+				GameScene.show(new WndMessage("Well done, keep in mind that some simple strategies can help you live " +
+					"longer; try positioning yourself so that only one enemy can approach at a time, some negative potions " +
+					"can be thrown at enemies to affect them, when an enemy steps through a doorway and sees you for the " +
+					"first time gives you a surprise attack against them.  As you go on you will discover other tricks and " +
+					"strategies to help you."));
+			}
+
 		}
 	}
 	
@@ -540,6 +552,15 @@ public abstract class Mob extends Char {
 				}
 
 				spend( TIME_TO_WAKE_UP );
+
+				if ((Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) && (Dungeon.tutorial_mob_seen == false)) {
+					Dungeon.tutorial_mob_seen = true;
+					GameScene.show(new WndMessage("Up ahead is your first enemy, you can assign ranged weapons or wands to " +
+						"your Quick-Slot(s) next to your backpack icon on the lower right side of the screen; Your Quick-Slot " +
+						"can auto-aim on the closest mob if you double tap it.  You can also attack enemies in melee (close " +
+						"combat) by approaching them and then either clicking on the enemy or on the red icon that will appear " +
+						"above your Quick-Slots."));
+				}
 
 			} else {
 
