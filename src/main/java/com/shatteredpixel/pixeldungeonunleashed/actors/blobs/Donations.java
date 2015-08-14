@@ -110,73 +110,55 @@ public class Donations extends Blob {
                 // in order to get here you either have to donate a lot of goods all at once,
                 // or you have been doing a lot of donations and collecting the lower rewards
                 GLog.p("The Gods are very pleased and reward you!");
-                switch (Random.Int(12)) {
-                    case 0:
-                    case 1:
-                        // level-up
-                        GLog.p("The Gods flood your mind with visions of battles past.");
-                        hero.earnExp( hero.maxExp() );
-                        hero.donatedLoot -= 650;
-                        break;
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                        // upgrade an item
-                        Weapon wpn = (Weapon) Generator.random(Generator.Category.WEAPON);
-                        try {
-                            switch (Random.Int(3)) {
-                                case 0:
-                                    wpn.enchant(Glowing.class.newInstance()).collect();
-                                    break;
-                                case 1:
-                                    wpn.enchant(Ancient.class.newInstance()).collect();
-                                    break;
-                                default:
-                                    wpn.enchant(Luck.class.newInstance()).collect();
-                                    break;
-                            }
-                        } catch (InstantiationException e) {
-                            wpn.enchant().collect();;
-                        } catch (IllegalAccessException e) {
-                            wpn.enchant().collect();;
-                        }
-                        hero.donatedLoot -= 500;
-                        break;
-                    case 8:
-                        // an artifact
-                        GLog.p("You are rewarded with an ancient Artifact!");
-                        Generator.random( Generator.Category.ARTIFACT ).collect();
-                        hero.donatedLoot -= 800;
-                        break;
-                    default:
-                        // potion-of-might effect
-                        GLog.p("Newfound strength surges through your body.");
-                        hero.STR++;
-                        hero.HT += 5;
-                        hero.HP += 5;
-                        hero.donatedLoot -= 750;
-                        break;
+                if (Random.Int(3) == 0) {
+                    GLog.p("The Gods flood your mind with visions of battles past.");
+                    hero.earnExp( hero.maxExp() );
+                    hero.donatedLoot -= 650;
+                } else {
+                    GLog.p("You are rewarded with an ancient Artifact!");
+                    Generator.random( Generator.Category.ARTIFACT ).collect();
+                    hero.donatedLoot -= 800;
                 }
-            } else if (hero.donatedLoot >= 100) {
+            } else if (hero.donatedLoot >= 300) {
+                if (Random.Int(3) == 0) {
+                    // upgrade an item
+                    Weapon wpn = (Weapon) Generator.random(Generator.Category.WEAPON);
+                    try {
+                        switch (Random.Int(3)) {
+                            case 0:
+                                wpn.enchant(Glowing.class.newInstance()).collect();
+                                break;
+                            case 1:
+                                wpn.enchant(Ancient.class.newInstance()).collect();
+                                break;
+                            default:
+                                wpn.enchant(Luck.class.newInstance()).collect();
+                                break;
+                        }
+                    } catch (InstantiationException e) {
+                        wpn.enchant().collect();;
+                    } catch (IllegalAccessException e) {
+                        wpn.enchant().collect();;
+                    }
+                    hero.donatedLoot -= 300;
+                }
+            } else if (hero.donatedLoot >= 80) {
                 // some type of reward may be given to the hero, if so reduce the total donation value
                 if (hero.HT < hero.HP) {
                     GLog.p("The Gods heal your wounds.");
                     PotionOfHealing.heal(hero);
-                    hero.donatedLoot -= 80;
-                } else if (Random.Int(4) == 0) {
+                    hero.donatedLoot -= 75;
+                } else if ((! hero.buffs().contains(Awareness.class)) && (Random.Int(6) == 0)) {
                     GLog.p("The Gods reveal secrets of your surroundings.");
-                    Buff.affect(hero, Awareness.class, Awareness.DURATION);
+                    Buff.affect(hero, Awareness.class, Awareness.DURATION * 2);
                     Dungeon.observe();
                     hero.donatedLoot -= 50;
-                } else if ((! hero.buffs().contains(Bless.class)) && (Random.Int(5) == 0)){
+                } else if ((! hero.buffs().contains(Bless.class)) && (Random.Int(6) == 0)){
                     GLog.p("The Gods bless you.");
                     hero.belongings.uncurseEquipped();
                     Buff.affect(hero, Bless.class);
-                    Buff.prolong(hero, Bless.class, 30f);
-                    hero.donatedLoot -= 95;
+                    Buff.prolong(hero, Bless.class, 120f);
+                    hero.donatedLoot -= 75;
                 } else {
                     GLog.p("The Gods seem happy...");
                 }
