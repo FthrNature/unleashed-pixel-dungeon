@@ -104,6 +104,7 @@ public class AboutScene extends PixelScene {
 			protected void onClick( Touch touch ) {
 				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://father-natures.blogspot.com") );
 				Game.instance.startActivity( intent );
+				ShatteredPixelDungeon.switchNoFade(TitleScene.class);
 			}
 		};
 		add( shpxhotArea );
@@ -148,6 +149,7 @@ public class AboutScene extends PixelScene {
 			protected void onClick( Touch touch ) {
 				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://" + LNK_WATA ) );
 				Game.instance.startActivity( intent );
+				ShatteredPixelDungeon.switchNoFade(TitleScene.class);
 			}
 		};
 		add( hotArea );
