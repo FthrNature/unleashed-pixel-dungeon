@@ -144,7 +144,6 @@ public class Dungeon {
 	public static int version;
 	
 	public static void init() {
-		difficultyLevel = ShatteredPixelDungeon.getDifficulty();
 
 		version = Game.versionCode;
 		challenges = ShatteredPixelDungeon.challenges();
@@ -174,10 +173,27 @@ public class Dungeon {
 		for (limitedDrops a : limitedDrops.values())
 			a.count = 0;
 
-		transmutation = Random.IntRange( 6, 14 );
-		altarLevel = Random.IntRange(2, 4);
+		switch (difficultyLevel) {
+			case DIFF_TUTOR:
+			case DIFF_EASY:
+				transmutation = Random.IntRange( 4, 10 );
+				altarLevel = Random.IntRange(1, 3);
+				break;
+			case DIFF_HARD:
+				transmutation = Random.IntRange( 6, 14 );
+				altarLevel = Random.IntRange(3, 5);
+				break;
+			case DIFF_NTMARE:
+				transmutation = Random.IntRange( 6, 15 );
+				altarLevel = Random.IntRange(3, 6);
+				break;
+			case DIFF_NORM:
+			default:
+				transmutation = Random.IntRange( 6, 14 );
+				altarLevel = Random.IntRange(2, 4);
+				break;
+		}
 
-		
 		chapters = new HashSet<Integer>();
 		
 		Ghost.Quest.reset();
@@ -191,7 +207,7 @@ public class Dungeon {
 		hero.live();
 		
 		Badges.reset();
-		
+
 		StartScene.curClass.initHero( hero );
 	}
 
