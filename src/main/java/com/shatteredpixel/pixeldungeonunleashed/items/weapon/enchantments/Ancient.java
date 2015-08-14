@@ -63,8 +63,8 @@ public class Ancient extends Weapon.Enchantment  {
             numKills++;
             if (numKills > 8) {
                 int testValue = weapon.levelCap * weapon.levelCap;
-                int failRate = testValue - (level * (level + 1));
-                if (level < 2) {
+                int failRate = testValue - (level * (level - 1));
+                if (level < 3) {
                     GLog.p("The %s attunes itself to you.", weapon.name());
                     weapon.upgrade();
                     numKills = 0;

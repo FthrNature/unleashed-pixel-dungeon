@@ -35,7 +35,7 @@ public class MeleeWeapon extends Weapon {
 		super();
 		
 		this.tier = tier;
-		levelCap = tier + 2;
+		levelCap = tier + 3 + ((int) tier / 2);;
 
 		ACU = acu;
 		DLY = dly;

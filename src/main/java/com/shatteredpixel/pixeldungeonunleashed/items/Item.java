@@ -75,7 +75,7 @@ public class Item implements Bundlable {
 	protected int quantity = 1;
 	
 	public int level = 0;
-	public int levelCap = 3;
+	public int levelCap = 5;
 	public boolean levelKnown = false;
 	
 	public boolean cursed;
@@ -314,12 +314,15 @@ public class Item implements Bundlable {
 	public boolean upgradeSucceds() {
 		String TXT_LOOKS_BETTER	= "your %s certainly looks better now";
 
-		int testValue = levelCap * levelCap;
-		int failRate = testValue - (level * (level + 1));
-		if (level < 2) {
+		if ((Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) || (level < 3)) {
 			GLog.p( TXT_LOOKS_BETTER, name() );
 			return true;
-		} else if (Random.Int(testValue) < failRate) {
+		}
+		
+		int testValue = levelCap * levelCap;
+		int failRate = testValue - (level * (level - 1));
+
+		if (Random.Int(testValue) < failRate) {
 			GLog.p( TXT_LOOKS_BETTER, name() );
 			return true;
 		}
@@ -507,8 +510,12 @@ public class Item implements Bundlable {
 			reset( user.pos, cell, this, new Callback() {
 				@Override
 				public void call() {
-					Item.this.detach( user.belongings.backpack ).onThrow( cell );
-					user.spendAndNext( finalDelay );
+					try {
+						Item.this.detach(user.belongings.backpack).onThrow(cell);
+						user.spendAndNext(finalDelay);
+					} catch (NullPointerException e) {
+						//
+					}
 				}
 			} );
 	}

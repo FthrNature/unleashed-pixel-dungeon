@@ -229,7 +229,9 @@ public class HornOfPlenty extends Artifact {
 					hero.busy();
 					hero.spend( TIME_TO_EAT );
 
-					curItem.upgrade(((Food)item).hornValue);
+                    for (int i = 0; i < ((Food)item).hornValue; i++) {
+					    curItem.upgrade();
+                    }
 					if (curItem.level >= 30){
 						curItem.level = 30;
 						GLog.p("your horn has consumed all the food it can!");

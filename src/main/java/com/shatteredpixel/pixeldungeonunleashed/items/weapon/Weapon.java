@@ -21,12 +21,14 @@
 package com.shatteredpixel.pixeldungeonunleashed.items.weapon;
 
 import com.shatteredpixel.pixeldungeonunleashed.Badges;
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.KindOfWeapon;
+import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.Artifact;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfFuror;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.*;
@@ -165,7 +167,7 @@ public class Weapon extends KindOfWeapon {
 	
 	public Item upgrade( boolean enchant ) {
 		if (enchantment != null) {
-			if (!enchant && Random.Int( level ) > 0) {
+			if (!enchant && Random.Int( level ) > 0 && (enchantment.getClass() != Ancient.class)) {
 				GLog.w( TXT_INCOMPATIBLE );
 				enchant( null );
 			}
@@ -198,6 +200,26 @@ public class Weapon extends KindOfWeapon {
 
 	@Override
 	public Item random() {
+		int upgrade_odds = 2;
+		switch (Dungeon.difficultyLevel) {
+			case Dungeon.DIFF_TUTOR:
+			case Dungeon.DIFF_EASY:
+				upgrade_odds = 4;
+				break;
+			case Dungeon.DIFF_NORM:
+				upgrade_odds = 3;
+				break;
+			case Dungeon.DIFF_HARD:
+				upgrade_odds = 2;
+				break;
+			case Dungeon.DIFF_NTMARE:
+				upgrade_odds = 2;
+				break;
+			default:
+				upgrade_odds = 3;
+				break;
+		}
+
 		if (Random.Float() < 0.4) {
 			int n = 1;
 			if (Random.Int( 3 ) == 0) {
@@ -206,7 +228,7 @@ public class Weapon extends KindOfWeapon {
 					n++;
 				}
 			}
-			if (Random.Int( 2 ) == 0) {
+			if (Random.Int( 8 ) <= upgrade_odds) {
 				upgrade( n );
 			} else {
 				degrade( n );
@@ -247,7 +269,7 @@ public class Weapon extends KindOfWeapon {
 		private static final Class<?>[] enchants = new Class<?>[]{
 			Fire.class, Poison.class, Death.class, Paralysis.class, Leech.class, Slow.class,
 			Shock.class, Instability.class, Horror.class, Luck.class, Ancient.class, Glowing.class };
-		private static final float[] chances= new float[]{ 16, 16, 2, 4, 2, 4, 10, 5, 4, 2, 1, 3 };
+		private static final float[] chances= new float[]{ 16, 16, 2, 4, 2, 4, 10, 5, 4, 4, 3, 6 };
 			
 		public abstract boolean proc( Weapon weapon, Char attacker, Char defender, int damage );
 		

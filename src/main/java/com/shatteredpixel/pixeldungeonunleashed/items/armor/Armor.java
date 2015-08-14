@@ -63,7 +63,7 @@ public class Armor extends EquipableItem {
 	public Armor( int tier ) {
 		
 		this.tier = tier;
-		levelCap = tier + 2;
+		levelCap = tier + 3 + ((int) tier / 2);
 		STR = typicalSTR();
 		DR = typicalDR();
 	}
@@ -275,6 +275,26 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public Item random() {
+		int upgrade_odds = 2;
+		switch (Dungeon.difficultyLevel) {
+			case Dungeon.DIFF_TUTOR:
+			case Dungeon.DIFF_EASY:
+				upgrade_odds = 4;
+				break;
+			case Dungeon.DIFF_NORM:
+				upgrade_odds = 3;
+				break;
+			case Dungeon.DIFF_HARD:
+				upgrade_odds = 2;
+				break;
+			case Dungeon.DIFF_NTMARE:
+				upgrade_odds = 2;
+				break;
+			default:
+				upgrade_odds = 3;
+				break;
+		}
+
 		if (Random.Float() < 0.4) {
 			int n = 1;
 			if (Random.Int( 3 ) == 0) {
@@ -283,7 +303,7 @@ public class Armor extends EquipableItem {
 					n++;
 				}
 			}
-			if (Random.Int( 2 ) == 0) {
+			if (Random.Int( 6 ) <= upgrade_odds) {
 				upgrade( n );
 			} else {
 				degrade( n );

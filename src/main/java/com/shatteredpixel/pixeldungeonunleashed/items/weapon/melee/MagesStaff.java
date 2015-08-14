@@ -70,7 +70,7 @@ public class MagesStaff extends MeleeWeapon {
 		super(1, 1f, 1f);
 		MIN = 1;
 		MAX = 5;
-		levelCap = 6;
+		levelCap = 8;
 
 		wand = null;
 	}

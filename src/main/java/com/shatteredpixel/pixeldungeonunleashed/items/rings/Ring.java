@@ -83,7 +83,7 @@ public class Ring extends KindofMisc {
 	private int ticksToKnow = TICKS_TO_KNOW;
 
 	{
-		levelCap = 6;
+		levelCap = 7;
 	}
 
 	@SuppressWarnings("unchecked")

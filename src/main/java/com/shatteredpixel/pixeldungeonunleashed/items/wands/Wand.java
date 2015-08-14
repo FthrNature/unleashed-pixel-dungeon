@@ -78,7 +78,7 @@ public abstract class Wand extends Item {
 	
 	{
 		defaultAction = AC_ZAP;
-		levelCap = 5;
+		levelCap = 7;
 	}
 	
 	@Override

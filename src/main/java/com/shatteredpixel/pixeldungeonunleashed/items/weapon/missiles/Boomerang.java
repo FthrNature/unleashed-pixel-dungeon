@@ -39,7 +39,7 @@ public class Boomerang extends MissileWeapon {
 		
 		MIN = 1;
 		MAX = 5;
-		levelCap = 6;
+		levelCap = 8;
 
 		stackable = false;
 
