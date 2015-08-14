@@ -86,13 +86,12 @@ public class PixelScene extends Scene {
 			defaultZoom--;
 		}
 			
-		if (ShatteredPixelDungeon.scaleUp()) {
-			while (
+		while (
 				Game.width / (defaultZoom + 1) >= minWidth &&
 				Game.height / (defaultZoom + 1) >= minHeight) {
-					defaultZoom++;
-			}
+			defaultZoom++;
 		}
+
 		minZoom = 1;
 		maxZoom = defaultZoom * 2;
 			

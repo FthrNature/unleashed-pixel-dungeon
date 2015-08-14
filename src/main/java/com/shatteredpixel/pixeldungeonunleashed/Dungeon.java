@@ -76,6 +76,13 @@ public class Dungeon {
 
 	public static int transmutation;	// depth number for a well of transmutation
 	public static int altarLevel;       // depth number for an altar
+	public static int difficultyLevel = ShatteredPixelDungeon.getDifficulty();
+
+	public final static int DIFF_TUTOR  = 10;
+	public final static int DIFF_EASY   = 11;
+	public final static int DIFF_NORM   = 12;
+	public final static int DIFF_HARD   = 13;
+	public final static int DIFF_NTMARE = 14;
 
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
@@ -122,8 +129,8 @@ public class Dungeon {
 
 	public static QuickSlot quickslot = new QuickSlot();
 	
-	public static int depth;
-	public static int gold;
+	public static int depth = 1;
+	public static int gold = 0;
 	// Reason of death
 	public static String resultDescription;
 	
@@ -137,6 +144,7 @@ public class Dungeon {
 	public static int version;
 	
 	public static void init() {
+		difficultyLevel = ShatteredPixelDungeon.getDifficulty();
 
 		version = Game.versionCode;
 		challenges = ShatteredPixelDungeon.challenges();
@@ -434,7 +442,7 @@ public class Dungeon {
 			version = Game.versionCode;
 			bundle.put( VERSION, version );
 			bundle.put( CHALLENGES, challenges );
-			bundle.put( DIFLEV, 2 ); // DSM-xxxx start saving this now to reduce file issues later
+			bundle.put( DIFLEV, difficultyLevel );
 			bundle.put( HERO, hero );
 			bundle.put( GOLD, gold );
 			bundle.put(DEPTH, depth);
@@ -509,7 +517,7 @@ public class Dungeon {
 			saveGame( gameFile( hero.heroClass ) );
 			saveLevel();
 
-			GamesInProgress.set( hero.heroClass, depth, hero.lvl, challenges != 0 );
+			GamesInProgress.set( hero.heroClass, depth, hero.lvl, challenges != 0, difficultyLevel );
 
 		} else if (WndResurrect.instance != null) {
 			
@@ -542,6 +550,8 @@ public class Dungeon {
 			QuickSlotButton.reset();
 
 			Dungeon.challenges = bundle.getInt(CHALLENGES);
+			Dungeon.difficultyLevel = bundle.getInt(DIFLEV, 12);
+			ShatteredPixelDungeon.setDifficulty(Dungeon.difficultyLevel );
 
 			Dungeon.level = null;
 			Dungeon.depth = -1;
@@ -660,6 +670,8 @@ public class Dungeon {
 		if (info.depth == -1) {
 			info.depth = bundle.getInt( "maxDepth" );	// FIXME
 		}
+		info.difLev = bundle.getInt( "diflev", 12 ); // defaults to NORMAL mode
+
 		Hero.preview( info, bundle.getBundle( HERO ) );
 	}
 	

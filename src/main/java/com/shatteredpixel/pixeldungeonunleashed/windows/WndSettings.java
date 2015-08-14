@@ -21,7 +21,9 @@
 package com.shatteredpixel.pixeldungeonunleashed.windows;
 
 import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
+import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.ui.Toolbar;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
@@ -36,7 +38,9 @@ public class WndSettings extends Window {
 	private static final String TXT_ZOOM_OUT		= "-";
 	private static final String TXT_ZOOM_DEFAULT	= "Default Zoom";
 
-	private static final String TXT_SCALE_UP		= "Scale up UI";
+	private static final String TXT_EASIER          = "-";
+	private static final String TXT_HARDER          = "+";
+
 	private static final String TXT_IMMERSIVE		= "Immersive mode";
 	
 	private static final String TXT_MUSIC	= "Music";
@@ -53,14 +57,20 @@ public class WndSettings extends Window {
 	private static final int WIDTH		= 112;
 	private static final int BTN_HEIGHT	= 20;
 	private static final int GAP 		= 2;
-	
+
 	private RedButton btnZoomOut;
 	private RedButton btnZoomIn;
-	
+
+	private static int difficultLevel   = ShatteredPixelDungeon.getDifficulty();
+	private RedButton btnEasier;
+	private RedButton btnHarder;
+	private RedButton btnDifficulty;
+
 	public WndSettings( boolean inGame ) {
 		super();
 
 		CheckBox btnImmersive = null;
+
 
 		if (inGame) {
 			int w = BTN_HEIGHT;
@@ -92,17 +102,47 @@ public class WndSettings extends Window {
 			}.setRect( btnZoomOut.right(), 0, WIDTH - btnZoomIn.width() - btnZoomOut.width(), BTN_HEIGHT ) );
 			
 		} else {
-			
-			CheckBox btnScaleUp = new CheckBox( TXT_SCALE_UP ) {
+			int w = BTN_HEIGHT;
+
+			// Difficulty Levels
+			btnEasier = new RedButton( TXT_EASIER ) {
 				@Override
 				protected void onClick() {
-					super.onClick();
-					ShatteredPixelDungeon.scaleUp(checked());
+					if (difficultLevel <= 10) {
+						difficultLevel = 14;
+					} else {
+						difficultLevel -= 1;
+					}
+
+
+					ShatteredPixelDungeon.setDifficulty(difficultLevel);
+					btnDifficulty.text( difficultyText() );
 				}
 			};
-			btnScaleUp.setRect( 0, 0, WIDTH, BTN_HEIGHT );
-			btnScaleUp.checked( ShatteredPixelDungeon.scaleUp() );
-			add( btnScaleUp );
+			add( btnEasier.setRect( 0, 0, w, BTN_HEIGHT) );
+
+			btnHarder = new RedButton( TXT_HARDER ) {
+				@Override
+				protected void onClick() {
+					if (difficultLevel >= 14) {
+						difficultLevel = 10;
+					} else {
+						difficultLevel += 1;
+					}
+
+					ShatteredPixelDungeon.setDifficulty(difficultLevel);
+					btnDifficulty.text( difficultyText() );
+				}
+			};
+			add (btnHarder.setRect( WIDTH - w, 0, w, BTN_HEIGHT) );
+
+
+			btnDifficulty = new RedButton( difficultyText() ) {
+				@Override
+				protected void onClick() {
+				}
+			};
+			add(btnDifficulty.setRect(btnEasier.right(), 0, WIDTH - btnEasier.width() - btnHarder.width(), BTN_HEIGHT) );
 
 			btnImmersive = new CheckBox( TXT_IMMERSIVE ) {
 				@Override
@@ -111,7 +151,7 @@ public class WndSettings extends Window {
 					ShatteredPixelDungeon.immerse( checked() );
 				}
 			};
-			btnImmersive.setRect( 0, btnScaleUp.bottom() + GAP, WIDTH, BTN_HEIGHT );
+			btnImmersive.setRect( 0, btnEasier.bottom() + GAP, WIDTH, BTN_HEIGHT );
 			btnImmersive.checked( ShatteredPixelDungeon.immersed() );
 			btnImmersive.enable( android.os.Build.VERSION.SDK_INT >= 19 );
 			add( btnImmersive );
@@ -200,5 +240,24 @@ public class WndSettings extends Window {
 	
 	private String orientationText() {
 		return ShatteredPixelDungeon.landscape() ? TXT_SWITCH_PORT : TXT_SWITCH_LAND;
+	}
+
+	private String difficultyText() {
+		difficultLevel = ShatteredPixelDungeon.getDifficulty();
+		switch (difficultLevel) {
+			case 14:
+				return "Nightmare";
+			case 13:
+				return "Hard";
+			case 12:
+				return "Normal";
+			case 11:
+				return "Easy";
+			case 10:
+				return "Tutorial";
+			default:
+				difficultLevel = 12;
+			    return "Normal";
+		}
 	}
 }

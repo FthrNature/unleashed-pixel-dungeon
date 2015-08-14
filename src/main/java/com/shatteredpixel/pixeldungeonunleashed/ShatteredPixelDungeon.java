@@ -29,6 +29,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
@@ -199,10 +200,12 @@ public class ShatteredPixelDungeon extends Game {
 	public static boolean landscape() {
 		return width > height;
 	}
-	
-	public static void scaleUp( boolean value ) {
-		Preferences.INSTANCE.put( Preferences.KEY_SCALE_UP, value );
-		switchScene( TitleScene.class );
+
+	public static void setDifficulty (int difficultyLevel) {
+		if (difficultyLevel < 10 || difficultyLevel > 14) {
+			difficultyLevel = 12;
+		}
+		Preferences.INSTANCE.put( Preferences.KEY_DIFFICULTY, difficultyLevel);
 	}
 
 	// *** IMMERSIVE MODE ****
@@ -258,9 +261,8 @@ public class ShatteredPixelDungeon extends Game {
 	}
 
 	// *****************************
-	
-	public static boolean scaleUp() {
-		return Preferences.INSTANCE.getBoolean( Preferences.KEY_SCALE_UP, true );
+	public static int getDifficulty () {
+		return Preferences.INSTANCE.getInt( Preferences.KEY_DIFFICULTY, 12 );
 	}
 
 	public static void zoom( int value ) {
