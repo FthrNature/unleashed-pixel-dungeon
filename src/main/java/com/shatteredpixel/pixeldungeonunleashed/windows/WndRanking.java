@@ -23,6 +23,7 @@ package com.shatteredpixel.pixeldungeonunleashed.windows;
 import java.util.Locale;
 
 
+import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
@@ -148,8 +149,8 @@ public class WndRanking extends WndTabbed {
 		
 		private static final int GAP	= 4;
 		
-		private static final String TXT_TITLE	= "Level %d %s";
-
+		private static final String TXT_TITLE	= "UPD Level %d %s";
+		
 		private static final String TXT_CHALLENGES	= "Challenges";
 
 		private static final String TXT_HEALTH	= "Health";
