@@ -26,6 +26,7 @@ import com.shatteredpixel.pixeldungeonunleashed.Bones;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.GamesInProgress;
 import com.shatteredpixel.pixeldungeonunleashed.ResultDescriptions;
+import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
 import com.shatteredpixel.pixeldungeonunleashed.Statistics;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
@@ -185,9 +186,30 @@ public class Hero extends Char {
 	public Hero() {
 		super();
 		name = "you";
-		
-		HP = HT = 20;
-		STR = STARTING_STR;
+
+		switch (Dungeon.difficultyLevel) {
+			case Dungeon.DIFF_TUTOR:
+			case Dungeon.DIFF_EASY:
+				HP = HT = 25;
+				STR = STARTING_STR + 1;
+				attackSkill += 2;
+				defenseSkill += 1;
+				break;
+			case Dungeon.DIFF_HARD:
+				HP = HT = 18;
+				STR = STARTING_STR;
+				break;
+			case Dungeon.DIFF_NTMARE:
+				HP = HT = 15;
+				STR = STARTING_STR - 1;
+				attackSkill -= 2;
+				defenseSkill -= 1;
+				break;
+			default:
+				HP = HT = 20;
+				STR = STARTING_STR;
+				break;
+		}
 		awareness = 0.1f;
 		
 		belongings = new Belongings( this );
@@ -1136,12 +1158,35 @@ public class Hero extends Char {
 				lvl++;
 				levelUp = true;
 
-				// scaled to reach ~135 hp by level 30
-				HT += 5 - ((int) ( lvl / 13));
-				HP += 5 - ((int) ( lvl / 13));
+				// scaled to reach ~135 hp by level 30 with Normal difficulty
+				switch (Dungeon.difficultyLevel) {
+					case Dungeon.DIFF_TUTOR:
+					case Dungeon.DIFF_EASY:
+						HT += 6 - ((int) ( lvl / 15));
+						HP += 6 - ((int) ( lvl / 15));
+						attackSkill++;
+						defenseSkill++;
+						break;
+					case Dungeon.DIFF_HARD:
+						HT += 4 - ((int) ( lvl / 13));
+						HP += 4 - ((int) ( lvl / 13));
+						attackSkill++;
+						defenseSkill++;
+						break;
+					case Dungeon.DIFF_NTMARE:
+						HT += 3 - ((int) ( lvl / 13));
+						HP += 3 - ((int) ( lvl / 13));
+						attackSkill++;
+						defenseSkill++;
+						break;
+					default:
+						HT += 5 - ((int) ( lvl / 13));
+						HP += 5 - ((int) ( lvl / 13));
+						attackSkill++;
+						defenseSkill++;
+						break;
+				}
 
-				attackSkill++;
-				defenseSkill++;
 			} else {
 				Buff.prolong(this, Bless.class, 30f);
 				this.exp = 0;
@@ -1151,11 +1196,23 @@ public class Hero extends Char {
 			}
 
 			// some bonuses for leveling up, you regain up to 10% of your health and 10% of your hunger
-			HP = HP + (HT / 10);
-			if (HP > HT) {
-				HP = HT;
+			switch (Dungeon.difficultyLevel) {
+				case Dungeon.DIFF_TUTOR:
+				case Dungeon.DIFF_EASY:
+					HP = HT;
+					(buff(Hunger.class)).reduceHunger(buff(Hunger.class).STARVING / 2);
+					break;
+				case Dungeon.DIFF_HARD:
+				case Dungeon.DIFF_NTMARE:
+					break;
+				default:
+					HP = HP + (HT / 10);
+					if (HP > HT) {
+						HP = HT;
+					}
+					(buff(Hunger.class)).reduceHunger(buff(Hunger.class).STARVING / 10);
+					break;
 			}
-			(buff( Hunger.class )).reduceHunger(  buff( Hunger.class ).STARVING / 10 );
 
 			if (lvl < 10) {
 				updateAwareness();

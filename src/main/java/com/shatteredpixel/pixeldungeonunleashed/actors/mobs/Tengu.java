@@ -59,6 +59,8 @@ public class Tengu extends Mob {
 		HP = HT = 120;
 		EXP = 20;
 		defenseSkill = 20;
+		atkSkill = 20;
+		dmgRed = 5;
 	}
 	
 	private int timeToJump = JUMP_DELAY;
@@ -66,16 +68,6 @@ public class Tengu extends Mob {
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 8, 15 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 20;
-	}
-	
-	@Override
-	public int dr() {
-		return 5;
 	}
 	
 	@Override

@@ -42,7 +42,9 @@ public class Brute extends Mob {
 		
 		HP = HT = 40;
 		defenseSkill = 15;
-		
+		atkSkill = 20;
+		dmgRed = 8;
+
 		EXP = 8;
 		maxLvl = 18;
 		
@@ -63,16 +65,6 @@ public class Brute extends Mob {
 		return enraged ?
 			Random.NormalIntRange( 10, 40 ) :
 			Random.NormalIntRange( 8, 18 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 20;
-	}
-	
-	@Override
-	public int dr() {
-		return 8;
 	}
 	
 	@Override

@@ -42,6 +42,8 @@ public class Spinner extends Mob {
 
 		HP = HT = 50;
 		defenseSkill = 14;
+		atkSkill = 20;
+		dmgRed = 6;
 
 		EXP = 9;
 		maxLvl = 20;
@@ -55,16 +57,6 @@ public class Spinner extends Mob {
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(12, 16);
-	}
-
-	@Override
-	public int attackSkill(Char target) {
-		return 20;
-	}
-
-	@Override
-	public int dr() {
-		return 6;
 	}
 
 	@Override

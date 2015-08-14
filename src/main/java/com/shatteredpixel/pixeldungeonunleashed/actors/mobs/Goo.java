@@ -55,6 +55,9 @@ public class Goo extends Mob {
 		HP = HT = 80;
 		EXP = 10;
 		defenseSkill = 12;
+		atkSkill = 15;
+		dmgRed = 2;
+
 		spriteClass = GooSprite.class;
 
 		loot = new LloydsBeacon().identify();
@@ -81,12 +84,7 @@ public class Goo extends Mob {
 
 	@Override
 	public int attackSkill( Char target ) {
-		return (pumpedUp > 0) ? 30 : 15;
-	}
-
-	@Override
-	public int dr() {
-		return 2;
+		return (pumpedUp > 0) ? atkSkill * 2 : atkSkill;
 	}
 
 	@Override

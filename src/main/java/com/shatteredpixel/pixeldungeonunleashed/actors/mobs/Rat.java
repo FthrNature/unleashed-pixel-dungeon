@@ -20,8 +20,6 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.actors.mobs;
 
-import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.RatSprite;
 import com.watabou.utils.Random;
 
@@ -33,6 +31,8 @@ public class Rat extends Mob {
 		
 		HP = HT = 8;
 		defenseSkill = 3;
+		atkSkill = 8;
+		dmgRed = 1;
 		
 		maxLvl = 6;
 	}
@@ -40,16 +40,6 @@ public class Rat extends Mob {
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 1, 5 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 8;
-	}
-	
-	@Override
-	public int dr() {
-		return 1;
 	}
 	
 	@Override

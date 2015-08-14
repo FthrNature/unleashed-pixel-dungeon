@@ -37,6 +37,8 @@ public class Slime extends Mob {
 
         HP = HT = 18;
         defenseSkill = 6;
+        atkSkill = 12;
+        dmgRed = 5;
 
         EXP = 4;
         maxLvl = 11;
@@ -48,16 +50,6 @@ public class Slime extends Mob {
     @Override
     public int damageRoll() {
         return Random.NormalIntRange(3, 7);
-    }
-
-    @Override
-    public int attackSkill( Char target ) {
-        return 12;
-    }
-
-    @Override
-    public int dr() {
-        return 5;
     }
 
     @Override

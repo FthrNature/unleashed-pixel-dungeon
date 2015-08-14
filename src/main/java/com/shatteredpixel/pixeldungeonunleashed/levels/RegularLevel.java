@@ -258,6 +258,9 @@ public abstract class RegularLevel extends Level {
 
 						r.type = Type.ALTAR;
 						Dungeon.altarLevel = Dungeon.depth + Random.IntRange(3,5); // no more altars for at least a few levels
+						if (Dungeon.difficultyLevel > Dungeon.DIFF_NORM) {
+							Dungeon.altarLevel += 1;
+						}
 
 					} else {
 
@@ -617,7 +620,16 @@ public abstract class RegularLevel extends Level {
 				//mobs are not randomly spawned on floor 1.
 				return 0;
 			default:
-				return 3 + Dungeon.depth % 5 + Random.Int(6);
+				switch (Dungeon.difficultyLevel) {
+					case Dungeon.DIFF_TUTOR:
+					case Dungeon.DIFF_EASY:
+						return 3 + Dungeon.depth % 6 + Random.Int(5);
+					case Dungeon.DIFF_HARD:
+						return 3 + Dungeon.depth % 5 + Random.Int(6);
+					case Dungeon.DIFF_NTMARE:
+						return 3 + Dungeon.depth % 5 + Random.Int(7);
+					default:
+						return 3 + Dungeon.depth % 6 + Random.Int(6);				}
 		}
 	}
 	
@@ -647,6 +659,18 @@ public abstract class RegularLevel extends Level {
 				//TODO: perhaps externalize this logic into a method. Do I want to make mobs more likely to clump deeper down?
 				if (mobsToSpawn > 0 && Random.Int(4) == 0){
 					mob = Bestiary.mob( Dungeon.depth );
+					if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
+						mob.HT = (int) (mob.HT * 1.2f);
+						mob.HP = mob.HT;
+						mob.defenseSkill = (int) (mob.defenseSkill * 1.1f);
+						mob.atkSkill = (int) (mob.atkSkill * 1.15f);
+					} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
+						mob.HT = (int) (mob.HT * 1.4f);
+						mob.HP = mob.HT;
+						mob.defenseSkill = (int) (mob.defenseSkill * 1.2f);
+						mob.atkSkill = (int) (mob.atkSkill * 1.3f);
+					}
+
 					mob.pos = roomToSpawn.random();
 
 					if (findMob(mob.pos)  == null && Level.passable[mob.pos]) {
@@ -715,7 +739,13 @@ public abstract class RegularLevel extends Level {
 		while (Random.Float() < (0.35f + bonus*0.05f)) {
 			nItems++;
 		}
-		
+
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
+			nItems = nItems / 2;
+		} else if (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) {
+			nItems += 2;
+		}
+
 		for (int i=0; i < nItems; i++) {
 			Heap.Type type = null;
 			switch (Random.Int( 20 )) {

@@ -52,6 +52,8 @@ public class Succubus extends Mob {
 		
 		HP = HT = 80;
 		defenseSkill = 25;
+		atkSkill = 40;
+		dmgRed = 10;
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 12;
@@ -120,16 +122,6 @@ public class Succubus extends Mob {
 		ScrollOfTeleportation.appear( this, cell );
 		
 		delay = BLINK_DELAY;
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 40;
-	}
-	
-	@Override
-	public int dr() {
-		return 10;
 	}
 	
 	@Override

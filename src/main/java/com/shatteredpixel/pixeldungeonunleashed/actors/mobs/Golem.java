@@ -39,6 +39,8 @@ public class Golem extends Mob {
 		
 		HP = HT = 85;
 		defenseSkill = 18;
+		atkSkill = 28;
+		dmgRed = 12;
 		
 		EXP = 12;
 		maxLvl = 27;
@@ -50,18 +52,8 @@ public class Golem extends Mob {
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
-		return 28;
-	}
-	
-	@Override
 	protected float attackDelay() {
 		return 1.5f;
-	}
-	
-	@Override
-	public int dr() {
-		return 12;
 	}
 	
 	@Override

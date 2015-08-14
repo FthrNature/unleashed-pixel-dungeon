@@ -77,18 +77,14 @@ public class Mimic extends Mob {
 		return Random.NormalIntRange( HT / 10, HT / 4 );
 	}
 	
-	@Override
-	public int attackSkill( Char target ) {
-		return 9 + level;
-	}
-	
 	public void adjustStats( int level ) {
 		this.level = level;
 		
 		HP = HT = (3 + level) * 5;
 		EXP = 2 + 2 * (level - 1) / 5;
-		defenseSkill = attackSkill( null ) / 2;
-		
+		atkSkill = 9 + level;
+		defenseSkill = atkSkill / 2;
+
 		enemySeen = true;
 	}
 	

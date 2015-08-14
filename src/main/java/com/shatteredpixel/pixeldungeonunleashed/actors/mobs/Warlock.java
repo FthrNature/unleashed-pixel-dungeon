@@ -52,6 +52,8 @@ public class Warlock extends Mob implements Callback {
 		
 		HP = HT = 70;
 		defenseSkill = 18;
+		atkSkill = 25;
+		dmgRed = 8;
 		
 		EXP = 11;
 		maxLvl = 26;
@@ -64,17 +66,7 @@ public class Warlock extends Mob implements Callback {
 	public int damageRoll() {
 		return Random.NormalIntRange( 12, 20 );
 	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 25;
-	}
-	
-	@Override
-	public int dr() {
-		return 8;
-	}
-	
+
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;

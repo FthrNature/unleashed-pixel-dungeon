@@ -48,6 +48,8 @@ public class Thief extends Mob {
 		
 		HP = HT = 20;
 		defenseSkill = 12;
+		atkSkill = 12;
+		dmgRed = 3;
 		
 		EXP = 5;
 		maxLvl = 12;
@@ -101,16 +103,6 @@ public class Thief extends Mob {
 			return super.createLoot();
 		} else
 			return new Gold(Random.NormalIntRange(100, 250));
-	}
-
-	@Override
-	public int attackSkill( Char target ) {
-		return 12;
-	}
-
-	@Override
-	public int dr() {
-		return 3;
 	}
 
 	@Override

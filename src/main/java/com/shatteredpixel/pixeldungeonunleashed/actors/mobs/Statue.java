@@ -58,10 +58,12 @@ public class Statue extends Mob {
 		} while (!(weapon instanceof MeleeWeapon) || weapon.level < 0);
 		
 		weapon.identify();
-		weapon.enchant( Enchantment.random() );
+		weapon.enchant(Enchantment.random());
 		
 		HP = HT = 15 + Dungeon.depth * 5;
 		defenseSkill = 4 + Dungeon.depth;
+		atkSkill = 	(int)((9 + Dungeon.depth) * weapon.ACU);
+		dmgRed = Dungeon.depth;
 	}
 	
 	private static final String WEAPON	= "weapon";
@@ -90,20 +92,10 @@ public class Statue extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( weapon.MIN, weapon.MAX );
 	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return (int)((9 + Dungeon.depth) * weapon.ACU);
-	}
-	
+
 	@Override
 	protected float attackDelay() {
 		return weapon.DLY;
-	}
-	
-	@Override
-	public int dr() {
-		return Dungeon.depth;
 	}
 	
 	@Override

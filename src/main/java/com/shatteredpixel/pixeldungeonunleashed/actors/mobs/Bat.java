@@ -39,6 +39,8 @@ public class Bat extends Mob {
 		
 		HP = HT = 30;
 		defenseSkill = 15;
+		atkSkill = 16;
+		dmgRed = 4;
 		baseSpeed = 2f;
 		
 		EXP = 7;
@@ -53,16 +55,6 @@ public class Bat extends Mob {
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 6, 12 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 16;
-	}
-	
-	@Override
-	public int dr() {
-		return 4;
 	}
 	
 	@Override

@@ -51,6 +51,8 @@ public class Eye extends Mob {
 		
 		HP = HT = 100;
 		defenseSkill = 20;
+		atkSkill = 30;
+		dmgRed = 10;
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 13;
@@ -62,11 +64,6 @@ public class Eye extends Mob {
 		lootChance = 0.5f;
 	}
 	
-	@Override
-	public int dr() {
-		return 10;
-	}
-	
 	private Ballistica beam;
 	
 	@Override
@@ -75,11 +72,6 @@ public class Eye extends Mob {
 		beam = new Ballistica( pos, enemy.pos, Ballistica.STOP_TERRAIN);
 
 		return beam.subPath(1, beam.dist).contains(enemy.pos);
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 30;
 	}
 	
 	@Override

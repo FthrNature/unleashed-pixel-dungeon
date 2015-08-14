@@ -48,6 +48,7 @@ public class Swarm extends Mob {
 		
 		HP = HT = 80;
 		defenseSkill = 5;
+		atkSkill = 12;
 		
 		maxLvl = 12;
 		
@@ -113,11 +114,6 @@ public class Swarm extends Mob {
 		}
 		
 		return super.defenseProc(enemy, damage);
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 12;
 	}
 	
 	@Override

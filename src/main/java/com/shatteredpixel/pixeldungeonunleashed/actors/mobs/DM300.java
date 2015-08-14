@@ -58,6 +58,8 @@ public class DM300 extends Mob {
 		HP = HT = 200;
 		EXP = 30;
 		defenseSkill = 18;
+		atkSkill = 28;
+		dmgRed = 10;
 		
 		loot = new CapeOfThorns().identify();
 		lootChance = 0.333f;
@@ -66,16 +68,6 @@ public class DM300 extends Mob {
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 18, 24 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 28;
-	}
-	
-	@Override
-	public int dr() {
-		return 10;
 	}
 	
 	@Override

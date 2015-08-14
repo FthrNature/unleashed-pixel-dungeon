@@ -63,7 +63,7 @@ public class Yog extends Mob {
 		spriteClass = YogSprite.class;
 		
 		HP = HT = 300;
-		
+
 		EXP = 50;
 		
 		state = PASSIVE;
@@ -94,7 +94,11 @@ public class Yog extends Mob {
 	@Override
 	protected boolean act() {
 		//heals 1 health per turn
-		HP = Math.min( HT, HP+1 );
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
+			HP = Math.min( HT, HP+2 );
+		} else {
+			HP = Math.min( HT, HP+1 );
+		}
 
 		return super.act();
 	}
@@ -207,6 +211,8 @@ public class Yog extends Mob {
 			
 			HP = HT = 300;
 			defenseSkill = 25;
+			atkSkill = 36;
+			dmgRed = 15;
 			
 			EXP = 0;
 			
@@ -214,18 +220,8 @@ public class Yog extends Mob {
 		}
 		
 		@Override
-		public int attackSkill( Char target ) {
-			return 36;
-		}
-		
-		@Override
 		public int damageRoll() {
 			return Random.NormalIntRange( 24, 36 );
-		}
-		
-		@Override
-		public int dr() {
-			return 15;
 		}
 		
 		@Override
@@ -289,7 +285,9 @@ public class Yog extends Mob {
 			spriteClass = BurningFistSprite.class;
 			
 			HP = HT = 200;
+			atkSkill = 36;
 			defenseSkill = 25;
+			dmgRed = 15;
 			
 			EXP = 0;
 			
@@ -297,18 +295,8 @@ public class Yog extends Mob {
 		}
 		
 		@Override
-		public int attackSkill( Char target ) {
-			return 36;
-		}
-		
-		@Override
 		public int damageRoll() {
 			return Random.NormalIntRange( 20, 32 );
-		}
-		
-		@Override
-		public int dr() {
-			return 15;
 		}
 		
 		@Override
@@ -398,6 +386,8 @@ public class Yog extends Mob {
 			
 			HP = HT = 25;
 			defenseSkill = 20;
+			atkSkill = 30;
+			dmgRed = 8;
 			
 			EXP = 0;
 			
@@ -405,20 +395,10 @@ public class Yog extends Mob {
 		}
 		
 		@Override
-		public int attackSkill( Char target ) {
-			return 30;
-		}
-		
-		@Override
 		public int damageRoll() {
 			return Random.NormalIntRange( 15, 20 );
 		}
-		
-		@Override
-		public int dr() {
-			return 8;
-		}
-		
+
 		@Override
 		public String description() {
 			return TXT_DESC;

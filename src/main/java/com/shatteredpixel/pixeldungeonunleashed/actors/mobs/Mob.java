@@ -72,9 +72,11 @@ public abstract class Mob extends Char {
 	public Class<? extends CharSprite> spriteClass;
 	
 	protected int target = -1;
-	
-	protected int defenseSkill = 0;
-	
+
+	public int defenseSkill = 0;
+	public int atkSkill = 1;
+	public int dmgRed = 0;
+
 	protected int EXP = 1;
 	protected int maxLvl = Hero.MAX_LEVEL;
 	
@@ -353,7 +355,17 @@ public abstract class Mob extends Char {
 			return 0;
 		}
 	}
-	
+
+	@Override
+	public int attackSkill( Char target ) {
+		return atkSkill;
+	}
+
+	@Override
+	public int dr() {
+		return dmgRed;
+	}
+
 	@Override
 	public int defenseProc( Char enemy, int damage ) {
 		if (!enemySeen && enemy == Dungeon.hero) {

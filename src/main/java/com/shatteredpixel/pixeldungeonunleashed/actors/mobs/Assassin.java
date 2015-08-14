@@ -36,6 +36,8 @@ public class Assassin extends Mob {
 
         HP = HT = 30;
         defenseSkill = 10;
+        atkSkill = 14;
+        dmgRed = 5;
 
         EXP = 6;
         maxLvl = 15;
@@ -44,16 +46,6 @@ public class Assassin extends Mob {
     @Override
     public int damageRoll() {
         return Random.NormalIntRange(3, 10);
-    }
-
-    @Override
-    public int attackSkill( Char target ) {
-        return 14;
-    }
-
-    @Override
-    public int dr() {
-        return 5;
     }
 
     @Override

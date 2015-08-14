@@ -183,6 +183,18 @@ public class CityBossLevel extends Level {
 			seal();
 			
 			Mob boss = Bestiary.mob( Dungeon.depth );
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
+				boss.HT = (int) (boss.HT * 1.2f);
+				boss.HP = boss.HT;
+				boss.defenseSkill = (int) (boss.defenseSkill * 1.1f);
+				boss.atkSkill = (int) (boss.atkSkill * 1.15f);
+			}
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
+				boss.HT = (int) (boss.HT * 1.2f);
+				boss.HP = boss.HT;
+				boss.defenseSkill = (int) (boss.defenseSkill * 1.2f);
+				boss.atkSkill = (int) (boss.atkSkill * 1.3f);
+			}
 			boss.state = boss.HUNTING;
 			int count = 0;
 			do {

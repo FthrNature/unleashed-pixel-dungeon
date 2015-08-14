@@ -33,6 +33,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMindVision
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfStrength;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfElements;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfWealth;
+import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.MagesStaff;
@@ -119,11 +120,18 @@ public enum HeroClass {
 	}
 
 	private static void initCommon( Hero hero ) {
-		if (!Dungeon.isChallenged(Challenges.NO_ARMOR))
+		if ((!Dungeon.isChallenged(Challenges.NO_ARMOR))  && (Dungeon.difficultyLevel <= Dungeon.DIFF_HARD))
 			(hero.belongings.armor = new ClothArmor()).identify();
 
-		if (!Dungeon.isChallenged(Challenges.NO_FOOD))
+		if ((!Dungeon.isChallenged(Challenges.NO_FOOD)) && (Dungeon.difficultyLevel <= Dungeon.DIFF_NORM))
 			new Food().identify().collect();
+
+		if ((!Dungeon.isChallenged(Challenges.NO_FOOD)) && (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY)) {
+			for (int i = 0; i < 3; i++) {
+				new Food().identify().collect();
+				new ScrollOfIdentify().identify().collect();
+			}
+		}
 	}
 
 	public Badges.Badge masteryBadge() {

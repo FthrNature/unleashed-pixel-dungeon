@@ -62,6 +62,8 @@ public class King extends Mob {
 		HP = HT = 300;
 		EXP = 40;
 		defenseSkill = 25;
+		atkSkill = 32;
+		dmgRed = 14;
 		
 		Undead.count = 0;
 	}
@@ -86,17 +88,7 @@ public class King extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 20, 38 );
 	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 32;
-	}
-	
-	@Override
-	public int dr() {
-		return 14;
-	}
-	
+
 	@Override
 	public String defenseVerb() {
 		return "parried";

@@ -87,6 +87,7 @@ public class SewerBossLevel extends RegularLevel {
 			retry = 0;
 			//find a suitable room the first four times
 			//suitable room should be empty, have a distance of 2 from the current room, and not touch the entrance.
+
 			if (i < 4) {
 				do {
 					if (retry++ > 20) {
@@ -211,6 +212,17 @@ public class SewerBossLevel extends RegularLevel {
 	@Override
 	protected void createMobs() {
 		Mob mob = Bestiary.mob( Dungeon.depth );
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
+			mob.HT = (int) (mob.HT * 1.2f);
+			mob.HP = mob.HT;
+			mob.defenseSkill = (int) (mob.defenseSkill * 1.1f);
+			mob.atkSkill = (int) (mob.atkSkill * 1.15f);
+		} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
+			mob.HT = (int) (mob.HT * 1.4f);
+			mob.HP = mob.HT;
+			mob.defenseSkill = (int) (mob.defenseSkill * 1.2f);
+			mob.atkSkill = (int) (mob.atkSkill * 1.3f);
+		}
 		Room room;
 		do {
 			room = Random.element(rooms);

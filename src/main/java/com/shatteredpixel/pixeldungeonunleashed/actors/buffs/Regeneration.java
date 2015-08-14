@@ -26,13 +26,11 @@ import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.ChaliceOfBlood;
 
 public class Regeneration extends Buff {
 	
-	private static final float REGENERATION_DELAY = 10;
+	private static final float REGENERATION_DELAY = 2;
 	
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-
-
 
 			if (target.HP < target.HT && !((Hero)target).isStarving()) {
 				target.HP += 1;
@@ -42,11 +40,11 @@ public class Regeneration extends Buff {
 
 			if (regenBuff != null)
 				if (regenBuff.isCursed())
-					spend( REGENERATION_DELAY * 1.5f );
+					spend( Dungeon.difficultyLevel - REGENERATION_DELAY * 1.5f );
 				else
-					spend( REGENERATION_DELAY - regenBuff.level()*0.9f );
+					spend( Dungeon.difficultyLevel - REGENERATION_DELAY - regenBuff.level()*0.9f );
 			else
-				spend( REGENERATION_DELAY );
+				spend( Dungeon.difficultyLevel - REGENERATION_DELAY );
 			
 		} else {
 			

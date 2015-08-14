@@ -34,6 +34,8 @@ public class Gnoll extends Mob {
 		
 		HP = HT = 12;
 		defenseSkill = 4;
+		atkSkill = 11;
+		dmgRed = 2;
 		
 		EXP = 2;
 		maxLvl = 10;
@@ -47,16 +49,6 @@ public class Gnoll extends Mob {
 		return Random.NormalIntRange( 2, 5 );
 	}
 	
-	@Override
-	public int attackSkill( Char target ) {
-		return 11;
-	}
-	
-	@Override
-	public int dr() {
-		return 2;
-	}
-
 	@Override
 	public String description() {
 		return
