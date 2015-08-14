@@ -37,7 +37,7 @@ public class WelcomeScene extends PixelScene {
 
 	private static final String TTL_Welcome = "Welcome!";
 
-	private static final String TTL_Update = "v0.1.0: Initial Build!";
+	private static final String TTL_Update = "v0.1.3: Updates for Reddit Compliance";
 
 	private static final String TTL_Future = "Wait What?";
 
@@ -48,23 +48,11 @@ public class WelcomeScene extends PixelScene {
 			"Happy Dungeoneering!";
 
 	private static final String TXT_Update =
-			"v0.1.0:\n" +
-					"- Initial Code Port from Shattered Pixel Dungeon\n" +
-					"- Allow Saving if adjacent to a level entrance sign\n" +
-					"- Bigger Map Size, more loot, more mobs\n" +
-					"- Five new Dungeon levels with new mobs\n" +
-					"- New Burnt Dungeon Level Layout\n"+
-					"- More useful drops in High Grass, Treasuries and Graveyards\n" +
-					"- Level Caps on upgradable items\n" +
-					"- Higher upgrades sometimes fail\n" +
-					"- Donate goods at Altars\n"+
-					"- Artifact and Glowing Weapons\n"+
-					"- Leveling up heals the Hero and fills his belly a bit\n" +
-					"- Beneficial potions also provide some nourishment\n" +
-					"- Quickslot items now Auto-Aim on a visible mob\n"+
-					"- Various tweaks and mods\n\n"+
-			"v01.1:\n"+
-			        "- Graphics and Text rework to give Unleashed Pixel Dungeon a unique stamp.";
+			"v01.3:\n"+
+					"DSM-0003   interface changes for reddit guideline compliance.\n"+
+					"DSM-0048   fix Horn of Plenty upgrades.\n"+
+					"DSM-0027   slow down assassin animations.\n"+
+					"DSM-0056   change altar donation rewards.";
 
 	private static final String TXT_Future =
 			"It seems that your current saves are from a future version of Unleashed Pixel Dungeon!\n\n"+

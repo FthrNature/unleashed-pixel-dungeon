@@ -382,6 +382,7 @@ public class Dungeon {
 	
 	private static final String VERSION		= "version";
 	private static final String CHALLENGES	= "challenges";
+	private static final String DIFLEV      = "diflev";
 	private static final String HERO		= "hero";
 	private static final String GOLD		= "gold";
 	private static final String DEPTH		= "depth";
@@ -433,6 +434,7 @@ public class Dungeon {
 			version = Game.versionCode;
 			bundle.put( VERSION, version );
 			bundle.put( CHALLENGES, challenges );
+			bundle.put( DIFLEV, 2 ); // DSM-xxxx start saving this now to reduce file issues later
 			bundle.put( HERO, hero );
 			bundle.put( GOLD, gold );
 			bundle.put(DEPTH, depth);
