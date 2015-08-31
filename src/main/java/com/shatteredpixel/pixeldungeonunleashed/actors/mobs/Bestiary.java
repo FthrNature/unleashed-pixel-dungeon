@@ -132,12 +132,12 @@ public class Bestiary {
 			classes = new Class<?>[]{ Bat.class, Brute.class, Shaman.class, Spinner.class, Elemental.class };
 			break;
 		case 16:
-			chances = new float[]{ 1, 3, 1, 4, 0.02f, 0.01f };
-			classes = new Class<?>[]{ Bat.class, Brute.class, Shaman.class, Spinner.class, Elemental.class, Monk.class };
+			chances = new float[]{ 1, 3, 1, 4, 0.02f, 0.01f, 1 };
+			classes = new Class<?>[]{ Bat.class, Brute.class, Shaman.class, Spinner.class, Elemental.class, Monk.class, SpiderBot.class };
 			break;
 		case 17:
-			chances = new float[]{ 1, 3, 1, 1, 4, 0.02f, 0.01f };
-			classes = new Class<?>[]{ Bat.class, Brute.class, Shielded.class, Shaman.class, Spinner.class, Elemental.class, Monk.class };
+			chances = new float[]{ 1, 3, 1, 1, 2, 0.02f, 0.01f, 2 };
+			classes = new Class<?>[]{ Bat.class, Brute.class, Shielded.class, Shaman.class, Spinner.class, Elemental.class, Monk.class, SpiderBot.class };
 			break;
 			
 		case 18:
