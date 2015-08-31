@@ -142,6 +142,10 @@ public class ItemSpriteSheet {
 	public static final int RING_QUARTZ		= ROW7+9;
 	public static final int RING_AGATE		= ROW7+10;
 	public static final int RING_DIAMOND	= ROW7+11;
+	public static final int RING_GOLD       = ROW7+12;
+	public static final int RING_CRYSTAL    = ROW7+13;
+	public static final int RING_WOOD       = ROW7+14;
+	public static final int RING_IVY        = ROW7+15;
 
 	//Row Eight: Artifacts with Static Images
 	public static final int ARTIFACT_CLOAK      = ROW8+0;
@@ -153,6 +157,7 @@ public class ItemSpriteSheet {
 	public static final int ARTIFACT_SPELLBOOK  = ROW8+6;
 	public static final int ARTIFACT_BEACON     = ROW8+7;
 	public static final int ARTIFACT_CHAINS     = ROW8+8;
+	public static final int ARTIFACT_DEVOUR     = ROW8+9;
 
 	//Row Nine: Artifacts with Dynamic Images
 	public static final int ARTIFACT_HORN1      = ROW9+0;
@@ -183,6 +188,10 @@ public class ItemSpriteSheet {
 	public static final int SCROLL_BERKANAN	= ROW10+9;
 	public static final int SCROLL_ODAL		= ROW10+10;
 	public static final int SCROLL_TIWAZ	= ROW10+11;
+	public static final int SCROLL_URR      = ROW10+12;
+	public static final int SCROLL_BEORC    = ROW10+13;
+	public static final int SCROLL_PEORO    = ROW10+14;
+	public static final int SCROLL_JEAR     = ROW10+15;
 
 	//Row Eleven: Potions
 	public static final int POTION_CRIMSON		= ROW11+0;
@@ -197,6 +206,10 @@ public class ItemSpriteSheet {
 	public static final int POTION_CHARCOAL		= ROW11+9;
 	public static final int POTION_SILVER		= ROW11+10;
 	public static final int POTION_IVORY		= ROW11+11;
+	public static final int POTION_BRISK		= ROW11+12;
+	public static final int POTION_MOLDY		= ROW11+13;
+	public static final int POTION_SPECKLED		= ROW11+14;
+	public static final int POTION_BUBBLY		= ROW11+15;
 
 	//Row Twelve: Seeds
 	public static final int SEED_ROTBERRY	= ROW12+0;

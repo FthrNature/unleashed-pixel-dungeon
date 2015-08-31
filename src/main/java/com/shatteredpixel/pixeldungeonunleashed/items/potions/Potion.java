@@ -79,7 +79,9 @@ public class Potion extends Item {
 	};
 	private static final String[] colors = {
 		"turquoise", "crimson", "azure", "jade", "golden", "magenta",
-		"charcoal", "ivory", "amber", "bistre", "indigo", "silver"};
+		"charcoal", "ivory", "amber", "bistre", "indigo", "silver",
+		"brisk", "moldy", "speckled", "bubbly"
+	};
 	private static final Integer[] images = {
 		ItemSpriteSheet.POTION_TURQUOISE,
 		ItemSpriteSheet.POTION_CRIMSON,
@@ -92,7 +94,12 @@ public class Potion extends Item {
 		ItemSpriteSheet.POTION_AMBER,
 		ItemSpriteSheet.POTION_BISTRE,
 		ItemSpriteSheet.POTION_INDIGO,
-		ItemSpriteSheet.POTION_SILVER};
+		ItemSpriteSheet.POTION_SILVER,
+		ItemSpriteSheet.POTION_BRISK,
+		ItemSpriteSheet.POTION_MOLDY,
+		ItemSpriteSheet.POTION_SPECKLED,
+		ItemSpriteSheet.POTION_BUBBLY
+	};
 	
 	private static ItemStatusHandler<Potion> handler;
 	

@@ -61,7 +61,10 @@ public class Ring extends KindofMisc {
 		RingOfWealth.class,
 	};
 	private static final String[] gems =
-		{"diamond", "opal", "garnet", "ruby", "amethyst", "topaz", "onyx", "tourmaline", "emerald", "sapphire", "quartz", "agate"};
+		{
+			"diamond", "opal", "garnet", "ruby", "amethyst", "topaz", "onyx", "tourmaline",
+			"emerald", "sapphire", "quartz", "agate", "gold", "crystal", "wooden", "ivy"
+		};
 	private static final Integer[] images = {
 		ItemSpriteSheet.RING_DIAMOND,
 		ItemSpriteSheet.RING_OPAL,
@@ -74,8 +77,13 @@ public class Ring extends KindofMisc {
 		ItemSpriteSheet.RING_EMERALD,
 		ItemSpriteSheet.RING_SAPPHIRE,
 		ItemSpriteSheet.RING_QUARTZ,
-		ItemSpriteSheet.RING_AGATE};
-	
+		ItemSpriteSheet.RING_AGATE,
+		ItemSpriteSheet.RING_GOLD,
+		ItemSpriteSheet.RING_CRYSTAL,
+		ItemSpriteSheet.RING_WOOD,
+		ItemSpriteSheet.RING_IVY
+	};
+
 	private static ItemStatusHandler<Ring> handler;
 	
 	private String gem;
