@@ -93,6 +93,7 @@ public class Assets {
 	public static final String BEE      = "bee.png";
 	public static final String MIMIC    = "mimic.png";
 	public static final String LOSTSOUL = "lost_souls.png";
+	public static final String SQUID    = "squid.png";
 	public static final String CHAOS    = "chaos_mage.png";
 
 	public static final String ITEMS	= "items.png";

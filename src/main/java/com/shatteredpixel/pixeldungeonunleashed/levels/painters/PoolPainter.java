@@ -21,6 +21,7 @@
 package com.shatteredpixel.pixeldungeonunleashed.levels.painters;
 
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Piranha;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Squid;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
@@ -28,6 +29,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfInvisibili
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Room;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Terrain;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.utils.Random;
 
 public class PoolPainter extends Painter {
@@ -69,16 +71,26 @@ public class PoolPainter extends Painter {
 		int pos = x + y * Level.WIDTH;
 		level.drop( prize( level ), pos ).type =
 			Random.Int( 3 ) == 0 ? Heap.Type.CHEST : Heap.Type.HEAP;
-		set( level, pos, Terrain.PEDESTAL );
+		set(level, pos, Terrain.PEDESTAL);
 		
 		level.addItemToSpawn( new PotionOfInvisibility() );
-		
-		for (int i=0; i < NPIRANHAS; i++) {
-			Piranha piranha = new Piranha();
+		if (Random.Int(3) == 0) {
+			Squid squid = new Squid();
 			do {
-				piranha.pos = room.random();
-			} while (level.map[piranha.pos] != Terrain.WATER|| level.findMob( piranha.pos ) != null);
-			level.mobs.add( piranha );
+				squid.pos = room.random();
+			}
+			while (level.map[squid.pos] != Terrain.WATER || level.findMob(squid.pos) != null);
+			level.mobs.add(squid);
+		} else {
+			for (int i = 0; i < NPIRANHAS; i++) {
+				Piranha piranha = new Piranha();
+				do {
+					piranha.pos = room.random();
+				}
+				while (level.map[piranha.pos] != Terrain.WATER || level.findMob(piranha.pos) != null);
+				level.mobs.add(piranha);
+			}
+
 		}
 	}
 	
