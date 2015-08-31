@@ -66,12 +66,14 @@ public class Assets {
 	public static final String BAT		= "bat.png";
 	public static final String BRUTE	= "brute.png";
 	public static final String SPINNER	= "spinner.png";
+	public static final String SPIDERBOT = "spiderbot.png";
 	public static final String DM300	= "dm300.png";
 	public static final String WRAITH	= "wraith.png";
 	public static final String ELEMENTAL= "elemental.png";
 	public static final String MONK		= "monk.png";
 	public static final String WARLOCK	= "warlock.png";
 	public static final String GOLEM	= "golem.png";
+	public static final String MINOTAUR = "minotaur.png";
 	public static final String UNDEAD	= "undead.png";
 	public static final String KING		= "king.png";
 	public static final String STATUE	= "statue.png";
@@ -90,6 +92,7 @@ public class Assets {
 	public static final String RATKING	= "ratking.png";
 	public static final String BEE      = "bee.png";
 	public static final String MIMIC    = "mimic.png";
+	public static final String CHAOS    = "chaos_mage.png";
 
 	public static final String ITEMS	= "items.png";
 	public static final String PLANTS	= "plants.png";

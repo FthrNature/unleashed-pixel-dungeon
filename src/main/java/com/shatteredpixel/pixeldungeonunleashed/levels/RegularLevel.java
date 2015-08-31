@@ -26,7 +26,10 @@ import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Bestiary;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.ChaosMage;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Minotaur;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Tinkerer;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
@@ -679,6 +682,61 @@ public abstract class RegularLevel extends Level {
 					}
 				}
 			}
+		}
+
+		if (Dungeon.depth == 17) {
+			Tinkerer tinker = new Tinkerer();
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
+				tinker.HT = (int) (tinker.HT * 1.2f);
+				tinker.HP = tinker.HT;
+				tinker.defenseSkill = (int) (tinker.defenseSkill * 1.1f);
+				tinker.atkSkill = (int) (tinker.atkSkill * 1.15f);
+			} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
+				tinker.HT = (int) (tinker.HT * 1.4f);
+				tinker.HP = tinker.HT;
+				tinker.defenseSkill = (int) (tinker.defenseSkill * 1.2f);
+				tinker.atkSkill = (int) (tinker.atkSkill * 1.3f);
+			}
+			do {
+				tinker.pos = randomRespawnCell();
+			} while (tinker.pos == -1);
+			mobs.add(tinker);
+
+		} else if (Dungeon.depth == 23) {
+			Minotaur minotaur = new Minotaur();
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
+				minotaur.HT = (int) (minotaur.HT * 1.2f);
+				minotaur.HP = minotaur.HT;
+				minotaur.defenseSkill = (int) (minotaur.defenseSkill * 1.1f);
+				minotaur.atkSkill = (int) (minotaur.atkSkill * 1.15f);
+			} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
+				minotaur.HT = (int) (minotaur.HT * 1.4f);
+				minotaur.HP = minotaur.HT;
+				minotaur.defenseSkill = (int) (minotaur.defenseSkill * 1.2f);
+				minotaur.atkSkill = (int) (minotaur.atkSkill * 1.3f);
+			}
+			do {
+				minotaur.pos = randomRespawnCell();
+			} while (minotaur.pos == -1);
+			mobs.add(minotaur);
+
+		} else if (Dungeon.depth == 29) {
+			ChaosMage cmage = new ChaosMage();
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
+				cmage.HT = (int) (cmage.HT * 1.2f);
+				cmage.HP = cmage.HT;
+				cmage.defenseSkill = (int) (cmage.defenseSkill * 1.1f);
+				cmage.atkSkill = (int) (cmage.atkSkill * 1.15f);
+			} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
+				cmage.HT = (int) (cmage.HT * 1.4f);
+				cmage.HP = cmage.HT;
+				cmage.defenseSkill = (int) (cmage.defenseSkill * 1.2f);
+				cmage.atkSkill = (int) (cmage.atkSkill * 1.3f);
+			}
+			do {
+				cmage.pos = randomRespawnCell();
+			} while (cmage.pos == -1);
+			mobs.add(cmage);
 		}
 	}
 	

@@ -302,10 +302,8 @@ public class Dungeon {
 		case 20:
 		case 21:
 		case 22:
-			level = new CityLevel();
-			break;
 		case 23:
-			level = new CityLevel(); // add in special Minotaur - MAZE level here...
+			level = new CityLevel();
 			break;
 		case 24:
 			level = new CityBossLevel();
@@ -396,7 +394,7 @@ public class Dungeon {
 	//    { 4, 2,   9, 4,   14, 6,   19, 8,   24, 9 } you should have 2 drops by level 4, 4 by level 9, 6 by 14...
     public static boolean posNeeded() {
 		// adjusted slightly to account for larger dungeon size... still caps out at 9 upgrades by the end
-		int[] quota = {5, 2,   11, 4,   17, 6,   23, 8,    29, 9};
+		int[] quota = {5, 2,   11, 4,   17, 6,   23, 7,    29, 8};
 		return chance( quota, limitedDrops.strengthPotions.count );
 	}
 	
@@ -687,9 +685,6 @@ public class Dungeon {
 					tutorial_wellH_seen = (depth <= 7 ? false : true);
 					tutorial_boss_found = (depth <= 7 ? false : true);
 					tutorial_garden_found = (depth <= 7 ? false : true);
-					GLog.i("696 - tutorial values: " + depth + " - " + tutorial_mob_seen + ", " + tutorial_tactics_tip + ", " + tutorial_food_found + ", " +
-							tutorial_sign_seen + ", " + tutorial_key_found + ", " + tutorial_altar_seen + ", " + tutorial_wellA_seen + ", " +
-							tutorial_wellT_seen + ", " + tutorial_wellH_seen + ", " + tutorial_boss_found + ", " + tutorial_garden_found);
 				}
 			}
 		}
