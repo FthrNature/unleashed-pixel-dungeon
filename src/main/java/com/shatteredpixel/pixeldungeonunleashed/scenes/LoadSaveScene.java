@@ -168,7 +168,11 @@ public class LoadSaveScene extends PixelScene {
                     // add the save button..
                     if (Dungeon.hero.isAlive() &&
                             (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) ||
-                            (Dungeon.difficultyLevel <= Dungeon.DIFF_HARD && Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN))) {
+                            (Dungeon.difficultyLevel == Dungeon.DIFF_NORM &&
+                                    Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN)) ||
+                            (Dungeon.difficultyLevel == Dungeon.DIFF_HARD  &&
+                                    Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN) &&
+                                    Dungeon.bossLevel(Dungeon.depth - 1))) {
 
                         GameButton btnSave = new GameButton( this, true, TXT_SAVE, "", classInfo, saveSlot );
                         add( btnSave );
