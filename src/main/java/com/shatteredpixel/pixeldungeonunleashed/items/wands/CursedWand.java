@@ -348,7 +348,7 @@ public class CursedWand {
 	}
 
 	private static void veryRareEffect(final Wand wand, final Hero user, final Ballistica bolt){
-		switch(Random.Int(4)){
+		switch(Random.Int(3)){
 
 			//great forest fire!
 			case 0:
@@ -393,27 +393,8 @@ public class CursedWand {
 				});
 				break;
 
-			//crashes the game, yes, really.
-			case 2:
-				try {
-					Dungeon.saveAll();
-					GameScene.show(
-							new WndOptions("CURSED WAND ERROR", "this application will now self-destruct", "abort", "retry", "fail") {
-								@Override
-								public void hide() {
-									throw new RuntimeException("critical wand exception");
-								}
-							}
-					);
-				} catch(IOException e){
-					//oookay maybe don't kill the game if the save failed.
-					GLog.i("nothing happens");
-					wand.wandUsed();
-				}
-				break;
-
 			//random transmogrification
-			case 3:
+			case 2:
 				wand.wandUsed();
 				wand.detach(user.belongings.backpack);
 				Item result;
