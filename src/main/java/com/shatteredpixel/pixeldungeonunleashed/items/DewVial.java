@@ -23,6 +23,7 @@ package com.shatteredpixel.pixeldungeonunleashed.items;
 import java.util.ArrayList;
 
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
+import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Hunger;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
 import com.watabou.noosa.audio.Sample;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
@@ -95,7 +96,17 @@ public class DewVial extends Item {
 					value++;
 				}
 				value *= volume;
-				value = (int)Math.max(volume*volume*.01*hero.HT, value);
+				switch (Dungeon.difficultyLevel) {
+					case Dungeon.DIFF_NTMARE:
+						value = (int)Math.max(volume*volume*.005*hero.HT, value);
+						break;
+					case Dungeon.DIFF_HARD:
+						value = (int)Math.max(volume*volume*.008*hero.HT, value);
+						break;
+					default:
+						value = (int)Math.max(volume*volume*.01*hero.HT, value);
+						break;
+				}
 				int effect = Math.min( hero.HT - hero.HP, value );
 				if (effect > 0) {
 					hero.HP += effect;

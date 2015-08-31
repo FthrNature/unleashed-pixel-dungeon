@@ -47,8 +47,25 @@ public class PotionOfHealing extends Potion {
 	}
 	
 	public static void heal( Hero hero ) {
-		
-		hero.HP = hero.HT;
+
+		switch (Dungeon.difficultyLevel) {
+			case Dungeon.DIFF_NTMARE:
+				hero.HP += (hero.HT * 0.5f);
+				if (hero.HP > hero.HT) {
+					hero.HP = hero.HT;
+				}
+				break;
+			case Dungeon.DIFF_HARD:
+				hero.HP += (hero.HT * 0.8f);
+				if (hero.HP > hero.HT) {
+					hero.HP = hero.HT;
+				}
+				break;
+			default:
+				hero.HP = hero.HT;
+				break;
+		}
+
 		Buff.detach( hero, Poison.class );
 		Buff.detach( hero, Cripple.class );
 		Buff.detach( hero, Weakness.class );
@@ -60,7 +77,7 @@ public class PotionOfHealing extends Potion {
 	@Override
 	public String desc() {
 		return
-			"An elixir that will instantly return you to full health and cure poison.";
+			"An elixir that will instantly restore your health and cure poison.";
 	}
 	
 	@Override
