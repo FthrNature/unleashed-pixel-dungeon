@@ -59,8 +59,6 @@ public class LoadSaveScene extends PixelScene {
 
     private static final String TXT_TITLE	= "Save/Load ";
 
-    //private static final String SD_ROOT = Environment.getExternalStorageDirectory().toString();
-
     private static final String TXT_LOAD	= "Load";
     private static final String TXT_SAVE	= "Save";
     private static final String TXT_SLOTNAME= "Game";
@@ -71,12 +69,11 @@ public class LoadSaveScene extends PixelScene {
     private static final String LEVEL		= "lvl";
 
     private static final String TXT_REALLY	= "Load";
-    private static final String TXT_WARNING	= "Your current progress will be lost.";
+    private static final String TXT_WARNING	= "Your current progress will be lost and Difficulty Levels may be changed.";
     private static final String TXT_YES		= "Yes, load " + TXT_SLOTNAME;
     private static final String TXT_NO		= "No, return to main menu";
 
     private static final String TXT_DPTH_LVL	= "Depth: %d, level: %d";
-
 
     private static final int CLR_WHITE	= 0xFFFFFF;
 
@@ -97,7 +94,31 @@ public class LoadSaveScene extends PixelScene {
 
         String showClassName = capitalizeWord(Dungeon.hero.heroClass.title());
 
-        BitmapText title = PixelScene.createText( TXT_TITLE + showClassName, 9 );
+        String diffLevel;
+        String saveInstructions;
+        switch (Dungeon.difficultyLevel) {
+            case Dungeon.DIFF_TUTOR:
+                diffLevel = "TUTORIAL";
+                saveInstructions = "In Tutorial mode you may save anywhere.";
+                break;
+            case Dungeon.DIFF_EASY:
+                diffLevel = "EASY";
+                saveInstructions = "In Easy mode you may save anywhere.";
+                break;
+            case Dungeon.DIFF_HARD:
+                diffLevel = "HARD";
+                saveInstructions = "In Hard mode you may save after a boss level.";
+                break;
+            case Dungeon.DIFF_NTMARE:
+                diffLevel = "NIGHTMARE";
+                saveInstructions = "Games may not be saved in Nightmare mode.";
+                break;
+            default:
+                diffLevel = "NORMAL";
+                saveInstructions = "In Normal mode you may save at level entrance signs.";
+                break;
+        }
+        BitmapText title = PixelScene.createText( TXT_TITLE + showClassName + " - " + diffLevel, 9 );
         title.hardlight( Window.TITLE_COLOR );
         title.measure();
         title.x = align( (w - title.width()) / 2 );
@@ -110,13 +131,22 @@ public class LoadSaveScene extends PixelScene {
             currentProgress = Utils.format(TXT_DPTH_LVL, info.depth, info.level);
         }
         BitmapText subTitle = PixelScene.createText( "Currently " + currentProgress, 6 );
-        subTitle.hardlight( Window.TITLE_COLOR );
+        subTitle.hardlight(Window.TITLE_COLOR);
         subTitle.measure();
         subTitle.x = align( (w - title.width()) / 2 );
         subTitle.y =  (BUTTON_HEIGHT / 2) + BUTTON_PADDING ;
-        add( subTitle );
+        add(subTitle);
 
-        int posY = (int) BUTTON_HEIGHT + ( (int) BUTTON_PADDING * 3);
+        BitmapText saveInfo = PixelScene.createText( saveInstructions, 6 );
+        saveInfo.hardlight( Window.TITLE_COLOR );
+        saveInfo.measure();
+        saveInfo.x = align( (w - saveInfo.width()) / 2 );
+        saveInfo.y = BUTTON_PADDING + BUTTON_HEIGHT;
+        add( saveInfo );
+
+
+
+        int posY = (int) (BUTTON_HEIGHT + (BUTTON_PADDING * 3.5f));
         int posX2 = w - (int) (BUTTON2_WIDTH + BUTTON_PADDING);
         int posX = (int) (BUTTON1_WIDTH + (BUTTON_PADDING * 3));
 
@@ -139,11 +169,13 @@ public class LoadSaveScene extends PixelScene {
                     if (Dungeon.hero.isAlive() &&
                             (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) ||
                             (Dungeon.difficultyLevel <= Dungeon.DIFF_HARD && Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN))) {
+
                         GameButton btnSave = new GameButton( this, true, TXT_SAVE, "", classInfo, saveSlot );
                         add( btnSave );
                         btnSave.visible = true;
                         btnSave.setRect(posX, posY, BUTTON1_WIDTH, BUTTON_HEIGHT);
                     }
+
                     // add the load button if there are saved files to load..
                     String saveSlotFolder = Game.instance.getFilesDir().toString() + "/" + classInfo + saveSlot;
 
@@ -177,7 +209,6 @@ public class LoadSaveScene extends PixelScene {
                                     loadLevel = TXT_LOAD + " NORMAL";
                                     break;
                             }
-                            //GameButton btnLoad1A = new GameButton( this, false, TXT_LOAD , savedProgress, classInfo, saveSlot );
                             GameButton btnLoad1A = new GameButton( this, false, loadLevel , savedProgress, classInfo, saveSlot );
 
                             add( btnLoad1A );
