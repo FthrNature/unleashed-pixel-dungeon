@@ -58,13 +58,16 @@ public class MeleeWeapon extends Weapon {
 	public Item upgrade( int n ) {
 		cursed = false;
 		cursedKnown = true;
-		this.level = n;
 
-		for (int i = 0; i < n; i++) {
-			STR--;
-			MIN++;
-			MAX += tier;
+		if (this.level < n) {
+			for (int i = this.level; i < n; i++) {
+				STR--;
+				MIN++;
+				MAX += tier;
+			}
+			this.level = n;
 		}
+
 		updateQuickslot();
 
 		return this;

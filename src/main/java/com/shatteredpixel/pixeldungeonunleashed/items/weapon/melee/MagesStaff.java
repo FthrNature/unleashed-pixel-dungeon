@@ -158,15 +158,11 @@ public class MagesStaff extends MeleeWeapon {
 
 		int staffLevelDiff = targetLevel - this.level;
 		if (staffLevelDiff > 0)
-			this.upgrade(staffLevelDiff);
-		//else if (staffLevelDiff < 0)
-		//	this.degrade(Math.abs(staffLevelDiff));
+			this.upgrade(targetLevel); //staffLevelDiff);
 
 		int wandLevelDiff = targetLevel - wand.level;
 		if (wandLevelDiff > 0)
-			wand.upgrade(wandLevelDiff);
-		//else if (wandLevelDiff < 0)
-		//	wand.degrade(Math.abs(wandLevelDiff));
+			wand.upgrade(targetLevel); //wandLevelDiff);
 
 		this.wand = wand;
 		wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
@@ -178,7 +174,6 @@ public class MagesStaff extends MeleeWeapon {
 		updateQuickslot();
 
 		return this;
-
 	}
 
 	@Override

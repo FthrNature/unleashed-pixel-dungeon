@@ -69,30 +69,43 @@ public class TomeOfMastery extends Item {
 				GLog.w( TXT_BLINDED );
 				return;
 			}
-			
-			curUser = hero;
-			
-			HeroSubClass way1 = null;
-			HeroSubClass way2 = null;
-			switch (hero.heroClass) {
-			case WARRIOR:
-				way1 = HeroSubClass.GLADIATOR;
-				way2 = HeroSubClass.BERSERKER;
-				break;
-			case MAGE:
-				way1 = HeroSubClass.BATTLEMAGE;
-				way2 = HeroSubClass.WARLOCK;
-				break;
-			case ROGUE:
-				way1 = HeroSubClass.FREERUNNER;
-				way2 = HeroSubClass.ASSASSIN;
-				break;
-			case HUNTRESS:
-				way1 = HeroSubClass.SNIPER;
-				way2 = HeroSubClass.WARDEN;
-				break;
+
+			if (hero.subClass == HeroSubClass.NONE) {
+				curUser = hero;
+
+				HeroSubClass way1 = null;
+				HeroSubClass way2 = null;
+				switch (hero.heroClass) {
+					case WARRIOR:
+						way1 = HeroSubClass.GLADIATOR;
+						way2 = HeroSubClass.BERSERKER;
+						break;
+					case MAGE:
+						way1 = HeroSubClass.BATTLEMAGE;
+						way2 = HeroSubClass.WARLOCK;
+						break;
+					case ROGUE:
+						way1 = HeroSubClass.FREERUNNER;
+						way2 = HeroSubClass.ASSASSIN;
+						break;
+					case HUNTRESS:
+						way1 = HeroSubClass.SNIPER;
+						way2 = HeroSubClass.WARDEN;
+						break;
+				}
+				GameScene.show(new WndChooseWay(this, way1, way2));
+			} else {
+				GLog.w( "You learn more about being a %s!", Utils.capitalize( hero.subClass.title() ) );
+				hero.earnExp(hero.maxExp());
+
+				detach(curUser.belongings.backpack);
+				curUser.spend(TomeOfMastery.TIME_TO_READ);
+				curUser.busy();
+
+				curUser.sprite.operate(curUser.pos);
+				Sample.INSTANCE.play(Assets.SND_MASTERY);
+				curUser.sprite.emitter().burst(Speck.factory(Speck.MASTERY), 12);
 			}
-			GameScene.show( new WndChooseWay( this, way1, way2 ) );
 			
 		} else {
 			
