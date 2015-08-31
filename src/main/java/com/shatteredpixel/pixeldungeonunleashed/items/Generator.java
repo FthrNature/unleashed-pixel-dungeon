@@ -54,7 +54,7 @@ public class Generator {
 		WAND	( 65,	Wand.class ),
 		RING	( 30,	Ring.class ),
 		ARTIFACT( 10,   Artifact.class),
-		SEED	( 40,	Plant.Seed.class ),
+		SEED	( 0,	Plant.Seed.class ),
 		FOOD	( 0,	Food.class ),
 		GOLD	( 500,	Gold.class );
 		
