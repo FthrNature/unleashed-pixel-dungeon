@@ -181,12 +181,12 @@ public class Bestiary {
 			break;
 		case 27:
 		case 28:
-			chances = new float[]{ 1, 2, 3 };
-			classes = new Class<?>[]{ Succubus.class, Eye.class, Scorpio.class };
+			chances = new float[]{ 1, 2, 3, 1 };
+			classes = new Class<?>[]{ Succubus.class, Eye.class, Scorpio.class, LostSoul.class };
 			break;
 		case 29:
-			chances = new float[]{ 1, 2, 3, 1 };
-			classes = new Class<?>[]{ Succubus.class, Eye.class, Scorpio.class, Acidic.class };
+			chances = new float[]{ 2, 4, 6, 2, 3 };
+			classes = new Class<?>[]{ Succubus.class, Eye.class, Scorpio.class, Acidic.class, LostSoul.class };
 			break;
 			
 		case 30:
