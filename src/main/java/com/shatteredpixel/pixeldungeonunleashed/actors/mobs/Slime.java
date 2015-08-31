@@ -24,7 +24,6 @@
 
 package com.shatteredpixel.pixeldungeonunleashed.actors.mobs;
 
-import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.SlimeSprite;
 import com.watabou.utils.Random;
@@ -56,7 +55,7 @@ public class Slime extends Mob {
     public String description() {
         return
                 "Slimes look like icky little piles of goo, but they can pack a bite." +
-                        "They bash their prey around and then engulf them to eat.";
+                        "Green slimes bash their prey around and then engulf them to eat.";
     }
 
 }
