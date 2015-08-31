@@ -60,7 +60,7 @@ public class WellWater extends Blob {
 					Dungeon.tutorial_wellA_seen = true;
 					GameScene.show(new WndMessage("Taking a drink from a Well of Awareness identifies your equipped (and only " +
 						"your equipped) items, reveals secrets about this dungeon level, and any uncollected items. " +
-						"you could also try throwing an unidentified item in and see what happens."));
+						"Or, you could also try throwing an unidentified item in and see what happens."));
 				}
 			} else if (this instanceof WaterOfHealth && Dungeon.tutorial_wellH_seen == false) {
 				Dungeon.tutorial_wellH_seen = true;

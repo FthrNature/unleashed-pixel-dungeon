@@ -82,9 +82,10 @@ public class WndStory extends Window {
 		"Very few adventurers have ever descended this far..." );
 
 		CHAPTERS.put (ID_TUTOR_1,
-		"Welcome to Unleashed Pixel Dungeon! You are currently in Tutorial mode, you can change modes from the Out-of-Game " +
+		"Welcome to Unleashed Pixel Dungeon! You are currently in Tutorial mode; you can change modes from the Out-of-Game " +
 		"settings menu (it's shaped like little gears). The signs contain can contain useful information about the level, and " +
-		"are worth reading. You can also save when you are next to them by pressing the In-Game settings button (top right corner).\n\n" +
+		"are worth reading. You can also save (at Normal difficulty, Easy lets you save anywhere) when you are next to them by " +
+		"pressing the In-Game settings button (top right corner).\n\n" +
 		"For the moment you should start looking for the stairway down to the next level.");
 
 		CHAPTERS.put (ID_TUTOR_2,

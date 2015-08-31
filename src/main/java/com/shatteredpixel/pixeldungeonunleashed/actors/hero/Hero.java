@@ -692,12 +692,12 @@ public class Hero extends Char {
 							if ((Dungeon.tutorial_food_found == false) && (item instanceof Food)) {
 								Dungeon.tutorial_food_found = true;
 								GameScene.show(new WndMessage("You just picked up some food.  Food is an important resource in this game; " +
-									"When you are full, eating food is wasted, but it can save you when you are starving.  Other things " +
-									"can also affect your hunger; leveling up (at easier difficulties) reduces your hunger, drinking " +
-									"some potions, and even some items affect hunger.  Eat food when you are hungry."));
+									"Although wasted When you are full, food can save you when you are starving.  Other things " +
+									"can also affect your hunger, like leveling up (at easier difficulties), drinking " +
+									"some potions, and even some items.  Eat food when you are hungry."));
 							} else if ((Dungeon.tutorial_key_found == false) && (item instanceof Key)) {
 								Dungeon.tutorial_key_found = true;
-								GameScene.show(new WndMessage("You just picked up a key; Somewhere on this level is a locked that this " +
+								GameScene.show(new WndMessage("You just picked up a key; Somewhere on this level is a locked door that this " +
 									"key will open.  There is usually something interesting or valuable inside of a locked room."));
 							}
 						}

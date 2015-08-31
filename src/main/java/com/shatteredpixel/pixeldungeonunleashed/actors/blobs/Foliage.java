@@ -77,7 +77,7 @@ public class Foliage extends Blob {
 			if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && Dungeon.tutorial_garden_found == false) {
 				Dungeon.tutorial_garden_found = true;
 				GameScene.show(new WndMessage("A feeling of peace and serenity overcome you in this room." +
-					" This room is fairly safe, you will see it is added to your journal."));
+					" This room is fairly safe, and you will see it is added to your journal."));
 			}
 		}
 	}
