@@ -37,7 +37,7 @@ public class WelcomeScene extends PixelScene {
 
 	private static final String TTL_Welcome = "Welcome!";
 
-	private static final String TTL_Update = "v0.1.4: Difficulty Levels";
+	private static final String TTL_Update = "v0.1.5: Content Push";
 
 	private static final String TTL_Future = "Wait What?";
 
@@ -49,27 +49,34 @@ public class WelcomeScene extends PixelScene {
 			"Enjoy";
 
 	private static final String TXT_Update =
-			"v01.3: Changes for Reddit Compliance\n"+
-				"DSM-0003   interface changes\n"+
-				"DSM-0048   fix Horn of Plenty upgrades.\n"+
-				"DSM-0027   slow down assassin animations.\n"+
-				"DSM-0056   change altar donation rewards.\n\n"+
+            "v01.5: Content Push - It's all about the Mobs!\n"+
+                    "- Red and Brown Slimes\n"+
+                    "- Robot Spiders\n"+
+                    "- Lost Souls\n"+
+                    "- Squids in the Pool Rooms\n"+
+                    "- The Mad Tinkerer, Minotaur and the Chaos Mage\n"+
+                    "- tutorial mode fixes\n"+
+                    "     - update tutorial verbiage\n"+
+                    "     - better branding on load/save screen\n"+
+                    "     - hard mode can only save after boss levels\n"+
+                    "     - announce when important badges aren't earned\n"+
+                    "- dew vial helps sate hunger\n"+
+                    "- reduce hunger when descending stairs\n"+
+                    "- remove seeds from drop tables on levels\n"+
+                    "- reduce random crashes\n\n"+
 			"v01.4: Difficulty Levels\n"+
-			    "DSM-0004   click version (v01.4) for change history\n"+
-				"DSM-0005   return to title scene after visiting links\n"+
-				"DSM-0049   increase level-caps for items\n"+
-				"DSM-0057   altar donation changes (simplified)\n"+
-			    "DSM-0060   add difficulty levels\n"+
-			    "DSM-0061   apply difficulty levels out-of-game.\n"+
+			    "- click version (v01.4) for change history\n"+
+				"- return to title scene after visiting links\n"+
+				"- increase level-caps for items\n"+
+				"- altar donation changes (simplified)\n"+
+			    "- add difficulty levels\n"+
 			    "     - badges, scores, display on new/load buttons\n"+
-			    "DSM-0062   apply difficulty levels to actors.\n"+
 			    "     - hero - stats/equipment, leveling up, regeneration\n"+
 			    "     - mobs - health, attack and defense skills\n"+
-			    "DSM-0063   apply difficulty levels to the dungeon.\n"+
 			    "     - number of mobs, number of items, drop tables\n"+
 			    "     - item levels, upgrade failures, cursed status\n"+
-			    "DSM-0064   tutorial level messages.\n"+
-				"DSM-xxxx   bug fixes";
+			    "- tutorial level messages.\n"+
+				"- bug fixes";
 	private static final String TXT_Future =
 			"It seems that your current saves are from a future version of Unleashed Pixel Dungeon!\n\n"+
 			"Either you're messing around with older versions of the app, or something has gone buggy.\n\n"+
