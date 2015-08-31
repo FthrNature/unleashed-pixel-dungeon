@@ -825,6 +825,21 @@ public class Hero extends Char {
 			
 			curAction = null;
 
+			// reward the player for going down the steps by reducing the hunger level
+			Hunger hunger = buff( Hunger.class );
+			switch (Dungeon.difficultyLevel) {
+				case Dungeon.DIFF_TUTOR:
+				case Dungeon.DIFF_EASY:
+					hunger.reduceHunger( Hunger.STARVING / 10 );
+					break;
+				case Dungeon.DIFF_NORM:
+					hunger.reduceHunger( Hunger.STARVING / 20 );
+					break;
+				case Dungeon.DIFF_HARD:
+					hunger.reduceHunger( Hunger.STARVING / 40 );
+					break;
+			}
+
 			Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 			if (buff != null) buff.detach();
 
