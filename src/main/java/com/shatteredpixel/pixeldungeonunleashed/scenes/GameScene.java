@@ -35,6 +35,7 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.traps.Trap;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.TrapSprite;
 import com.shatteredpixel.pixeldungeonunleashed.ui.LootIndicator;
 import com.shatteredpixel.pixeldungeonunleashed.ui.ResumeIndicator;
+import com.shatteredpixel.pixeldungeonunleashed.windows.WndMessage;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -129,6 +130,8 @@ public class GameScene extends PixelScene {
 	private AttackIndicator attack;
 	private LootIndicator loot;
 	private ResumeIndicator resume;
+
+	private boolean sceneCreated = false;
 	
 	@Override
 	public void create() {
@@ -313,7 +316,17 @@ public class GameScene extends PixelScene {
 		case DESCEND:
 			switch (Dungeon.depth) {
 			case 1:
-				WndStory.showChapter( WndStory.ID_SEWERS );
+				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
+					WndStory.showChapter(WndStory.ID_TUTOR_1);
+				} else {
+					WndStory.showChapter(WndStory.ID_SEWERS);
+				}
+				break;
+			case 6:
+				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && Dungeon.tutorial_boss_found == false) {
+					Dungeon.tutorial_boss_found = true;
+					WndStory.showChapter(WndStory.ID_TUTOR_2);
+				}
 				break;
 			case 7:
 				WndStory.showChapter( WndStory.ID_PRISON );
@@ -354,6 +367,8 @@ public class GameScene extends PixelScene {
 
 		Camera.main.target = hero;
 		fadeIn();
+
+		sceneCreated = true;
 	}
 	
 	public void destroy() {
@@ -378,6 +393,10 @@ public class GameScene extends PixelScene {
 
 	@Override
 	public synchronized void update() {
+		if (sceneCreated == false){
+			return;
+		}
+
 		if (Dungeon.hero == null) {
 			return;
 		}
@@ -626,7 +645,9 @@ public class GameScene extends PixelScene {
 			scene.fog.updateVisibility( Dungeon.visible, Dungeon.level.visited, Dungeon.level.mapped );
 			
 			for (Mob mob : Dungeon.level.mobs) {
-				mob.sprite.visible = Dungeon.visible[mob.pos];
+				if(mob.sprite != null) {
+					mob.sprite.visible = Dungeon.visible[mob.pos];
+				}
 			}
 		}
 	}
@@ -663,7 +684,7 @@ public class GameScene extends PixelScene {
 	}
 	
 	private static boolean cancelCellSelector() {
-		if (cellSelector.listener != null && cellSelector.listener != defaultCellListener) {
+		if (cellSelector != null && cellSelector.listener != null && cellSelector.listener != defaultCellListener) {
 			cellSelector.cancel();
 			return true;
 		} else {

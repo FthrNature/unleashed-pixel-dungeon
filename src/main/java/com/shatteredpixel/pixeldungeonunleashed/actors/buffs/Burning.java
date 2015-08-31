@@ -99,15 +99,18 @@ public class Burning extends Buff implements Hero.Doom {
 					GLog.w( TXT_BURNS_UP, item.toString() );
 					
 					Heap.burnFX( hero.pos );
-					
 				}
-				
-			} else if (target instanceof Thief && ((Thief)target).item instanceof Scroll) {
-				
-				((Thief)target).item = null;
-				target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
-			}
+			} else if (target instanceof Thief) {
+				if (((Thief)target).item == null)
+				{
+					return true;
+				}
 
+				if (((Thief)target).item instanceof Scroll) {
+					target.sprite.emitter().burst(ElmoParticle.FACTORY, 6);
+					((Thief) target).item = null;
+				}
+			}
 		} else {
 			detach();
 		}

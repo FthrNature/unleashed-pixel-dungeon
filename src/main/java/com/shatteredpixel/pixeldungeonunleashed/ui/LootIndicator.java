@@ -64,22 +64,27 @@ public class LootIndicator extends Tag {
 		
 		if (Dungeon.hero.ready) {
 			Heap heap = Dungeon.level.heaps.get( Dungeon.hero.pos );
+
 			if (heap != null) {
-				
-				Item item =
-					heap.type == Heap.Type.CHEST || heap.type == Heap.Type.MIMIC ? ItemSlot.CHEST :
-					heap.type == Heap.Type.LOCKED_CHEST ? ItemSlot.LOCKED_CHEST :
-					heap.type == Heap.Type.CRYSTAL_CHEST ? ItemSlot.CRYSTAL_CHEST :
-					heap.type == Heap.Type.TOMB ? ItemSlot.TOMB :
-					heap.type == Heap.Type.SKELETON ? ItemSlot.SKELETON :
-					heap.type == Heap.Type.REMAINS ? ItemSlot.REMAINS :
-					heap.peek();
-				if (item != lastItem || item.quantity() != lastQuantity) {
-					lastItem = item;
-					lastQuantity = item.quantity();
-					
-					slot.item( item );
-					flash();
+				if(heap.isEmpty()){
+					heap.destroy();
+					heap = null;
+				} else {
+					Item item =
+						heap.type == Heap.Type.CHEST || heap.type == Heap.Type.MIMIC ? ItemSlot.CHEST :
+						heap.type == Heap.Type.LOCKED_CHEST ? ItemSlot.LOCKED_CHEST :
+						heap.type == Heap.Type.CRYSTAL_CHEST ? ItemSlot.CRYSTAL_CHEST :
+						heap.type == Heap.Type.TOMB ? ItemSlot.TOMB :
+						heap.type == Heap.Type.SKELETON ? ItemSlot.SKELETON :
+						heap.type == Heap.Type.REMAINS ? ItemSlot.REMAINS :
+						heap.peek();
+					if (item != lastItem || item.quantity() != lastQuantity) {
+						lastItem = item;
+						lastQuantity = item.quantity();
+
+						slot.item(item);
+						flash();
+					}
 				}
 				visible = true;
 				

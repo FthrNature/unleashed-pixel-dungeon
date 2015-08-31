@@ -42,8 +42,6 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class Bomb extends Item {
 	
@@ -250,8 +248,9 @@ public class Bomb extends Item {
 				}
 			}
 
-			//can't find our bomb, this should never happen, throw an exception.
-			throw new RuntimeException("Something caused a lit bomb to not be present in a heap on the level!");
+			//can't find our bomb, this should never happen, throw an exception. - this does happen...
+			//throw new RuntimeException("Something caused a lit bomb to not be present in a heap on the level!");
+			return true;
 		}
 	}
 

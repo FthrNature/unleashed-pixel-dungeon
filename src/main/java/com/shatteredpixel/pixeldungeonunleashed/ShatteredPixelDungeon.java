@@ -41,55 +41,6 @@ public class ShatteredPixelDungeon extends Game {
 	
 	public ShatteredPixelDungeon() {
 		super( TitleScene.class );
-
-		// 0.2.4
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Shock.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Piercing" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Shock.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Swing" );
-
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfMagicalInfusion.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfWeaponUpgrade" );
-
-		// 0.2.4d
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.artifacts.LloydsBeacon.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.LloydsBeacon" );
-
-		// 0.3.0, lots of wands
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfVenom.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfPoison" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfFrost.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfSlowness" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfFireblast.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfFirebolt" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfCorruption.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfAmok" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfBlastWave.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfTelekinesis" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfMagicMissile.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfFlock" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfMagicMissile.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfAvalanche" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfMagicMissile.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfBlink" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfMagicMissile.class,
-				"com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfTeleportation" );
-
-
-
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -97,16 +48,6 @@ public class ShatteredPixelDungeon extends Game {
 	protected void onCreate( Bundle savedInstanceState ) {
 		super.onCreate(savedInstanceState);
 		
-	/*	if (android.os.Build.VERSION.SDK_INT >= 19) {
-			getWindow().getDecorView().setSystemUiVisibility(
-				View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-				View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-				View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-				View.SYSTEM_UI_FLAG_FULLSCREEN |
-				View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY );
-		}*/
-
 		updateImmersiveMode();
 
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -239,17 +180,16 @@ public class ShatteredPixelDungeon extends Game {
 	public static void updateImmersiveMode() {
 		if (android.os.Build.VERSION.SDK_INT >= 19) {
 			try {
-				// Sometime NullPointerException happens here
-				instance.getWindow().getDecorView().setSystemUiVisibility(
-						immersed() ?
-								View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-										View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-										View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-										View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-										View.SYSTEM_UI_FLAG_FULLSCREEN |
-										View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-								:
-								0 );
+				if (instance != null) {
+					instance.getWindow().getDecorView().setSystemUiVisibility(
+						immersed() ? View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+							| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+							| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_FULLSCREEN
+							| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+						: 0);
+				}
 			} catch (Exception e) {
 				reportException( e );
 			}

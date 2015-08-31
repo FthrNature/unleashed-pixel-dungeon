@@ -540,13 +540,16 @@ public class Hero extends Char {
 	}
 	
 	private void ready() {
-		sprite.idle();
+		if(sprite != null){
+			sprite.idle();
+		}
+
 		curAction = null;
 		damageInterrupt = true;
-		ready = true;
+		ready     = true;
 
 		AttackIndicator.updateState();
-		
+
 		GameScene.ready();
 	}
 	

@@ -99,7 +99,9 @@ public class ChaliceOfBlood extends Artifact {
 			damage = armor.absorb(damage);
 		}
 
-		damage -= Random.IntRange(0, hero.dr());
+		if (hero.dr() > 0) { // possible crash here?
+			damage -= Random.IntRange(0, hero.dr());
+		}
 
 		hero.sprite.operate( hero.pos );
 		hero.busy();
