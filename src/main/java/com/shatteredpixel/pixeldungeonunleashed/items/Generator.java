@@ -92,13 +92,13 @@ public class Generator {
 			ScrollOfIdentify.class,
 			ScrollOfTeleportation.class,
 			ScrollOfRemoveCurse.class,
-			ScrollOfUpgrade.class,
+			ScrollOfUpgrade.class,         // set to 0 - uses special drop table
 			ScrollOfRecharging.class,
 			ScrollOfMagicMapping.class,
 			ScrollOfRage.class,
 			ScrollOfTerror.class,
 			ScrollOfLullaby.class,
-			ScrollOfMagicalInfusion.class,
+			ScrollOfMagicalInfusion.class, // set to 0 - need special circumstances to get
 			ScrollOfPsionicBlast.class,
 			ScrollOfMirrorImage.class };
 		Category.SCROLL.probs = new float[]{ 26, 10, 15, 0, 15, 15, 12, 8, 8, 0, 4, 10 };
@@ -110,11 +110,11 @@ public class Generator {
 			PotionOfParalyticGas.class,
 			PotionOfLiquidFlame.class,
 			PotionOfLevitation.class,
-			PotionOfStrength.class,
+			PotionOfStrength.class,      // set to 0 - uses special drop table
 			PotionOfMindVision.class,
 			PotionOfPurity.class,
 			PotionOfInvisibility.class,
-			PotionOfMight.class,
+			PotionOfMight.class,         // set to 0 - need special circumstances to get
 			PotionOfFrost.class };
 		Category.POTION.probs = new float[]{ 40, 4, 15, 10, 15, 10, 0, 20, 12, 10, 0, 10 };
 
@@ -126,14 +126,12 @@ public class Generator {
 			WandOfFireblast.class,
 			WandOfVenom.class,
 			WandOfBlastWave.class,
-			//WandOfLivingEarth.class,
 			WandOfFrost.class,
 			WandOfPrismaticLight.class,
-			//WandOfWarding.class,
 			WandOfTransfusion.class,
 			WandOfCorruption.class,
 			WandOfRegrowth.class };
-		Category.WAND.probs = new float[]{ 4, 4, 4, 4, 4, 3, /*3,*/ 3, 3, /*3,*/ 3, 3, 3 };
+		Category.WAND.probs = new float[]{ 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3 };
 		
 		Category.WEAPON.classes = new Class<?>[]{
 			Dagger.class,
@@ -146,13 +144,13 @@ public class Generator {
 			BattleAxe.class,
 			WarHammer.class,
 			Glaive.class,
-			ShortSword.class,
-			Dart.class,
+			ShortSword.class,     // set to 0 - warrior-only weapon
+			Dart.class,           // set to 0 - special drop in high-grass
 			Javelin.class,
 			IncendiaryDart.class,
 			CurareDart.class,
 			Shuriken.class,
-			Boomerang.class,
+			Boomerang.class,      // set to 0 - huntress-only weapon
 			Tamahawk.class };
 		Category.WEAPON.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1 };
 		
@@ -167,7 +165,7 @@ public class Generator {
 		Category.FOOD.classes = new Class<?>[]{
 			Food.class,
 			Pasty.class,
-			MysteryMeat.class };
+			MysteryMeat.class };   // set to 0 - special drop
 		Category.FOOD.probs = new float[]{ 4, 1, 0 };
 			
 		Category.RING.classes = new Class<?>[]{
@@ -177,29 +175,30 @@ public class Generator {
 			RingOfForce.class,
 			RingOfFuror.class,
 			RingOfHaste.class,
-			RingOfMagic.class, //currently removed from drop tables, pending rework
+			RingOfMagic.class,    // DSM-xxxx test out putting this one back in...
 			RingOfMight.class,
 			RingOfSharpshooting.class,
 			RingOfTenacity.class,
 			RingOfWealth.class};
-		Category.RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 };
+		Category.RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
 		Category.ARTIFACT.classes = new Class<?>[]{
-			CapeOfThorns.class,
+			CapeOfThorns.class,         // set to 0 - special drop
 			ChaliceOfBlood.class,
-			CloakOfShadows.class,
+			CloakOfShadows.class,       // set to 0 - rogue-only item
 			HornOfPlenty.class,
-			MasterThievesArmband.class,
+			MasterThievesArmband.class, // set to 0 - special drop
 			SandalsOfNature.class,
 			TalismanOfForesight.class,
 			TimekeepersHourglass.class,
 			UnstableSpellbook.class,
-			AlchemistsToolkit.class, //currently removed from drop tables, pending rework.
+			AlchemistsToolkit.class,
 			DriedRose.class, //starts with no chance of spawning, chance is set directly after beating ghost quest.
-			LloydsBeacon.class,
+			LloydsBeacon.class,      // set to 0 - special drop
 			EtherealChains.class
 			};
-		Category.ARTIFACT.probs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1};
+		// note - duplicated down below in initArtifacts() - look into refactoring
+		Category.ARTIFACT.probs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1};
 		
 		Category.SEED.classes = new Class<?>[]{
 			Firebloom.Seed.class,
@@ -209,7 +208,7 @@ public class Generator {
 			Sungrass.Seed.class,
 			Earthroot.Seed.class,
 			Fadeleaf.Seed.class,
-			Rotberry.Seed.class,
+			Rotberry.Seed.class,       // set to 0 - quest item drop
 			BlandfruitBush.Seed.class,
 			Dreamfoil.Seed.class,
 			Stormvine.Seed.class,
@@ -358,7 +357,7 @@ public class Generator {
 	//resets artifact probabilities, for new dungeons
 	public static void initArtifacts() {
 		//FIXME: the duplicated logic here has caused 1 bug so far, should refactor.
-		Category.ARTIFACT.probs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1};
+		Category.ARTIFACT.probs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1};
 		spawnedArtifacts = new ArrayList<String>();
 	}
 

@@ -147,7 +147,13 @@ public abstract class Wand extends Item {
 	public int level() {
 		if (charger != null) {
 			Magic magic = charger.target.buff( Magic.class );
-			return magic == null ? level : Math.max( level + magic.level, 0 );
+			if (magic == null) {
+				return level;
+			} else if (magic.level <= 0){
+				return Math.max( level + magic.level, 0 );
+			} else {
+				return level + Random.Int(0, magic.level);
+			}
 		} else {
 			return level;
 		}
@@ -202,12 +208,15 @@ public abstract class Wand extends Item {
 	public Item upgrade( int n ) {
 		cursed = false;
 		cursedKnown = true;
-		this.level = n;
 
-		for (int i = 0; i < n; i++) {
-			updateLevel();
-			curCharges = Math.min( curCharges + 1, maxCharges );
+		if (this.level < n) {
+			for (int i = this.level; i < n; i++) {
+				updateLevel();
+				curCharges = Math.min(curCharges + 1, maxCharges);
+			}
+			this.level = n;
 		}
+
 		updateQuickslot();
 
 		return this;
