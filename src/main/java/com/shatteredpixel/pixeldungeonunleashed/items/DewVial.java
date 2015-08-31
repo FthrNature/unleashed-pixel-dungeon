@@ -103,6 +103,11 @@ public class DewVial extends Item {
 					hero.sprite.showStatus( CharSprite.POSITIVE, TXT_VALUE, effect );
 				}
 
+				// a full vial will reduce your hunger about as much a piece of meat
+				Hunger hunger = hero.buff(Hunger.class);
+				hunger.reduceHunger((hunger.STARVING - hunger.HUNGRY) / 10 * volume);
+				GLog.i("That was refreshing!");
+
 				volume = 0;
 
 				hero.spend( TIME_TO_DRINK );
