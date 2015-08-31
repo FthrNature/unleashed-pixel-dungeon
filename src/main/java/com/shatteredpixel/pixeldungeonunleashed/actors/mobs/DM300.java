@@ -60,14 +60,11 @@ public class DM300 extends Mob {
 		defenseSkill = 18;
 		atkSkill = 28;
 		dmgRed = 10;
-		
+		dmgMin = 18;
+		dmgMax = 24;
+
 		loot = new CapeOfThorns().identify();
 		lootChance = 0.333f;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 18, 24 );
 	}
 	
 	@Override

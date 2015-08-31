@@ -38,14 +38,11 @@ public class Assassin extends Mob {
         defenseSkill = 10;
         atkSkill = 14;
         dmgRed = 5;
+        dmgMin = 3;
+        dmgMax = 10;
 
         EXP = 6;
         maxLvl = 15;
-    }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange(3, 10);
     }
 
     @Override

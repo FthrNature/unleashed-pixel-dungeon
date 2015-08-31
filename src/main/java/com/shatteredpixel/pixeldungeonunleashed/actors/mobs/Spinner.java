@@ -44,6 +44,8 @@ public class Spinner extends Mob {
 		defenseSkill = 14;
 		atkSkill = 20;
 		dmgRed = 6;
+		dmgMin = 12;
+		dmgMax = 16;
 
 		EXP = 9;
 		maxLvl = 20;
@@ -52,11 +54,6 @@ public class Spinner extends Mob {
 		lootChance = 0.125f;
 
 		FLEEING = new Fleeing();
-	}
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange(12, 16);
 	}
 
 	@Override

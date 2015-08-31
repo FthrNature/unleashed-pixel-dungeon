@@ -213,15 +213,12 @@ public class Yog extends Mob {
 			defenseSkill = 25;
 			atkSkill = 36;
 			dmgRed = 15;
-			
+			dmgMin = 24;
+			dmgMax = 36;
+
 			EXP = 0;
 			
 			state = WANDERING;
-		}
-		
-		@Override
-		public int damageRoll() {
-			return Random.NormalIntRange( 24, 36 );
 		}
 		
 		@Override
@@ -288,15 +285,12 @@ public class Yog extends Mob {
 			atkSkill = 36;
 			defenseSkill = 25;
 			dmgRed = 15;
+			dmgMin = 20;
+			dmgMax = 32;
 			
 			EXP = 0;
 			
 			state = WANDERING;
-		}
-		
-		@Override
-		public int damageRoll() {
-			return Random.NormalIntRange( 20, 32 );
 		}
 		
 		@Override
@@ -388,17 +382,14 @@ public class Yog extends Mob {
 			defenseSkill = 20;
 			atkSkill = 30;
 			dmgRed = 8;
+			dmgMin = 15;
+			dmgMax = 20;
 			
 			EXP = 0;
 			
 			state = HUNTING;
 		}
 		
-		@Override
-		public int damageRoll() {
-			return Random.NormalIntRange( 15, 20 );
-		}
-
 		@Override
 		public String description() {
 			return TXT_DESC;

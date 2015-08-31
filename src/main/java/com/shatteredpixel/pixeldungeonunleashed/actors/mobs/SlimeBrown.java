@@ -12,15 +12,12 @@ public class SlimeBrown extends Mob {
         defenseSkill = 4;
         atkSkill = 10;
         dmgRed = 3;
+        dmgMin = 3;
+        dmgMax = 6;
 
         EXP = 3;
         maxLvl = 10;
 
-    }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange(3, 6);
     }
 
     @Override

@@ -37,17 +37,14 @@ public class Crab extends Mob {
 		atkSkill = 12;
 		dmgRed = 4;
 		baseSpeed = 2f;
-		
+		dmgMin = 3;
+		dmgMax = 6;
+
 		EXP = 3;
 		maxLvl = 11;
 		
 		loot = new MysteryMeat();
 		lootChance = 0.167f;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 3, 6 );
 	}
 	
 	@Override

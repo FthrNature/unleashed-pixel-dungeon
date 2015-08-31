@@ -30,11 +30,8 @@ public class Shielded extends Brute {
 		spriteClass = ShieldedSprite.class;
 		
 		defenseSkill = 20;
-	}
-	
-	@Override
-	public int dr() {
-		return 10;
+
+		dmgRed = 10;
 	}
 	
 	@Override

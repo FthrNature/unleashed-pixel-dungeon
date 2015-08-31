@@ -57,6 +57,8 @@ public class Goo extends Mob {
 		defenseSkill = 12;
 		atkSkill = 15;
 		dmgRed = 2;
+		dmgMin = 2;
+		dmgMax = 12;
 
 		spriteClass = GooSprite.class;
 
@@ -76,9 +78,9 @@ public class Goo extends Mob {
 					CellEmitter.get(j).burst(ElmoParticle.FACTORY, 10);
 			}
 			Sample.INSTANCE.play( Assets.SND_BURNING );
-			return Random.NormalIntRange( 5, 30 );
+			return Random.NormalIntRange( (dmgMin + 3), ((dmgMax + 3) * 2) );
 		} else {
-			return Random.NormalIntRange( 2, 12 );
+			return Random.NormalIntRange( dmgMin, dmgMax );
 		}
 	}
 

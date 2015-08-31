@@ -30,20 +30,16 @@ public class Tinkerer extends Mob {
         HP = HT = 70;
         defenseSkill = 20;
         atkSkill = 25;
+
+        dmgMin = 16;
+        dmgMax = 20;
+        dmgRed = 5;
+
         viewDistance = Light.DISTANCE;
 
         EXP = 11;
-        maxLvl = 22;
-    }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange(16, 20);
-    }
-
-    @Override
-    public int dr() {
-        return 5;
+        maxLvl = 25;
+        state = HUNTING;
     }
 
     @Override

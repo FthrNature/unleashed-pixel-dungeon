@@ -33,13 +33,10 @@ public class Rat extends Mob {
 		defenseSkill = 3;
 		atkSkill = 8;
 		dmgRed = 1;
-		
+		dmgMin = 1;
+		dmgMax = 5;
+
 		maxLvl = 6;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 5 );
 	}
 	
 	@Override

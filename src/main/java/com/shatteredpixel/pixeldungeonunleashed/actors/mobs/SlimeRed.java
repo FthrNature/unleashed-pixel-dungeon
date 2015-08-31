@@ -1,5 +1,6 @@
 package com.shatteredpixel.pixeldungeonunleashed.actors.mobs;
 
+import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Poison;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.SlimeRedSprite;
@@ -15,6 +16,8 @@ public class SlimeRed  extends Mob {
         defenseSkill = 5;
         atkSkill = 11;
         dmgRed = 4;
+        dmgMin = 3;
+        dmgMax = 6;
 
         EXP = 5;
         maxLvl = 11;
@@ -22,12 +25,13 @@ public class SlimeRed  extends Mob {
     }
 
     @Override
-    public int damageRoll() {
-        if (Random.Int(3) == 0) {
+    public int attackProc( Char enemy, int damage ) {
+
+        if (Random.Int( 3 ) == 0) {
             Buff.affect(enemy, Poison.class).set(Random.Int(1, 3) * Poison.durationFactor(enemy));
         }
 
-        return Random.NormalIntRange(3, 6);
+        return damage;
     }
 
     @Override

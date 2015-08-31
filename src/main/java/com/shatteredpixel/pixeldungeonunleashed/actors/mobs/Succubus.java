@@ -54,6 +54,9 @@ public class Succubus extends Mob {
 		defenseSkill = 25;
 		atkSkill = 40;
 		dmgRed = 10;
+		dmgMin = 15;
+		dmgMax = 25;
+
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 12;
@@ -61,11 +64,6 @@ public class Succubus extends Mob {
 		
 		loot = new ScrollOfLullaby();
 		lootChance = 0.05f;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 15, 25 );
 	}
 	
 	@Override

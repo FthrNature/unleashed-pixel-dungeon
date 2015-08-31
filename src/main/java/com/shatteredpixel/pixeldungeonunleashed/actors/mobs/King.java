@@ -64,7 +64,9 @@ public class King extends Mob {
 		defenseSkill = 25;
 		atkSkill = 32;
 		dmgRed = 14;
-		
+		dmgMin = 20;
+		dmgMax = 38;
+
 		Undead.count = 0;
 	}
 	
@@ -84,11 +86,6 @@ public class King extends Mob {
 		nextPedestal = bundle.getBoolean( PEDESTAL );
 	}
 	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 20, 38 );
-	}
-
 	@Override
 	public String defenseVerb() {
 		return "parried";
@@ -248,7 +245,11 @@ public class King extends Mob {
 			
 			HP = HT = 28;
 			defenseSkill = 15;
-			
+			atkSkill = 16;
+			dmgMin = 12;
+			dmgMax = 16;
+			dmgRed = 5;
+
 			EXP = 0;
 			
 			state = WANDERING;
@@ -264,16 +265,6 @@ public class King extends Mob {
 		protected void onRemove() {
 			count--;
 			super.onRemove();
-		}
-		
-		@Override
-		public int damageRoll() {
-			return Random.NormalIntRange( 12, 16 );
-		}
-		
-		@Override
-		public int attackSkill( Char target ) {
-			return 16;
 		}
 		
 		@Override
@@ -300,11 +291,6 @@ public class King extends Mob {
 			if (Dungeon.visible[pos]) {
 				Sample.INSTANCE.play( Assets.SND_BONES );
 			}
-		}
-		
-		@Override
-		public int dr() {
-			return 5;
 		}
 		
 		@Override

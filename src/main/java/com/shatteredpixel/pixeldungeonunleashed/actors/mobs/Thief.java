@@ -50,7 +50,9 @@ public class Thief extends Mob {
 		defenseSkill = 12;
 		atkSkill = 12;
 		dmgRed = 3;
-		
+		dmgMin = 1;
+		dmgMax = 7;
+
 		EXP = 5;
 		maxLvl = 12;
 		
@@ -72,11 +74,6 @@ public class Thief extends Mob {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		item = (Item)bundle.get( ITEM );
-	}
-
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 7 );
 	}
 
 	@Override

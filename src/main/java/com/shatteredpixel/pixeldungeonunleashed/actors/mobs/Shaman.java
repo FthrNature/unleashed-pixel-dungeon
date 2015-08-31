@@ -50,27 +50,16 @@ public class Shaman extends Mob implements Callback {
 		
 		HP = HT = 18;
 		defenseSkill = 8;
-		
+		atkSkill = 11;
+		dmgMin = 2;
+		dmgMax = 6;
+		dmgRed = 4;
+
 		EXP = 6;
 		maxLvl = 17;
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.33f;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 2, 6 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 11;
-	}
-	
-	@Override
-	public int dr() {
-		return 4;
 	}
 	
 	@Override

@@ -49,7 +49,9 @@ public class Swarm extends Mob {
 		HP = HT = 80;
 		defenseSkill = 5;
 		atkSkill = 12;
-		
+		dmgMin = 2;
+		dmgMax = 4;
+
 		maxLvl = 12;
 		
 		flying = true;
@@ -74,11 +76,6 @@ public class Swarm extends Mob {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		generation = bundle.getInt( GENERATION );
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 2, 4 );
 	}
 	
 	@Override

@@ -54,7 +54,9 @@ public class Warlock extends Mob implements Callback {
 		defenseSkill = 18;
 		atkSkill = 25;
 		dmgRed = 8;
-		
+		dmgMin = 12;
+		dmgMax = 20;
+
 		EXP = 11;
 		maxLvl = 26;
 		
@@ -62,11 +64,6 @@ public class Warlock extends Mob implements Callback {
 		lootChance = 0.83f;
 	}
 	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 12, 20 );
-	}
-
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
@@ -99,7 +96,7 @@ public class Warlock extends Mob implements Callback {
 				Buff.prolong( enemy, Weakness.class, Weakness.duration( enemy ) );
 			}
 			
-			int dmg = Random.Int( 12, 18 );
+			int dmg = Random.Int( dmgMin, (dmgMax - 2) );
 			enemy.damage( dmg, this );
 			
 			if (!enemy.isAlive() && enemy == Dungeon.hero) {

@@ -46,7 +46,7 @@ public class Wraith extends Mob {
 		spriteClass = WraithSprite.class;
 		
 		HP = HT = 1;
-		atkSkill = 10 + level;
+		dmgMin = 1;
 		EXP = 0;
 		
 		flying = true;
@@ -56,7 +56,7 @@ public class Wraith extends Mob {
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
+		super.storeInBundle(bundle);
 		bundle.put( LEVEL, level );
 	}
 	
@@ -67,14 +67,11 @@ public class Wraith extends Mob {
 		adjustStats( level );
 	}
 	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1, 3 + level );
-	}
-	
 	public void adjustStats( int level ) {
 		this.level = level;
 		defenseSkill = atkSkill * 5;
+		atkSkill = 10 + level;
+		dmgMax = 3 + level;
 		enemySeen = true;
 	}
 	

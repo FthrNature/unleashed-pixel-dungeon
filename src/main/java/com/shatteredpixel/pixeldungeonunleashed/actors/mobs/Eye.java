@@ -53,6 +53,9 @@ public class Eye extends Mob {
 		defenseSkill = 20;
 		atkSkill = 30;
 		dmgRed = 10;
+		dmgMin = 14;
+		dmgMax = 20;
+
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 13;
@@ -112,7 +115,7 @@ public class Eye extends Mob {
 			}
 			
 			if (hit( this, ch, true )) {
-				ch.damage( Random.NormalIntRange( 14, 20 ), this );
+				ch.damage( Random.NormalIntRange( dmgMin, dmgMax ), this );
 				
 				if (Dungeon.visible[pos]) {
 					ch.sprite.flash();

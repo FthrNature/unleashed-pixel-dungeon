@@ -45,7 +45,9 @@ public class Elemental extends Mob {
 		defenseSkill = 20;
 		atkSkill = 25;
 		dmgRed = 5;
-		
+		dmgMin = 16;
+		dmgMax = 20;
+
 		EXP = 10;
 		maxLvl = 24;
 		
@@ -55,11 +57,6 @@ public class Elemental extends Mob {
 		lootChance = 0.1f;
 	}
 	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 16, 20 );
-	}
-
 	@Override
 	public int attackProc( Char enemy, int damage ) {
 		if (Random.Int( 2 ) == 0) {

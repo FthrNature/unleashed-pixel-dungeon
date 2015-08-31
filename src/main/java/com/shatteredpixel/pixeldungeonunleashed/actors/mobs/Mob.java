@@ -78,6 +78,9 @@ public abstract class Mob extends Char {
 	public int defenseSkill = 0;
 	public int atkSkill = 1;
 	public int dmgRed = 0;
+	public int dmgMin = 1;
+	public int dmgMax = 3;
+
 
 	protected int EXP = 1;
 	protected int maxLvl = Hero.MAX_LEVEL;
@@ -118,7 +121,7 @@ public abstract class Mob extends Char {
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		
-		super.restoreFromBundle( bundle );
+		super.restoreFromBundle(bundle);
 
 		String state = bundle.getString( STATE );
 		if (state.equals( Sleeping.TAG )) {
@@ -261,7 +264,7 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public void remove( Buff buff ) {
-		super.remove( buff );
+		super.remove(buff);
 		if (buff instanceof Terror) {
 			sprite.showStatus( CharSprite.NEGATIVE, TXT_RAGE );
 			state = HUNTING;
@@ -290,9 +293,9 @@ public abstract class Mob extends Char {
 	}
 	
 	protected boolean getFurther( int target ) {
-		int step = Dungeon.flee( this, pos, target,
-			Level.passable,
-			Level.fieldOfView );
+		int step = Dungeon.flee(this, pos, target,
+				Level.passable,
+				Level.fieldOfView);
 		if (step != -1) {
 			move( step );
 			return true;
@@ -310,7 +313,7 @@ public abstract class Mob extends Char {
 
 	@Override
 	public void move( int step ) {
-		super.move( step );
+		super.move(step);
 		
 		if (!flying) {
 			Dungeon.level.mobPress( this );
@@ -366,6 +369,11 @@ public abstract class Mob extends Char {
 	@Override
 	public int dr() {
 		return dmgRed;
+	}
+
+	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange(dmgMin, dmgMax);
 	}
 
 	@Override

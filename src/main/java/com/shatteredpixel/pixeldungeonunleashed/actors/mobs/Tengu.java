@@ -61,14 +61,11 @@ public class Tengu extends Mob {
 		defenseSkill = 20;
 		atkSkill = 20;
 		dmgRed = 5;
+		dmgMin = 8;
+		dmgMax = 15;
 	}
 	
 	private int timeToJump = JUMP_DELAY;
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 8, 15 );
-	}
 	
 	@Override
 	public void die( Object cause ) {
@@ -88,9 +85,9 @@ public class Tengu extends Mob {
 			badgeToCheck = Badge.MASTERY_HUNTRESS;
 			break;
 		}
-		if (!Badges.isUnlocked( badgeToCheck )) {
-			Dungeon.level.drop( new TomeOfMastery(), pos ).sprite.drop();
-		}
+		//if (!Badges.isUnlocked( badgeToCheck )) {
+		Dungeon.level.drop( new TomeOfMastery(), pos ).sprite.drop();
+		//}
 		
 		GameScene.bossSlain();
 		Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();

@@ -25,6 +25,8 @@ public class Squid extends Mob {
         name = "deep dweller";
         spriteClass = SquidSprite.class;
         dmgRed = Dungeon.depth;
+        dmgMin = Dungeon.depth * 2;
+        dmgMax = 4 + Dungeon.depth * 3;
 
         baseSpeed = 2f;
 
@@ -64,11 +66,6 @@ public class Squid extends Mob {
 
             return super.act();
         }
-    }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange( Dungeon.depth * 2, 4 + Dungeon.depth * 3 );
     }
 
     @Override

@@ -14,17 +14,15 @@ public class SpiderBot extends Mob {
         defenseSkill = 12;
         atkSkill = 25;
         dmgRed = 8;
+        dmgMin = 12;
+        dmgMax = 16;
+
+
         viewDistance = Light.DISTANCE;
 
         EXP = 10;
         maxLvl = 20;
     }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange( 12, 16 );
-    }
-
 
     @Override
     public String description() {

@@ -36,17 +36,14 @@ public class Gnoll extends Mob {
 		defenseSkill = 4;
 		atkSkill = 11;
 		dmgRed = 2;
-		
+		dmgMin = 2;
+		dmgMax = 5;
+
 		EXP = 2;
 		maxLvl = 10;
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 2, 5 );
 	}
 	
 	@Override

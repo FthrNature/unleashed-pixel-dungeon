@@ -36,21 +36,27 @@ public class ChaosMage extends Mob {
         defenseSkill = 28;
         atkSkill = 40;
         dmgRed = 16;
+        dmgMin = 20;
+        dmgMax = 35;
 
         EXP = 15;
         maxLvl = 30;
 
-        baseSpeed = 2f;
-    }
+        viewDistance = Light.DISTANCE;
 
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange(12, 25);
+        baseSpeed = 2f;
+        state = HUNTING;
     }
 
     @Override
     public int attackProc(Char enemy, int damage) {
         corrupt( (Hero)enemy );
+        if (damage > 0) {
+            int healingAmt = Random.Int(0, damage);
+            HP = Math.min(HT, HP + healingAmt);
+            sprite.emitter().burst(ShadowParticle.UP, 2);
+        }
+
         return damage;
     }
 

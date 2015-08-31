@@ -42,7 +42,9 @@ public class Bat extends Mob {
 		atkSkill = 16;
 		dmgRed = 4;
 		baseSpeed = 2f;
-		
+		dmgMin = 6;
+		dmgMax = 12;
+
 		EXP = 7;
 		maxLvl = 18;
 		
@@ -50,11 +52,6 @@ public class Bat extends Mob {
 		
 		loot = new PotionOfHealing();
 		lootChance = 0.1667f; //by default, see die()
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 6, 12 );
 	}
 	
 	@Override

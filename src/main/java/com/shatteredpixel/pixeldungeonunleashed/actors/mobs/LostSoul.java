@@ -25,17 +25,14 @@ public class LostSoul  extends Mob {
         defenseSkill = 25;
         atkSkill = 40;
         dmgRed = 10;
+        dmgMin = 18;
+        dmgMax = 25;
 
         EXP = 12;
         maxLvl = 30;
 
         baseSpeed = 2f;
         flying = true;
-    }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange( 18, 25 );
     }
 
     @Override

@@ -54,6 +54,8 @@ public class Piranha extends Mob {
 		HP = HT = 10 + Dungeon.depth * 5;
 		defenseSkill = 10 + Dungeon.depth * 2;
 		atkSkill = 20 + Dungeon.depth * 2;
+		dmgMin = Dungeon.depth;
+		dmgMax = (2 + Dungeon.depth) * 2;
 	}
 	
 	@Override
@@ -83,11 +85,6 @@ public class Piranha extends Mob {
 		}
 	}
 	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( Dungeon.depth, 4 + Dungeon.depth * 2 );
-	}
-
 	@Override
 	public void die( Object cause ) {
 		Dungeon.level.drop( new MysteryMeat(), pos ).sprite.drop();

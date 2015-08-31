@@ -38,17 +38,14 @@ public class Slime extends Mob {
         defenseSkill = 6;
         atkSkill = 12;
         dmgRed = 5;
+        dmgMin = 3;
+        dmgMax = 7;
 
         EXP = 4;
         maxLvl = 11;
 
         loot = new PotionOfToxicGas();
         lootChance = 0.167f;
-    }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange(3, 7);
     }
 
     @Override

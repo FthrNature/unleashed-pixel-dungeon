@@ -41,14 +41,11 @@ public class Golem extends Mob {
 		defenseSkill = 18;
 		atkSkill = 28;
 		dmgRed = 12;
-		
+		dmgMin = 20;
+		dmgMax = 40;
+
 		EXP = 12;
 		maxLvl = 27;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 20, 40 );
 	}
 	
 	@Override

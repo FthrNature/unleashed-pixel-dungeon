@@ -77,6 +77,8 @@ public class Bee extends Mob {
 		HT = (2 + level) * 4;
 		defenseSkill = 9 + level;
 		atkSkill = defenseSkill;
+		dmgMin = HT / 10;
+		dmgMax = HT / 4;
 	}
 
 	public void setPotInfo(int potPos, Char potHolder){
@@ -85,11 +87,6 @@ public class Bee extends Mob {
 			this.potHolder = -1;
 		else
 			this.potHolder = potHolder.id();
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( HT / 10, HT / 4 );
 	}
 	
 	@Override

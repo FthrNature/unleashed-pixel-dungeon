@@ -45,7 +45,11 @@ public class Monk extends Mob {
 		
 		HP = HT = 70;
 		defenseSkill = 30;
-		
+		atkSkill = 30;
+		dmgMin = 12;
+		dmgMax = 16;
+		dmgRed = 2;
+
 		EXP = 11;
 		maxLvl = 26;
 		
@@ -54,23 +58,8 @@ public class Monk extends Mob {
 	}
 	
 	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 12, 16 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 30;
-	}
-	
-	@Override
 	protected float attackDelay() {
 		return 0.5f;
-	}
-	
-	@Override
-	public int dr() {
-		return 2;
 	}
 	
 	@Override

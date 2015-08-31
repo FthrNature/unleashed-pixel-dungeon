@@ -22,18 +22,16 @@ public class Minotaur extends Mob {
         spriteClass = MinotaurSprite.class;
 
         HP = HT = 90;
-        defenseSkill = 18;
-        atkSkill = 28;
+        defenseSkill = 22;
+        atkSkill = 32;
         dmgRed = 12;
+        dmgMin = 12;
+        dmgMax = 30;
 
-        EXP = 10;
-        maxLvl = 23;
+        EXP = 11;
+        maxLvl = 28;
 
-    }
-
-    @Override
-    public int damageRoll() {
-        return Random.NormalIntRange(12, 30);
+        state = HUNTING;
     }
 
     @Override

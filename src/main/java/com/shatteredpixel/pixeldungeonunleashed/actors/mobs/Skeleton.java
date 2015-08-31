@@ -46,17 +46,17 @@ public class Skeleton extends Mob {
 		
 		HP = HT = 25;
 		defenseSkill = 9;
+		atkSkill = 12;
 		
 		EXP = 5;
 		maxLvl = 12;
 
+		dmgMin = 3;
+		dmgMax = 8;
+		dmgRed = 5;
+
 		loot = Generator.Category.WEAPON;
 		lootChance = 0.2f;
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 3, 8 );
 	}
 	
 	@Override
@@ -96,16 +96,6 @@ public class Skeleton extends Mob {
 			}
 		}
 		return loot;
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 12;
-	}
-	
-	@Override
-	public int dr() {
-		return 5;
 	}
 	
 	@Override

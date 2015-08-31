@@ -72,11 +72,6 @@ public class Mimic extends Mob {
 		super.restoreFromBundle(bundle);
 	}
 	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( HT / 10, HT / 4 );
-	}
-	
 	public void adjustStats( int level ) {
 		this.level = level;
 		
@@ -84,6 +79,8 @@ public class Mimic extends Mob {
 		EXP = 2 + 2 * (level - 1) / 5;
 		atkSkill = 9 + level;
 		defenseSkill = atkSkill / 2;
+		dmgMin = HT / 10;
+		dmgMax = HT / 4;
 
 		enemySeen = true;
 	}
