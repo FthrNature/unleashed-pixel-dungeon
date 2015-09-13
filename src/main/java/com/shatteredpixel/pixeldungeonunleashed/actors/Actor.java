@@ -47,7 +47,7 @@ public abstract class Actor implements Bundlable {
 	protected abstract boolean act();
 	
 	protected void spend( float time ) {
-		this.time += time;
+		this.time += Math.max(time, 0.25f);
 	}
 	
 	protected void postpone( float time ) {
@@ -95,10 +95,10 @@ public abstract class Actor implements Bundlable {
 	// **********************
 	// *** Static members ***
 	
-	private static HashSet<Actor> all = new HashSet<Actor>();
+	private static HashSet<Actor> all = new HashSet<>();
 	private static Actor current;
 
-	private static SparseArray<Actor> ids = new SparseArray<Actor>();
+	private static SparseArray<Actor> ids = new SparseArray<>();
 
 	private static float now = 0;
 	

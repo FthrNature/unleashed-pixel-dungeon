@@ -136,7 +136,7 @@ public class Swarm extends Mob {
 	@Override
 	public void die( Object cause ){
 		//sets drop chance
-		lootChance = 1f/((5 + Dungeon.limitedDrops.swarmHP.count ) * (generation+1) );
+		lootChance = 1f/((6 + Dungeon.limitedDrops.swarmHP.count ) * (generation+1) );
 		super.die( cause );
 	}
 
@@ -149,7 +149,7 @@ public class Swarm extends Mob {
 	@Override
 	public String description() {
 		return
-			"The deadly swarm of flies buzzes angrily. Every non-magical attack " +
+			"Larger cousins to the Sewer Flies, these deadly swarms of flies buzz angrily. Every non-magical attack " +
 			"will split it into two smaller but equally dangerous swarms.";
 	}
 }

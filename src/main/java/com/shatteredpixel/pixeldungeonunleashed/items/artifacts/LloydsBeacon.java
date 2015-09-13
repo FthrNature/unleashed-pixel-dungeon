@@ -281,7 +281,13 @@ public class LloydsBeacon extends Artifact {
 	}
 	
 	private static final Glowing WHITE = new Glowing( 0xFFFFFF );
-	
+
+	@Override
+	public void updateArtifact() {
+		chargeCap = 3 + level;
+	}
+
+
 	@Override
 	public Glowing glowing() {
 		return returnDepth != -1 ? WHITE : null;

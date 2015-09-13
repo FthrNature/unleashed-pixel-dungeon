@@ -168,6 +168,7 @@ public class Artifact extends KindofMisc {
 		if (level > levelCap) {
 			level = levelCap;
 		}
+		updateArtifact();
 	}
 
 	@Override
@@ -234,7 +235,7 @@ public class Artifact extends KindofMisc {
 		className = className.replaceAll("(\\p{Ll})(\\p{Lu})", "$1 $2");
 
 		return className;
-	};
+	}
 
 	@Override
 	public Item random() {
@@ -298,5 +299,11 @@ public class Artifact extends KindofMisc {
 		exp = bundle.getInt( EXP );
 		charge = bundle.getInt( CHARGE );
 		partialCharge = bundle.getFloat( PARTIALCHARGE );
+		updateArtifact();
+	}
+
+	public void updateArtifact() {
+		// in case any artifacts have special computations between levels
+		// to be overriden and used when we restore from saves or transfer upgrades
 	}
 }

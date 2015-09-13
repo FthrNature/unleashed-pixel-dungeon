@@ -63,7 +63,7 @@ public class Armor extends EquipableItem {
 	public Armor( int tier ) {
 		
 		this.tier = tier;
-		levelCap = tier + 3 + ((int) tier / 2);
+		levelCap = tier + 3 + (tier / 2);
 		STR = typicalSTR();
 		DR = typicalDR();
 	}
@@ -177,7 +177,7 @@ public class Armor extends EquipableItem {
 			if (inscribe) {
 				inscribe( Glyph.random() );
 			}
-		};
+		}
 
 		if (upgradeSucceds()) {
 			DR += tier;
@@ -233,7 +233,7 @@ public class Armor extends EquipableItem {
 		if (levelKnown) {
 			info.append(
 				"\n\nThis " + name + " provides damage absorption up to " +
-				"" + Math.max( DR, 0 ) + " points per attack. " );
+				Math.max( DR, 0 ) + " points per attack. " );
 			
 			if (STR > Dungeon.hero.STR()) {
 				
@@ -258,7 +258,8 @@ public class Armor extends EquipableItem {
 		}
 		
 		if (glyph != null) {
-			info.append( "It is inscribed; " +  glyph.glyphDescription() );
+			info.append( "It is inscribed; ");
+			info.append( glyph.glyphDescription() );
 		}
 		
 		if (isEquipped( Dungeon.hero )) {
@@ -275,7 +276,7 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public Item random() {
-		int upgrade_odds = 2;
+		int upgrade_odds;
 		switch (Dungeon.difficultyLevel) {
 			case Dungeon.DIFF_TUTOR:
 			case Dungeon.DIFF_EASY:

@@ -102,7 +102,6 @@ public class RankingsScene extends PixelScene {
 				row.setRect( left+offset, top + pos * rowHeight, w - left * 2, rowHeight );
 				try {
 					add(row);
-
 					pos++;
 				} catch (Exception e) {
 					//
@@ -304,11 +303,15 @@ public class RankingsScene extends PixelScene {
 		
 		@Override
 		protected void onClick() {
+			// DSM-xxxx check if we are sending over the correct record here...
+			/*
 			if (rec.gameFile.length() > 0) {
+				GLog.i("Record: " + rec.gameFile);
 				parent.add( new WndRanking( rec.gameFile ) );
 			} else {
 				parent.add( new WndError( TXT_NO_INFO ) );
 			}
+			*/
 		}
 	}
 }

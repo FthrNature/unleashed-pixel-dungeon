@@ -33,16 +33,16 @@ public class SwarmSprite extends MobSprite {
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 		
 		idle = new Animation( 15, true );
-		idle.frames( frames, 0, 1, 2, 3, 4, 5 );
+		idle.frames( frames, 16, 17, 18, 19, 20, 21 );
 		
 		run = new Animation( 15, true );
-		run.frames( frames, 0, 1, 2, 3, 4, 5 );
+		run.frames( frames, 16, 17, 18, 19, 20, 21 );
 		
 		attack = new Animation( 20, false );
-		attack.frames( frames, 6, 7, 8, 9 );
+		attack.frames( frames, 22, 23, 24, 25 );
 		
 		die = new Animation( 15, false );
-		die.frames( frames, 10, 11, 12, 13, 14 );
+		die.frames( frames, 26, 27, 28, 29, 30 );
 		
 		play( idle );
 	}

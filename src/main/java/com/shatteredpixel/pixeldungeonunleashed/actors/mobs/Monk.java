@@ -56,7 +56,9 @@ public class Monk extends Mob {
 		loot = new Food();
 		lootChance = 0.083f;
 	}
-	
+
+	static int chanceToDisarm = 10;
+
 	@Override
 	protected float attackDelay() {
 		return 0.5f;
@@ -76,9 +78,8 @@ public class Monk extends Mob {
 	
 	@Override
 	public int attackProc( Char enemy, int damage ) {
-		
-		if (Random.Int( 6 ) == 0 && enemy == Dungeon.hero) {
-			
+		if (Random.Int( chanceToDisarm ) == 0 && enemy == Dungeon.hero) {
+			chanceToDisarm += 8;
 			Hero hero = Dungeon.hero;
 			KindOfWeapon weapon = hero.belongings.weapon;
 			
@@ -87,6 +88,11 @@ public class Monk extends Mob {
 				Dungeon.quickslot.clearItem( weapon );
 				Dungeon.level.drop( weapon, hero.pos ).sprite.drop();
 				GLog.w( TXT_DISARM, name, weapon.name() );
+			}
+		} else {
+			chanceToDisarm -= 1;
+			if (chanceToDisarm < 5) {
+				chanceToDisarm = 5;
 			}
 		}
 		

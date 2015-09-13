@@ -26,7 +26,6 @@ import com.shatteredpixel.pixeldungeonunleashed.Bones;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.GamesInProgress;
 import com.shatteredpixel.pixeldungeonunleashed.ResultDescriptions;
-import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
 import com.shatteredpixel.pixeldungeonunleashed.Statistics;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
@@ -84,6 +83,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfForce;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfFuror;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfHaste;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfMight;
+import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfSearching;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfTenacity;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.Scroll;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfMagicMapping;
@@ -215,7 +215,7 @@ public class Hero extends Char {
 		
 		belongings = new Belongings( this );
 		
-		visibleEnemies = new ArrayList<Mob>();
+		visibleEnemies = new ArrayList<>();
 	}
 
 	public int STR() {
@@ -684,7 +684,7 @@ public class Hero extends Char {
 
 						boolean important =
 								((item instanceof ScrollOfUpgrade || item instanceof ScrollOfMagicalInfusion) && ((Scroll)item).isKnown()) ||
-								((item instanceof PotionOfStrength || item instanceof PotionOfMight) && ((Potion)item).isKnown());
+								((item instanceof PotionOfMight || item instanceof PotionOfStrength) && ((Potion)item).isKnown());
 						if (important) {
 							GLog.p( TXT_YOU_NOW_HAVE, item.name() );
 						} else {
@@ -692,13 +692,13 @@ public class Hero extends Char {
 						}
 
 						if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
-							if ((Dungeon.tutorial_food_found == false) && (item instanceof Food)) {
+							if ((!Dungeon.tutorial_food_found) && (item instanceof Food)) {
 								Dungeon.tutorial_food_found = true;
 								GameScene.show(new WndMessage("You just picked up some food.  Food is an important resource in this game; " +
 									"Although wasted When you are full, food can save you when you are starving.  Other things " +
 									"can also affect your hunger, like leveling up (at easier difficulties), drinking " +
 									"some potions, and even some items.  Eat food when you are hungry."));
-							} else if ((Dungeon.tutorial_key_found == false) && (item instanceof Key)) {
+							} else if ((!Dungeon.tutorial_key_found) && (item instanceof Key)) {
 								Dungeon.tutorial_key_found = true;
 								GameScene.show(new WndMessage("You just picked up a key; Somewhere on this level is a locked door that this " +
 									"key will open.  There is usually something interesting or valuable inside of a locked room."));
@@ -1022,7 +1022,7 @@ public class Hero extends Char {
 	}
 	
 	private void checkVisibleMobs() {
-		ArrayList<Mob> visible = new ArrayList<Mob>();
+		ArrayList<Mob> visible = new ArrayList<>();
 
 		boolean newMob = false;
 		
@@ -1175,7 +1175,7 @@ public class Hero extends Char {
 
 		if (subClass == HeroSubClass.WARLOCK) {
 
-			int healed = Math.round(Math.min(HT - HP, HT * percent * 0.3f));
+			int healed = Math.round(Math.min(HT - HP, (HT * percent * 0.3f) + 1));
 			if (healed > 0) {
 				HP += healed;
 				sprite.emitter().burst( Speck.factory( Speck.HEALING ), percent > 0.3f ? 2 : 1 );
@@ -1195,26 +1195,26 @@ public class Hero extends Char {
 				switch (Dungeon.difficultyLevel) {
 					case Dungeon.DIFF_TUTOR:
 					case Dungeon.DIFF_EASY:
-						HT += 6 - ((int) ( lvl / 15));
-						HP += 6 - ((int) ( lvl / 15));
+						HT += 6 - ( lvl / 15);
+						HP += 6 - ( lvl / 15);
 						attackSkill++;
 						defenseSkill++;
 						break;
 					case Dungeon.DIFF_HARD:
-						HT += 4 - ((int) ( lvl / 13));
-						HP += 4 - ((int) ( lvl / 13));
+						HT += 4 - ( lvl / 13);
+						HP += 4 - ( lvl / 13);
 						attackSkill++;
 						defenseSkill++;
 						break;
 					case Dungeon.DIFF_NTMARE:
-						HT += 3 - ((int) ( lvl / 13));
-						HP += 3 - ((int) ( lvl / 13));
+						HT += 3 - ( lvl / 13);
+						HP += 3 - ( lvl / 13);
 						attackSkill++;
 						defenseSkill++;
 						break;
 					default:
-						HT += 5 - ((int) ( lvl / 13));
-						HP += 5 - ((int) ( lvl / 13));
+						HT += 5 - ( lvl / 13);
+						HP += 5 - ( lvl / 13);
 						attackSkill++;
 						defenseSkill++;
 						break;
@@ -1224,7 +1224,7 @@ public class Hero extends Char {
 				Buff.prolong(this, Bless.class, 30f);
 				this.exp = 0;
 
-				GLog.p( "You cannot grow stronger, but your experiences do give you a surge of power!");
+				GLog.p( TXT_LEVEL_CAP );
 				Sample.INSTANCE.play( Assets.SND_LEVELUP );
 			}
 
@@ -1280,7 +1280,7 @@ public class Hero extends Char {
 	}
 	
 	public boolean isStarving() {
-		return buff(Hunger.class) != null && ((Hunger)buff( Hunger.class )).isStarving();
+		return buff(Hunger.class) != null && (buff( Hunger.class )).isStarving();
 	}
 	
 	@Override
@@ -1289,7 +1289,7 @@ public class Hero extends Char {
 		if (buff(TimekeepersHourglass.timeStasis.class) != null)
 			return;
 
-		super.add( buff );
+		super.add(buff);
 
 		if (sprite != null) {
 			if (buff instanceof Burning) {
@@ -1390,7 +1390,7 @@ public class Hero extends Char {
 		}
 		
 		Actor.fixTime();
-		super.die( cause );
+		super.die(cause);
 
 		if (ankh == null) {
 			
@@ -1441,7 +1441,7 @@ public class Hero extends Char {
 		}
 		Collections.shuffle( passable );
 
-		ArrayList<Item> items = new ArrayList<Item>( Dungeon.hero.belongings.backpack.items );
+		ArrayList<Item> items = new ArrayList<>( Dungeon.hero.belongings.backpack.items );
 		for (Integer cell : passable) {
 			if (items.isEmpty()) {
 				break;
@@ -1463,7 +1463,7 @@ public class Hero extends Char {
 	
 	@Override
 	public void move( int step ) {
-		super.move( step );
+		super.move(step);
 		
 		if (!flying) {
 			
@@ -1479,7 +1479,7 @@ public class Hero extends Char {
 	@Override
 	public void onMotionComplete() {
 		Dungeon.observe();
-		search( false );
+		search(false);
 			
 		super.onMotionComplete();
 	}
@@ -1534,18 +1534,17 @@ public class Hero extends Char {
 	public boolean search( boolean intentional ) {
 		
 		boolean smthFound = false;
-
-		int positive = 0;
-		int negative = 0;
-
-		int distance = 1 + positive + negative;
+		int distance = 1;
+		int bonus = 0;
+		if (intentional) {
+			RingOfSearching.EasySearch bonusSearch = buff( RingOfSearching.EasySearch.class );
+			if (bonusSearch != null) {
+				distance = 2;
+			}
+		}
 
 		float level = intentional ? (2 * awareness - awareness * awareness) : awareness;
-		if (distance <= 0) {
-			level /= 2 - distance;
-			distance = 1;
-		}
-		
+
 		int cx = pos % Level.WIDTH;
 		int cy = pos / Level.WIDTH;
 		int ax = cx - distance;
@@ -1602,15 +1601,22 @@ public class Hero extends Char {
 
 		
 		if (intentional) {
-			sprite.showStatus( CharSprite.DEFAULT, TXT_SEARCH );
+			sprite.showStatus(CharSprite.DEFAULT, TXT_SEARCH);
 			sprite.operate( pos );
+			float myTimeToSearch = TIME_TO_SEARCH;
+			if (intentional) {
+				if (bonus < 0) {
+					myTimeToSearch *= 2;
+				} else if (bonus > 0) {
+					myTimeToSearch = TIME_TO_SEARCH + 1 - (bonus * .1f);
+				}
+			}
 			if (foresight != null && foresight.isCursed()){
 				GLog.n("You can't concentrate, searching takes a while.");
-				spendAndNext(TIME_TO_SEARCH * 3);
+				spendAndNext(myTimeToSearch * 3);
 			} else {
-				spendAndNext(TIME_TO_SEARCH);
+				spendAndNext(myTimeToSearch);
 			}
-			
 		}
 		
 		if (smthFound) {
@@ -1654,7 +1660,7 @@ public class Hero extends Char {
 		super.next();
 	}
 
-	public static interface Doom {
-		public void onDeath();
+	public interface Doom {
+		void onDeath();
 	}
 }

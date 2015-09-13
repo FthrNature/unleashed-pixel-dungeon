@@ -102,7 +102,7 @@ public class TimekeepersHourglass extends Artifact {
 									activeBuff = new timeFreeze();
 									activeBuff.attachTo(Dungeon.hero);
 								}
-							};
+							}
 						}
 				);
 		} else
@@ -170,6 +170,10 @@ public class TimekeepersHourglass extends Artifact {
 		return desc;
 	}
 
+	@Override
+	public void updateArtifact() {
+		chargeCap = 10 + level*2;
+	}
 
 	private static final String SANDBAGS =  "sandbags";
 	private static final String BUFF =      "buff";

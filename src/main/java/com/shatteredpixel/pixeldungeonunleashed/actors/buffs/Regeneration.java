@@ -38,18 +38,34 @@ public class Regeneration extends Buff {
 
 			ChaliceOfBlood.chaliceRegen regenBuff = Dungeon.hero.buff( ChaliceOfBlood.chaliceRegen.class);
 
-			if (regenBuff != null)
-				if (regenBuff.isCursed())
-					spend( Dungeon.difficultyLevel - REGENERATION_DELAY * 1.5f );
-				else
-					spend( Dungeon.difficultyLevel - REGENERATION_DELAY - regenBuff.level()*0.9f );
-			else
-				spend( Dungeon.difficultyLevel - REGENERATION_DELAY );
-			
+			float regenDelay = 15f;
+			switch (Dungeon.difficultyLevel) {
+				case Dungeon.DIFF_TUTOR:
+				case Dungeon.DIFF_EASY:
+					regenDelay = 12;
+					break;
+				case Dungeon.DIFF_HARD:
+					regenDelay = 14;
+					break;
+				case Dungeon.DIFF_NTMARE:
+					regenDelay = 15;
+					break;
+				default:
+					regenDelay = 13;
+					break;
+			}
+			if (regenBuff != null) {
+				if (regenBuff.isCursed()) {
+					regenDelay = regenDelay - REGENERATION_DELAY * 1.5f;
+				} else {
+					regenDelay = regenDelay - REGENERATION_DELAY - regenBuff.level() * 0.9f;
+				}
+			} else {
+				regenDelay = regenDelay - REGENERATION_DELAY;
+			}
+			spend (Math.max(regenDelay, 4f));
 		} else {
-			
 			diactivate();
-			
 		}
 		
 		return true;

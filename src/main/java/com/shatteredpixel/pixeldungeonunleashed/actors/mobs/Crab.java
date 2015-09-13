@@ -20,11 +20,8 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.actors.mobs;
 
-import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.pixeldungeonunleashed.items.food.MysteryMeat;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.CrabSprite;
-import com.watabou.utils.Random;
 
 public class Crab extends Mob {
 
@@ -34,13 +31,13 @@ public class Crab extends Mob {
 		
 		HP = HT = 15;
 		defenseSkill = 5;
-		atkSkill = 12;
+		atkSkill = 11;
 		dmgRed = 4;
 		baseSpeed = 2f;
 		dmgMin = 3;
 		dmgMax = 6;
 
-		EXP = 3;
+		EXP = 4;
 		maxLvl = 11;
 		
 		loot = new MysteryMeat();

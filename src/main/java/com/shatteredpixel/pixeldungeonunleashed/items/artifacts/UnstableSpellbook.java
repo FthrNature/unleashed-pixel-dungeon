@@ -53,7 +53,7 @@ public class UnstableSpellbook extends Artifact {
 
 		charge = ((level/2)+3);
 		partialCharge = 0;
-		chargeCap = ((level/2)+3);
+		chargeCap = ((level+1)/2)+3;
 
 		defaultAction = AC_READ;
 	}
@@ -78,7 +78,7 @@ public class UnstableSpellbook extends Artifact {
 			probs[i] = 0;
 
 			i = Random.chances(probs);
-		};
+		}
 	}
 
 	@Override
@@ -195,6 +195,11 @@ public class UnstableSpellbook extends Artifact {
 		super.restoreFromBundle(bundle);
 		scrolls.clear();
 		Collections.addAll(scrolls, bundle.getStringArray(SCROLLS));
+	}
+
+	@Override
+	public void updateArtifact() {
+		chargeCap = ((level+1)/2)+3;
 	}
 
 	public class bookRecharge extends ArtifactBuff{

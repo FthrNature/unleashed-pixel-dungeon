@@ -31,17 +31,18 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Bless;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Burning;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Paralysis;
+import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Vertigo;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
 import com.shatteredpixel.pixeldungeonunleashed.effects.BlobEmitter;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Speck;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
-import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Ancient;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Glowing;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Luck;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
@@ -70,7 +71,7 @@ public class Donations extends Blob {
 
         if (Dungeon.visible[pos]) {
             Journal.add( Journal.Feature.ALTAR );
-            if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && Dungeon.tutorial_altar_seen == false) {
+            if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && !Dungeon.tutorial_altar_seen) {
                 Dungeon.tutorial_altar_seen = true;
                 GameScene.show(new WndMessage("An Altar room allows you to donate items in the hopes of " +
                     "divine interention.  More expensive donations provide better rewards, including some difficult " +
@@ -91,7 +92,8 @@ public class Donations extends Blob {
         Heap heap = Dungeon.level.heaps.get( cell );
         if (heap != null) {
             // don't allow accidental donations of important items such as keys or quest items
-            if (heap.peek().unique == true || heap.peek().price() < 5) {
+            // and don't insult the gods with insignificant donations
+            if (heap.peek().unique || heap.peek().price() < 5 || (heap.peek() instanceof MissileWeapon)) {
                 GLog.p("The Gods refuse your offering.");
                 // throw the item off of the Altar to avoid a redonation loop
                 int newPlace;
@@ -104,13 +106,12 @@ public class Donations extends Blob {
             }
 
             hero.donatedLoot += (heap.peek().price() * heap.peek().quantity());
-            if (heap.peek().cursed == true) {
+            if (heap.peek().cursed) {
                 // the Gods do not like to receive cursed goods and will punish the hero for this
-                GLog.w("The Gods are displeased with your donation!");
-
                 Buff.affect(hero, Burning.class).reignite(hero);
                 Buff.affect(hero, Paralysis.class);
-                Buff.prolong(hero, Paralysis.class, 5f);
+                Buff.prolong(hero, Vertigo.class, 5f);
+                GLog.w("The Gods are displeased with your donation!");
 
                 // the hero may not use this altar again during this run
                 hero.donatedLoot = 0;

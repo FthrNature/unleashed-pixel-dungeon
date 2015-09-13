@@ -180,8 +180,10 @@ public class Generator {
 			RingOfSharpshooting.class,
 			RingOfTenacity.class,
 			RingOfWealth.class,
-		    RingOfSating.class};
-		Category.RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+		    RingOfSating.class,
+			RingOfSearching.class
+		};
+		Category.RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
 		Category.ARTIFACT.classes = new Class<?>[]{
 			CapeOfThorns.class,         // set to 0 - special drop
@@ -196,10 +198,11 @@ public class Generator {
 			AlchemistsToolkit.class,
 			DriedRose.class, //starts with no chance of spawning, chance is set directly after beating ghost quest.
 			LloydsBeacon.class,      // set to 0 - special drop
-			EtherealChains.class
+			EtherealChains.class,
+			//BagOfDevouring.class
 			};
 		// note - duplicated down below in initArtifacts() - look into refactoring
-		Category.ARTIFACT.probs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1};
+		Category.ARTIFACT.probs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1 };
 		
 		Category.SEED.classes = new Class<?>[]{
 			Firebloom.Seed.class,

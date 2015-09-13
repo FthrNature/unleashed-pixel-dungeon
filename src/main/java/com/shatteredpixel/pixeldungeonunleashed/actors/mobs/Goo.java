@@ -40,7 +40,6 @@ import com.shatteredpixel.pixeldungeonunleashed.items.keys.SkeletonKey;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfPsionicBlast;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Death;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
-import com.shatteredpixel.pixeldungeonunleashed.levels.SewerBossLevel;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.CharSprite;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.GooSprite;

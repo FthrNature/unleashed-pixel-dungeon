@@ -212,6 +212,12 @@ public class CloakOfShadows extends Artifact {
 
 	}
 
+	@Override
+	public void updateArtifact() {
+		chargeCap = level + 5;
+	}
+
+
 	public class cloakStealth extends ArtifactBuff{
 		@Override
 		public int icon() {
@@ -284,4 +290,5 @@ public class CloakOfShadows extends Artifact {
 			super.detach();
 		}
 	}
+
 }
