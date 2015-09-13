@@ -61,4 +61,8 @@ public class Poison extends Weapon.Enchantment {
 		return String.format( TXT_VENOMOUS, weaponName );
 	}
 
+	@Override
+	public String enchDesc() {
+		return "Venomous weapons drip with poison, which can affect an enemy when struck.";
+	}
 }

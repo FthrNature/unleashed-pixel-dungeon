@@ -59,14 +59,10 @@ public class MeleeWeapon extends Weapon {
 		cursed = false;
 		cursedKnown = true;
 
-		if (this.level < n) {
-			for (int i = this.level; i < n; i++) {
-				STR--;
-				MIN++;
-				MAX += tier;
-			}
-			this.level = n;
-		}
+		STR = Math.max(typicalSTR() - n, 8);
+		MIN = tier + n;
+		MAX = (int)((tier * tier - tier + 10) / ACU * DLY) + (n * tier);
+		this.level = n;
 
 		updateQuickslot();
 
@@ -161,7 +157,8 @@ public class MeleeWeapon extends Weapon {
 		}
 		
 		if (enchantment != null) {
-			info.append( "It is enchanted." );
+			info.append( p );
+			info.append( "It is enchanted.  " + enchantment.enchDesc());
 		}
 		
 		if (levelKnown && Dungeon.hero.belongings.backpack.items.contains( this )) {

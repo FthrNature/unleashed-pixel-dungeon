@@ -125,7 +125,7 @@ public abstract class RegularLevel extends Level {
 			connected.add( room );
 		}
 
-		int nConnected = (int)(rooms.size() * Random.Float( 0.5f, 0.7f ));
+		int nConnected = (int)(rooms.size() * Random.Float( 0.5f, 0.7f )); // the higher this number is the more packed our map becomes
 		while (connected.size() < nConnected) {
 
 			Room cr = Random.element( connected );
@@ -302,24 +302,25 @@ public abstract class RegularLevel extends Level {
 		for (Room r : rooms) {
 			if (r.type == Type.NULL) {
 				int connections = r.connected.size();
-				if (connections == 0) {
-					
-				} else if (Random.Int( connections * connections ) == 0) {
-					r.type = Type.STANDARD;
-					count++;
-				} else {
-					r.type = Type.TUNNEL;
+				if (connections > 0) {
+					if (Random.Int(connections * connections) == 0) {
+						r.type = Type.STANDARD;
+						count++;
+					} else {
+						r.type = Type.TUNNEL;
+					}
 				}
 			}
 		}
-		
-		while (count < 6) {
+
+		while (count < 6) { // convert 6 random tunnels into standard rooms
 			Room r = randomRoom( Type.TUNNEL, 1 );
 			if (r != null) {
 				r.type = Type.STANDARD;
 				count++;
 			}
 		}
+
 
 		/*
 		//DSM-xxxx this following chunk is for debug purposes...

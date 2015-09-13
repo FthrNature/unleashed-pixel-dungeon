@@ -23,6 +23,7 @@ package com.shatteredpixel.pixeldungeonunleashed.items.wands;
 import java.util.ArrayList;
 
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
+import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfMagic;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.MagesStaff;
 import com.watabou.noosa.audio.Sample;
@@ -51,11 +52,7 @@ public abstract class Wand extends Item {
 	private static final int USAGES_TO_KNOW    = 20;
 
 	public static final String AC_ZAP	= "ZAP";
-	
-	private static final String TXT_WOOD	= "This thin %s wand is warm to the touch. Who knows what it will do when used?";
-	private static final String TXT_DAMAGE	= "When this wand is used as a melee weapon, its average damage is %d points per hit.";
-	private static final String TXT_WEAPON	= "You can use this wand as a melee weapon.";
-			
+
 	private static final String TXT_FIZZLES		= "your wand fizzles; it must not have enough charge.";
 	private static final String TXT_SELF_TARGET	= "You can't target yourself";
 
@@ -145,18 +142,7 @@ public abstract class Wand extends Item {
 	}
 	
 	public int level() {
-		if (charger != null) {
-			Magic magic = charger.target.buff( Magic.class );
-			if (magic == null) {
-				return level;
-			} else if (magic.level <= 0){
-				return Math.max( level + magic.level, 0 );
-			} else {
-				return level + Random.Int(0, magic.level);
-			}
-		} else {
-			return level;
-		}
+		return level;
 	}
 	
 	@Override
@@ -209,14 +195,9 @@ public abstract class Wand extends Item {
 		cursed = false;
 		cursedKnown = true;
 
-		if (this.level < n) {
-			for (int i = this.level; i < n; i++) {
-				updateLevel();
-				curCharges = Math.min(curCharges + 1, maxCharges);
-			}
-			this.level = n;
-		}
-
+		this.level = n;
+		updateLevel();
+		curCharges = maxCharges;
 		updateQuickslot();
 
 		return this;
@@ -444,23 +425,33 @@ public abstract class Wand extends Item {
 				updateQuickslot();
 			}
 			
-			spend( TICK );
+			spend( TICK ); // check each turn
 			
 			return true;
 		}
 
 		private void gainCharge(){
+			float prevCharge = partialCharge;
 			int missingCharges = maxCharges - curCharges;
 
-			float turnsToCharge = (float) (BASE_CHARGE_DELAY
-					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
-
+			float turnsToCharge = (float) (BASE_CHARGE_DELAY + (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 			partialCharge += 1f/turnsToCharge;
 
+			// a scroll of recharging gives a .25 charge per turn
 			ScrollOfRecharging.Recharging bonus = target.buff(ScrollOfRecharging.Recharging.class);
 			if (bonus != null && bonus.remainder() > 0f){
 				partialCharge += CHARGE_BUFF_BONUS * bonus.remainder();
 			}
+
+			float bonus2 = 0f;
+			for (Buff buff : target.buffs( RingOfMagic.Magic.class )) {
+				bonus2 += (((RingOfMagic.Magic)buff).level + 1) * .005f;
+			}
+			partialCharge += bonus2;
+			if (prevCharge > partialCharge) {
+				partialCharge = prevCharge + .005f;
+			}
+
 		}
 
 		private void setScaleFactor(float value){

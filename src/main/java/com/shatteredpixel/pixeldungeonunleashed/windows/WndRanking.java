@@ -23,8 +23,6 @@ package com.shatteredpixel.pixeldungeonunleashed.windows;
 import java.util.Locale;
 
 
-import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
-import com.shatteredpixel.pixeldungeonunleashed.scenes.TitleScene;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
@@ -59,7 +57,7 @@ public class WndRanking extends WndTabbed {
 	private static final int WIDTH			= 115;
 	private static final int HEIGHT			= 144;
 	
-	private static final int TAB_WIDTH	= 40;
+	//private static final int TAB_WIDTH	= 40;
 	
 	private Thread thread;
 	private String error = null;
@@ -170,7 +168,7 @@ public class WndRanking extends WndTabbed {
 		
 		public StatsTab() {
 			super();
-			try { // DSM-xxxx
+			try {
 
 				String heroClass = Dungeon.hero.className();
 
@@ -265,37 +263,42 @@ public class WndRanking extends WndTabbed {
 		
 		public ItemsTab() {
 			super();
-			
-			Belongings stuff = Dungeon.hero.belongings;
-			if (stuff.weapon != null) {
-				addItem( stuff.weapon );
-			}
-			if (stuff.armor != null) {
-				addItem( stuff.armor );
-			}
-			if (stuff.misc1 != null) {
-				addItem( stuff.misc1);
-			}
-			if (stuff.misc2 != null) {
-				addItem( stuff.misc2);
-			}
 
-			pos = 29;
-			for (int i = 0; i < 2; i++){
-				if (Dungeon.quickslot.getItem(i) != null){
-					QuickSlotButton slot = new QuickSlotButton(Dungeon.quickslot.getItem(i));
-
-					slot.setRect( pos, 116, 28, 28 );
-
-					add(slot);
-
-				} else {
-					ColorBlock bg = new ColorBlock( 28, 28, 0xFF4A4D44);
-					bg.x = pos;
-					bg.y = 116;
-					add(bg);
+			try {
+				Belongings stuff = Dungeon.hero.belongings;
+				if (stuff.weapon != null) {
+					addItem(stuff.weapon);
 				}
-				pos += 29;
+				if (stuff.armor != null) {
+					addItem(stuff.armor);
+				}
+				if (stuff.misc1 != null) {
+					addItem(stuff.misc1);
+				}
+				if (stuff.misc2 != null) {
+					addItem(stuff.misc2);
+				}
+
+				pos = 29;
+				for (int i = 0; i < 2; i++) {
+					if (Dungeon.quickslot.getItem(i) != null) {
+						QuickSlotButton slot = new QuickSlotButton(Dungeon.quickslot.getItem(i));
+
+						slot.setRect(pos, 116, 28, 28);
+
+						add(slot);
+
+					} else {
+						ColorBlock bg = new ColorBlock(28, 28, 0xFF4A4D44);
+						bg.x = pos;
+						bg.y = 116;
+						add(bg);
+					}
+					pos += 29;
+				}
+			} catch (Exception ex) {
+				// something went very wrong here... nullPointer exception?
+				hide();
 			}
 		}
 		
@@ -391,11 +394,11 @@ public class WndRanking extends WndTabbed {
 		protected void onTouchDown() {
 			bg.brightness( 1.5f );
 			Sample.INSTANCE.play( Assets.SND_CLICK, 0.7f, 0.7f, 1.2f );
-		};
+		}
 		
 		protected void onTouchUp() {
 			bg.brightness( 1.0f );
-		};
+		}
 		
 		@Override
 		protected void onClick() {
@@ -435,11 +438,11 @@ public class WndRanking extends WndTabbed {
 		protected void onTouchDown() {
 			bg.brightness( 1.5f );
 			Sample.INSTANCE.play( Assets.SND_CLICK, 0.7f, 0.7f, 1.2f );
-		};
+		}
 
 		protected void onTouchUp() {
 			bg.brightness( 1.0f );
-		};
+		}
 
 		@Override
 		protected void onClick() {

@@ -386,9 +386,9 @@ public class Armor extends EquipableItem {
 		private static final Class<?>[] glyphs = new Class<?>[]{
 			Bounce.class, Affection.class, AntiEntropy.class, Multiplicity.class,
 			Potential.class, Metabolism.class, Stench.class, Viscosity.class,
-			Displacement.class, Entanglement.class };
+			Displacement.class, Entanglement.class, Resistance.class };
 		
-		private static final float[] chances= new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+		private static final float[] chances= new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 			
 		public abstract int proc( Armor armor, Char attacker, Char defender, int damage );
 

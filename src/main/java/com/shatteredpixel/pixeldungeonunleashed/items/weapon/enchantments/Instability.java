@@ -36,7 +36,13 @@ public class Instability extends Weapon.Enchantment {
 	
 	@Override
 	public String name( String weaponName) {
-		return String.format( TXT_UNSTABLE, weaponName );
+		return String.format(TXT_UNSTABLE, weaponName);
+	}
+
+	@Override
+	public String enchDesc() {
+		return "Unstable weapons are imbued with Chaos magic; magical patterns on the surface of "+
+				"the weapon keep changing and every blow wields a different random effect.";
 	}
 
 }

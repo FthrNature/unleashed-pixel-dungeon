@@ -49,6 +49,22 @@ public class WelcomeScene extends PixelScene {
 			"Enjoy";
 
 	private static final String TXT_Update =
+			"v01.7: Enchantments and Glyphs\n"+
+					"- Midas Weapon Enchant\n"+
+					"- Vicious Weapon Enchantment\n"+
+					"- Restance Armor Glyph\n"+
+					"- Ring of Magic speeds Wand Recharge\n"+
+					"- Ring of Sating slows Hunger checks\n"+
+					"- Weapon Enchantment Descriptions\n"+
+					"- test code improvements\n"+
+					"- code cleanup and bug fixes\n\n"+
+			"v01.6: Interim Build\n"+
+					"- graphics tweaks\n"+
+					"- buffed the mini-bosses\n"+
+					"- made traps visible in end levels\n"+
+					"- better mage staff imbuing\n"+
+					"- prep work for new items and infinite dungeons\n"+
+					"- fixed numerous bugs to improve stability\n\n"+
             "v01.5: Content Push - It's all about the Mobs!\n"+
                     "- Red and Brown Slimes\n"+
                     "- Robot Spiders\n"+

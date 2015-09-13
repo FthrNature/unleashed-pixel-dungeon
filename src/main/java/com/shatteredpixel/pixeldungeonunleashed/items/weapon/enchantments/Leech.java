@@ -68,4 +68,9 @@ public class Leech extends Weapon.Enchantment {
 		return String.format( TXT_VAMPIRIC, weaponName );
 	}
 
+	@Override
+	public String enchDesc() {
+		return "Considered evil, the Vampiric weapons suck the life out of your enemy with each hit use"+
+		"that energy to heal your wounds.  With each use of this weapon you feel your soul grow cold.";
+	}
 }

@@ -179,8 +179,9 @@ public class Generator {
 			RingOfMight.class,
 			RingOfSharpshooting.class,
 			RingOfTenacity.class,
-			RingOfWealth.class};
-		Category.RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+			RingOfWealth.class,
+		    RingOfSating.class};
+		Category.RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
 		Category.ARTIFACT.classes = new Class<?>[]{
 			CapeOfThorns.class,         // set to 0 - special drop

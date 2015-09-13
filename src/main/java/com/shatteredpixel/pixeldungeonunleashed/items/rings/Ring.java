@@ -59,6 +59,7 @@ public class Ring extends KindofMisc {
 		RingOfSharpshooting.class,
 		RingOfTenacity.class,
 		RingOfWealth.class,
+		RingOfSating.class
 	};
 	private static final String[] gems =
 		{

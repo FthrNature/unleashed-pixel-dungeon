@@ -57,4 +57,10 @@ public class Luck extends Weapon.Enchantment {
 	public Glowing glowing() {
 		return GREEN;
 	}
+
+	@Override
+	public String enchDesc() {
+		return "Lucky weapons are enchanted by ancient magic to do extra damage.";
+	}
+
 }

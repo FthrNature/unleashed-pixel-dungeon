@@ -29,6 +29,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroSubClass;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.Artifact;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.HornOfPlenty;
+import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfSating;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
@@ -37,7 +38,7 @@ import com.watabou.utils.Random;
 
 public class Hunger extends Buff implements Hero.Doom {
 
-	private static final float STEP	= 10f;
+	private static final float STEP	= 10f; // how often we check and how much to increase hunger by each check
 
 	public static final float HUNGRY	= 320f;
 	public static final float STARVING	= 400f;
@@ -77,12 +78,11 @@ public class Hunger extends Buff implements Hero.Doom {
 			if (isStarving()) {
 
 				if (Random.Float() < 0.3f && (target.HP > 1 || !target.paralysed)) {
-
 					hero.damage( 1, this );
-
 				}
-			} else {
 
+			} else {
+				// increase hunger by our STEP amount, this is normally +1 hunger for each turn...
 				float newLevel = level + STEP;
 				boolean statusUpdated = false;
 				if (newLevel >= STARVING) {
@@ -107,7 +107,15 @@ public class Hunger extends Buff implements Hero.Doom {
 
 			}
 
+			// wait 10 turns before our next check...
+			// rogues wait a little longer, the ring of sating also delays the next check
+			int bonus = 0;
+			for (Buff buff : target.buffs( RingOfSating.Satiety.class )) {
+				bonus += ((RingOfSating.Satiety)buff).level;
+			}
+
 			float step = ((Hero)target).heroClass == HeroClass.ROGUE ? STEP * 1.2f : STEP;
+			step += bonus;
 			spend( target.buff( Shadows.class ) == null ? step : step * 1.5f );
 
 		} else {

@@ -86,7 +86,7 @@ public class Dungeon {
 
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
-	public static enum limitedDrops{
+	public enum limitedDrops{
 		//limited world drops
 		strengthPotions,
 		upgradeScrolls,
@@ -148,17 +148,17 @@ public class Dungeon {
 	// game and come back into a tutorial level game I want to repeat some of these to
 	// the player to ensure they remember them.  There is probably a better way to do
 	// this, but I am drawing a blank right now.
-	public static boolean tutorial_mob_seen = (depth == 1 ? false : true);
-	public static boolean tutorial_tactics_tip = (depth == 1 ? false : true);
-	public static boolean tutorial_food_found = (depth == 1 ? false : true);
-	public static boolean tutorial_sign_seen = (depth == 1 ? false : true);
-	public static boolean tutorial_key_found = (depth == 1 ? false : true);
-	public static boolean tutorial_altar_seen = (depth <= 7 ? false : true);
-	public static boolean tutorial_wellA_seen = (depth <= 7 ? false : true);
-	public static boolean tutorial_wellT_seen = (depth <= 7 ? false : true);
-	public static boolean tutorial_wellH_seen = (depth <= 7 ? false : true);
-	public static boolean tutorial_boss_found = (depth <= 7 ? false : true);
-	public static boolean tutorial_garden_found = (depth <= 7 ? false : true);
+	public static boolean tutorial_mob_seen = (depth != 1);
+	public static boolean tutorial_tactics_tip = (depth != 1);
+	public static boolean tutorial_food_found = (depth != 1);
+	public static boolean tutorial_sign_seen = (depth != 1);
+	public static boolean tutorial_key_found = (depth != 1);
+	public static boolean tutorial_altar_seen = (depth > 7);
+	public static boolean tutorial_wellA_seen = (depth > 7);
+	public static boolean tutorial_wellT_seen = (depth > 7);
+	public static boolean tutorial_wellH_seen = (depth > 7);
+	public static boolean tutorial_boss_found = (depth > 7);
+	public static boolean tutorial_garden_found = (depth > 7);
 
 	public static void init() {
 		difficultyLevel = ShatteredPixelDungeon.getDifficulty();
@@ -254,12 +254,7 @@ public class Dungeon {
 		depth++;
 		if (depth > Statistics.deepestFloor) {
 			Statistics.deepestFloor = depth;
-			
-			if (Statistics.qualifiedForNoKilling) {
-				Statistics.completedWithNoKilling = true;
-			} else {
-				Statistics.completedWithNoKilling = false;
-			}
+			Statistics.completedWithNoKilling = Statistics.qualifiedForNoKilling;
 		}
 		
 		Arrays.fill( visible, false );
@@ -383,7 +378,7 @@ public class Dungeon {
 
 	public static void dropToChasm( Item item ) {
 		int depth = Dungeon.depth + 1;
-		ArrayList<Item> dropped = (ArrayList<Item>)Dungeon.droppedItems.get( depth );
+		ArrayList<Item> dropped = Dungeon.droppedItems.get( depth );
 		if (dropped == null) {
 			Dungeon.droppedItems.put( depth, dropped = new ArrayList<Item>() );
 		}
@@ -450,11 +445,6 @@ public class Dungeon {
 	private static final String QUESTS		= "quests";
 	private static final String BADGES		= "badges";
 
-	//TODO: to support pre-0.2.3 saves, remove when needed
-	private static final String POS			= "potionsOfStrength";
-	private static final String SOU			= "scrollsOfEnhancement";
-	private static final String AS			= "arcaneStyli";
-	
 	public static String gameFile( HeroClass cl ) {
 		switch (cl) {
 		case WARRIOR:
@@ -674,17 +664,17 @@ public class Dungeon {
 			}
 			if (fullLoad) {
 				if (difficultyLevel == DIFF_TUTOR) {
-					tutorial_mob_seen = (depth == 1 ? false : true);
-					tutorial_tactics_tip = (depth == 1 ? false : true);
-					tutorial_food_found = (depth == 1 ? false : true);
-					tutorial_sign_seen = (depth == 1 ? false : true);
-					tutorial_key_found = (depth == 1 ? false : true);
-					tutorial_altar_seen = (depth <= 7 ? false : true);
-					tutorial_wellA_seen = (depth <= 7 ? false : true);
-					tutorial_wellT_seen = (depth <= 7 ? false : true);
-					tutorial_wellH_seen = (depth <= 7 ? false : true);
-					tutorial_boss_found = (depth <= 7 ? false : true);
-					tutorial_garden_found = (depth <= 7 ? false : true);
+					tutorial_mob_seen = (depth != 1);
+					tutorial_tactics_tip = (depth != 1);
+					tutorial_food_found = (depth != 1);
+					tutorial_sign_seen = (depth != 1);
+					tutorial_key_found = (depth != 1);
+					tutorial_altar_seen = (depth > 7);
+					tutorial_wellA_seen = (depth > 7);
+					tutorial_wellT_seen = (depth > 7);
+					tutorial_wellH_seen = (depth > 7);
+					tutorial_boss_found = (depth > 7);
+					tutorial_garden_found = (depth > 7);
 				}
 			}
 		}

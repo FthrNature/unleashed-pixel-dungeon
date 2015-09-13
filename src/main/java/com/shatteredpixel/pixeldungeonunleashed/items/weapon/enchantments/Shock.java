@@ -93,4 +93,10 @@ public class Shock extends Weapon.Enchantment {
 			}
 		}
 	}
+
+	@Override
+	public String enchDesc() {
+		return "Shocking weapons are charged with electricity, which can harm an enemy when struck.  "+
+		"Be careful though, electricity likes to jump from target to target which means you.";
+	}
 }

@@ -25,17 +25,30 @@ import com.shatteredpixel.pixeldungeonunleashed.Badges;
 import com.shatteredpixel.pixeldungeonunleashed.Challenges;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
+import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
+import com.shatteredpixel.pixeldungeonunleashed.items.Stylus;
 import com.shatteredpixel.pixeldungeonunleashed.items.TomeOfMastery;
 import com.shatteredpixel.pixeldungeonunleashed.items.armor.ClothArmor;
+import com.shatteredpixel.pixeldungeonunleashed.items.armor.LeatherArmor;
+import com.shatteredpixel.pixeldungeonunleashed.items.armor.glyphs.Resistance;
+import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.pixeldungeonunleashed.items.food.Food;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfExperience;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMight;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMindVision;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfStrength;
-import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfElements;
-import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfWealth;
+import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfMagic;
+import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfSating;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Midas;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Vicious;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.Dagger;
@@ -50,7 +63,7 @@ public enum HeroClass {
 	
 	private String title;
 	
-	private HeroClass( String title ) {
+	HeroClass( String title ) {
 		this.title = title;
 	}
 	
@@ -116,11 +129,11 @@ public enum HeroClass {
 			new TomeOfMastery().collect();
 		}
 
-		hero.updateAwareness();
+		//hero.updateAwareness();
 	}
 
 	private static void initCommon( Hero hero ) {
-		if ((!Dungeon.isChallenged(Challenges.NO_ARMOR))  && (Dungeon.difficultyLevel <= Dungeon.DIFF_HARD))
+		if ((!Dungeon.isChallenged(Challenges.NO_ARMOR)) && (Dungeon.difficultyLevel <= Dungeon.DIFF_HARD))
 			(hero.belongings.armor = new ClothArmor()).identify();
 
 		if ((!Dungeon.isChallenged(Challenges.NO_FOOD)) && (Dungeon.difficultyLevel <= Dungeon.DIFF_NORM))

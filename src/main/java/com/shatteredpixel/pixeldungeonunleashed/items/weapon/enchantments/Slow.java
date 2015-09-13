@@ -62,4 +62,10 @@ public class Slow extends Weapon.Enchantment {
 		return String.format( TXT_CHILLING, weaponName );
 	}
 
+	@Override
+	public String enchDesc() {
+		return "Chilling weapons have a chance of freezing your opponent in their tracks for a "+
+		"few turns, providing a good opprotunity to escape or land a killing blow.";
+	}
+
 }

@@ -61,4 +61,8 @@ public class Paralysis extends Weapon.Enchantment {
 		return String.format( TXT_STUNNING, weaponName );
 	}
 
+	@Override
+	public String enchDesc() {
+		return "Stunning weapons can magically overwhelm a target, stunning him for a few turns.";
+	}
 }

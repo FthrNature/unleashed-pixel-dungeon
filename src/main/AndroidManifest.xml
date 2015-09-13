@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.mitchell.pixeldungeonunleashed"
-	android:versionCode="13"
-	android:versionName="0.1.5"
+	android:versionCode="16"
+	android:versionName="0.1.7"
 	android:installLocation="auto">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     
 	<uses-sdk 
-	    android:minSdkVersion="8"
+	    android:minSdkVersion="9"
 	    android:targetSdkVersion="18"/>
 	
 	<uses-feature 

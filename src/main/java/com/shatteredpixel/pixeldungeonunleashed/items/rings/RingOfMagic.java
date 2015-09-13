@@ -34,8 +34,8 @@ public class RingOfMagic extends Ring {
 	@Override
 	public String desc() {
 		return isKnown() ?
-			"Your wands will become more powerful in the arcane field " +
-			"that radiates from this ring. Degraded rings of magic will instead weaken your wands." :
+			"Your wands will recharge faster in the arcane field that radiates from this ring. "+
+					"Degraded rings of magic will instead take longer to charge." :
 			super.desc();
 	}
 	

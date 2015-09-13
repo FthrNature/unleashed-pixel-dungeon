@@ -108,4 +108,9 @@ public class Ancient extends Weapon.Enchantment  {
         return LTGRAY;
     }
 
+    @Override
+    public String enchDesc() {
+        return "Artifact weapons can not be upgraded, instead they attune themselves to the wielder "+
+                "and grow in power through combat.";
+    }
 }

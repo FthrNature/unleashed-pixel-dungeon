@@ -54,12 +54,11 @@ public class PrisonPainter extends Painter {
         // drop 1-3 additional skeletons in the room
         int n = Random.IntRange( 2, 4 );
         int pos = room.random();
-        for (int i=0; i < n; i++) {
+        for (int i=0; i <= n; i++) {
             // keep looking til we find an empty spot for our skeleton
             while (level.map[pos] != Terrain.EMPTY) {
                 pos = room.random();
             }
-
             level.drop(new Gold().random(), pos).type = Heap.Type.SKELETON;
         }
 
