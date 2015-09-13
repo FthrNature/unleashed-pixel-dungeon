@@ -49,6 +49,27 @@ public class WelcomeScene extends PixelScene {
 			"Enjoy";
 
 	private static final String TXT_Update =
+			"v01.8: Squash Them Bugs\n"+
+					"- Fixes for various artifact bugs\n"+
+					"  - Chalice of Blood level 10 in Easy Mode\n"+
+					"  - Cloak of Shadows max charges on restore\n"+
+					"  - Lloyd's Beacon max charges on restore\n"+
+					"  - Timekeepers Hourglass max charges\n"+
+					"  - Unstable Spellbook max charges\n"+
+					"- prevent negative time delay crashes\n"+
+					"- Gods don't accept missile donations\n"+
+					"- Ring of Searching increases search radius\n"+
+					"- tweaked mob spawn tables and stats\n"+
+					"- starving damage scales with level\n"+
+					"- added Sewer Flies to complement tougher Swarms\n"+
+					"- temporary fix for ranking screen crashes\n\n"+
+			"v01.8: Open Levels\n"+
+					"- New Open Levels\n"+
+					"- Synched Trap Images\n"+
+					"- Allow falling into Special or Boss Levels\n"+
+					"- Tweaked the Midas Enchantments\n"+
+					"- More mobs in harder levels\n"+
+					"- General Code Cleanup\n\n"+
 			"v01.7: Enchantments and Glyphs\n"+
 					"- Midas Weapon Enchant\n"+
 					"- Vicious Weapon Enchantment\n"+
@@ -98,8 +119,6 @@ public class WelcomeScene extends PixelScene {
 			"Either you're messing around with older versions of the app, or something has gone buggy.\n\n"+
 			"Regardless, tread with caution! Your saves may contain things which don't exist in this version, "+
 			"this could cause some very weird errors to occur.";
-
-	private static final String LNK = "https://play.google.com/store/apps/details?id=com.shatteredpixel.pixeldungeonunleashed";
 
 	@Override
 	public void create() {

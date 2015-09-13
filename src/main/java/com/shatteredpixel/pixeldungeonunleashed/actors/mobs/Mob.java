@@ -101,7 +101,7 @@ public abstract class Mob extends Char {
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		
-		super.storeInBundle( bundle );
+		super.storeInBundle(bundle);
 
 		if (state == SLEEPING) {
 			bundle.put( STATE, Sleeping.TAG );
@@ -124,6 +124,7 @@ public abstract class Mob extends Char {
 		super.restoreFromBundle(bundle);
 
 		String state = bundle.getString( STATE );
+
 		if (state.equals( Sleeping.TAG )) {
 			this.state = SLEEPING;
 		} else if (state.equals( Wandering.TAG )) {
@@ -149,7 +150,28 @@ public abstract class Mob extends Char {
 		}
 		return sprite;
 	}
-	
+
+	public void scaleMob() {
+		switch (Dungeon.difficultyLevel) {
+			case Dungeon.DIFF_TUTOR:
+			case Dungeon.DIFF_EASY:
+				scaleMob(-1);
+				break;
+			case Dungeon.DIFF_HARD:
+				scaleMob(1);
+				break;
+			case Dungeon.DIFF_NTMARE:
+				scaleMob(2);
+				break;
+		}
+	}
+	public void scaleMob(int scaling) {
+		this.HT = (int) (this.HT * (1.0f + (scaling * .2f)));
+		this.HP = this.HT;
+		this.defenseSkill = (int) (this.defenseSkill * (1.0f + (scaling * .1f)));
+		this.atkSkill = (int) (this.atkSkill * (1.0f + (scaling * .15f)));
+	}
+
 	@Override
 	protected boolean act() {
 		
@@ -193,7 +215,7 @@ public abstract class Mob extends Char {
 		//if there is no current target, find a new one.
 		if (enemy == null) {
 
-			HashSet<Char> enemies = new HashSet<Char>();
+			HashSet<Char> enemies = new HashSet<>();
 
 			//if the mob is amoked or corrupted...
 			if ( buff(Amok.class) != null || buff(Corruption.class) != null) {
@@ -443,7 +465,7 @@ public abstract class Mob extends Char {
 				Dungeon.hero.earnExp( EXP );
 			}
 
-			if ((Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) && (Dungeon.tutorial_tactics_tip == false)) {
+			if ((Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) && (!Dungeon.tutorial_tactics_tip)) {
 				Dungeon.tutorial_tactics_tip = true;
 				GameScene.show(new WndMessage("Well done, keep in mind that some simple strategies can help you live " +
 					"longer; try positioning yourself so that only one enemy can approach at a time, some negative potions " +
@@ -514,7 +536,7 @@ public abstract class Mob extends Char {
 		}
 		target = cell;
 	}
-	
+
 	public String description() {
 		return "Real description is coming soon!";
 	}
@@ -533,8 +555,8 @@ public abstract class Mob extends Char {
 	}
 
 	public interface AiState {
-		public boolean act( boolean enemyInFOV, boolean justAlerted );
-		public String status();
+		boolean act( boolean enemyInFOV, boolean justAlerted );
+		String status();
 	}
 
 	private class Sleeping implements AiState {
@@ -561,7 +583,7 @@ public abstract class Mob extends Char {
 
 				spend( TIME_TO_WAKE_UP );
 
-				if ((Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) && (Dungeon.tutorial_mob_seen == false)) {
+				if ((Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) && (!Dungeon.tutorial_mob_seen)) {
 					Dungeon.tutorial_mob_seen = true;
 					GameScene.show(new WndMessage("Up ahead is your first enemy, you can assign ranged weapons or wands to " +
 						"your Quick-Slot(s) next to your backpack icon on the lower right side of the screen; Your Quick-Slot " +

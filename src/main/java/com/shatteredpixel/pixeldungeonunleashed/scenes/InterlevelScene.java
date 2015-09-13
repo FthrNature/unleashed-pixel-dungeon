@@ -54,9 +54,9 @@ public class InterlevelScene extends PixelScene {
 	private static final String ERR_IO			    = "Cannot read save file. If this error persists after restarting, " +
 														"it may mean this save game is corrupted. Sorry about that.";
 	
-	public static enum Mode {
+	public enum Mode {
 		DESCEND, ASCEND, CONTINUE, SAVE, RESURRECT, RETURN, FALL
-	};
+	}
 	public static Mode mode;
 	
 	public static int returnDepth;
@@ -68,7 +68,7 @@ public class InterlevelScene extends PixelScene {
 	
 	private enum Phase {
 		FADE_IN, STATIC, FADE_OUT
-	};
+	}
 	private Phase phase;
 	private float timeLeft;
 	
@@ -209,7 +209,7 @@ public class InterlevelScene extends PixelScene {
 					public void onBackPressed() {
 						super.onBackPressed();
 						Game.switchScene( StartScene.class );
-					};
+					}
 				} );
 				error = null;
 			}
@@ -252,7 +252,13 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.depth++;
 			level = Dungeon.loadLevel( Dungeon.hero.heroClass );
 		}
-		Dungeon.switchLevel( level, fallIntoPit ? level.pitCell() : level.randomRespawnCell() );
+		if (Dungeon.bossLevel(Dungeon.depth)) {
+			Dungeon.switchLevel(level, level.entrance);
+		} else if (Dungeon.specialLevel(Dungeon.depth)) {
+			Dungeon.switchLevel(level, level.randomRespawnCell());
+		} else {
+			Dungeon.switchLevel(level, fallIntoPit ? level.pitCell() : level.randomRespawnCell());
+		}
 	}
 	
 	private void ascend() throws IOException {

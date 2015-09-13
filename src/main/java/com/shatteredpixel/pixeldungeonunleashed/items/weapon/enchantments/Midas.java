@@ -21,7 +21,7 @@ public class Midas  extends Weapon.Enchantment  {
         int level = weapon.level;
         if (damage >= defender.HP) {
             if (level >= 0) {
-                int goldValue = Random.IntRange(level + 3, level + 10);
+                int goldValue = Random.IntRange(level, level * 5);
                 Dungeon.level.drop(new Gold(goldValue), defender.pos);
                 defender.sprite.showStatus(CharSprite.GOLDEN, Integer.toString(goldValue));
 

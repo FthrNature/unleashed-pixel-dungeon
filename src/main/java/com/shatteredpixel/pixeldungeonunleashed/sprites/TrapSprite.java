@@ -53,7 +53,7 @@ public class TrapSprite extends Image {
 
 		revive();
 
-		reset( trap.image + (((Dungeon.depth-1) / 5) * 8) );
+		reset( trap.image + (((Dungeon.depth-1) / 6) * 8) );
 		alpha( 1f );
 
 		pos = trap.pos;

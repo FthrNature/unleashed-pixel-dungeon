@@ -186,18 +186,7 @@ public class HallsBossLevel extends Level {
 			Dungeon.observe();
 			
 			Yog boss = new Yog();
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
-				boss.HT = (int) (boss.HT * 1.2f);
-				boss.HP = boss.HT;
-				boss.defenseSkill = (int) (boss.defenseSkill * 1.1f);
-				boss.atkSkill = (int) (boss.atkSkill * 1.15f);
-			}
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
-				boss.HT = (int) (boss.HT * 1.2f);
-				boss.HP = boss.HT;
-				boss.defenseSkill = (int) (boss.defenseSkill * 1.2f);
-				boss.atkSkill = (int) (boss.atkSkill * 1.3f);
-			}
+			boss.scaleMob();
 			do {
 				boss.pos = Random.Int( LENGTH );
 			} while (

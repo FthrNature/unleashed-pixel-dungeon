@@ -100,7 +100,7 @@ public abstract class RegularLevel extends Level {
 		roomEntrance.type = Type.ENTRANCE;
 		roomExit.type = Type.EXIT;
 		
-		HashSet<Room> connected = new HashSet<Room>();
+		HashSet<Room> connected = new HashSet<>();
 		connected.add( roomEntrance );
 
 		Graph.buildDistanceMap( rooms, roomExit );
@@ -154,7 +154,7 @@ public abstract class RegularLevel extends Level {
 		}
 		
 		specials = new ArrayList<Room.Type>( Room.SPECIALS );
-		if (Dungeon.bossLevel( Dungeon.depth + 1 )) {
+		if (Dungeon.bossLevel( Dungeon.depth + 1 ) || Dungeon.specialLevel( Dungeon.depth + 1 )) {
 			specials.remove( Room.Type.WEAK_FLOOR );
 		}
 		if (Dungeon.isChallenged( Challenges.NO_ARMOR )){
@@ -197,7 +197,7 @@ public abstract class RegularLevel extends Level {
 	
 	protected boolean initRooms() {
 
-		rooms = new HashSet<Room>();
+		rooms = new HashSet<>();
 		split( new Rect( 0, 0, WIDTH - 1, HEIGHT - 1 ) );
 		
 		if (rooms.size() < 8) {
@@ -282,7 +282,7 @@ public abstract class RegularLevel extends Level {
 					
 				} else if (Random.Int( 2 ) == 0){
 
-					HashSet<Room> neigbours = new HashSet<Room>();
+					HashSet<Room> neigbours = new HashSet<>();
 					for (Room n : r.neigbours) {
 						if (!r.connected.containsKey( n ) &&
 							!Room.SPECIALS.contains( n.type ) &&
@@ -624,14 +624,15 @@ public abstract class RegularLevel extends Level {
 				//mobs are not randomly spawned on floor 1.
 				return 0;
 			default:
+				// the number of mobs slowly increases toward each boss battle
 				switch (Dungeon.difficultyLevel) {
 					case Dungeon.DIFF_TUTOR:
 					case Dungeon.DIFF_EASY:
 						return 3 + Dungeon.depth % 6 + Random.Int(5);
 					case Dungeon.DIFF_HARD:
-						return 3 + Dungeon.depth % 5 + Random.Int(6);
+						return 4 + Dungeon.depth % 6 + Random.Int(6);
 					case Dungeon.DIFF_NTMARE:
-						return 3 + Dungeon.depth % 5 + Random.Int(7);
+						return 4 + Dungeon.depth % 6 + Random.Int(7);
 					default:
 						return 3 + Dungeon.depth % 6 + Random.Int(6);				}
 		}
@@ -663,18 +664,7 @@ public abstract class RegularLevel extends Level {
 				//TODO: perhaps externalize this logic into a method. Do I want to make mobs more likely to clump deeper down?
 				if (mobsToSpawn > 0 && Random.Int(4) == 0){
 					mob = Bestiary.mob( Dungeon.depth );
-					if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
-						mob.HT = (int) (mob.HT * 1.2f);
-						mob.HP = mob.HT;
-						mob.defenseSkill = (int) (mob.defenseSkill * 1.1f);
-						mob.atkSkill = (int) (mob.atkSkill * 1.15f);
-					} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
-						mob.HT = (int) (mob.HT * 1.4f);
-						mob.HP = mob.HT;
-						mob.defenseSkill = (int) (mob.defenseSkill * 1.2f);
-						mob.atkSkill = (int) (mob.atkSkill * 1.3f);
-					}
-
+					mob.scaleMob();
 					mob.pos = roomToSpawn.random();
 
 					if (findMob(mob.pos)  == null && Level.passable[mob.pos]) {
@@ -687,17 +677,7 @@ public abstract class RegularLevel extends Level {
 
 		if (Dungeon.depth == 17) {
 			Tinkerer tinker = new Tinkerer();
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
-				tinker.HT = (int) (tinker.HT * 1.2f);
-				tinker.HP = tinker.HT;
-				tinker.defenseSkill = (int) (tinker.defenseSkill * 1.1f);
-				tinker.atkSkill = (int) (tinker.atkSkill * 1.15f);
-			} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
-				tinker.HT = (int) (tinker.HT * 1.4f);
-				tinker.HP = tinker.HT;
-				tinker.defenseSkill = (int) (tinker.defenseSkill * 1.2f);
-				tinker.atkSkill = (int) (tinker.atkSkill * 1.3f);
-			}
+			tinker.scaleMob();
 			do {
 				tinker.pos = randomRespawnCell();
 			} while (tinker.pos == -1);
@@ -705,17 +685,7 @@ public abstract class RegularLevel extends Level {
 
 		} else if (Dungeon.depth == 23) {
 			Minotaur minotaur = new Minotaur();
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
-				minotaur.HT = (int) (minotaur.HT * 1.2f);
-				minotaur.HP = minotaur.HT;
-				minotaur.defenseSkill = (int) (minotaur.defenseSkill * 1.1f);
-				minotaur.atkSkill = (int) (minotaur.atkSkill * 1.15f);
-			} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
-				minotaur.HT = (int) (minotaur.HT * 1.4f);
-				minotaur.HP = minotaur.HT;
-				minotaur.defenseSkill = (int) (minotaur.defenseSkill * 1.2f);
-				minotaur.atkSkill = (int) (minotaur.atkSkill * 1.3f);
-			}
+			minotaur.scaleMob();
 			do {
 				minotaur.pos = randomRespawnCell();
 			} while (minotaur.pos == -1);
@@ -723,17 +693,7 @@ public abstract class RegularLevel extends Level {
 
 		} else if (Dungeon.depth == 29) {
 			ChaosMage cmage = new ChaosMage();
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
-				cmage.HT = (int) (cmage.HT * 1.2f);
-				cmage.HP = cmage.HT;
-				cmage.defenseSkill = (int) (cmage.defenseSkill * 1.1f);
-				cmage.atkSkill = (int) (cmage.atkSkill * 1.15f);
-			} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
-				cmage.HT = (int) (cmage.HT * 1.4f);
-				cmage.HP = cmage.HT;
-				cmage.defenseSkill = (int) (cmage.defenseSkill * 1.2f);
-				cmage.atkSkill = (int) (cmage.atkSkill * 1.3f);
-			}
+			cmage.scaleMob();
 			do {
 				cmage.pos = randomRespawnCell();
 			} while (cmage.pos == -1);
@@ -902,7 +862,7 @@ public abstract class RegularLevel extends Level {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 
-		rooms = new HashSet<Room>( (Collection<Room>) ((Collection<?>) bundle.getCollection( "rooms" )) );
+		rooms = new HashSet<>( (Collection<Room>) ((Collection<?>) bundle.getCollection( "rooms" )) );
 		for (Room r : rooms) {
 			if (r.type == Type.WEAK_FLOOR) {
 				weakFloorCreated = true;

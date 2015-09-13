@@ -35,7 +35,6 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.traps.Trap;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.TrapSprite;
 import com.shatteredpixel.pixeldungeonunleashed.ui.LootIndicator;
 import com.shatteredpixel.pixeldungeonunleashed.ui.ResumeIndicator;
-import com.shatteredpixel.pixeldungeonunleashed.windows.WndMessage;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -323,7 +322,7 @@ public class GameScene extends PixelScene {
 				}
 				break;
 			case 6:
-				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && Dungeon.tutorial_boss_found == false) {
+				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && !Dungeon.tutorial_boss_found) {
 					Dungeon.tutorial_boss_found = true;
 					WndStory.showChapter(WndStory.ID_TUTOR_2);
 				}
@@ -393,7 +392,7 @@ public class GameScene extends PixelScene {
 
 	@Override
 	public synchronized void update() {
-		if (sceneCreated == false){
+		if (!sceneCreated){
 			return;
 		}
 

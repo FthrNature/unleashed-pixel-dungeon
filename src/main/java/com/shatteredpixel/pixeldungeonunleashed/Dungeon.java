@@ -46,6 +46,7 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.HallsLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.LastLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.LastShopLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
+import com.shatteredpixel.pixeldungeonunleashed.levels.OpenLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.PrisonBossLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.PrisonLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Room;
@@ -200,7 +201,7 @@ public class Dungeon {
 			tutorial_garden_found = false;
 		}
 
-		droppedItems = new SparseArray<ArrayList<Item>>();
+		droppedItems = new SparseArray<>();
 
 		for (limitedDrops a : limitedDrops.values())
 			a.count = 0;
@@ -226,7 +227,7 @@ public class Dungeon {
 				break;
 		}
 
-		chapters = new HashSet<Integer>();
+		chapters = new HashSet<>();
 		
 		Ghost.Quest.reset();
 		Wandmaker.Quest.reset();
@@ -266,7 +267,11 @@ public class Dungeon {
 		case 3:
 		case 4:
 		case 5:
-			level = new SewerLevel();
+			if (specialLevel(depth)) { // level 5 is gauranteed to be an Open Level
+				level = new OpenLevel();
+			} else {
+				level = new SewerLevel();
+			}
 			break;
 		case 6:
 			level = new SewerBossLevel();
@@ -276,7 +281,11 @@ public class Dungeon {
 		case 9:
 		case 10:
 		case 11:
-			level = new PrisonLevel();
+			if (specialLevel(depth) && Random.Int(3) == 0) {
+				level = new OpenLevel();
+			} else {
+				level = new PrisonLevel();
+			}
 			break;
 		case 12:
 			level = new PrisonBossLevel();
@@ -285,10 +294,12 @@ public class Dungeon {
 		case 14:
 		case 15:
 		case 16:
-			level = new CavesLevel();
-			break;
 		case 17:
-			level = new CavesLevel(); // add in special Dwarven Tinkerer level here...
+			if (specialLevel(depth) && Random.Int(3) == 0) {
+				level = new OpenLevel();
+			} else {
+				level = new CavesLevel();
+			}
 			break;
 		case 18:
 			level = new CavesBossLevel();
@@ -298,7 +309,11 @@ public class Dungeon {
 		case 21:
 		case 22:
 		case 23:
-			level = new CityLevel();
+			if (specialLevel(depth) && Random.Int(3) == 0) {
+				level = new OpenLevel();
+			} else {
+				level = new CityLevel();
+			}
 			break;
 		case 24:
 			level = new CityBossLevel();
@@ -309,10 +324,12 @@ public class Dungeon {
 		case 26:
 		case 27:
 		case 28:
-			level = new HallsLevel();
-			break;
 		case 29:
-			level = new HallsLevel(); // add in special Chaos Mage level here...
+			if (specialLevel(depth) && Random.Int(3) == 0) {
+				level = new OpenLevel();
+			} else {
+				level = new HallsLevel();
+			}
 			break;
 		case 30:
 			level = new HallsBossLevel();
@@ -335,7 +352,7 @@ public class Dungeon {
 	public static void resetLevel() {
 		Actor.clear();
 		
-		Arrays.fill( visible, false );
+		Arrays.fill(visible, false);
 		
 		level.reset();
 		switchLevel( level, level.entrance );
@@ -350,7 +367,13 @@ public class Dungeon {
 	}
 	
 	public static boolean bossLevel( int depth ) {
+		// this level has a big boss fight on it
 		return depth == 6 || depth == 12 || depth == 18 || depth == 24 || depth == 30;
+	}
+
+	public static boolean specialLevel( int depth ) {
+		// this level is allowed to have a special layout
+		return depth == 5 || depth == 10 || depth == 11 || depth == 15 || depth == 21 || depth == 27;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -380,7 +403,7 @@ public class Dungeon {
 		int depth = Dungeon.depth + 1;
 		ArrayList<Item> dropped = Dungeon.droppedItems.get( depth );
 		if (dropped == null) {
-			Dungeon.droppedItems.put( depth, dropped = new ArrayList<Item>() );
+			Dungeon.droppedItems.put( depth, dropped = new ArrayList<>() );
 		}
 		dropped.add( item );
 	}
@@ -611,7 +634,7 @@ public class Dungeon {
 					value.count = value.ordinal() < dropValues.length ? dropValues[value.ordinal()] : 0;
 				if (bundle.getBoolean(DV)) limitedDrops.dewVial.drop();
 
-				chapters = new HashSet<Integer>();
+				chapters = new HashSet<>();
 				int ids[] = bundle.getIntArray(CHAPTERS);
 				if (ids != null) {
 					for (int id : ids) {
@@ -652,9 +675,9 @@ public class Dungeon {
 			Journal.restoreFromBundle(bundle);
 			Generator.restoreFromBundle(bundle);
 
-			droppedItems = new SparseArray<ArrayList<Item>>();
+			droppedItems = new SparseArray<>();
 			for (int i = 2; i <= Statistics.deepestFloor + 1; i++) {
-				ArrayList<Item> dropped = new ArrayList<Item>();
+				ArrayList<Item> dropped = new ArrayList<>();
 				for (Bundlable b : bundle.getCollection(String.format(DROPPED, i))) {
 					dropped.add((Item) b);
 				}

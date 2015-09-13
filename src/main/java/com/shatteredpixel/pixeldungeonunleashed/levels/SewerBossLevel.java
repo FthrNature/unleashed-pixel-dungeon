@@ -124,7 +124,7 @@ public class SewerBossLevel extends RegularLevel {
 
 				//we must find a room for his royal highness!
 				//look at rooms adjacent to the final found room (likely to be furthest from start)
-				ArrayList<Room> candidates = new ArrayList<Room>();
+				ArrayList<Room> candidates = new ArrayList<>();
 				for (Room r : lastRoom.neigbours) {
 					if (r.type == Type.NULL && r.connected.size() == 0 && !r.neigbours.contains(roomEntrance)) {
 						candidates.add(r);
@@ -212,17 +212,7 @@ public class SewerBossLevel extends RegularLevel {
 	@Override
 	protected void createMobs() {
 		Mob mob = Bestiary.mob( Dungeon.depth );
-		if (Dungeon.difficultyLevel == Dungeon.DIFF_HARD) {
-			mob.HT = (int) (mob.HT * 1.2f);
-			mob.HP = mob.HT;
-			mob.defenseSkill = (int) (mob.defenseSkill * 1.1f);
-			mob.atkSkill = (int) (mob.atkSkill * 1.15f);
-		} else if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
-			mob.HT = (int) (mob.HT * 1.4f);
-			mob.HP = mob.HT;
-			mob.defenseSkill = (int) (mob.defenseSkill * 1.2f);
-			mob.atkSkill = (int) (mob.atkSkill * 1.3f);
-		}
+		mob.scaleMob();
 		Room room;
 		do {
 			room = Random.element(rooms);
