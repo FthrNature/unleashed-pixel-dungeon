@@ -59,6 +59,7 @@ public class MagesStaff extends MeleeWeapon {
 		image = ItemSpriteSheet.MAGES_STAFF;
 
 		defaultAction = AC_ZAP;
+		usesTargeting = true;
 
 		unique = true;
 		bones = false;
@@ -80,8 +81,7 @@ public class MagesStaff extends MeleeWeapon {
 		wand.identify();
 		wand.cursed = false;
 		this.wand = wand;
-		wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
-		wand.curCharges = wand.maxCharges;
+		setStaffCharges();
 	}
 
 	@Override
@@ -154,19 +154,13 @@ public class MagesStaff extends MeleeWeapon {
 		}
 
 		//syncs the level of the two items.
-		int targetLevel = Math.max(this.level, wand.level);
-
-		int staffLevelDiff = targetLevel - this.level;
-		if (staffLevelDiff > 0)
-			this.upgrade(targetLevel); //staffLevelDiff);
-
-		int wandLevelDiff = targetLevel - wand.level;
-		if (wandLevelDiff > 0)
-			wand.upgrade(targetLevel); //wandLevelDiff);
+		int targetLevel = ((this.level + wand.level) / 2) + 1;
+		this.upgrade(targetLevel);
+		wand.upgrade(targetLevel);
 
 		this.wand = wand;
-		wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
-		wand.curCharges = wand.maxCharges;
+		setStaffCharges();
+
 		wand.identify();
 		wand.cursed = false;
 		wand.charge(owner);
@@ -183,20 +177,14 @@ public class MagesStaff extends MeleeWeapon {
 		this.level = n;
 
 		if (wand != null) {
-			for (int i = 0; i < n; i++) {
-				int curCharges = wand.curCharges;
-				cursed = false;
-				cursedKnown = true;
 
-				wand.updateLevel();
-				curCharges = Math.min(curCharges + 1, wand.maxCharges);
-
-				//gives the wand one additional charge
-				wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
-				wand.curCharges = curCharges + 1;
-				updateQuickslot();
-			}
+			wand.level = n;
+			wand.updateLevel();
+			setStaffCharges();
 		}
+		this.MIN = n;
+		this.MAX = 5 + n;
+
 		STR = 10;
 		updateQuickslot();
 
@@ -211,16 +199,10 @@ public class MagesStaff extends MeleeWeapon {
 		{
 			// our upgrade succeeded so we can apply the rest of the changes now...
 			if (wand != null) {
-				int curCharges = wand.curCharges;
 				cursed = false;
 				cursedKnown = true;
 
-				wand.updateLevel();
-				curCharges = Math.min( curCharges + 1, wand.maxCharges );
-
-				//gives the wand one additional charge
-				wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
-				wand.curCharges = curCharges+1;
+				setStaffCharges();
 			}
 		}
 		STR = 10;
@@ -237,15 +219,23 @@ public class MagesStaff extends MeleeWeapon {
 		STR = 10;
 
 		if (wand != null) {
-			int curCharges = wand.curCharges;
+			int myCharges = wand.curCharges;
 			wand.degrade();
-			//gives the wand one additional charge
-			wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
-			wand.curCharges = curCharges-1;
+
+			setStaffCharges();
+			wand.curCharges = Math.min(myCharges - 2, 0);
+
 			updateQuickslot();
 		}
 
 		return this;
+	}
+
+	void setStaffCharges() {
+		wand.level = this.level;
+		wand.updateLevel();
+		wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
+		wand.curCharges = wand.maxCharges;
 	}
 
 	@Override
@@ -291,7 +281,11 @@ public class MagesStaff extends MeleeWeapon {
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		wand = (Wand) bundle.get(WAND);
-		if (wand != null) wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
+		if (wand != null) {
+			int staffCurrentCharges = wand.curCharges;
+			setStaffCharges();
+			wand.curCharges = staffCurrentCharges;
+		}
 	}
 
 	@Override

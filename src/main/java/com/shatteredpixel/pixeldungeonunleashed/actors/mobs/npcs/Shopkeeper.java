@@ -31,10 +31,12 @@ import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.ShopkeeperSprite;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndBag;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndTradeItem;
+import com.watabou.utils.Random;
 
 public class Shopkeeper extends NPC {
 
 	public static final String TXT_THIEF = "Thief, Thief!";
+	private int startPos = -1;
 
 	{
 		name = "shopkeeper";
@@ -43,7 +45,15 @@ public class Shopkeeper extends NPC {
 	
 	@Override
 	protected boolean act() {
-		
+		if (startPos == -1) {
+			startPos = pos;
+		}
+
+		if (startPos != pos) {
+			yell("Unhand me!");
+			flee();
+			return true;
+		}
 		throwItem();
 		
 		sprite.turnTo( pos, Dungeon.hero.pos );
@@ -64,15 +74,20 @@ public class Shopkeeper extends NPC {
 	public void flee() {
 		for (Heap heap: Dungeon.level.heaps.values()) {
 			if (heap.type == Heap.Type.FOR_SALE) {
-				CellEmitter.get( heap.pos ).burst( ElmoParticle.FACTORY, 4 );
-				heap.destroy();
+				if (Random.Int(5) == 0) {
+					// looks like something got left behind in the rush to leave
+					heap.type = Heap.Type.HEAP;
+				} else {
+					CellEmitter.get(heap.pos).burst(ElmoParticle.FACTORY, 4);
+					heap.destroy();
+				}
 			}
 		}
 		
 		destroy();
 		
 		sprite.killAndErase();
-		CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
+		CellEmitter.get( pos ).burst(ElmoParticle.FACTORY, 6);
 	}
 	
 	@Override

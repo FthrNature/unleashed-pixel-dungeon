@@ -168,7 +168,7 @@ public class Hero extends Char {
 	
 	private Item theKey;
 	
-	public boolean restoreHealth = false;
+	public boolean resting = false;
 
 	public MissileWeapon rangedWeapon = null;
 	public Belongings belongings;
@@ -459,13 +459,9 @@ public class Hero extends Char {
 		
 		if (curAction == null) {
 			
-			if (restoreHealth) {
-				if (isStarving() || HP >= HT || Dungeon.level.locked) {
-					restoreHealth = false;
-				} else {
-					spend( TIME_TO_REST ); next();
-					return false;
-				}
+			if (resting) {
+				spend( TIME_TO_REST ); next();
+				return false;
 			}
 			
 			ready();
@@ -473,7 +469,7 @@ public class Hero extends Char {
 			
 		} else {
 			
-			restoreHealth = false;
+			resting = false;
 			
 			ready = false;
 			
@@ -940,7 +936,7 @@ public class Hero extends Char {
 		if (!tillHealthy) {
 			sprite.showStatus( CharSprite.DEFAULT, TXT_WAIT );
 		}
-		restoreHealth = tillHealthy;
+		resting = tillHealthy;
 	}
 	
 	@Override
@@ -992,10 +988,10 @@ public class Hero extends Char {
 		if (buff(TimekeepersHourglass.timeStasis.class) != null)
 			return;
 
-		restoreHealth = false;
-
-		if (!(src instanceof Hunger || src instanceof Viscosity.DeferedDamage) && damageInterrupt)
+		if (!(src instanceof Hunger || src instanceof Viscosity.DeferedDamage) && damageInterrupt) {
 			interrupt();
+			resting = false;
+		}
 
 		if (this.buff(Drowsy.class) != null){
 			Buff.detach(this, Drowsy.class);
@@ -1017,7 +1013,7 @@ public class Hero extends Char {
 		super.damage( dmg, src );
 		
 		if (subClass == HeroSubClass.BERSERKER && 0 < HP && HP <= HT * Fury.LEVEL) {
-			Buff.affect( this, Fury.class );
+			Buff.affect(this, Fury.class);
 		}
 	}
 	
@@ -1037,7 +1033,7 @@ public class Hero extends Char {
 		
 		if (newMob) {
 			interrupt();
-			restoreHealth = false;
+			resting = false;
 		}
 		
 		visibleEnemies = visible;
@@ -1090,10 +1086,8 @@ public class Hero extends Char {
 		}
 		
 		if (step != -1) {
-
-			int oldPos = pos;
+			sprite.move(pos, step);
 			move(step);
-			sprite.move(oldPos, pos);
 			spend( 1 / speed() );
 			
 			return true;

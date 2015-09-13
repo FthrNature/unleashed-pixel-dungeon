@@ -22,6 +22,7 @@ package com.shatteredpixel.pixeldungeonunleashed.items;
 
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Wandmaker.Rotberry;
 import com.shatteredpixel.pixeldungeonunleashed.items.armor.*;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.*;
@@ -81,7 +82,8 @@ public class Generator {
 	};
 	
 	private static HashMap<Category,Float> categoryProbs = new HashMap<Generator.Category, Float>();
-	
+	private static final float[] INITIAL_ARTIFACT_PROBS = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1};
+
 	static {
 		
 		Category.GOLD.classes = new Class<?>[]{
@@ -202,8 +204,8 @@ public class Generator {
 			//BagOfDevouring.class
 			};
 		// note - duplicated down below in initArtifacts() - look into refactoring
-		Category.ARTIFACT.probs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1 };
-		
+		Category.ARTIFACT.probs = INITIAL_ARTIFACT_PROBS;
+
 		Category.SEED.classes = new Class<?>[]{
 			Firebloom.Seed.class,
 			Icecap.Seed.class,
@@ -360,9 +362,10 @@ public class Generator {
 
 	//resets artifact probabilities, for new dungeons
 	public static void initArtifacts() {
-		//FIXME: the duplicated logic here has caused 1 bug so far, should refactor.
-		Category.ARTIFACT.probs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1};
-		spawnedArtifacts = new ArrayList<String>();
+		Category.ARTIFACT.probs = INITIAL_ARTIFACT_PROBS;
+
+		//checks for dried rose quest completion, adds the rose in accordingly.
+		if (Ghost.Quest.processed) Category.ARTIFACT.probs[10] = 1;
 	}
 
 	private static ArrayList<String> spawnedArtifacts = new ArrayList<String>();

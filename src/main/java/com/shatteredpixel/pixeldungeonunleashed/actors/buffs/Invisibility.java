@@ -29,7 +29,7 @@ import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
 
 public class Invisibility extends FlavourBuff {
 
-	public static final float DURATION	= 15f;
+	public static final float DURATION	= 25f;
 
 	{
 		type = buffType.POSITIVE;

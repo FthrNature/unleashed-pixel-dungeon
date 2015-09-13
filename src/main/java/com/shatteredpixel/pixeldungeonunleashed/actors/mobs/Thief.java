@@ -125,9 +125,9 @@ public class Thief extends Mob {
 		Item item = hero.belongings.randomUnequipped();
 		if (item != null) {
 
+			Dungeon.quickslot.clearItem( item );
+			item.updateQuickslot();
 			GLog.w( TXT_STOLE, this.name, item.name() );
-
-
 
 			if (item instanceof Honeypot){
 				this.item = ((Honeypot)item).shatter(this, this.pos);

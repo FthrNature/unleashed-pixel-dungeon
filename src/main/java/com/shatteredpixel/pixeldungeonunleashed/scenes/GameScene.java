@@ -711,10 +711,10 @@ public class GameScene extends PixelScene {
 	}
 	
 	static boolean cancel() {
-		if (Dungeon.hero.curAction != null || Dungeon.hero.restoreHealth) {
+		if (Dungeon.hero.curAction != null || Dungeon.hero.resting) {
 			
 			Dungeon.hero.curAction = null;
-			Dungeon.hero.restoreHealth = false;
+			Dungeon.hero.resting = false;
 			return true;
 			
 		} else {

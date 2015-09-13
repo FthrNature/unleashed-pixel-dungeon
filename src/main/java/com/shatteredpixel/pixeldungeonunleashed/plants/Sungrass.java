@@ -24,6 +24,7 @@ import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
+import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
 import com.shatteredpixel.pixeldungeonunleashed.effects.CellEmitter;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Speck;
 import com.shatteredpixel.pixeldungeonunleashed.effects.particles.ShaftParticle;
@@ -114,6 +115,9 @@ public class Sungrass extends Plant {
 					if (healCurr < 6)
 						healCurr ++;
 					target.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
+					if (target.HP == target.HT && target instanceof Hero){
+						((Hero)target).resting = false;
+					}
 				}
 				count = 1;
 			} else {

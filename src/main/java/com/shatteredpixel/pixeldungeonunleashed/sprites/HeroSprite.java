@@ -51,8 +51,11 @@ public class HeroSprite extends CharSprite {
 		
 		texture( Dungeon.hero.heroClass.spritesheet() );
 		updateArmor();
-		
-		idle();
+
+		if (ch.isAlive())
+			idle();
+		else
+			die();
 	}
 	
 	public void updateArmor() {
@@ -103,8 +106,8 @@ public class HeroSprite extends CharSprite {
 
 	@Override
 	public void update() {
-		sleeping = ((Hero)ch).restoreHealth;
-		
+		sleeping = ch.isAlive() && ((Hero)ch).resting;
+
 		super.update();
 	}
 	

@@ -187,6 +187,8 @@ public class Belongings implements Iterable<Item> {
 				}
 			} else if (item.unique) {
 				// Keep unique items
+				item.detachAll(backpack);
+				item.collect();
 			} else if (!item.isEquipped( owner )) {
 				item.detachAll( backpack );
 			}

@@ -20,6 +20,7 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.items;
 
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
@@ -57,12 +58,12 @@ public class Dewdrop extends Item {
 				hero.HP += effect;
 				hero.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 				hero.sprite.showStatus( CharSprite.POSITIVE, TXT_VALUE, effect );
+			} else {
+				GLog.i("You are already at full health.");
+				return false;
 			}
-			
 		} else if (vial != null) {
-			
 			vial.collectDew( this );
-			
 		}
 		
 		Sample.INSTANCE.play( Assets.SND_DEWDROP );
@@ -70,9 +71,16 @@ public class Dewdrop extends Item {
 		
 		return true;
 	}
-	
+
+	@Override
+	//max of one dew in a stack
+	public Item quantity(int value) {
+		quantity = Math.min( value, 1);
+		return this;
+	}
+
 	@Override
 	public String info() {
-		return "A crystal clear dewdrop.";
+		return "A crystal clear dewdrop, due to the magic in this place it has minor restorative properties.";
 	}
 }

@@ -56,6 +56,7 @@ public class TitleScene extends PixelScene {
 
 		if (gameversion != Game.versionCode) {
 			Game.switchScene(WelcomeScene.class);
+			return;
 		}
 		
 		Music.INSTANCE.play( Assets.THEME, true );

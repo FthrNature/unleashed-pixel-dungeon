@@ -21,8 +21,7 @@
 package com.shatteredpixel.pixeldungeonunleashed.ui;
 
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
-import com.shatteredpixel.pixeldungeonunleashed.items.EquipableItem;
-import com.shatteredpixel.pixeldungeonunleashed.items.wands.Wand;
+import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Button;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
@@ -33,16 +32,12 @@ import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.PixelScene;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndBag;
-import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class QuickSlotButton extends Button implements WndBag.Listener {
 
 	private static final String TXT_SELECT_ITEM = "Select an item for the quickslot";
 
-	private ArrayList<Mob> candidates = new ArrayList<Mob>();
-	
+
 	private static QuickSlotButton[] instance = new QuickSlotButton[4];
 	private int slotNum;
 
@@ -83,7 +78,7 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 					GameScene.handleCell( Dungeon.hero.lastTarget.pos );
 				} else {
 					Item item = select(slotNum);
-					if (item instanceof EquipableItem || item instanceof Wand)
+					if (item.usesTargeting)
 						useTargeting();
 					item.execute( Dungeon.hero );
 				}
@@ -164,22 +159,32 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 	}
 	
 	private void useTargeting() {
-		// DSM-xxxx rework this logic when I get back from vacation...
-		targeting = Dungeon.hero.lastTarget != null && Dungeon.hero.lastTarget.isAlive() && Dungeon.visible[Dungeon.hero.lastTarget.pos];
+		targeting = Dungeon.hero.lastTarget != null && Dungeon.hero.lastTarget.isAlive()
+				&& Dungeon.visible[Dungeon.hero.lastTarget.pos];
 
 		if (!targeting) {
 			// we don't have a pre-selected target, try to choose a new one
-			int v = Dungeon.hero.visibleEnemies();
-			candidates.clear();
-			for (int i=0; i < v; i++) {
-				Mob mob = Dungeon.hero.visibleEnemy( i );
-				candidates.add( mob );
-			}
+			Dungeon.hero.lastTarget = null;
+			int mobDistance = 999; // supports mobs well beyond the furthest line-of-sight
+			int myX = Dungeon.hero.pos % Level.WIDTH;
+			int myY = Dungeon.hero.pos / Level.WIDTH;
 
-			if (! candidates.isEmpty()) {
-				active = true;
-				Dungeon.hero.lastTarget = Random.element(candidates);
-				targeting = true;
+			int v = Dungeon.hero.visibleEnemies();
+			if (v > 0) {
+				for (int i = 0; i < v; i++) {
+					Mob mob = Dungeon.hero.visibleEnemy(i);
+					int mobX = mob.pos % Level.WIDTH;
+					int mobY = mob.pos / Level.WIDTH;
+
+					// the following formula is good enough to determine which mob is closest
+					int thisDistance = ((mobX - myX) * (mobX - myX)) + ((mobY - myY) * (mobY - myY));
+					if (Dungeon.hero.lastTarget == null || (thisDistance < mobDistance)) {
+						Dungeon.hero.lastTarget = mob;
+						mobDistance = thisDistance;
+						active = true;
+						targeting = true;
+					}
+				}
 			}
 		}
 

@@ -67,6 +67,7 @@ public class Item implements Bundlable {
 	public static final String AC_THROW		= "THROW";
 	
 	public String defaultAction;
+	public boolean usesTargeting = false;
 	
 	protected String name = "smth";
 	public int image = 0;
@@ -95,7 +96,7 @@ public class Item implements Bundlable {
 	};
 	
 	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = new ArrayList<String>();
+		ArrayList<String> actions = new ArrayList<>();
 		actions.add( AC_DROP );
 		actions.add( AC_THROW );
 		return actions;
@@ -409,7 +410,7 @@ public class Item implements Bundlable {
 	public static Item virtual( Class<? extends Item> cl ) {
 		try {
 			
-			Item item = (Item)cl.newInstance();
+			Item item = cl.newInstance();
 			item.quantity = 0;
 			return item;
 			

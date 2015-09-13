@@ -29,7 +29,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
-import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
@@ -260,7 +259,7 @@ public class ShatteredPixelDungeon extends Game {
 
 	public static void quickSlots( int value ){ Preferences.INSTANCE.put( Preferences.KEY_QUICKSLOTS, value ); }
 
-	public static int quickSlots(){ return Preferences.INSTANCE.getInt( Preferences.KEY_QUICKSLOTS, 1); }
+	public static int quickSlots(){ return Preferences.INSTANCE.getInt( Preferences.KEY_QUICKSLOTS, 2); }
 	
 	public static void intro( boolean value ) {
 		Preferences.INSTANCE.put( Preferences.KEY_INTRO, value );

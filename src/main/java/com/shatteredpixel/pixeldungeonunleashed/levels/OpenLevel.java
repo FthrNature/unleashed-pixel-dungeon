@@ -25,6 +25,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Bestiary;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Necromancer;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfWealth;
@@ -273,6 +274,16 @@ public class OpenLevel extends Level {
             mobsToSpawn--;
             mobs.add(mob);
         }
+
+        if (Dungeon.depth == 11) {
+            Necromancer necromancer = new Necromancer();
+            necromancer.scaleMob();
+            do {
+                necromancer.pos = randomRespawnCell();
+            } while (necromancer.pos == -1);
+            mobs.add(necromancer);
+
+        }
     }
 
     @Override
@@ -298,7 +309,7 @@ public class OpenLevel extends Level {
                         }
                     }
                 }
-                spend( Statistics.amuletObtained ? 25 : 40 );
+                spend( Statistics.amuletObtained ? 20 : 35 );
                 return true;
             }
         };
@@ -330,13 +341,13 @@ public class OpenLevel extends Level {
         switch (Dungeon.difficultyLevel) {
             case Dungeon.DIFF_TUTOR:
             case Dungeon.DIFF_EASY:
-                return 7  + Dungeon.depth % 6 + Random.Int(6);
+                return 4  + Dungeon.depth % 6 + Random.Int(4);
             case Dungeon.DIFF_HARD:
-                return 10 + Dungeon.depth % 5 + Random.Int(8);
+                return 6  + Dungeon.depth % 6 + Random.Int(5);
             case Dungeon.DIFF_NTMARE:
-                return 11 + Dungeon.depth % 5 + Random.Int(9);
+                return 7  + Dungeon.depth % 6 + Random.Int(6);
             default:
-                return 9  + Dungeon.depth % 6 + Random.Int(6);
+                return 5  + Dungeon.depth % 6 + Random.Int(4);
         }
     }
 }
