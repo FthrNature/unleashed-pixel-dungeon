@@ -53,7 +53,12 @@ public class PotionOfInvisibility extends Potion {
 			"enemies will be unable to see you. Attacking an enemy, as well as using a wand or a scroll " +
 			"before enemy's eyes, will dispel the effect.";
 	}
-	
+
+	@Override
+	public int hungerMods() {
+		return -5; // adds 5% to hunger
+	}
+
 	@Override
 	public int price() {
 		return isKnown() ? 40 * quantity : super.price();

@@ -21,6 +21,7 @@
 package com.shatteredpixel.pixeldungeonunleashed.items.rings;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.shatteredpixel.pixeldungeonunleashed.Badges;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
@@ -123,7 +124,7 @@ public class Ring extends KindofMisc {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
+		actions.add(isEquipped(hero) ? AC_UNEQUIP : AC_EQUIP);
 		return actions;
 	}
 	
@@ -162,7 +163,7 @@ public class Ring extends KindofMisc {
 	
 	public void activate( Char ch ) {
 		buff = buff();
-		buff.attachTo( ch );
+		buff.attachTo(ch);
 	}
 
 	@Override
@@ -238,7 +239,7 @@ public class Ring extends KindofMisc {
 	
 	protected void setKnown() {
 		if (!isKnown()) {
-			handler.know( this );
+			handler.know(this);
 		}
 		
 		Badges.validateAllRingsIdentified();
@@ -259,7 +260,7 @@ public class Ring extends KindofMisc {
 	@Override
 	public String info() {
 		if (isEquipped( Dungeon.hero )) {
-			
+
 			return desc() + "\n\n" + "The " + name() + " is on your finger" +
 				(cursed ? ", and because it is cursed, you are powerless to remove it." : "." );
 			
@@ -303,9 +304,17 @@ public class Ring extends KindofMisc {
 
 		return this;
 	}
-	
+
+	public static HashSet<Class<? extends Ring>> getKnown() {
+		return handler.known();
+	}
+
+	public static HashSet<Class<? extends Ring>> getUnknown() {
+		return handler.unknown();
+	}
+
 	public static boolean allKnown() {
-		return handler.known().size() == rings.length - 2;
+		return handler.known().size() == rings.length;
 	}
 	
 	@Override

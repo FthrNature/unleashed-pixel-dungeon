@@ -68,24 +68,24 @@ public class Bestiary {
 		
 		switch (depth) {
 		case 1:
-			chances = new float[]{ 1 };
-			classes = new Class<?>[]{ Rat.class };
+			chances = new float[]{ 3, 1 };
+			classes = new Class<?>[]{ Rat.class, GreenSnake.class };
 			break;
 		case 2:
-			chances = new float[]{ 1, 1 };
-			classes = new Class<?>[]{ Rat.class, Gnoll.class };
+			chances = new float[]{ 1, 1, 1 };
+			classes = new Class<?>[]{ Rat.class, Gnoll.class, GreenSnake.class };
 			break;
 		case 3:
-			chances = new float[]{ 1, 2, 0.5f, 0.05f };
-			classes = new Class<?>[]{ Rat.class, Gnoll.class, Crab.class, SewerFly.class };
+			chances = new float[]{ 1, 2, 1, 0.5f, 0.5f, 0.05f };
+			classes = new Class<?>[]{ Rat.class, Gnoll.class, GreenSnake.class, Crab.class, Velocirooster.class, SewerFly.class };
 			break;
 		case 4:
-			chances = new float[]{ 1, 2, 1, 1, 0.05f, 1 };
-			classes = new Class<?>[]{ Rat.class, Gnoll.class, Crab.class, SewerFly.class, Slime.class, SlimeBrown.class };
+			chances = new float[]{ 1, 2, 1, 0.5f, 1, 0.05f, 1 };
+			classes = new Class<?>[]{ Rat.class, Gnoll.class, Crab.class, Velocirooster.class, SewerFly.class, Slime.class, SlimeBrown.class };
 			break;
 		case 5:
-			chances = new float[]{ 2, 1, 2, 1, 5, 2, 2, 0.01f };
-			classes = new Class<?>[]{ Slime.class, SlimeRed.class, SlimeBrown.class, Rat.class, Gnoll.class, Crab.class, SewerFly.class, Skeleton.class };
+			chances = new float[]{ 2, 1, 2, 1, 5, 2, 0.5f, 1, 0.01f };
+			classes = new Class<?>[]{ Slime.class, SlimeRed.class, SlimeBrown.class, Rat.class, Gnoll.class, Crab.class, Velocirooster.class, SewerFly.class, Skeleton.class };
 			break;
 			
 		case 6:
@@ -204,7 +204,9 @@ public class Bestiary {
 	
 	public static boolean isUnique( Char mob ) {
 		return mob instanceof Goo || mob instanceof Tengu || mob instanceof DM300 || mob instanceof King
-				|| mob instanceof Yog.BurningFist || mob instanceof Yog.RottingFist
-			|| mob instanceof Ghost.FetidRat || mob instanceof Ghost.GnollTrickster || mob instanceof Ghost.GreatCrab;
+				|| mob instanceof Yog.BurningFist || mob instanceof Yog.RottingFist || mob instanceof Ghost.FetidRat
+				|| mob instanceof Ghost.GnollTrickster || mob instanceof Ghost.GreatCrab
+				|| mob instanceof Minotaur || mob instanceof Necromancer || mob instanceof ChaosMage
+				|| mob instanceof Tinkerer;
 	}
 }

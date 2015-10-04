@@ -37,7 +37,7 @@ public class WelcomeScene extends PixelScene {
 
 	private static final String TTL_Welcome = "Welcome!";
 
-	private static final String TTL_Update = "v0.1.5: Content Push";
+	private static final String TTL_Update = "v0.2.1: More Content Push!";
 
 	private static final String TTL_Future = "Wait What?";
 
@@ -49,7 +49,22 @@ public class WelcomeScene extends PixelScene {
 			"Enjoy";
 
 	private static final String TXT_Update =
-			"v01.8: Squash Them Bugs\n"+
+			"v02.1: Rings and Potions and Mobs, oh my!\n"+
+					"- rings are now listed in the catalogue\n"+
+					"- potions of haste and slowness\n"+
+					"- tweaked how potions affect hunger\n"+
+					"- added dungeon snakes and the velocirooster\n"+
+			"v02.0: Fleshing out the Game\n"+
+					"- fix save file corruption\n"+
+					"- made the Open Levels a little less deadly\n"+
+					"- Necromancer Mini-Boss, Zombies and Clay Golems\n"+
+					"- hunger dmg now scales and prevents resting\n"+
+					"- don't pick up dewdrops if not needed\n"+
+					"- autotarget closest mobs\n"+
+					"- shopkeeper flees when moved, may leave goods\n"+
+					"- adjusted monk disarm logic\n"+
+					"- bug fixes\n\n"+
+			"v01.9: Squash Them Bugs\n"+
 					"- Fixes for various artifact bugs\n"+
 					"  - Chalice of Blood level 10 in Easy Mode\n"+
 					"  - Cloak of Shadows max charges on restore\n"+
@@ -92,28 +107,8 @@ public class WelcomeScene extends PixelScene {
                     "- Lost Souls\n"+
                     "- Squids in the Pool Rooms\n"+
                     "- The Mad Tinkerer, Minotaur and the Chaos Mage\n"+
-                    "- tutorial mode fixes\n"+
-                    "     - update tutorial verbiage\n"+
-                    "     - better branding on load/save screen\n"+
-                    "     - hard mode can only save after boss levels\n"+
-                    "     - announce when important badges aren't earned\n"+
                     "- dew vial helps sate hunger\n"+
-                    "- reduce hunger when descending stairs\n"+
-                    "- remove seeds from drop tables on levels\n"+
-                    "- reduce random crashes\n\n"+
-			"v01.4: Difficulty Levels\n"+
-			    "- click version (v01.4) for change history\n"+
-				"- return to title scene after visiting links\n"+
-				"- increase level-caps for items\n"+
-				"- altar donation changes (simplified)\n"+
-			    "- add difficulty levels\n"+
-			    "     - badges, scores, display on new/load buttons\n"+
-			    "     - hero - stats/equipment, leveling up, regeneration\n"+
-			    "     - mobs - health, attack and defense skills\n"+
-			    "     - number of mobs, number of items, drop tables\n"+
-			    "     - item levels, upgrade failures, cursed status\n"+
-			    "- tutorial level messages.\n"+
-				"- bug fixes";
+			"v01.4: Difficulty Levels\n";
 	private static final String TXT_Future =
 			"It seems that your current saves are from a future version of Unleashed Pixel Dungeon!\n\n"+
 			"Either you're messing around with older versions of the app, or something has gone buggy.\n\n"+

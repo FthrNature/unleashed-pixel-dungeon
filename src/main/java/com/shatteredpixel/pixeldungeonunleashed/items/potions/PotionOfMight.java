@@ -53,7 +53,12 @@ public class PotionOfMight extends PotionOfStrength {
 			"This powerful liquid will course through your muscles, permanently " +
 			"increasing your strength by one point and health by five points.";
 	}
-	
+
+	@Override
+	public int hungerMods() {
+		return 5; // reduces hunger by 5%
+	}
+
 	@Override
 	public int price() {
 		return isKnown() ? 200 * quantity : super.price();

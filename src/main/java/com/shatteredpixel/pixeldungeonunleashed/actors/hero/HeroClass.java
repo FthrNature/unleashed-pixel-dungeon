@@ -26,29 +26,22 @@ import com.shatteredpixel.pixeldungeonunleashed.Challenges;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
-import com.shatteredpixel.pixeldungeonunleashed.items.Stylus;
 import com.shatteredpixel.pixeldungeonunleashed.items.TomeOfMastery;
 import com.shatteredpixel.pixeldungeonunleashed.items.armor.ClothArmor;
-import com.shatteredpixel.pixeldungeonunleashed.items.armor.LeatherArmor;
-import com.shatteredpixel.pixeldungeonunleashed.items.armor.glyphs.Resistance;
-import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.pixeldungeonunleashed.items.food.Food;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfExperience;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMight;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMindVision;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfSlowness;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfSpeed;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfStrength;
-import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfMagic;
-import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfSating;
+import com.shatteredpixel.pixeldungeonunleashed.items.rings.Ring;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfMagicMapping;
-import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
-import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Midas;
-import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Vicious;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.Dagger;
@@ -144,6 +137,40 @@ public enum HeroClass {
 				new Food().identify().collect();
 				new ScrollOfIdentify().identify().collect();
 			}
+		}
+		//if (Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+		//	testHero(hero);
+		//}
+	}
+
+	public static void testHero(Hero hero) {
+		hero.HT = 80;
+		hero.HP = 80;
+		// things we only want a few of..
+		for (int i = 0; i < 4; i++) {
+			Ring ring1 = (Ring) Generator.random(Generator.Category.RING);
+			ring1.collect();
+			new PotionOfSpeed().collect();
+			new PotionOfSlowness().collect();
+			new PotionOfMight().collect();
+			Generator.random(Generator.Category.WAND).collect();
+		}
+
+		// things we want a bunch of...
+		for (int i = 0; i < 15; i++) {
+			new PotionOfExperience().collect();
+			new Food().identify().collect();
+			new ScrollOfIdentify().identify().collect();
+			new PotionOfHealing().identify().collect();
+			//new ScrollOfMagicMapping().identify().collect();
+			new ScrollOfUpgrade().collect();
+		}
+		try {
+			Weapon wpn2 = (Weapon) Generator.random(Generator.Category.WEAPON);
+			wpn2.upgrade(true);
+			wpn2.collect();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

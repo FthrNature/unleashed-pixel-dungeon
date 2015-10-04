@@ -23,6 +23,7 @@ package com.shatteredpixel.pixeldungeonunleashed.windows;
 import java.util.ArrayList;
 
 import com.shatteredpixel.pixeldungeonunleashed.ShatteredPixelDungeon;
+import com.shatteredpixel.pixeldungeonunleashed.items.rings.Ring;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ui.Component;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
@@ -44,20 +45,19 @@ public class WndCatalogus extends WndTabbed {
 	private static final int HEIGHT_L    = 128;
 
 	private static final int ITEM_HEIGHT	= 18;
-	
-	private static final int TAB_WIDTH		= 50;
-	
+
 	private static final String TXT_POTIONS	= "Potions";
 	private static final String TXT_SCROLLS	= "Scrolls";
+	private static final String TXT_RINGS   = "Rings";
 	private static final String TXT_TITLE	= "Catalogus";
 	
 	private BitmapText txtTitle;
 	private ScrollPane list;
 	
 	private ArrayList<ListItem> items = new ArrayList<WndCatalogus.ListItem>();
-	
-	private static boolean showPotions = true;
-	
+
+	private static int showTab = 0;
+
 	public WndCatalogus() {
 		
 		super();
@@ -69,9 +69,9 @@ public class WndCatalogus extends WndTabbed {
 		}
 
 		txtTitle = PixelScene.createText( TXT_TITLE, 9 );
-		txtTitle.hardlight( Window.TITLE_COLOR );
+		txtTitle.hardlight(Window.TITLE_COLOR);
 		txtTitle.measure();
-		add( txtTitle );
+		add(txtTitle);
 		
 		list = new ScrollPane( new Component() ) {
 			@Override
@@ -84,24 +84,37 @@ public class WndCatalogus extends WndTabbed {
 				}
 			}
 		};
-		add( list );
-		list.setRect( 0, txtTitle.height(), width, height - txtTitle.height() );
+		add(list);
+		list.setRect(0, txtTitle.height(), width, height - txtTitle.height());
 
-		boolean showPotions = WndCatalogus.showPotions;
+		WndCatalogus.showTab = 0;
 		Tab[] tabs = {
 			new LabeledTab( TXT_POTIONS ) {
 				protected void select( boolean value ) {
 					super.select( value );
-					WndCatalogus.showPotions = value;
-					updateList();
+					if (value == true) {
+						showTab = 0;
+						updateList();
+					}
 				};
 			},
 			new LabeledTab( TXT_SCROLLS ) {
 				protected void select( boolean value ) {
 					super.select( value );
-					WndCatalogus.showPotions = !value;
-					updateList();
+					if (value == true) {
+						showTab = 1;
+						updateList();
+					}
 				};
+			},
+			new LabeledTab( TXT_RINGS ) {
+				protected void select( boolean value ) {
+					super.select( value );
+					if (value == true) {
+						showTab = 2;
+						updateList();
+					}
+				}
 			}
 		};
 		for (Tab tab : tabs) {
@@ -109,13 +122,19 @@ public class WndCatalogus extends WndTabbed {
 		}
 
 		layoutTabs();
-		
-		select( showPotions ? 0 : 1 );
+
+		select( showTab );
 	}
 	
 	private void updateList() {
+		if (showTab == 0) {
+			txtTitle.text( Utils.format( TXT_TITLE, TXT_POTIONS ) );
+		} else if (showTab == 1) {
+			txtTitle.text( Utils.format( TXT_TITLE, TXT_SCROLLS ) );
+		} else {
+			txtTitle.text( Utils.format( TXT_TITLE, TXT_RINGS ) );
+		}
 		
-		txtTitle.text( Utils.format( TXT_TITLE, showPotions ? TXT_POTIONS : TXT_SCROLLS ) );
 		txtTitle.measure();
 		txtTitle.x = PixelScene.align( PixelScene.uiCamera, (width - txtTitle.width()) / 2 );
 
@@ -126,22 +145,60 @@ public class WndCatalogus extends WndTabbed {
 		list.scrollTo( 0, 0 );
 		
 		float pos = 0;
-		for (Class<? extends Item> itemClass : showPotions ? Potion.getKnown() : Scroll.getKnown()) {
-			ListItem item = new ListItem( itemClass );
-			item.setRect( 0, pos, width, ITEM_HEIGHT );
-			content.add( item );
-			items.add( item );
-			
-			pos += item.height();
-		}
-		
-		for (Class<? extends Item> itemClass : showPotions ? Potion.getUnknown() : Scroll.getUnknown()) {
-			ListItem item = new ListItem( itemClass );
-			item.setRect( 0, pos, width, ITEM_HEIGHT );
-			content.add( item );
-			items.add( item );
-			
-			pos += item.height();
+		if (showTab == 0) {
+			for (Class<? extends Item> itemClass : Potion.getKnown()) {
+				ListItem item = new ListItem( itemClass );
+				item.setRect( 0, pos, width, ITEM_HEIGHT );
+				content.add( item );
+				items.add( item );
+
+				pos += item.height();
+			}
+
+			for (Class<? extends Item> itemClass : Potion.getUnknown()) {
+				ListItem item = new ListItem( itemClass );
+				item.setRect( 0, pos, width, ITEM_HEIGHT );
+				content.add( item );
+				items.add( item );
+
+				pos += item.height();
+			}
+		} else if (showTab == 1) {
+			for (Class<? extends Item> itemClass : Scroll.getKnown()) {
+				ListItem item = new ListItem( itemClass );
+				item.setRect( 0, pos, width, ITEM_HEIGHT );
+				content.add( item );
+				items.add( item );
+
+				pos += item.height();
+			}
+
+			for (Class<? extends Item> itemClass : Scroll.getUnknown()) {
+				ListItem item = new ListItem( itemClass );
+				item.setRect( 0, pos, width, ITEM_HEIGHT );
+				content.add( item );
+				items.add( item );
+
+				pos += item.height();
+			}
+		} else {
+			for (Class<? extends Item> itemClass : Ring.getKnown()) {
+				ListItem item = new ListItem( itemClass );
+				item.setRect( 0, pos, width, ITEM_HEIGHT );
+				content.add( item );
+				items.add( item );
+
+				pos += item.height();
+			}
+
+			for (Class<? extends Item> itemClass : Ring.getUnknown()) {
+				ListItem item = new ListItem( itemClass );
+				item.setRect( 0, pos, width, ITEM_HEIGHT );
+				content.add( item );
+				items.add( item );
+
+				pos += item.height();
+			}
 		}
 
 		content.setSize( width, pos );
@@ -161,6 +218,9 @@ public class WndCatalogus extends WndTabbed {
 			try {
 				item = cl.newInstance();
 				if (identified = item.isIdentified()) {
+					sprite.view( item.image(), null );
+					label.text( item.name() );
+				} else if (item instanceof Ring && (identified = ((Ring) item).isKnown())) {
 					sprite.view( item.image(), null );
 					label.text( item.name() );
 				} else {

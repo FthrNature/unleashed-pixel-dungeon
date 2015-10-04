@@ -75,7 +75,9 @@ public class Potion extends Item {
 		PotionOfPurity.class,
 		PotionOfInvisibility.class,
 		PotionOfMight.class,
-		PotionOfFrost.class
+		PotionOfFrost.class,
+		PotionOfSpeed.class,
+		PotionOfSlowness.class
 	};
 	private static final String[] colors = {
 		"turquoise", "crimson", "azure", "jade", "golden", "magenta",
@@ -135,7 +137,7 @@ public class Potion extends Item {
 	public void syncVisuals(){
 		image = handler.image( this );
 		color = handler.label( this );
-	};
+	}
 	
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -160,7 +162,7 @@ public class Potion extends Item {
 								if (index == 0) {
 									drink( hero );
 								}
-							};
+							}
 						}
 					);
 					
@@ -170,7 +172,7 @@ public class Potion extends Item {
 			
 		} else {
 			
-			super.execute( hero, action );
+			super.execute(hero, action);
 			
 		}
 	}
@@ -184,6 +186,7 @@ public class Potion extends Item {
 			this instanceof PotionOfMindVision ||
 			this instanceof PotionOfStrength ||
 			this instanceof PotionOfInvisibility ||
+			this instanceof PotionOfSpeed ||
 			this instanceof PotionOfMight)) {
 		
 			GameScene.show(
@@ -193,7 +196,7 @@ public class Potion extends Item {
 						if (index == 0) {
 							Potion.super.doThrow( hero );
 						}
-					};
+					}
 				}
 			);
 			
@@ -214,13 +217,19 @@ public class Potion extends Item {
 		
 		hero.sprite.operate( hero.pos );
 
-		if (this instanceof PotionOfLiquidFlame || this instanceof PotionOfToxicGas || this instanceof PotionOfParalyticGas) {
-			// this is a harmful potion, it could have an adverse effect on hunger level
-		} else {
+		if (this.hungerMods() > 0) {
 			// non-harmful potions can appease hunger to some extent (5%)
 			Hunger hunger = hero.buff(Hunger.class);
-			hunger.reduceHunger(hunger.HUNGRY / 20);
+			hunger.reduceHunger(hunger.HUNGRY * this.hungerMods() / 100);
+		} else if (this.hungerMods() < 0) {
+			// non-harmful potions can appease hunger to some extent (5%)
+			Hunger hunger = hero.buff(Hunger.class);
+			hunger.reduceHunger((hunger.HUNGRY * this.hungerMods() / 100));
 		}
+	}
+
+	public int hungerMods() {
+		return 0; // most potions will affect current hunger by 0%
 	}
 	
 	@Override

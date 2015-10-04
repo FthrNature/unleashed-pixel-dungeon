@@ -38,6 +38,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.weapon.*;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.*;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.*;
 import com.shatteredpixel.pixeldungeonunleashed.plants.*;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -91,34 +92,38 @@ public class Generator {
 		Category.GOLD.probs = new float[]{ 1 };
 		
 		Category.SCROLL.classes = new Class<?>[]{
-			ScrollOfIdentify.class,
-			ScrollOfTeleportation.class,
-			ScrollOfRemoveCurse.class,
-			ScrollOfUpgrade.class,         // set to 0 - uses special drop table
-			ScrollOfRecharging.class,
-			ScrollOfMagicMapping.class,
-			ScrollOfRage.class,
-			ScrollOfTerror.class,
-			ScrollOfLullaby.class,
-			ScrollOfMagicalInfusion.class, // set to 0 - need special circumstances to get
-			ScrollOfPsionicBlast.class,
-			ScrollOfMirrorImage.class };
-		Category.SCROLL.probs = new float[]{ 26, 10, 15, 0, 15, 15, 12, 8, 8, 0, 4, 10 };
+			ScrollOfIdentify.class,       // 26
+			ScrollOfRemoveCurse.class,    // 15
+			ScrollOfRecharging.class,     // 15
+			ScrollOfMagicMapping.class,   // 15
+			ScrollOfRage.class,           // 12
+			ScrollOfMirrorImage.class,    // 10
+			ScrollOfTeleportation.class,  // 10
+			ScrollOfTerror.class,         //  8
+			ScrollOfLullaby.class,        //  8
+			ScrollOfPsionicBlast.class,   //  4
+			ScrollOfUpgrade.class,        //  0 - uses special drop table
+			ScrollOfMagicalInfusion.class //  0 - need special circumstances to get
+		};
+		Category.SCROLL.probs = new float[]{ 26, 15, 15, 15, 12, 10, 10, 8, 8, 4, 0, 0 };
 		
 		Category.POTION.classes = new Class<?>[]{
-			PotionOfHealing.class,
-			PotionOfExperience.class,
-			PotionOfToxicGas.class,
-			PotionOfParalyticGas.class,
-			PotionOfLiquidFlame.class,
-			PotionOfLevitation.class,
-			PotionOfStrength.class,      // set to 0 - uses special drop table
-			PotionOfMindVision.class,
-			PotionOfPurity.class,
-			PotionOfInvisibility.class,
-			PotionOfMight.class,         // set to 0 - need special circumstances to get
-			PotionOfFrost.class };
-		Category.POTION.probs = new float[]{ 40, 4, 15, 10, 15, 10, 0, 20, 12, 10, 0, 10 };
+			PotionOfHealing.class,        // 40
+			PotionOfMindVision.class,     // 20
+			PotionOfToxicGas.class,       // 15
+			PotionOfLiquidFlame.class,    // 15
+			PotionOfPurity.class,         // 12
+			PotionOfParalyticGas.class,   // 10
+			PotionOfLevitation.class,     // 10
+			PotionOfInvisibility.class,   // 10
+			PotionOfFrost.class,          // 10
+			PotionOfSlowness.class,       // 10
+			PotionOfSpeed.class,          // 10
+			PotionOfExperience.class,     //  4
+			PotionOfStrength.class,       //  0 - uses special drop table
+			PotionOfMight.class           //  0 - need special circumstances to get
+		};
+		Category.POTION.probs = new float[]{ 40, 20, 15, 15, 12, 10, 10, 10, 10, 10, 10, 4, 0, 0 };
 
 		//TODO: add last ones when implemented
 		Category.WAND.classes = new Class<?>[]{
@@ -327,13 +332,15 @@ public class Generator {
 				return null;
 			}
 
+			// after creation, ensure the spawn rate for this entry is 0 and that we added the name to the load/save drop list
 			Artifact artifact = (Artifact)cat.classes[i].newInstance();
+			if ((cat.probs[i] > 0) && (!spawnedArtifacts.contains(cat.classes[i].getSimpleName()))) {
+				//remove the chance of spawning this artifact.
+				cat.probs[i] = 0;
+				spawnedArtifacts.add(cat.classes[i].getSimpleName());
+			}
 
-			//remove the chance of spawning this artifact.
-			cat.probs[i] = 0;
-			spawnedArtifacts.add(cat.classes[i].getSimpleName());
-
-			artifact.random();
+			artifact.random(); // is this artifact cursed?
 
 			return artifact;
 
@@ -347,9 +354,10 @@ public class Generator {
 			return false;
 
 		Category cat = Category.ARTIFACT;
+		// find our artifact in the array, ensure the spawn rate for this entry is 0 and that we added the name to the load/save drop list
 		for (int i = 0; i < cat.classes.length; i++)
-			if (cat.classes[i].equals(artifact.getClass())) {
-				if (cat.probs[i] == 1){
+			if ((cat.classes[i].equals(artifact.getClass())) && (!spawnedArtifacts.contains(cat.classes[i].getSimpleName()))) {
+				if (cat.probs[i] > 0){
 					cat.probs[i] = 0;
 					spawnedArtifacts.add(artifact.getClass().getSimpleName());
 					return true;
@@ -362,6 +370,9 @@ public class Generator {
 
 	//resets artifact probabilities, for new dungeons
 	public static void initArtifacts() {
+		// reset our drop list since we will be recreating it in restoreFromBundle()
+		// this prevents possible issues when reloading a saved game
+		spawnedArtifacts.clear();
 		Category.ARTIFACT.probs = INITIAL_ARTIFACT_PROBS;
 
 		//checks for dried rose quest completion, adds the rose in accordingly.
@@ -381,13 +392,14 @@ public class Generator {
 		initArtifacts();
 
 		if (bundle.contains(ARTIFACTS)) {
-			Collections.addAll(spawnedArtifacts, bundle.getStringArray(ARTIFACTS));
 			Category cat = Category.ARTIFACT;
 
 			for (String artifact : spawnedArtifacts)
 				for (int i = 0; i < cat.classes.length; i++)
-					if (cat.classes[i].getSimpleName().equals(artifact))
+					if ((cat.classes[i].getSimpleName().equals(artifact)) && (cat.probs[i] > 0)) {
 						cat.probs[i] = 0;
+						spawnedArtifacts.add(artifact);
+					}
 		}
 	}
 }

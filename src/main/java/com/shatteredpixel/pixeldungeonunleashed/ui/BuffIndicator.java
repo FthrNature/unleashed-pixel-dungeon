@@ -77,6 +77,7 @@ public class BuffIndicator extends Component {
 	public static final int LOCKED_FLOOR= 35;
 	public static final int CORRUPT     = 36;
 	public static final int BLESS       = 37;
+	public static final int HASTED      = 38;
 
 	public static final int SIZE	= 7;
 	
@@ -85,7 +86,7 @@ public class BuffIndicator extends Component {
 	private SmartTexture texture;
 	private TextureFilm film;
 	
-	private SparseArray<BuffIcon> icons = new SparseArray<BuffIcon>();
+	private SparseArray<BuffIcon> icons = new SparseArray<>();
 	
 	private Char ch;
 	
@@ -117,7 +118,7 @@ public class BuffIndicator extends Component {
 	protected void layout() {
 		clear();
 		
-		SparseArray<BuffIcon> newIcons = new SparseArray<BuffIcon>();
+		SparseArray<BuffIcon> newIcons = new SparseArray<>();
 		
 		for (Buff buff : ch.buffs()) {
 			if (buff.icon() != NONE) {
@@ -138,7 +139,7 @@ public class BuffIndicator extends Component {
 					protected void updateValues( float progress ) {
 						super.updateValues( progress );
 						image.scale.set( 1 + 5 * progress );
-					};
+					}
 				} );
 			}
 		}

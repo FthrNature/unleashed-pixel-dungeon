@@ -121,11 +121,16 @@ public class PotionOfPurity extends Potion {
 	
 	@Override
 	public void apply( Hero hero ) {
-		GLog.w( TXT_NO_SMELL );
+		GLog.w(TXT_NO_SMELL);
 		Buff.prolong( hero, GasesImmunity.class, GasesImmunity.DURATION );
 		setKnown();
 	}
-	
+
+	@Override
+	public int hungerMods() {
+		return 5; // reduces hunger by 5%
+	}
+
 	@Override
 	public String desc() {
 		return

@@ -59,7 +59,12 @@ public class PotionOfFrost extends Potion {
 			setKnown();
 		}
 	}
-	
+
+	@Override
+	public int hungerMods() {
+		return 5; // reduces hunger by 5%
+	}
+
 	@Override
 	public String desc() {
 		return
