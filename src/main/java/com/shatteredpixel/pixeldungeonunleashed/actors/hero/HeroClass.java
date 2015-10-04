@@ -126,10 +126,12 @@ public enum HeroClass {
 	}
 
 	private static void initCommon( Hero hero ) {
-		if ((!Dungeon.isChallenged(Challenges.NO_ARMOR)) && (Dungeon.difficultyLevel <= Dungeon.DIFF_HARD))
+		if ((!Dungeon.isChallenged(Challenges.NO_ARMOR)) &&
+				((Dungeon.difficultyLevel <= Dungeon.DIFF_HARD) || (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS)))
 			(hero.belongings.armor = new ClothArmor()).identify();
 
-		if ((!Dungeon.isChallenged(Challenges.NO_FOOD)) && (Dungeon.difficultyLevel <= Dungeon.DIFF_NORM))
+		if ((!Dungeon.isChallenged(Challenges.NO_FOOD)) &&
+				((Dungeon.difficultyLevel <= Dungeon.DIFF_NORM) || (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS)))
 			new Food().identify().collect();
 
 		if ((!Dungeon.isChallenged(Challenges.NO_FOOD)) && (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY)) {
@@ -138,31 +140,29 @@ public enum HeroClass {
 				new ScrollOfIdentify().identify().collect();
 			}
 		}
-		//if (Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
-		//	testHero(hero);
-		//}
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+			testHero(hero);
+		}
 	}
 
 	public static void testHero(Hero hero) {
 		hero.HT = 80;
 		hero.HP = 80;
 		// things we only want a few of..
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			Ring ring1 = (Ring) Generator.random(Generator.Category.RING);
 			ring1.collect();
 			new PotionOfSpeed().collect();
-			new PotionOfSlowness().collect();
 			new PotionOfMight().collect();
 			Generator.random(Generator.Category.WAND).collect();
 		}
 
 		// things we want a bunch of...
-		for (int i = 0; i < 15; i++) {
-			new PotionOfExperience().collect();
-			new Food().identify().collect();
+		for (int i = 0; i < 6; i++) {
+			new Food().collect();
 			new ScrollOfIdentify().identify().collect();
 			new PotionOfHealing().identify().collect();
-			//new ScrollOfMagicMapping().identify().collect();
+			new ScrollOfMagicMapping().identify().collect();
 			new ScrollOfUpgrade().collect();
 		}
 		try {
@@ -172,6 +172,8 @@ public enum HeroClass {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+
 	}
 
 	public Badges.Badge masteryBadge() {

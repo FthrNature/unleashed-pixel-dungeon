@@ -57,7 +57,6 @@ public class StartScene extends PixelScene {
 	private static final float GAP				= 2;
 
 	private static final String TXT_LOAD	= "Load Game";
-	private static final String TXT_NEW		= "New Game";
 
 	private static final String TXT_ERASE		= "Erase current game";
 	private static final String TXT_DPTH_LVL	= "Depth: %d, level: %d";
@@ -78,7 +77,7 @@ public class StartScene extends PixelScene {
 	private static final float WIDTH_L    = 224;
 	private static final float HEIGHT_L    = 124;
 
-	private static HashMap<HeroClass, ClassShield> shields = new HashMap<HeroClass, ClassShield>();
+	private static HashMap<HeroClass, ClassShield> shields = new HashMap<>();
 
 	private float buttonX;
 	private float buttonY;
@@ -130,6 +129,9 @@ public class StartScene extends PixelScene {
 
 		String TXT_NEW_DIF;
 		switch (ShatteredPixelDungeon.getDifficulty()) {
+			case 9:
+				TXT_NEW_DIF = "New TEST";
+				break;
 			case 10:
 				TXT_NEW_DIF = "New TUTOR";
 				break;
@@ -140,7 +142,10 @@ public class StartScene extends PixelScene {
 				TXT_NEW_DIF = "New HARD";
 				break;
 			case 14:
-				TXT_NEW_DIF = "NEW NTMARE";
+				TXT_NEW_DIF = "New NTMARE";
+				break;
+			case 15:
+				TXT_NEW_DIF = "New ENDLESS";
 				break;
 			default:
 				TXT_NEW_DIF = "New NORMAL";
@@ -302,6 +307,9 @@ public class StartScene extends PixelScene {
 
 				String TXT_LOAD_DIF;
 				switch (info.difLev) {
+					case 9:
+						TXT_LOAD_DIF = "Load TEST";
+						break;
 					case 10:
 						TXT_LOAD_DIF = "Load TUTOR";
 						break;
@@ -313,6 +321,9 @@ public class StartScene extends PixelScene {
 						break;
 					case 14:
 						TXT_LOAD_DIF = "Load NTMARE";
+						break;
+					case 15:
+						TXT_LOAD_DIF = "Load ENDLESS";
 						break;
 					default:
 						TXT_LOAD_DIF = "Load NORMAL";
@@ -555,7 +566,7 @@ public class StartScene extends PixelScene {
 						super.onBackPressed();
 						image.copy( Icons.get( ShatteredPixelDungeon.challenges() > 0 ?
 								Icons.CHALLENGE_ON :Icons.CHALLENGE_OFF ) );
-					};
+					}
 				} );
 			} else {
 				StartScene.this.add( new WndMessage( TXT_WIN_THE_GAME ) );

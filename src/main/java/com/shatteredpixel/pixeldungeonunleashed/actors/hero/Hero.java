@@ -109,6 +109,7 @@ import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndMessage;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndResurrect;
+import com.shatteredpixel.pixeldungeonunleashed.windows.WndStory;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndTradeItem;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -832,6 +833,8 @@ public class Hero extends Char {
 					hunger.reduceHunger( Hunger.STARVING / 10 );
 					break;
 				case Dungeon.DIFF_NORM:
+				case Dungeon.DIFF_ENDLESS:
+				case Dungeon.DIFF_TEST:
 					hunger.reduceHunger( Hunger.STARVING / 20 );
 					break;
 				case Dungeon.DIFF_HARD:
@@ -1146,14 +1149,19 @@ public class Hero extends Char {
 			curAction = new HeroAction.Descend( cell );
 			
 		} else if (cell == Dungeon.level.entrance) {
-			
-			curAction = new HeroAction.Ascend( cell );
+			if ((Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) && (Dungeon.difficultyLevel == Dungeon.DIFF_TEST)) {
+				curAction = new HeroAction.Move( cell );
+				lastAction = null;
+				WndStory.showChapter("The magic of this place compels you to go forever downwards.");
+
+			} else {
+				curAction = new HeroAction.Ascend(cell);
+			}
 			
 		} else  {
 			
 			curAction = new HeroAction.Move( cell );
 			lastAction = null;
-			
 		}
 
 		return act();

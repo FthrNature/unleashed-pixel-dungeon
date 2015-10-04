@@ -22,6 +22,7 @@ public class SlimeRed  extends Mob {
         EXP = 5;
         maxLvl = 11;
 
+        mobType = MOBTYPE_DEBUFF;
     }
 
     @Override

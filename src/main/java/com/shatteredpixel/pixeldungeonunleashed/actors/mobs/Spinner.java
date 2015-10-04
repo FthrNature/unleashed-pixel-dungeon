@@ -54,6 +54,7 @@ public class Spinner extends Mob {
 		lootChance = 0.125f;
 
 		FLEEING = new Fleeing();
+		mobType = MOBTYPE_DEBUFF;
 	}
 
 	@Override

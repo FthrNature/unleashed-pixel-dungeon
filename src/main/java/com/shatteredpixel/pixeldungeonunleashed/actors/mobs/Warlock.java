@@ -62,6 +62,7 @@ public class Warlock extends Mob implements Callback {
 		
 		loot = Generator.Category.POTION;
 		lootChance = 0.83f;
+		mobType = MOBTYPE_RANGED;
 	}
 	
 	@Override

@@ -47,11 +47,13 @@ public class Bat extends Mob {
 
 		EXP = 7;
 		maxLvl = 18;
-		
+
 		flying = true;
 		
 		loot = new PotionOfHealing();
 		lootChance = 0.1667f; //by default, see die()
+
+		mobType = MOBTYPE_DEBUFF;
 	}
 	
 	@Override

@@ -30,6 +30,7 @@ public class Minotaur extends Mob {
 
         EXP = 11;
         maxLvl = 28;
+        mobType = MOBTYPE_TOUGH;
 
         state = HUNTING;
     }

@@ -20,6 +20,7 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.actors.hero;
 
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.NPC;
 
@@ -72,7 +73,7 @@ public class HeroAction {
 	}
 	
 	public static class Ascend extends HeroAction {
-		public Ascend( int stairs ) {
+		public Ascend( int stairs){
 			this.dst = stairs;
 		}
 	}

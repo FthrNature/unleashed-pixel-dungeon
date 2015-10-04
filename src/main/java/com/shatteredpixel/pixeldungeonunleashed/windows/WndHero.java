@@ -123,6 +123,12 @@ public class WndHero extends WndTabbed {
 				case Dungeon.DIFF_NTMARE:
 					TXT_DIFF="NTMARE";
 					break;
+				case Dungeon.DIFF_TEST:
+					TXT_DIFF="TEST";
+					break;
+				case Dungeon.DIFF_ENDLESS:
+					TXT_DIFF="ENDLESS";
+					break;
 				default:
 					TXT_DIFF="NORMAL";
 					break;

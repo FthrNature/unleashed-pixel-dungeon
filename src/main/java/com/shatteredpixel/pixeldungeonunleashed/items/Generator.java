@@ -208,7 +208,7 @@ public class Generator {
 			EtherealChains.class,
 			//BagOfDevouring.class
 			};
-		// note - duplicated down below in initArtifacts() - look into refactoring
+
 		Category.ARTIFACT.probs = INITIAL_ARTIFACT_PROBS;
 
 		Category.SEED.classes = new Class<?>[]{

@@ -20,6 +20,8 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.levels.features;
 
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.InfiniteBestiary;
+import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
 import com.watabou.noosa.audio.Sample;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
@@ -34,8 +36,8 @@ import com.shatteredpixel.pixeldungeonunleashed.windows.WndMessage;
 
 public class Sign {
 
-	private static final String TXT_DEAD_END =
-		"What are you doing here?!";
+	private static final String TXT_DEAD_END = "What are you doing here?!";
+	private static final String TXT_ENDLESS  = "Level %d\n%s";
 
 	private static final String[] TIPS = {
 		"Almost all equipment has a strength requirement. Don't overestimate your strength, using equipment you can't " +
@@ -103,6 +105,10 @@ public class Sign {
 		"As you try to read the sign it bursts into greenish flames.";
 	
 	public static void read( int pos ) {
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+			GameScene.show( new WndMessage( Utils.format(TXT_ENDLESS, Dungeon.depth, InfiniteBestiary.currentTheme)) );
+			return;
+		}
 		
 		if (Dungeon.level instanceof DeadEndLevel) {
 			
@@ -124,7 +130,7 @@ public class Sign {
 					GLog.w( TXT_BURN );
 
 					CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
-					Sample.INSTANCE.play( Assets.SND_BURNING );
+					Sample.INSTANCE.play(Assets.SND_BURNING);
 				}
 
 			}

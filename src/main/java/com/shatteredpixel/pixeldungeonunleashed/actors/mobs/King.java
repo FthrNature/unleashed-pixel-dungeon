@@ -66,6 +66,7 @@ public class King extends Mob {
 		dmgRed = 14;
 		dmgMin = 20;
 		dmgMax = 38;
+		mobType = MOBTYPE_TOUGH;
 
 		Undead.count = 0;
 	}
@@ -76,7 +77,7 @@ public class King extends Mob {
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
+		super.storeInBundle(bundle);
 		bundle.put( PEDESTAL, nextPedestal );
 	}
 	
@@ -95,7 +96,7 @@ public class King extends Mob {
 	protected boolean getCloser( int target ) {
 		return canTryToSummon() ?
 			super.getCloser( CityBossLevel.pedestal( nextPedestal ) ) :
-			super.getCloser( target );
+			super.getCloser(target);
 	}
 	
 	@Override
@@ -131,7 +132,9 @@ public class King extends Mob {
 	public void die( Object cause ) {
 
 		GameScene.bossSlain();
-		Dungeon.level.drop( new ArmorKit(), pos ).sprite.drop();
+		if (Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS && Dungeon.difficultyLevel != Dungeon.DIFF_TEST) {
+			Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
+		}
 		Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
 		
 		super.die( cause );
@@ -178,6 +181,11 @@ public class King extends Mob {
 					if (PathFinder.distance[j] == dist) {
 						
 						Undead undead = new Undead();
+						if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+							undead.infiniteScaleMob(Dungeon.depth + 5);
+						} else {
+							undead.scaleMob();
+						}
 						undead.pos = j;
 						GameScene.add( undead );
 						

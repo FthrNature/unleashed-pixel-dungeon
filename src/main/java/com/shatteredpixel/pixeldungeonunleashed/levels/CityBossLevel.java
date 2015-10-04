@@ -20,6 +20,7 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.levels;
 
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.King;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
@@ -27,8 +28,6 @@ import com.shatteredpixel.pixeldungeonunleashed.Bones;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Bestiary;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.keys.SkeletonKey;
@@ -182,8 +181,12 @@ public class CityBossLevel extends Level {
 			enteredArena = true;
 			seal();
 			
-			Mob boss = Bestiary.mob( Dungeon.depth );
-			boss.scaleMob();
+			King boss = new King();
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+				boss.infiniteScaleMob(Dungeon.depth + 5);
+			} else {
+				boss.scaleMob();
+			}
 			boss.state = boss.HUNTING;
 			int count = 0;
 			do {

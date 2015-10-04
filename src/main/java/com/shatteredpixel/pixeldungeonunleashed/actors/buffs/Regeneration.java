@@ -48,6 +48,8 @@ public class Regeneration extends Buff {
 					regenDelay = 12;
 					break;
 				case Dungeon.DIFF_HARD:
+				case Dungeon.DIFF_ENDLESS:
+				case Dungeon.DIFF_TEST:
 					regenDelay = 14;
 					break;
 				case Dungeon.DIFF_NTMARE:

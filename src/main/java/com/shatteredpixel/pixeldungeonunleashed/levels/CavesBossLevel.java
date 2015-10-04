@@ -20,6 +20,7 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.levels;
 
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.DM300;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.audio.Sample;
@@ -28,8 +29,6 @@ import com.shatteredpixel.pixeldungeonunleashed.Bones;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Bestiary;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
 import com.shatteredpixel.pixeldungeonunleashed.effects.CellEmitter;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Speck;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
@@ -223,8 +222,12 @@ public class CavesBossLevel extends Level {
 			enteredArena = true;
 			seal();
 			
-			Mob boss = Bestiary.mob( Dungeon.depth );
-			boss.scaleMob();
+			DM300 boss = new DM300();
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+				boss.infiniteScaleMob(Dungeon.depth + 5);
+			} else {
+				boss.scaleMob();
+			}
 			boss.state = boss.HUNTING;
 			do {
 				boss.pos = Random.Int( LENGTH );

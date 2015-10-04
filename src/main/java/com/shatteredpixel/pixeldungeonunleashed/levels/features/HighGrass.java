@@ -47,16 +47,12 @@ import com.watabou.utils.Random;
 public class HighGrass {
 
 	public static void trample( Level level, int pos, Char ch ) {
-		int naturalDrop = 25;  // used for seed and dew drops
-		int foodDrop = 50;     // used for food, id scrolls and healing potions
-		int unusualDrop = 100; // used for scrolls, potions and rings
+		int naturalDrop = 18;  // used for seed and dew drops
+		int foodDrop = 80;     // used for food, id scrolls and healing potions
+		int unusualDrop = 125; // used for scrolls, potions and rings
 
 		switch (Dungeon.difficultyLevel) {
 			case Dungeon.DIFF_TUTOR:
-				naturalDrop = 16;
-				foodDrop = 22;
-				unusualDrop = 80;
-				break;
 			case Dungeon.DIFF_EASY:
 				naturalDrop = 16;
 				foodDrop = 22;
@@ -64,22 +60,28 @@ public class HighGrass {
 				break;
 			case Dungeon.DIFF_NORM:
 				naturalDrop = 18;
-				foodDrop = 50;
+				foodDrop = 80;
 				unusualDrop = 125;
+				break;
+			case Dungeon.DIFF_ENDLESS:
+			case Dungeon.DIFF_TEST:
+				naturalDrop = 20;
+				foodDrop = 100;
+				unusualDrop = 200;
 				break;
 			case Dungeon.DIFF_HARD:
 				naturalDrop = 24;
-				foodDrop = 600;
+				foodDrop = 125;
 				unusualDrop = 800;
 				break;
 			case Dungeon.DIFF_NTMARE:
 				naturalDrop = 30;
-				foodDrop = 1000;
+				foodDrop = 300;
 				unusualDrop = 1200;
 				break;
 			default:
 				naturalDrop = 18;
-				foodDrop = 50;
+				foodDrop = 80;
 				unusualDrop = 125;
 				break;
 		}

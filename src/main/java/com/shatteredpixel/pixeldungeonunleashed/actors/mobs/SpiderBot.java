@@ -22,6 +22,7 @@ public class SpiderBot extends Mob {
 
         EXP = 10;
         maxLvl = 20;
+        mobType = MOBTYPE_DEBUFF;
     }
 
     @Override

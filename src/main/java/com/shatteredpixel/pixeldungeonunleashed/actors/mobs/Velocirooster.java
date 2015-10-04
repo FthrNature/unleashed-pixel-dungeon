@@ -22,6 +22,7 @@ public class Velocirooster extends Mob {
 
         loot = new MysteryMeat();
         lootChance = 0.167f;
+        mobType = MOBTYPE_NIMBLE;
     }
 
     @Override

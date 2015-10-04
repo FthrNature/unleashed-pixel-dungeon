@@ -39,6 +39,7 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.Terrain;
 import com.shatteredpixel.pixeldungeonunleashed.ui.Archs;
 import com.shatteredpixel.pixeldungeonunleashed.ui.RedButton;
 import com.shatteredpixel.pixeldungeonunleashed.ui.Window;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndOptions;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndStory;
@@ -113,6 +114,17 @@ public class LoadSaveScene extends PixelScene {
                 diffLevel = "NIGHTMARE";
                 saveInstructions = "Games may not be saved in Nightmare mode.";
                 break;
+            case Dungeon.DIFF_ENDLESS:
+            case Dungeon.DIFF_TEST:
+
+
+                diffLevel = "ENDLESS";
+                saveInstructions = "Games may not be saved in Endless mode.";
+                break;
+            //case Dungeon.DIFF_TEST:
+            //    diffLevel = "TEST";
+            //    saveInstructions = "In Test mode you may save anywhere.";
+            //    break;
             default:
                 diffLevel = "NORMAL";
                 saveInstructions = "In Normal mode you may save at level entrance signs.";
@@ -150,87 +162,90 @@ public class LoadSaveScene extends PixelScene {
         int posX2 = w - (int) (BUTTON2_WIDTH + BUTTON_PADDING);
         int posX = (int) (BUTTON1_WIDTH + (BUTTON_PADDING * 3));
 
-        String[] classList = { "warrior", "mage", "rogue", "huntress" };
         String[] slotList = { "A", "B", "C", "D", "E" };
 
-        for (String classInfo : classList) {
-            if (Dungeon.hero.heroClass.title().equals(classInfo)) {
+        String classInfo = Dungeon.hero.heroClass.title();
 
-                for (String saveSlot : slotList) {
-                    // add the row caption..
-                    BitmapText buttonCapton1 = PixelScene.createText( TXT_SLOTNAME + " " + saveSlot, 9 );
-                    buttonCapton1.hardlight( CLR_WHITE );
-                    buttonCapton1.measure();
-                    buttonCapton1.x = BUTTON_PADDING;
-                    buttonCapton1.y = posY + (BUTTON_HEIGHT/3);
-                    add( buttonCapton1 );
+        for (String saveSlot : slotList) {
+            // add the row caption..
+            BitmapText buttonCapton1 = PixelScene.createText(TXT_SLOTNAME + " " + saveSlot, 9);
+            buttonCapton1.hardlight(CLR_WHITE);
+            buttonCapton1.measure();
+            buttonCapton1.x = BUTTON_PADDING;
+            buttonCapton1.y = posY + (BUTTON_HEIGHT / 3);
+            add(buttonCapton1);
 
-                    // add the save button..
-                    if (Dungeon.hero.isAlive() &&
-                            (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) ||
-                            (Dungeon.difficultyLevel == Dungeon.DIFF_NORM &&
-                                    Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN)) ||
-                            (Dungeon.difficultyLevel == Dungeon.DIFF_HARD  &&
-                                    Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN) &&
-                                    Dungeon.bossLevel(Dungeon.depth - 1))) {
+            // add the save button..
+            if (Dungeon.hero.isAlive() &&
+                    (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) ||
+                    (Dungeon.difficultyLevel == Dungeon.DIFF_NORM &&
+                            Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN)) ||
+                    (Dungeon.difficultyLevel == Dungeon.DIFF_HARD &&
+                            Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN) &&
+                            Dungeon.bossLevel(Dungeon.depth - 1))) {
 
-                        GameButton btnSave = new GameButton( this, true, TXT_SAVE, "", classInfo, saveSlot );
-                        add( btnSave );
-                        btnSave.visible = true;
-                        btnSave.setRect(posX, posY, BUTTON1_WIDTH, BUTTON_HEIGHT);
+                GameButton btnSave = new GameButton(this, true, TXT_SAVE, "", classInfo, saveSlot);
+                add(btnSave);
+                btnSave.visible = true;
+                btnSave.setRect(posX, posY, BUTTON1_WIDTH, BUTTON_HEIGHT);
+            }
+
+            // add the load button if there are saved files to load..
+            String saveSlotFolder = Game.instance.getFilesDir().toString() + "/" + classInfo + saveSlot;
+
+            File backupFolder = new File(saveSlotFolder);
+            if (backupFolder.exists()) {
+                FileInputStream input;
+                try {
+                    input = new FileInputStream(saveSlotFolder + "/" + classInfo + ".dat");
+                    Bundle bundle = Bundle.read(input);
+                    input.close();
+                    int savedDepth = bundle.getInt(DEPTH, 1);
+                    Bundle savedHero = bundle.getBundle(HERO);
+                    int savedDif = bundle.getInt(DIFLEV);
+                    int savedLevel = savedHero.getInt(LEVEL);
+                    String savedProgress = Utils.format(TXT_DPTH_LVL, savedDepth, savedLevel);
+                    String loadLevel;
+                    switch (savedDif) {
+                        case Dungeon.DIFF_TUTOR:
+                            loadLevel = TXT_LOAD + " TUTOR";
+                            break;
+                        case Dungeon.DIFF_EASY:
+                            loadLevel = TXT_LOAD + " EASY";
+                            break;
+                        case Dungeon.DIFF_HARD:
+                            loadLevel = TXT_LOAD + " HARD";
+                            break;
+                        case Dungeon.DIFF_NTMARE:
+                            loadLevel = TXT_LOAD + " NTMARE";
+                            break;
+                        case Dungeon.DIFF_TEST:
+                            loadLevel = TXT_LOAD + " TEST";
+                            break;
+                        case Dungeon.DIFF_ENDLESS:
+                            loadLevel = TXT_LOAD + " ENDLESS";
+                            break;
+                        default:
+                            loadLevel = TXT_LOAD + " NORMAL";
+                            break;
                     }
+                    GameButton btnLoad1A = new GameButton(this, false, loadLevel, savedProgress, classInfo, saveSlot);
 
-                    // add the load button if there are saved files to load..
-                    String saveSlotFolder = Game.instance.getFilesDir().toString() + "/" + classInfo + saveSlot;
-
-                    File backupFolder = new File(saveSlotFolder);
-                    if (backupFolder.exists()) {
-                        FileInputStream input;
-                        try {
-                            input = new FileInputStream(saveSlotFolder +"/" + classInfo +".dat");
-                            Bundle bundle = Bundle.read( input );
-                            input.close();
-                            int savedDepth = bundle.getInt( DEPTH, 1 );
-                            Bundle savedHero = bundle.getBundle( HERO );
-                            int savedDif = bundle.getInt(DIFLEV);
-                            int savedLevel = savedHero.getInt( LEVEL );
-                            String savedProgress = Utils.format( TXT_DPTH_LVL, savedDepth, savedLevel );
-                            String loadLevel;
-                            switch (savedDif) {
-                                case Dungeon.DIFF_TUTOR:
-                                    loadLevel = TXT_LOAD + " TUTOR";
-                                    break;
-                                case Dungeon.DIFF_EASY:
-                                    loadLevel = TXT_LOAD + " EASY";
-                                    break;
-                                case Dungeon.DIFF_HARD:
-                                    loadLevel = TXT_LOAD + " HARD";
-                                    break;
-                                case Dungeon.DIFF_NTMARE:
-                                    loadLevel = TXT_LOAD + " NTMARE";
-                                    break;
-                                default:
-                                    loadLevel = TXT_LOAD + " NORMAL";
-                                    break;
-                            }
-                            GameButton btnLoad1A = new GameButton( this, false, loadLevel , savedProgress, classInfo, saveSlot );
-
-                            add( btnLoad1A );
-                            btnLoad1A.visible = true;
-                            btnLoad1A.setRect(posX2, posY, (int) (BUTTON2_WIDTH), BUTTON_HEIGHT);
-                        } catch (FileNotFoundException e) {
-                            //e.printStackTrace();
-                        } catch (IOException e) {
-                            //e.printStackTrace();
-                        } catch (NullPointerException e ) {
-                            //e.printStackTrace();
-                        }
-                    }
-                    // move down the line now...
-                    posY += BUTTON_HEIGHT + BUTTON_PADDING;
+                    add(btnLoad1A);
+                    btnLoad1A.visible = true;
+                    btnLoad1A.setRect(posX2, posY, (int) (BUTTON2_WIDTH), BUTTON_HEIGHT);
+                } catch (FileNotFoundException e) {
+                    //e.printStackTrace();
+                } catch (IOException e) {
+                    //e.printStackTrace();
+                } catch (NullPointerException e) {
+                    //e.printStackTrace();
                 }
             }
+            // move down the line now...
+            posY += BUTTON_HEIGHT + BUTTON_PADDING;
         }
+
 
         fadeIn();
     }
@@ -242,7 +257,7 @@ public class LoadSaveScene extends PixelScene {
     }
 
     protected static void exportGames(String classInfo, String saveSlot) {
-        ArrayList<String> files = new ArrayList<String>();
+        ArrayList<String> files = new ArrayList<>();
         String saveSlotFolder = Game.instance.getFilesDir().toString() + "/" + classInfo + saveSlot;
         makeFolder(saveSlotFolder);
 
@@ -297,7 +312,7 @@ public class LoadSaveScene extends PixelScene {
     }
 
     protected static void importGames(String classInfo, String saveSlot) {
-        ArrayList<String> files = new ArrayList<String>();
+        ArrayList<String> files = new ArrayList<>();
         String saveSlotFolder = Game.instance.getFilesDir().toString() + "/" + classInfo + saveSlot;
         File backupFolder = new File(saveSlotFolder);
 
@@ -370,7 +385,7 @@ public class LoadSaveScene extends PixelScene {
                     }
                 } );
             }
-        };
+        }
 
         @Override
         protected void createChildren() {

@@ -60,6 +60,7 @@ public class Thief extends Mob {
 		lootChance = 0.01f;
 
 		FLEEING = new Fleeing();
+		mobType = MOBTYPE_SPECIAL;
 	}
 
 	private static final String ITEM = "item";

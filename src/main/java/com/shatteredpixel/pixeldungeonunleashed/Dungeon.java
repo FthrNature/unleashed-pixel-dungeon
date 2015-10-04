@@ -26,6 +26,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Amok;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Light;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.InfiniteBestiary;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Imp;
@@ -43,6 +44,8 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.CityLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.DeadEndLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.HallsBossLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.HallsLevel;
+import com.shatteredpixel.pixeldungeonunleashed.levels.InfiniteLevel;
+import com.shatteredpixel.pixeldungeonunleashed.levels.InfiniteOpenLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.LastLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.LastShopLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
@@ -79,11 +82,13 @@ public class Dungeon {
 	public static int altarLevel;       // depth number for an altar
 	public static int difficultyLevel = ShatteredPixelDungeon.getDifficulty();
 
+	public final static int DIFF_TEST   = 9;
 	public final static int DIFF_TUTOR  = 10;
 	public final static int DIFF_EASY   = 11;
 	public final static int DIFF_NORM   = 12;
 	public final static int DIFF_HARD   = 13;
 	public final static int DIFF_NTMARE = 14;
+	public final static int DIFF_ENDLESS = 15;
 
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
@@ -207,6 +212,11 @@ public class Dungeon {
 			a.count = 0;
 
 		switch (difficultyLevel) {
+			case DIFF_ENDLESS:
+			case DIFF_TEST:
+				transmutation = Random.IntRange( 6, 14 );
+				altarLevel = 5;
+				break;
 			case DIFF_TUTOR:
 			case DIFF_EASY:
 				transmutation = Random.IntRange( 4, 10 );
@@ -242,6 +252,13 @@ public class Dungeon {
 		Badges.reset();
 
 		StartScene.curClass.initHero( hero );
+
+		// remove in progress game files..
+		for(String fileName : Game.instance.fileList()){
+			if(fileName.startsWith("game_") || fileName.endsWith(".dat") && (fileName.startsWith(hero.heroClass.title()))){
+				Game.instance.deleteFile(fileName);
+			}
+		}
 	}
 
 	public static boolean isChallenged( int mask ) {
@@ -251,7 +268,7 @@ public class Dungeon {
 	public static Level newLevel() {
 		Dungeon.level = null;
 		Actor.clear();
-		
+
 		depth++;
 		if (depth > Statistics.deepestFloor) {
 			Statistics.deepestFloor = depth;
@@ -259,87 +276,123 @@ public class Dungeon {
 		}
 		
 		Arrays.fill( visible, false );
-		
 		Level level;
-		switch (depth) {
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-			if (specialLevel(depth)) { // level 5 is gauranteed to be an Open Level
-				level = new OpenLevel();
+
+		if (difficultyLevel == DIFF_ENDLESS || difficultyLevel == DIFF_TEST) {
+			if ((depth % 10) == 0) {
+				// time for a new boss level
+				switch (Random.Int(10)) {
+					case 0:
+					case 1:
+					case 2:
+						level = new SewerBossLevel();
+						break;
+					case 3:
+					case 4:
+						level = new PrisonBossLevel();
+						break;
+					case 5:
+					case 6:
+					case 7:
+						level = new CavesBossLevel();
+						break;
+					case 8:
+						level = new CityBossLevel();
+						break;
+					default:
+						level = new HallsBossLevel();
+						break;
+				}
+			} else if (Random.Int(3) == 0 && (depth % 10 == 3 || depth % 10 == 4 || depth % 10 == 7 || depth % 10 == 8)) {
+				level = new InfiniteOpenLevel();
 			} else {
-				level = new SewerLevel();
+				level = new InfiniteLevel();
 			}
-			break;
-		case 6:
-			level = new SewerBossLevel();
-			break;
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-		case 11:
-			if (specialLevel(depth) && Random.Int(3) == 0) {
-				level = new OpenLevel();
-			} else {
-				level = new PrisonLevel();
+		} else {
+
+
+			switch (depth) {
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+					if (specialLevel(depth)) { // level 5 is gauranteed to be an Open Level
+						level = new OpenLevel();
+					} else {
+						level = new SewerLevel();
+					}
+					break;
+				case 6:
+					level = new SewerBossLevel();
+					break;
+				case 7:
+				case 8:
+				case 9:
+				case 10:
+					if (specialLevel(depth) && Random.Int(3) == 0) {
+						level = new OpenLevel();
+					} else {
+						level = new PrisonLevel();
+					}
+					break;
+				case 11:
+					level = new OpenLevel();
+					break;
+				case 12:
+					level = new PrisonBossLevel();
+					break;
+				case 13:
+				case 14:
+				case 15:
+				case 16:
+				case 17:
+					if (specialLevel(depth) && Random.Int(3) == 0) {
+						level = new OpenLevel();
+					} else {
+						level = new CavesLevel();
+					}
+					break;
+				case 18:
+					level = new CavesBossLevel();
+					break;
+				case 19:
+				case 20:
+				case 21:
+				case 22:
+				case 23:
+					if (specialLevel(depth) && Random.Int(3) == 0) {
+						level = new OpenLevel();
+					} else {
+						level = new CityLevel();
+					}
+					break;
+				case 24:
+					level = new CityBossLevel();
+					break;
+				case 25:
+					level = new LastShopLevel();
+					break;
+				case 26:
+				case 27:
+				case 28:
+				case 29:
+					if (specialLevel(depth) && Random.Int(3) == 0) {
+						level = new OpenLevel();
+					} else {
+						level = new HallsLevel();
+					}
+					break;
+				case 30:
+					level = new HallsBossLevel();
+					break;
+				case Level.MAX_DEPTH:
+					level = new LastLevel();
+					break;
+				default:
+					level = new DeadEndLevel();
+					Statistics.deepestFloor--;
 			}
-			break;
-		case 12:
-			level = new PrisonBossLevel();
-			break;
-		case 13:
-		case 14:
-		case 15:
-		case 16:
-		case 17:
-			if (specialLevel(depth) && Random.Int(3) == 0) {
-				level = new OpenLevel();
-			} else {
-				level = new CavesLevel();
-			}
-			break;
-		case 18:
-			level = new CavesBossLevel();
-			break;
-		case 19:
-		case 20:
-		case 21:
-		case 22:
-		case 23:
-			if (specialLevel(depth) && Random.Int(3) == 0) {
-				level = new OpenLevel();
-			} else {
-				level = new CityLevel();
-			}
-			break;
-		case 24:
-			level = new CityBossLevel();
-			break;
-		case 25:
-			level = new LastShopLevel();
-			break;
-		case 26:
-		case 27:
-		case 28:
-		case 29:
-			if (specialLevel(depth) && Random.Int(3) == 0) {
-				level = new OpenLevel();
-			} else {
-				level = new HallsLevel();
-			}
-			break;
-		case 30:
-			level = new HallsBossLevel();
-			break;
-		case Level.MAX_DEPTH:
-			level = new LastLevel();
-			break;
-		default:
-			level = new DeadEndLevel();
-			Statistics.deepestFloor--;
 		}
 		
 		level.create();
@@ -388,7 +441,7 @@ public class Dungeon {
 
 		hero.pos = pos != -1 ? pos : level.exit;
 		
-		Light light = hero.buff( Light.class );
+		Light light = hero.buff(Light.class);
 		hero.viewDistance = light == null ? level.viewDistance : Math.max( Light.DISTANCE, level.viewDistance );
 		observe();
 		try {
@@ -412,14 +465,25 @@ public class Dungeon {
 	//    { 4, 2,   9, 4,   14, 6,   19, 8,   24, 9 } you should have 2 drops by level 4, 4 by level 9, 6 by 14...
     public static boolean posNeeded() {
 		// adjusted slightly to account for larger dungeon size... still caps out at 9 upgrades by the end
-		int[] quota = {5, 2,   11, 4,   17, 6,   23, 7,    29, 8};
-		return chance( quota, limitedDrops.strengthPotions.count );
+		if (Dungeon.depth < 30) {
+			int[] quota = {5, 2, 11, 4, 17, 6, 23, 7, 29, 8};
+			return chance(quota, limitedDrops.strengthPotions.count);
+		} else {
+			if (limitedDrops.strengthPotions.count > 10) {
+				return false;
+			}
+			return Random.Float() < (float)((10) - limitedDrops.strengthPotions.count) / (depth + 1);
+		}
 	}
 	
 	public static boolean souNeeded() {
 		// adjusted slightly to account for larger dungeon, level caps and upgrade failures
-		int[] quota = {6, 4,   12, 8,   18, 13,   24, 16,   29, 18};
-		return chance( quota, limitedDrops.upgradeScrolls.count );
+		if (Dungeon.depth < 30) {
+			int[] quota = {6, 4, 12, 8, 18, 13, 24, 16, 29, 18};
+			return chance(quota, limitedDrops.upgradeScrolls.count);
+		} else {
+			return Random.Float() < (float)(((depth / 2) + 3) - limitedDrops.upgradeScrolls.count) / (depth + 1);
+		}
 	}
 	
 	private static boolean chance( int[] quota, int number ) {
@@ -467,6 +531,7 @@ public class Dungeon {
 	private static final String CHAPTERS	= "chapters";
 	private static final String QUESTS		= "quests";
 	private static final String BADGES		= "badges";
+	private static final String LVLTHEME    = "leveltheme";
 
 	public static String gameFile( HeroClass cl ) {
 		switch (cl) {
@@ -505,6 +570,11 @@ public class Dungeon {
 			bundle.put( HERO, hero );
 			bundle.put( GOLD, gold );
 			bundle.put(DEPTH, depth);
+
+			if (difficultyLevel == DIFF_ENDLESS || difficultyLevel == DIFF_TEST) {
+				bundle.put(LVLTHEME, InfiniteBestiary.currentTheme);
+			}
+
 
 			for (int d : droppedItems.keyArray()) {
 				bundle.put(String.format(DROPPED, d), droppedItems.get(d));
@@ -553,7 +623,7 @@ public class Dungeon {
 			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
 			Bundle.write(bundle, output);
 			output.close();
-			
+
 		} catch (IOException e) {
 			GamesInProgress.setUnknown( hero.heroClass );
 		}
@@ -562,7 +632,7 @@ public class Dungeon {
 	public static void saveLevel() throws IOException {
 		Bundle bundle = new Bundle();
 		bundle.put(LEVEL, level);
-		
+
 		OutputStream output = Game.instance.openFileOutput(
 			Utils.format( depthFile( hero.heroClass ), depth ), Game.MODE_PRIVATE );
 		Bundle.write( bundle, output );
@@ -670,6 +740,15 @@ public class Dungeon {
 
 			gold = bundle.getInt(GOLD);
 			depth = bundle.getInt(DEPTH);
+
+			if (difficultyLevel == DIFF_ENDLESS || difficultyLevel == DIFF_TEST) {
+				if (bundle.contains(LVLTHEME)) {
+					InfiniteBestiary.currentTheme = bundle.getEnum(LVLTHEME, InfiniteBestiary.Themes.class);
+				} else {
+					InfiniteBestiary.pickNewTheme();
+				}
+			}
+
 
 			Statistics.restoreFromBundle(bundle);
 			Journal.restoreFromBundle(bundle);

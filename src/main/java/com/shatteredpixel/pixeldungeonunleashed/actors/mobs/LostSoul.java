@@ -33,6 +33,7 @@ public class LostSoul  extends Mob {
 
         baseSpeed = 2f;
         flying = true;
+        mobType = MOBTYPE_DEBUFF;
     }
 
     @Override

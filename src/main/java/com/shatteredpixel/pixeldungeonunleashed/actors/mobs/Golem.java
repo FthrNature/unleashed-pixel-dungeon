@@ -34,7 +34,7 @@ import com.watabou.utils.Random;
 public class Golem extends Mob {
 	
 	{
-		name = "golem";
+		name = "rock golem";
 		spriteClass = GolemSprite.class;
 		
 		HP = HT = 85;
@@ -46,6 +46,7 @@ public class Golem extends Mob {
 
 		EXP = 12;
 		maxLvl = 27;
+		mobType = MOBTYPE_TOUGH;
 	}
 	
 	@Override

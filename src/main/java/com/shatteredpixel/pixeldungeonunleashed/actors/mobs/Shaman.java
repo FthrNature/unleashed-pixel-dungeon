@@ -60,6 +60,8 @@ public class Shaman extends Mob implements Callback {
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.33f;
+
+		mobType = MOBTYPE_RANGED;
 	}
 	
 	@Override

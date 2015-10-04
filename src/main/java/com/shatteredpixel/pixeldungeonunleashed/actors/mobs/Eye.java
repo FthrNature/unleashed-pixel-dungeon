@@ -65,6 +65,7 @@ public class Eye extends Mob {
 		
 		loot = new Dewdrop();
 		lootChance = 0.5f;
+		mobType = MOBTYPE_RANGED;
 	}
 	
 	private Ballistica beam;

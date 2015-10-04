@@ -58,6 +58,8 @@ public class Scorpio extends Mob {
 		
 		loot = new PotionOfHealing();
 		lootChance = 0.2f;
+
+		mobType = MOBTYPE_DEBUFF;
 	}
 	
 	@Override

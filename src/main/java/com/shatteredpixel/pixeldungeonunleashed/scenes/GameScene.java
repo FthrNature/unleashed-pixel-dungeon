@@ -313,32 +313,34 @@ public class GameScene extends PixelScene {
 			Chasm.heroLand();
 			break;
 		case DESCEND:
-			switch (Dungeon.depth) {
-			case 1:
-				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
-					WndStory.showChapter(WndStory.ID_TUTOR_1);
-				} else {
-					WndStory.showChapter(WndStory.ID_SEWERS);
+			if ((Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS) && (Dungeon.difficultyLevel != Dungeon.DIFF_TEST)) {
+				switch (Dungeon.depth) {
+					case 1:
+						if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
+							WndStory.showChapter(WndStory.ID_TUTOR_1);
+						} else {
+							WndStory.showChapter(WndStory.ID_SEWERS);
+						}
+						break;
+					case 6:
+						if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && !Dungeon.tutorial_boss_found) {
+							Dungeon.tutorial_boss_found = true;
+							WndStory.showChapter(WndStory.ID_TUTOR_2);
+						}
+						break;
+					case 7:
+						WndStory.showChapter(WndStory.ID_PRISON);
+						break;
+					case 13:
+						WndStory.showChapter(WndStory.ID_CAVES);
+						break;
+					case 19:
+						WndStory.showChapter(WndStory.ID_METROPOLIS);
+						break;
+					case 25:
+						WndStory.showChapter(WndStory.ID_HALLS);
+						break;
 				}
-				break;
-			case 6:
-				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && !Dungeon.tutorial_boss_found) {
-					Dungeon.tutorial_boss_found = true;
-					WndStory.showChapter(WndStory.ID_TUTOR_2);
-				}
-				break;
-			case 7:
-				WndStory.showChapter( WndStory.ID_PRISON );
-				break;
-			case 13:
-				WndStory.showChapter( WndStory.ID_CAVES );
-				break;
-			case 19:
-				WndStory.showChapter( WndStory.ID_METROPOLIS );
-				break;
-			case 25:
-				WndStory.showChapter( WndStory.ID_HALLS );
-				break;
 			}
 			if (Dungeon.hero.isAlive() && Dungeon.depth != Level.MAX_DEPTH) {
 				Badges.validateNoKilling();

@@ -1,31 +1,11 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
 package com.shatteredpixel.pixeldungeonunleashed.levels;
-
 
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
-import com.shatteredpixel.pixeldungeonunleashed.Statistics;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Bestiary;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.InfiniteBestiary;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Necromancer;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfWealth;
@@ -34,9 +14,9 @@ import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Random;
 
-public class OpenLevel extends Level {
+public class InfiniteOpenLevel extends Level {
 
-    private int THEME = (Dungeon.depth / 6) % 5;
+    private int THEME = (Dungeon.depth / 5) % 5;
     {
         switch (THEME) {
             case 0: // this is a sewer level
@@ -269,20 +249,11 @@ public class OpenLevel extends Level {
         int mobsToSpawn = nMobs();
 
         while (mobsToSpawn > 0) {
-            Mob mob = Bestiary.mob(Dungeon.depth);
+            Mob mob = InfiniteBestiary.mob(Dungeon.depth);
+            mob.infiniteScaleMob(Dungeon.depth);
             mob.pos = randomDestination();
             mobsToSpawn--;
             mobs.add(mob);
-        }
-
-        if (Dungeon.depth == 11) {
-            Necromancer necromancer = new Necromancer();
-            necromancer.scaleMob();
-            do {
-                necromancer.pos = randomRespawnCell();
-            } while (necromancer.pos == -1);
-            mobs.add(necromancer);
-
         }
     }
 
@@ -299,17 +270,16 @@ public class OpenLevel extends Level {
                 int numMobs = nMobs();
                 while (mobs.size() < numMobs) {
 
-                    Mob mob = Bestiary.mutable( Dungeon.depth );
+                    Mob mob = InfiniteBestiary.mutable( Dungeon.depth );
+                    mob.infiniteScaleMob(Dungeon.depth);
+
                     mob.state = mob.WANDERING;
                     mob.pos = randomRespawnCell();
                     if (Dungeon.hero.isAlive() && mob.pos != -1) {
                         GameScene.add(mob);
-                        if (Statistics.amuletObtained) {
-                            mob.beckon( Dungeon.hero.pos );
-                        }
                     }
                 }
-                spend( Statistics.amuletObtained ? 20 : 35 );
+                spend( 35 );
                 return true;
             }
         };
@@ -338,15 +308,6 @@ public class OpenLevel extends Level {
 
     @Override
     public int nMobs() {
-        switch (Dungeon.difficultyLevel) {
-            case Dungeon.DIFF_TUTOR:
-            case Dungeon.DIFF_EASY:
-                return 4  + Dungeon.depth % 6 + Random.Int(4);
-            case Dungeon.DIFF_HARD:
-            case Dungeon.DIFF_NTMARE:
-                return 7  + Dungeon.depth % 6 + Random.Int(6);
-            default:
-                return 5  + Dungeon.depth % 6 + Random.Int(4);
-        }
+        return 6  + Dungeon.depth % 6 + Random.Int(5);
     }
 }

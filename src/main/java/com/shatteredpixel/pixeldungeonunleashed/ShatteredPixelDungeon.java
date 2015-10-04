@@ -142,7 +142,7 @@ public class ShatteredPixelDungeon extends Game {
 	}
 
 	public static void setDifficulty (int difficultyLevel) {
-		if (difficultyLevel < 10 || difficultyLevel > 14) {
+		if (difficultyLevel < 9 || difficultyLevel > 15) {
 			difficultyLevel = 12;
 		}
 		Preferences.INSTANCE.put( Preferences.KEY_DIFFICULTY, difficultyLevel);

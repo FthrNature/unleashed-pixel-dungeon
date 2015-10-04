@@ -57,6 +57,8 @@ public class Skeleton extends Mob {
 
 		loot = Generator.Category.WEAPON;
 		lootChance = 0.2f;
+
+		mobType = MOBTYPE_TOUGH;
 	}
 	
 	@Override

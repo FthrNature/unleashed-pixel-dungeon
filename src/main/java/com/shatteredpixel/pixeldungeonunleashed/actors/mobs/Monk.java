@@ -52,6 +52,7 @@ public class Monk extends Mob {
 
 		EXP = 11;
 		maxLvl = 26;
+		mobType = MOBTYPE_NIMBLE;
 		
 		loot = new Food();
 		lootChance = 0.083f;

@@ -24,8 +24,7 @@ import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Bones;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Bestiary;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Goo;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Room.Type;
@@ -211,8 +210,12 @@ public class SewerBossLevel extends RegularLevel {
 	
 	@Override
 	protected void createMobs() {
-		Mob mob = Bestiary.mob( Dungeon.depth );
-		mob.scaleMob();
+		Goo mob = new Goo();
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+			mob.infiniteScaleMob(Dungeon.depth + 5);
+		} else {
+			mob.scaleMob();
+		}
 		Room room;
 		do {
 			room = Random.element(rooms);

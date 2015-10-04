@@ -6,7 +6,7 @@ import com.shatteredpixel.pixeldungeonunleashed.sprites.GreenSnakeSprite;
 public class GreenSnake extends Mob {
 
     {
-        name = "marsupial rat";
+        name = "dungeon snake";
         spriteClass = GreenSnakeSprite.class;
 
         HP = HT = 10;

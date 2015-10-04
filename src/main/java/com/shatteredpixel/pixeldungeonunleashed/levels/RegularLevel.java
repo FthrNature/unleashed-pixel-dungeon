@@ -630,7 +630,6 @@ public abstract class RegularLevel extends Level {
 					case Dungeon.DIFF_EASY:
 						return 3 + Dungeon.depth % 6 + Random.Int(5);
 					case Dungeon.DIFF_HARD:
-						return 4 + Dungeon.depth % 6 + Random.Int(6);
 					case Dungeon.DIFF_NTMARE:
 						return 4 + Dungeon.depth % 6 + Random.Int(7);
 					default:

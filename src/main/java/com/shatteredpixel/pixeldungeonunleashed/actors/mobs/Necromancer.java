@@ -37,6 +37,7 @@ public class Necromancer extends Mob {
 
         EXP = 8;
         maxLvl = 18;
+        mobType = MOBTYPE_SPECIAL;
     }
 
     @Override
@@ -49,8 +50,7 @@ public class Necromancer extends Mob {
     }
 
     private boolean summon() {
-        int mobsToSpawn = Dungeon.level.nMobs() - Dungeon.level.mobs.size();
-        mobsToSpawn = 4;
+        int mobsToSpawn = 4;
 
         sprite.centerEmitter().start(Speck.factory(Speck.BONE), 0.4f, 2);
         Sample.INSTANCE.play(Assets.SND_CHALLENGE);
@@ -58,6 +58,11 @@ public class Necromancer extends Mob {
         while (mobsToSpawn > 0) {
             if (Random.Int(2) == 0) {
                 Mob mob = new Zombie();
+                if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+                    mob.infiniteScaleMob(Dungeon.depth + 5);
+                } else {
+                    mob.scaleMob();
+                }
                 mob.pos = 0;
                 int tries = 0;
                 while (!Dungeon.visible[mob.pos] || tries++ < 20) {
@@ -68,6 +73,11 @@ public class Necromancer extends Mob {
                 }
             } else {
                 Mob mob = new Skeleton();
+                if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+                    mob.infiniteScaleMob(Dungeon.depth + 5);
+                } else {
+                    mob.scaleMob();
+                }
                 mob.pos = 0;
                 int tries = 0;
                 while (!Dungeon.visible[mob.pos] || tries++ < 20) {

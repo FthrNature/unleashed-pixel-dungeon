@@ -40,6 +40,7 @@ public class Tinkerer extends Mob {
         EXP = 11;
         maxLvl = 25;
         state = HUNTING;
+        mobType = MOBTYPE_SPECIAL;
     }
 
     @Override

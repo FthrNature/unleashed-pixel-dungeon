@@ -63,6 +63,7 @@ public class Tengu extends Mob {
 		dmgRed = 5;
 		dmgMin = 8;
 		dmgMax = 15;
+		mobType = MOBTYPE_NIMBLE;
 	}
 	
 	private int timeToJump = JUMP_DELAY;
@@ -85,10 +86,10 @@ public class Tengu extends Mob {
 			badgeToCheck = Badge.MASTERY_HUNTRESS;
 			break;
 		}
-		//if (!Badges.isUnlocked( badgeToCheck )) {
-		Dungeon.level.drop( new TomeOfMastery(), pos ).sprite.drop();
-		//}
-		
+		if (Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS && Dungeon.difficultyLevel != Dungeon.DIFF_TEST) {
+			Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
+		}
+
 		GameScene.bossSlain();
 		Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
 		super.die( cause );

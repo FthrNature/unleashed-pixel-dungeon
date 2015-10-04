@@ -37,7 +37,7 @@ public class WelcomeScene extends PixelScene {
 
 	private static final String TTL_Welcome = "Welcome!";
 
-	private static final String TTL_Update = "v0.2.1: More Content Push!";
+	private static final String TTL_Update = "v0.2.2: Endless Mode!";
 
 	private static final String TTL_Future = "Wait What?";
 
@@ -49,6 +49,10 @@ public class WelcomeScene extends PixelScene {
 			"Enjoy";
 
 	private static final String TXT_Update =
+			"v02.2: Endless Mode!\n"+
+					"- Endless and Test modes added\n"+
+					"- fixed some summoned mobs not scaling\n"+
+					"- fixed some typos\n"+
 			"v02.1: Rings and Potions and Mobs, oh my!\n"+
 					"- rings are now listed in the catalogue\n"+
 					"- potions of haste and slowness\n"+

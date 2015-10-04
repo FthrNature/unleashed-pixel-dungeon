@@ -25,8 +25,7 @@ import com.shatteredpixel.pixeldungeonunleashed.Bones;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Bestiary;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Tengu;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.keys.IronKey;
@@ -315,8 +314,12 @@ public class PrisonBossLevel extends RegularLevel {
 				pos = roomExit.random();
 			} while (pos == cell || Actor.findChar( pos ) != null);
 			
-			Mob boss = Bestiary.mob( Dungeon.depth );
-			boss.scaleMob();
+			Tengu boss = new Tengu();
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+				boss.infiniteScaleMob(Dungeon.depth + 5);
+			} else {
+				boss.scaleMob();
+			}
 			boss.state = boss.HUNTING;
 			boss.pos = pos;
 			GameScene.add( boss );
