@@ -20,15 +20,21 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.items.scrolls;
 
+import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Badges;
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Blindness;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
+import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
+import com.shatteredpixel.pixeldungeonunleashed.effects.particles.ShadowParticle;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.ItemStatusHandler;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.ItemSpriteSheet;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -140,6 +146,26 @@ public abstract class Scroll extends Item {
 				curUser = hero;
 				curItem = detach( hero.belongings.backpack );
 				doRead();
+				if ((Dungeon.hero.heroClass == HeroClass.WARRIOR) && (Random.Int(5) == 0)) {
+					GLog.w("As a Warrior, deciphering the strange runes causes you pain");
+					switch (Dungeon.difficultyLevel) {
+						case Dungeon.DIFF_TUTOR:
+						case Dungeon.DIFF_EASY:
+							Dungeon.hero.damage(Random.Int(1,3), this);
+							break;
+						case Dungeon.DIFF_HARD:
+							Dungeon.hero.damage(Random.Int(2, (Dungeon.hero.HT / 6 + 3)), this);
+							break;
+						case Dungeon.DIFF_NTMARE:
+							Dungeon.hero.damage(Random.Int(2, (Dungeon.hero.HT / 4 + 3)), this);
+							break;
+						default:
+							Dungeon.hero.damage(Random.Int(1, (Dungeon.hero.HT / 10 + 3)), this);
+							break;
+					}
+					Sample.INSTANCE.play( Assets.SND_DEATH );
+					hero.sprite.emitter().burst( ShadowParticle.CURSE, 6 );
+				}
 			}
 			
 		} else {

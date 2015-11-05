@@ -342,7 +342,17 @@ public class Hero extends Char {
 		} else {
 			
 			if (heroClass == HeroClass.ROGUE) {
-				return (int)((defenseSkill - aEnc) * evasion);
+				if (belongings.armor.STR > 14) {
+					return (int) ((defenseSkill - (aEnc * 4)) * evasion);
+				} else {
+					return (int) ((defenseSkill - (aEnc * 2)) * evasion);
+				}
+			} else if (heroClass == HeroClass.MAGE){
+				if (belongings.armor.STR > 14) {
+					return (int) ((defenseSkill - (aEnc * 4)) * evasion);
+				} else {
+					return (int) ((defenseSkill - aEnc) * evasion);
+				}
 			} else {
 				return (int)(defenseSkill * evasion);
 			}
@@ -352,7 +362,7 @@ public class Hero extends Char {
 	@Override
 	public int dr() {
 		int dr = belongings.armor != null ? Math.max( belongings.armor.DR, 0 ) : 0;
-		Barkskin barkskin = buff( Barkskin.class );
+		Barkskin barkskin = buff(Barkskin.class);
 		if (barkskin != null) {
 			dr += barkskin.level();
 		}
@@ -1178,7 +1188,7 @@ public class Hero extends Char {
 
 		if (subClass == HeroSubClass.WARLOCK) {
 
-			int healed = Math.round(Math.min(HT - HP, (HT * percent * 0.3f) + 1));
+			int healed = Math.round(Math.min(HT - HP, (HT * percent * 0.35f) + 1));
 			if (healed > 0) {
 				HP += healed;
 				sprite.emitter().burst( Speck.factory( Speck.HEALING ), percent > 0.3f ? 2 : 1 );

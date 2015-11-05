@@ -27,6 +27,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Leech;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.ChaosMageSprite;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.MinotaurSprite;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -37,10 +38,10 @@ public class ChaosMage extends Mob {
         name = "chaos mage";
         spriteClass = ChaosMageSprite.class;
 
-        HP = HT = 100;
+        HP = HT = 125;
         defenseSkill = 28;
         atkSkill = 40;
-        dmgRed = 16;
+        dmgRed = 18;
         dmgMin = 20;
         dmgMax = 35;
 
@@ -110,7 +111,7 @@ public class ChaosMage extends Mob {
     @Override
     public void notice() {
         super.notice();
-        yell( "I am Death!!!" );
+        GLog.i("The Chaos Mage cackles with glee");
     }
 
     private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();

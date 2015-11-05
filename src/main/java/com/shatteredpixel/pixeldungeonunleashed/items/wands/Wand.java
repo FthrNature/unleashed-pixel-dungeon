@@ -22,6 +22,7 @@ package com.shatteredpixel.pixeldungeonunleashed.items.wands;
 
 import java.util.ArrayList;
 
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfMagic;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfRecharging;
@@ -231,6 +232,9 @@ public abstract class Wand extends Item {
 	public void updateLevel() {
 		maxCharges = Math.min( initialCharges() + level, 10 );
 		curCharges = Math.min( curCharges, maxCharges );
+        if (curCharges < 1) {
+            curCharges = 1;
+        }
 	}
 	
 	protected int initialCharges() {
@@ -409,7 +413,7 @@ public abstract class Wand extends Item {
 		
 		@Override
 		public boolean attachTo( Char target ) {
-			super.attachTo( target );
+			super.attachTo(target);
 			
 			return true;
 		}
@@ -434,7 +438,11 @@ public abstract class Wand extends Item {
 			float prevCharge = partialCharge;
 			int missingCharges = maxCharges - curCharges;
 
-			float turnsToCharge = (float) (BASE_CHARGE_DELAY + (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
+			float scalingChargeAddition = SCALING_CHARGE_ADDITION;
+			if (Dungeon.hero.heroClass == HeroClass.MAGE) {
+				scalingChargeAddition = 35.0f;
+			}
+			float turnsToCharge = (float) (BASE_CHARGE_DELAY + (scalingChargeAddition * Math.pow(scalingFactor, missingCharges)));
 			partialCharge += 1f/turnsToCharge;
 
 			// a scroll of recharging gives a .25 charge per turn

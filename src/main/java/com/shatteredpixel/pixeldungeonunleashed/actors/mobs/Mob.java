@@ -32,6 +32,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Corruption;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Sleep;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Terror;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
+import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroSubClass;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Surprise;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Wound;
@@ -585,6 +586,9 @@ public abstract class Mob extends Char {
 		int bonus = 0;
 		for (Buff buff : Dungeon.hero.buffs(RingOfWealth.Wealth.class)) {
 			bonus += ((RingOfWealth.Wealth) buff).level;
+		}
+		if (Dungeon.hero.heroClass == HeroClass.HUNTRESS) {
+			bonus += 1;
 		}
 
 		lootChance *= Math.pow(1.1, bonus);

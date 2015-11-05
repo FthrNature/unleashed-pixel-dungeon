@@ -49,7 +49,12 @@ public class WelcomeScene extends PixelScene {
 			"Enjoy";
 
 	private static final String TXT_Update =
-			"v02.5: backing out changes to go on a bug hunt!\n\n"+
+			"v02.5: Beta Test Version\n"+
+					"- class rebalincing\n"+
+					"- made mini-bosses tougher\n"+
+					"- tweaked open level spawn rates\n"+
+					"- reduced frequency of open levels\n\n"+
+			"v02.4: backing out changes to go on a bug hunt!\n\n"+
 			"v02.3: Badges and More!\n"+
 					"- new room blocked with eternal flame\n"+
 					"- fire damage scales slightly with depth\n"+

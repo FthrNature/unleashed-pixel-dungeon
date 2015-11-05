@@ -29,6 +29,7 @@ import com.shatteredpixel.pixeldungeonunleashed.Statistics;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Blob;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 
@@ -47,7 +48,13 @@ public abstract class Actor implements Bundlable {
 	protected abstract boolean act();
 	
 	protected void spend( float time ) {
-		this.time += Math.max(time, 0.25f);
+		// we have to allow for the negative time trick used by the boomerang, etc...
+		if (time >= 0) {
+			this.time += Math.max(time, 0.25f);
+		} else
+		{
+			this.time += time;
+		}
 	}
 	
 	protected void postpone( float time ) {

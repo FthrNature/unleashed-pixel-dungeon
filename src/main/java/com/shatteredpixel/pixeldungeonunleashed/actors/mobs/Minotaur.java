@@ -21,10 +21,10 @@ public class Minotaur extends Mob {
         name = "minotaur";
         spriteClass = MinotaurSprite.class;
 
-        HP = HT = 90;
+        HP = HT = 120;
         defenseSkill = 22;
         atkSkill = 32;
-        dmgRed = 12;
+        dmgRed = 14;
         dmgMin = 12;
         dmgMax = 30;
 

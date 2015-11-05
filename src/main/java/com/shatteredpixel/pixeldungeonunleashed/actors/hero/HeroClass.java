@@ -39,6 +39,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMindVision
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfSlowness;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfSpeed;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfStrength;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.Ring;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfHaste;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfIdentify;
@@ -68,7 +69,7 @@ public enum HeroClass {
 		"The Warrior starts with a unique short sword. This sword can be later \"reforged\" to upgrade another melee weapon.",
 		"The Warrior is less proficient with missile weapons.",
 		"Any piece of food restores some health when eaten.",
-		"Potions of Strength are identified from the beginning.",
+		"The Warrior is less proficient with magic, and reading scrolls can cause psychic feedback."
 	};
 	
 	public static final String[] MAG_PERKS = {
@@ -76,25 +77,27 @@ public enum HeroClass {
 		"The Mage's staff can be used as a melee weapon or a more powerful wand.",
 		"The Mage partially identifies wands after using them.",
 		"When eaten, any piece of food restores 1 charge for all wands in the inventory.",
-		"Scrolls of Upgrade are identified from the beginning."
+		"Scrolls of Upgrade and Identify are identified from the beginning.",
+		"Wands charge faster for the Mage."
 	};
 	
 	public static final String[] ROG_PERKS = {
-		"The Rogue starts with a unique Cloak of Shadows.",
+		"The Rogue starts with a unique Cloak of Shadows and magic dagger.",
 		"The Rogue identifies a type of a ring on equipping it.",
 		"The Rogue is proficient with light armor, dodging better with excess strength.",
 		"The Rogue is more proficient in detecting hidden doors and traps.",
 		"The Rogue can go without food longer.",
-		"Scrolls of Magic Mapping are identified from the beginning."
+		"Scrolls of Magic Mapping and Potions of Toxic Gas are identified from the beginning."
 	};
 	
 	public static final String[] HUN_PERKS = {
-		"The Huntress starts with 15 points of Health and a unique upgradeable boomerang.",
+		"The Huntress starts with 18 points of Health and a unique upgradeable boomerang.",
 		"The Huntress is proficient with missile weapons, getting bonus damage from excess strength.",
 		"The Huntress is able to recover a single used missile weapon from each enemy.",
 		"The Huntress gains more health from dewdrops.",
 		"The Huntress senses neighbouring monsters even if they are hidden behind obstacles.",
-		"Potions of Mind Vision are identified from the beginning."
+		"Potions of Mind Vision are identified from the beginning.",
+		"The Huntress gets slightly better loot drops from mobs"
 	};
 
 	public void initHero( Hero hero ) {
@@ -156,20 +159,17 @@ public enum HeroClass {
 		ring1.collect();
 		Generator.random(Generator.Category.WAND).collect();
 		for (int i = 0; i < 3; i++) {
-			new PotionOfSpeed().collect();
 			new PotionOfSlowness().collect();
-			new PotionOfInvisibility().collect();
-			new ScrollOfMagicMapping().identify().collect();
 			new PotionOfMight().collect();
 		}
 
 		// things we want a bunch of...
 		for (int i = 0; i < 6; i++) {
 			new Food().collect();
+			new ScrollOfMagicMapping().identify().collect();
 			new ScrollOfIdentify().identify().collect();
 			new PotionOfHealing().identify().collect();
 			new ScrollOfUpgrade().collect();
-			new PotionOfFrost().identify().collect();
 		}
 		try {
 			Weapon wpn2 = (Weapon) Generator.random(Generator.Category.WEAPON);
@@ -178,9 +178,6 @@ public enum HeroClass {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		new RingOfHaste().collect();
-
-
 	}
 
 	public Badges.Badge masteryBadge() {
@@ -206,7 +203,7 @@ public enum HeroClass {
 
 		Dungeon.quickslot.setSlot(0, darts);
 
-		new PotionOfStrength().setKnown();
+		//new PotionOfStrength().setKnown();
 	}
 
 	private static void initMage( Hero hero ) {
@@ -217,10 +214,11 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(0, staff);
 
 		new ScrollOfUpgrade().setKnown();
+		new ScrollOfIdentify().setKnown();
 	}
 
 	private static void initRogue( Hero hero ) {
-		(hero.belongings.weapon = new Dagger()).identify();
+		(hero.belongings.weapon = new Dagger()).identify().upgrade(1).collect();
 
 		CloakOfShadows cloak = new CloakOfShadows();
 		(hero.belongings.misc1 = cloak).identify();
@@ -234,11 +232,12 @@ public enum HeroClass {
 			Dungeon.quickslot.setSlot(1, darts);
 
 		new ScrollOfMagicMapping().setKnown();
+		new PotionOfToxicGas().identify().collect();
 	}
 
 	private static void initHuntress( Hero hero ) {
 
-		hero.HP = (hero.HT -= 5);
+		hero.HP = (hero.HT -= 2);
 
 		(hero.belongings.weapon = new Dagger()).identify();
 		Boomerang boomerang = new Boomerang();

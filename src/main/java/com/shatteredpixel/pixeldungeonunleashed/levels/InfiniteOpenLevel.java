@@ -288,7 +288,7 @@ public class InfiniteOpenLevel extends Level {
                     miniBoss = new ChaosMage();
                     break;
             }
-            miniBoss.infiniteScaleMob(Dungeon.depth + 3);
+            miniBoss.infiniteScaleMob(Dungeon.depth + 5);
             do {
                 miniBoss.pos = randomRespawnCell();
             } while (miniBoss.pos == -1);
@@ -318,7 +318,7 @@ public class InfiniteOpenLevel extends Level {
                         GameScene.add(mob);
                     }
                 }
-                spend( 35 );
+                spend( 45 );
                 return true;
             }
         };
@@ -347,6 +347,6 @@ public class InfiniteOpenLevel extends Level {
 
     @Override
     public int nMobs() {
-        return 6  + Dungeon.depth % 6 + Random.Int(5);
+        return 7  + Dungeon.depth % 6 + Random.Int(4);
     }
 }

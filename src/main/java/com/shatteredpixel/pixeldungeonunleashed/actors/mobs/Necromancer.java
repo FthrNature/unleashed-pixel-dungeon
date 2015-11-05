@@ -28,8 +28,8 @@ public class Necromancer extends Mob {
         name = "necromancer";
         spriteClass = NecromancerSprite.class;
 
-        HP = HT = 40;
-        defenseSkill = 15;
+        HP = HT = 60;
+        defenseSkill = 18;
         atkSkill = 20;
         dmgRed = 8;
         dmgMin = 8;

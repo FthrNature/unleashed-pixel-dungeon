@@ -26,6 +26,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Cripple;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Roots;
+import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Vertigo;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Chains;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Pushing;
@@ -98,10 +99,15 @@ public class EtherealChains extends Artifact {
 				//determine if we're grabbing an enemy, pulling to a location, or doing nothing.
 				if (Actor.findChar( chain.collisionPos ) != null){
 					int newPos = -1;
+
+					boolean passThroughSolid = false;
 					for (int i : chain.subPath(1, chain.dist)){
 						if (!Level.solid[i] && Actor.findChar(i) == null){
 							newPos = i;
 							break;
+						}
+						else if (Level.solid[i]) {
+							passThroughSolid = true;
 						}
 					}
 					if (newPos == -1){
@@ -114,7 +120,14 @@ public class EtherealChains extends Artifact {
 							GLog.w("Your chains do not have enough charge.");
 							return;
 						} else {
-							charge -= chargeUse;
+							if (passThroughSolid) {
+								charge = 0;
+								Buff.affect(curUser, Vertigo.class);
+								Buff.prolong(curUser, Vertigo.class, 3);
+								GLog.w("that was unpleasant");
+							} else {
+								charge -= chargeUse;
+							}
 							updateQuickslot();
 						}
 						curUser.busy();
@@ -135,9 +148,13 @@ public class EtherealChains extends Artifact {
 						//if the player is trying to grapple the edge of the map, let them.
 						|| (chain.path.size() == chain.dist+1)) {
 					int newPos = -1;
+					boolean passThroughSolid = false;
 					for (int i : chain.subPath(1, chain.dist)){
 						if (!Level.solid[i] && Actor.findChar(i) == null) newPos = i;
+						if (Level.solid[i]) {
+							passThroughSolid = true;
 						}
+					}
 					if (newPos == -1) {
 						GLog.w("That won't do anything");
 					} else {
@@ -147,7 +164,15 @@ public class EtherealChains extends Artifact {
 							GLog.w("Your chains do not have enough charge.");
 							return;
 						} else {
-							charge -= chargeUse;
+							if (passThroughSolid) {
+								charge = 0;
+								Buff.affect(curUser, Vertigo.class);
+								Buff.prolong(curUser, Vertigo.class, 4);
+								curUser.damage(Random.Int(1, (curUser.HT / 5)), this);
+								GLog.w("that was weird...");
+							} else {
+								charge -= chargeUse;
+							}
 							updateQuickslot();
 						}
 						curUser.busy();
@@ -208,7 +233,7 @@ public class EtherealChains extends Artifact {
 		public boolean act() {
 			int chargeTarget = 5+level;
 			if (!cursed && charge < chargeTarget) {
-				partialCharge += 1 / (40f - (chargeTarget - charge)*3f);
+				partialCharge += 1 / (40f - (chargeTarget - charge)*2f);
 			} else if (cursed && Random.Int(100) == 0){
 				Buff.prolong( target, Roots.class, 3f);
 				Buff.prolong( target, Cripple.class, 9f);

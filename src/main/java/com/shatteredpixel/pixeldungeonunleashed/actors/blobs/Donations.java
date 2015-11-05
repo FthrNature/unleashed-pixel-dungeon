@@ -38,6 +38,7 @@ import com.shatteredpixel.pixeldungeonunleashed.effects.Speck;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
+import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.Scroll;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Ancient;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Glowing;
@@ -105,30 +106,38 @@ public class Donations extends Blob {
                 return;
             }
 
-            hero.donatedLoot += (heap.peek().price() * heap.peek().quantity());
+            if (heap.peek() instanceof Scroll) {
+                hero.donatedLoot += (heap.peek().price() * heap.peek().quantity() * 3);
+            } else {
+                hero.donatedLoot += (heap.peek().price() * heap.peek().quantity());
+            }
+            GLog.i("DONATED LOOT: " + hero.donatedLoot); // DSM-xxxx
             if (heap.peek().cursed) {
                 // the Gods do not like to receive cursed goods and will punish the hero for this
                 Buff.affect(hero, Burning.class).reignite(hero);
                 Buff.affect(hero, Paralysis.class);
                 Buff.prolong(hero, Vertigo.class, 5f);
                 GLog.w("The Gods are displeased with your donation!");
+                GLog.i("DONATED LOOT: " + hero.donatedLoot + ", attempted to donate a cursed item."); // DSM-xxxx
 
                 // the hero may not use this altar again during this run
                 hero.donatedLoot = 0;
-            } else if (hero.donatedLoot >= 450) {
+            } else if (hero.donatedLoot >= 300) {
                 // in order to get here you either have to donate a lot of goods all at once,
                 // or you have been doing a lot of donations and collecting the lower rewards
                 GLog.p("The Gods are very pleased and reward you!");
                 if (Random.Int(3) == 0) {
                     GLog.p("The Gods flood your mind with visions of battles past.");
-                    hero.earnExp( hero.maxExp() );
-                    hero.donatedLoot -= 350;
+                    hero.earnExp(hero.maxExp());
+                    hero.donatedLoot -= 300;
+                    GLog.i("DONATED LOOT: " + hero.donatedLoot + ", (-300 for level up)"); // DSM-xxxx
                 } else {
                     GLog.p("You are rewarded with an ancient Artifact!");
                     Generator.random( Generator.Category.ARTIFACT ).collect();
-                    hero.donatedLoot -= 450;
+                    hero.donatedLoot -= 300;
+                    GLog.i("DONATED LOOT: " + hero.donatedLoot + ", (-300 for artifact)"); // DSM-xxxx
                 }
-            } else if (hero.donatedLoot >= 150) {
+            } else if (hero.donatedLoot >= 125) {
                 if (Random.Int(3) == 0) {
                     // upgrade an item
                     Weapon wpn = (Weapon) Generator.random(Generator.Category.WEAPON);
@@ -149,30 +158,35 @@ public class Donations extends Blob {
                     } catch (IllegalAccessException e) {
                         wpn.enchant().collect();;
                     }
-                    hero.donatedLoot -= 150;
+                    hero.donatedLoot -= 125;
+                    GLog.i("DONATED LOOT: " + hero.donatedLoot + ", (-125 for enchanted weapon)"); // DSM-xxxx
                 }
-            } else if (hero.donatedLoot >= 50) {
+            } else if (hero.donatedLoot >= 40) {
                 // some type of reward may be given to the hero, if so reduce the total donation value
                 if (hero.HT < hero.HP) {
                     GLog.p("The Gods heal your wounds.");
                     PotionOfHealing.heal(hero);
-                    hero.donatedLoot -= 45;
+                    hero.donatedLoot -= 35;
+                    GLog.i("DONATED LOOT: " + hero.donatedLoot + ", (-35 for healing)"); // DSM-xxxx
                 } else if ((! hero.buffs().contains(Awareness.class)) && (Random.Int(6) == 0)) {
                     GLog.p("The Gods reveal secrets of your surroundings.");
                     Buff.affect(hero, Awareness.class, Awareness.DURATION * 2);
                     Dungeon.observe();
-                    hero.donatedLoot -= 40;
+                    hero.donatedLoot -= 30;
+                    GLog.i("DONATED LOOT: " + hero.donatedLoot + ", (-30 for awareness buff)"); // DSM-xxxx
                 } else if ((! hero.buffs().contains(Bless.class)) && (Random.Int(6) == 0)){
                     GLog.p("The Gods bless you.");
                     hero.belongings.uncurseEquipped();
                     Buff.affect(hero, Bless.class);
                     Buff.prolong(hero, Bless.class, 120f);
-                    hero.donatedLoot -= 50;
+                    hero.donatedLoot -= 40;
+                    GLog.i("DONATED LOOT: " + hero.donatedLoot + ", (-40 for blessing buff)"); // DSM-xxxx
+
                 } else {
-                    GLog.p("The Gods seem happy...");
+                    GLog.p("The Gods seem happy... next donation level is 125"); // DSM-xxxx
                 }
             } else {
-                GLog.p("The Gods seem happy...");
+                GLog.p("The Gods seem happy... next donation level is 300"); // DSM-xxxx
             }
 
             heap.donate();

@@ -309,7 +309,7 @@ public class OpenLevel extends Level {
                         }
                     }
                 }
-                spend( Statistics.amuletObtained ? 20 : 35 );
+                spend( Statistics.amuletObtained ? 25 : 45 );
                 return true;
             }
         };
@@ -343,6 +343,7 @@ public class OpenLevel extends Level {
             case Dungeon.DIFF_EASY:
                 return 4  + Dungeon.depth % 6 + Random.Int(4);
             case Dungeon.DIFF_HARD:
+                return 6  + Dungeon.depth % 6 + Random.Int(5);
             case Dungeon.DIFF_NTMARE:
                 return 7  + Dungeon.depth % 6 + Random.Int(6);
             default:

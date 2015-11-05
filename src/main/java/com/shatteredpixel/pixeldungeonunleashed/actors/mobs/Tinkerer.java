@@ -27,13 +27,13 @@ public class Tinkerer extends Mob {
         name = "mad tinkerer";
         spriteClass = TinkererSprite.class;
 
-        HP = HT = 70;
-        defenseSkill = 20;
+        HP = HT = 85;
+        defenseSkill = 25;
         atkSkill = 25;
 
         dmgMin = 16;
         dmgMax = 20;
-        dmgRed = 5;
+        dmgRed = 8;
 
         viewDistance = Light.DISTANCE;
 

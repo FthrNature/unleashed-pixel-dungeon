@@ -739,7 +739,7 @@ public class InfiniteLevel  extends Level {
                     miniBoss = new ChaosMage();
                     break;
             }
-            miniBoss.infiniteScaleMob(Dungeon.depth + 3);
+            miniBoss.infiniteScaleMob(Dungeon.depth + 5);
             do {
                 miniBoss.pos = randomRespawnCell();
             } while (miniBoss.pos == -1);

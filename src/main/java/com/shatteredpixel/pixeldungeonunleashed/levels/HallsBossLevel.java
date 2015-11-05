@@ -187,7 +187,7 @@ public class HallsBossLevel extends Level {
 			
 			Yog boss = new Yog();
 			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
-				boss.infiniteScaleMob(Dungeon.depth + 5);
+				boss.infiniteScaleMob(Dungeon.depth + 7);
 			} else {
 				boss.scaleMob();
 			}

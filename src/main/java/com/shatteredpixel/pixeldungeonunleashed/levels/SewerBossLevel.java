@@ -212,7 +212,7 @@ public class SewerBossLevel extends RegularLevel {
 	protected void createMobs() {
 		Goo mob = new Goo();
 		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
-			mob.infiniteScaleMob(Dungeon.depth + 5);
+			mob.infiniteScaleMob(Dungeon.depth + 7);
 		} else {
 			mob.scaleMob();
 		}

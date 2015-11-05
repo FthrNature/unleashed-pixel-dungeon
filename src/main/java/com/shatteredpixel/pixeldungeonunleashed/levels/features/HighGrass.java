@@ -123,7 +123,8 @@ public class HighGrass {
 				}
 			}
 
-			if ((Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) && (Random.Int(60) == 0) && (!Dungeon.limitedDrops.seedBag.dropped())) {
+			if ((Dungeon.difficultyLevel == Dungeon.DIFF_EASY || Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR)
+					&& (Random.Int(60) == 0) && (!Dungeon.limitedDrops.seedBag.dropped())) {
 				level.drop(new SeedPouch(), pos).sprite.drop();
 				Dungeon.limitedDrops.seedBag.count++;
 			}
@@ -142,12 +143,13 @@ public class HighGrass {
 			}
 		}
 
-		if ((Dungeon.difficultyLevel <= Dungeon.DIFF_NORM) && Random.Int(20) == 0) {
+		if ((Dungeon.difficultyLevel <= Dungeon.DIFF_NORM) && Random.Int(25) == 0) {
 			level.drop(new Dart(Random.Int(3)+1), pos).sprite.drop();
 		}
 
 		if (!Dungeon.isChallenged( Challenges.NO_SCROLLS )) {
-			if ((Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) && (Random.Int(60) == 0) && (!Dungeon.limitedDrops.scrollBag.dropped())) {
+			if ((Dungeon.difficultyLevel == Dungeon.DIFF_EASY || Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR)
+					&& (Random.Int(60) == 0) && (!Dungeon.limitedDrops.scrollBag.dropped())) {
 				level.drop(new ScrollHolder(), pos).sprite.drop();
 				Dungeon.limitedDrops.scrollBag.count++;
 			}

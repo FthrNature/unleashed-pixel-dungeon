@@ -46,7 +46,7 @@ public class Boomerang extends MissileWeapon {
 		unique = true;
 		bones = false;
 	}
-	
+
 	@Override
 	public boolean isUpgradable() {
 		return (level < levelCap);

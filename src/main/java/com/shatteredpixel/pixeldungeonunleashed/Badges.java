@@ -262,7 +262,7 @@ public enum Badge {
 			}
 		}
 		// the following applies the badge as soon as we load our global data
-		// global.add(Badge.BETA_TESTER); // DSM-xxxx remove this after BETA testing is complete...
+		global.add(Badge.BETA_TESTER); // DSM-xxxx remove this after BETA testing is complete...
 	}
 	
 	public static void saveGlobal() {
@@ -547,21 +547,6 @@ public enum Badge {
 		}
 	}
 
-	//TODO: no longer in use, deal with new wand related badges in the badge rework.
-	/**public static void validateAllWandsIdentified() {
-	 if (!validateDifficulty(true)) return;
-
-	 if (Dungeon.hero != null && Dungeon.hero.isAlive() &&
-			!local.contains( Badge.ALL_WANDS_IDENTIFIED ) && Wand.allKnown()) {
-			
-			Badge badge = Badge.ALL_WANDS_IDENTIFIED;
-			local.add( badge );
-			displayBadge( badge );
-			
-			validateAllItemsIdentified();
-		}
-	}*/
-	
 	public static void validateAllBagsBought( Item bag ) {
 		if (!validateDifficulty(true)) return;
 
@@ -600,8 +585,7 @@ public enum Badge {
 			global.contains( Badge.ALL_POTIONS_IDENTIFIED ) &&
 			global.contains( Badge.ALL_SCROLLS_IDENTIFIED ) &&
 			global.contains( Badge.ALL_RINGS_IDENTIFIED )) {
-			//global.contains( Badge.ALL_WANDS_IDENTIFIED )) {
-			
+
 			Badge badge = Badge.ALL_ITEMS_IDENTIFIED;
 			displayBadge( badge );
 		}
@@ -810,28 +794,6 @@ public enum Badge {
 		}
 	}
 
-	//TODO: Replace this badge, delayed until an eventual badge rework
-	public static void validateRingOfHaggler() {
-		if (!validateDifficulty(false)) return;
-
-		if (!local.contains( Badge.RING_OF_HAGGLER )/* && new RingOfThorns().isKnown()*/) {
-			Badge badge = Badge.RING_OF_HAGGLER;
-			local.add( badge );
-			displayBadge( badge );
-		}
-	}
-
-	//TODO: Replace this badge, delayed until an eventual badge rework
-	public static void validateRingOfThorns() {
-		if (!validateDifficulty(false)) return;
-
-		if (!local.contains( Badge.RING_OF_THORNS )/* && new RingOfThorns().isKnown()*/) {
-			Badge badge = Badge.RING_OF_THORNS;
-			local.add( badge );
-			displayBadge( badge );
-		}
-	}
-	
 	public static void validateRare( Mob mob ) {
 		if (!validateDifficulty(false)) return;
 

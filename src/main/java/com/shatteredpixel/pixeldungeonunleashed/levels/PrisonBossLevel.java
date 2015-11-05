@@ -316,7 +316,7 @@ public class PrisonBossLevel extends RegularLevel {
 			
 			Tengu boss = new Tengu();
 			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
-				boss.infiniteScaleMob(Dungeon.depth + 5);
+				boss.infiniteScaleMob(Dungeon.depth + 7);
 			} else {
 				boss.scaleMob();
 			}

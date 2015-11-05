@@ -303,7 +303,7 @@ public class Dungeon {
 						level = new HallsBossLevel();
 						break;
 				}
-			} else if (Random.Int(4) == 0 && (depth % 10 == 3 || depth % 10 == 5 || depth % 10 == 7 || depth % 10 == 8)) {
+			} else if (Random.Int(5) == 0 && (depth % 10 == 3 || depth % 10 == 5 || depth % 10 == 8)) {
 				level = new InfiniteOpenLevel();
 			} else {
 				level = new InfiniteLevel();
@@ -330,7 +330,7 @@ public class Dungeon {
 				case 8:
 				case 9:
 				case 10:
-					if (specialLevel(depth) && Random.Int(5) == 0) {
+					if (specialLevel(depth) && Random.Int(6) == 0) {
 						level = new OpenLevel();
 					} else {
 						level = new PrisonLevel();
@@ -347,7 +347,7 @@ public class Dungeon {
 				case 15:
 				case 16:
 				case 17:
-					if (specialLevel(depth) && Random.Int(4) == 0) {
+					if (specialLevel(depth) && Random.Int(5) == 0) {
 						level = new OpenLevel();
 					} else {
 						level = new CavesLevel();
@@ -361,7 +361,7 @@ public class Dungeon {
 				case 21:
 				case 22:
 				case 23:
-					if (specialLevel(depth) && Random.Int(4) == 0) {
+					if (specialLevel(depth) && Random.Int(5) == 0) {
 						level = new OpenLevel();
 					} else {
 						level = new CityLevel();
@@ -377,7 +377,7 @@ public class Dungeon {
 				case 27:
 				case 28:
 				case 29:
-					if (specialLevel(depth) && Random.Int(4) == 0) {
+					if (specialLevel(depth) && Random.Int(5) == 0) {
 						level = new OpenLevel();
 					} else {
 						level = new HallsLevel();
