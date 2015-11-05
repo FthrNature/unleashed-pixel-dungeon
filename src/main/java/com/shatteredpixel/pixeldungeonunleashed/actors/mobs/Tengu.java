@@ -86,7 +86,7 @@ public class Tengu extends Mob {
 			badgeToCheck = Badge.MASTERY_HUNTRESS;
 			break;
 		}
-		if (Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS && Dungeon.difficultyLevel != Dungeon.DIFF_TEST) {
+		if (Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS) {
 			Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
 		}
 

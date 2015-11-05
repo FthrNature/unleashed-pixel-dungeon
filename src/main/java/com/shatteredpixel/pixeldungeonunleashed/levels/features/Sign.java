@@ -105,7 +105,7 @@ public class Sign {
 		"As you try to read the sign it bursts into greenish flames.";
 	
 	public static void read( int pos ) {
-		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
 			GameScene.show( new WndMessage( Utils.format(TXT_ENDLESS, Dungeon.depth, InfiniteBestiary.currentTheme)) );
 			return;
 		}

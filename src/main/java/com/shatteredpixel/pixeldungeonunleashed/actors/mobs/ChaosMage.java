@@ -56,7 +56,10 @@ public class ChaosMage extends Mob {
 
     @Override
     public int attackProc(Char enemy, int damage) {
-        corrupt( (Hero)enemy );
+        if (enemy instanceof Hero){
+            corrupt((Hero) enemy);
+        }
+
         if (damage > 0) {
             int healingAmt = Random.Int(0, damage);
             HP = Math.min(HT, HP + healingAmt);

@@ -20,6 +20,8 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.items.rings;
 
+import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
+
 public class RingOfHaste extends Ring {
 
 	{
@@ -40,5 +42,24 @@ public class RingOfHaste extends Ring {
 	}
 	
 	public class Haste extends RingBuff {
+/*
+		// I have to think about this one... do we want the Buff Icon to display for unidentified rings?
+		@Override
+		public int icon() {
+			return BuffIndicator.HASTED;
+		}
+
+		@Override
+		public String toString() {
+			return "Hasted";
+		}
+
+		@Override
+		public String desc() {
+			return "Haste magic affects the target's rate of time, to them everything is moving super-slow.\n\n" +
+					"A hasted character performs all actions quicker than they would normally take.\n\n" +
+					"This haste is sustained by your Magic ring.";
+		}
+		*/
 	}
 }

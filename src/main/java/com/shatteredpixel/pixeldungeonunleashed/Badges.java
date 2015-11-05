@@ -51,20 +51,71 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 
 public class Badges {
-	
-	public static enum Badge {
-		MONSTERS_SLAIN_1( "10 enemies slain", 0 ),
-		MONSTERS_SLAIN_2( "50 enemies slain", 1 ),
-		MONSTERS_SLAIN_3( "150 enemies slain", 2 ),
-		MONSTERS_SLAIN_4( "250 enemies slain", 3 ),
+	// to add a new badge you need to do the following:
+	// 1. open up badges.png and create a new badge in an available slot.  If there are no available slots
+	//    create a new row at the bottom and add it there.  count the badge entry number, top-left starts
+	//    at 0, count left, then down.
+	// 2. add a new entry to the ENUM table below, this entry should contain the text you want to appear
+	//    and the icon number for your graphic.  The order of this table doesn't matter, feel free to
+	//    rearange it as needed.
+	// 3. create a function to validate receipt of your badge
+	//       	public static void validateMyBadge() {
+	//               // add any logic to verify receipt of the badge should happen
+	//               if (!local.contains( Badge.MY_BADGE ) && validateDifficulty(true)) {
+	//	                 Badge badge = Badge.MY_BADGE;
+	//	                 local.add( badge );
+	//	                 displayBadge( badge );
+	//               }
+    //          }
+    // 4. find the point in your code where you want to award the badge and call this function.
+	//
+	// that should be it... at this point your badge should be fully enabled.
+
+
+public enum Badge {
+		// the order of these badges don't matter in this list
+		// the format is:  BADGE_ALIAS( "badge description", graphic-in-badges.png, optional meta tag)
+		// entries without arguments are not displayed in the badge list
+		// graphics are counted similar to other sprites, top-left image is 0, count left then down
+		// meta tag determines what type of messages are reported to the player
+		MONSTERS_SLAIN_1( "10 enemies slain", 0 ),  // previously badges were 0 through 3 - I didn't like the graphics
+		MONSTERS_SLAIN_2( "50 enemies slain", 0 ),  // if we are going to have seperate graphics for each level of the
+		MONSTERS_SLAIN_3( "150 enemies slain", 0 ), // badge I will want something other than the "notched" badges
+		MONSTERS_SLAIN_4( "250 enemies slain", 0 ),
+		MONSTERS_SLAIN_5( "500 enemies slain", 0 ),
 		GOLD_COLLECTED_1( "100 gold collected", 4 ),
-		GOLD_COLLECTED_2( "500 gold collected", 5 ),
-		GOLD_COLLECTED_3( "2500 gold collected", 6 ),
-		GOLD_COLLECTED_4( "7500 gold collected", 7 ),
+		GOLD_COLLECTED_2( "500 gold collected", 4 ),
+		GOLD_COLLECTED_3( "2500 gold collected", 4 ),
+		GOLD_COLLECTED_4( "7500 gold collected", 4 ),
+		GOLD_COLLECTED_5( "15000 gold collected", 4 ),
 		LEVEL_REACHED_1( "Level 6 reached", 8 ),
-		LEVEL_REACHED_2( "Level 12 reached", 9 ),
-		LEVEL_REACHED_3( "Level 18 reached", 10 ),
-		LEVEL_REACHED_4( "Level 24 reached", 11 ),
+		LEVEL_REACHED_2( "Level 12 reached", 8 ),
+		LEVEL_REACHED_3( "Level 20 reached", 8 ),
+		LEVEL_REACHED_4( "Level 30 reached", 8 ),
+		LEVEL_REACHED_5( "Level 50 reached", 8 ),
+		STRENGTH_ATTAINED_1( "13 points of Strength attained", 40 ),
+		STRENGTH_ATTAINED_2( "15 points of Strength attained", 40 ),
+		STRENGTH_ATTAINED_3( "17 points of Strength attained", 40 ),
+		STRENGTH_ATTAINED_4( "19 points of Strength attained", 40 ),
+		FOOD_EATEN_1( "10 pieces of food eaten", 44 ),
+		FOOD_EATEN_2( "25 pieces of food eaten", 44 ),
+		FOOD_EATEN_3( "50 pieces of food eaten", 44 ),
+		FOOD_EATEN_4( "100 pieces of food eaten", 44 ),
+		ITEM_LEVEL_1( "Item of level 3 acquired", 48 ),
+		ITEM_LEVEL_2( "Item of level 6 acquired", 48 ),
+		ITEM_LEVEL_3( "Item of level 8 acquired", 48 ),
+		ITEM_LEVEL_4( "Item of level 10 acquired", 48 ),
+		POTIONS_COOKED_1( "3 potions cooked", 52 ),
+		POTIONS_COOKED_2( "6 potions cooked", 52 ),
+		POTIONS_COOKED_3( "10 potions cooked", 52 ),
+		POTIONS_COOKED_4( "15 potions cooked", 52 ),
+		POTIONS_COOKED_5( "20 potions cooked", 52 ),
+		NO_MONSTERS_SLAIN( "Level completed without killing any monsters", 28 ),
+		GAMES_PLAYED_1( "10 games played", 60, true ),
+		GAMES_PLAYED_2( "100 games played", 60, true ),
+		GAMES_PLAYED_3( "500 games played", 60, true ),
+		GAMES_PLAYED_4( "2000 games played", 60, true ),
+
 		ALL_POTIONS_IDENTIFIED( "All potions identified", 16 ),
 		ALL_SCROLLS_IDENTIFIED( "All scrolls identified", 17 ),
 		ALL_RINGS_IDENTIFIED( "All rings identified", 18 ),
@@ -82,14 +133,15 @@ public class Badges {
 		DEATH_FROM_GLYPH( "Death from a glyph", 57 ),
 		DEATH_FROM_FALLING( "Death from falling down", 59 ),
 		YASD( "Death from fire, poison, toxic gas & hunger", 34, true ),
+
+		BOSS_SLAIN_1( "1st boss slain", 12 ),
+		BOSS_SLAIN_2( "2nd boss slain", 12 ),
+		BOSS_SLAIN_3( "3rd boss slain", 12 ),
+		BOSS_SLAIN_4( "4th boss slain", 12 ),
 		BOSS_SLAIN_1_WARRIOR,
 		BOSS_SLAIN_1_MAGE,
 		BOSS_SLAIN_1_ROGUE,
 		BOSS_SLAIN_1_HUNTRESS,
-		BOSS_SLAIN_1( "1st boss slain", 12 ),
-		BOSS_SLAIN_2( "2nd boss slain", 13 ),
-		BOSS_SLAIN_3( "3rd boss slain", 14 ),
-		BOSS_SLAIN_4( "4th boss slain", 15 ),
 		BOSS_SLAIN_1_ALL_CLASSES( "1st boss slain by Warrior, Mage, Rogue & Huntress", 32, true ),
 		BOSS_SLAIN_3_GLADIATOR,
 		BOSS_SLAIN_3_BERSERKER,
@@ -104,22 +156,10 @@ public class Badges {
 			"Freerunner, Assassin, Sniper & Warden", 33, true ),
 		RING_OF_HAGGLER( "Ring of Haggler obtained", 20 ),
 		RING_OF_THORNS( "Ring of Thorns obtained", 21 ),
-		STRENGTH_ATTAINED_1( "13 points of Strength attained", 40 ),
-		STRENGTH_ATTAINED_2( "15 points of Strength attained", 41 ),
-		STRENGTH_ATTAINED_3( "17 points of Strength attained", 42 ),
-		STRENGTH_ATTAINED_4( "19 points of Strength attained", 43 ),
-		FOOD_EATEN_1( "10 pieces of food eaten", 44 ),
-		FOOD_EATEN_2( "20 pieces of food eaten", 45 ),
-		FOOD_EATEN_3( "30 pieces of food eaten", 46 ),
-		FOOD_EATEN_4( "40 pieces of food eaten", 47 ),
 		MASTERY_WARRIOR,
 		MASTERY_MAGE,
 		MASTERY_ROGUE,
 		MASTERY_HUNTRESS,
-		ITEM_LEVEL_1( "Item of level 3 acquired", 48 ),
-		ITEM_LEVEL_2( "Item of level 6 acquired", 49 ),
-		ITEM_LEVEL_3( "Item of level 9 acquired", 50 ),
-		ITEM_LEVEL_4( "Item of level 12 acquired", 51 ),
 		RARE_ALBINO,
 		RARE_BANDIT,
 		RARE_SHIELDED,
@@ -133,38 +173,30 @@ public class Badges {
 		VICTORY( "Amulet of Yendor obtained", 22 ),
 		VICTORY_ALL_CLASSES( "Amulet of Yendor obtained by Warrior, Mage, Rogue & Huntress", 36, true ),
 		MASTERY_COMBO( "7-hit combo", 56 ),
-		POTIONS_COOKED_1( "3 potions cooked", 52 ),
-		POTIONS_COOKED_2( "6 potions cooked", 53 ),
-		POTIONS_COOKED_3( "9 potions cooked", 54 ),
-		POTIONS_COOKED_4( "12 potions cooked", 55 ),
-		NO_MONSTERS_SLAIN( "Level completed without killing any monsters", 28 ),
 		GRIM_WEAPON( "Monster killed by a Grim weapon", 29 ),
 		PIRANHAS( "6 piranhas killed", 30 ),
 		NIGHT_HUNTER( "15 monsters killed at nighttime", 58 ),
-		GAMES_PLAYED_1( "10 games played", 60, true ),
-		GAMES_PLAYED_2( "100 games played", 61, true ),
-		GAMES_PLAYED_3( "500 games played", 62, true ),
-		GAMES_PLAYED_4( "2000 games played", 63, true ),
 		HAPPY_END( "Happy end", 38 ),
 		CHAMPION( "Challenge won", 39, true ),
-		SUPPORTER( "Thanks for your support!", 31, true );
+		SUPPORTER( "Thanks for your support!", 51, true ),
+		BETA_TESTER( "Beta Tester", 1 ); // starting from the top-left with 0, the next badge is 1
 		
 		public boolean meta;
 		
 		public String description;
 		public int image;
 		
-		private Badge( String description, int image ) {
+		Badge( String description, int image ) {
 			this( description, image, false );
 		}
 		
-		private Badge( String description, int image, boolean meta ) {
+		Badge( String description, int image, boolean meta ) {
 			this.description = description;
 			this.image = image;
 			this.meta = meta;
 		}
 		
-		private Badge() {
+		Badge() {
 			this( "", -1 );
 		}
 	}
@@ -185,7 +217,7 @@ public class Badges {
 	private static final String BADGES		= "badges";
 	
 	private static HashSet<Badge> restore( Bundle bundle ) {
-		HashSet<Badge> badges = new HashSet<Badge>();
+		HashSet<Badge> badges = new HashSet<>();
 		
 		String[] names = bundle.getStringArray( BADGES );
 		for (int i=0; i < names.length; i++) {
@@ -226,9 +258,11 @@ public class Badges {
 				global = restore( bundle );
 				
 			} catch (Exception e) {
-				global = new HashSet<Badge>();
+				global = new HashSet<>();
 			}
 		}
+		// the following applies the badge as soon as we load our global data
+		// global.add(Badge.BETA_TESTER); // DSM-xxxx remove this after BETA testing is complete...
 	}
 	
 	public static void saveGlobal() {
@@ -250,12 +284,12 @@ public class Badges {
 
 	public static boolean validateDifficulty( boolean alertPlayer ) {
 		if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
-			if (alertPlayer == true) {
+			if (alertPlayer) {
 				GLog.i("Badges not earned in Tutorial Mode");
 			}
 			return false;
 		} else if (Dungeon.difficultyLevel == Dungeon.DIFF_EASY) {
-			if (alertPlayer == true) {
+			if (alertPlayer) {
 				GLog.i("Badges not earned in Easy Mode");
 			}
 			return false;
@@ -282,7 +316,11 @@ public class Badges {
 			badge = Badge.MONSTERS_SLAIN_4;
 			local.add( badge );
 		}
-		
+		if (!local.contains( Badge.MONSTERS_SLAIN_5 ) && Statistics.enemiesSlain >= 500) {
+			badge = Badge.MONSTERS_SLAIN_5;
+			local.add( badge );
+		}
+
 		displayBadge( badge );
 	}
 	
@@ -307,7 +345,11 @@ public class Badges {
 			badge = Badge.GOLD_COLLECTED_4;
 			local.add( badge );
 		}
-		
+		if (!local.contains( Badge.GOLD_COLLECTED_5 ) && Statistics.goldCollected >= 15000) {
+			badge = Badge.GOLD_COLLECTED_5;
+			local.add( badge );
+		}
+
 		displayBadge( badge );
 	}
 	
@@ -324,15 +366,19 @@ public class Badges {
 			badge = Badge.LEVEL_REACHED_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.LEVEL_REACHED_3 ) && Dungeon.hero.lvl >= 18) {
+		if (!local.contains( Badge.LEVEL_REACHED_3 ) && Dungeon.hero.lvl >= 20) {
 			badge = Badge.LEVEL_REACHED_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.LEVEL_REACHED_4 ) && Dungeon.hero.lvl >= 24) {
+		if (!local.contains( Badge.LEVEL_REACHED_4 ) && Dungeon.hero.lvl >= 30) {
 			badge = Badge.LEVEL_REACHED_4;
 			local.add( badge );
 		}
-		
+		if (!local.contains( Badge.LEVEL_REACHED_5 ) && Dungeon.hero.lvl >= 50) {
+			badge = Badge.LEVEL_REACHED_5;
+			local.add( badge );
+		}
+
 		displayBadge( badge );
 	}
 	
@@ -370,15 +416,15 @@ public class Badges {
 			badge = Badge.FOOD_EATEN_1;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.FOOD_EATEN_2 ) && Statistics.foodEaten >= 20) {
+		if (!local.contains( Badge.FOOD_EATEN_2 ) && Statistics.foodEaten >= 25) {
 			badge = Badge.FOOD_EATEN_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.FOOD_EATEN_3 ) && Statistics.foodEaten >= 30) {
+		if (!local.contains( Badge.FOOD_EATEN_3 ) && Statistics.foodEaten >= 50) {
 			badge = Badge.FOOD_EATEN_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.FOOD_EATEN_4 ) && Statistics.foodEaten >= 40) {
+		if (!local.contains( Badge.FOOD_EATEN_4 ) && Statistics.foodEaten >= 100) {
 			badge = Badge.FOOD_EATEN_4;
 			local.add( badge );
 		}
@@ -399,15 +445,19 @@ public class Badges {
 			badge = Badge.POTIONS_COOKED_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.POTIONS_COOKED_3 ) && Statistics.potionsCooked >= 9) {
+		if (!local.contains( Badge.POTIONS_COOKED_3 ) && Statistics.potionsCooked >= 10) {
 			badge = Badge.POTIONS_COOKED_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.POTIONS_COOKED_4 ) && Statistics.potionsCooked >= 12) {
+		if (!local.contains( Badge.POTIONS_COOKED_4 ) && Statistics.potionsCooked >= 15) {
 			badge = Badge.POTIONS_COOKED_4;
 			local.add( badge );
 		}
-		
+		if (!local.contains( Badge.POTIONS_COOKED_5 ) && Statistics.potionsCooked >= 20) {
+			badge = Badge.POTIONS_COOKED_5;
+			local.add( badge );
+		}
+
 		displayBadge( badge );
 	}
 	
@@ -446,11 +496,11 @@ public class Badges {
 			badge = Badge.ITEM_LEVEL_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_3 ) && item.level >= 9) {
+		if (!local.contains( Badge.ITEM_LEVEL_3 ) && item.level >= 8) {
 			badge = Badge.ITEM_LEVEL_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_4 ) && item.level >= 12) {
+		if (!local.contains( Badge.ITEM_LEVEL_4 ) && item.level >= 10) {
 			badge = Badge.ITEM_LEVEL_4;
 			local.add( badge );
 		}
@@ -950,7 +1000,7 @@ public class Badges {
 	
 	public static List<Badge> filtered( boolean global ) {
 		
-		HashSet<Badge> filtered = new HashSet<Badge>( global ? Badges.global : Badges.local );
+		HashSet<Badge> filtered = new HashSet<>( global ? Badges.global : Badges.local );
 		
 		if (!global) {
 			Iterator<Badge> iterator = filtered.iterator();
@@ -962,14 +1012,14 @@ public class Badges {
 			}
 		}
 		
-		leaveBest( filtered, Badge.MONSTERS_SLAIN_1, Badge.MONSTERS_SLAIN_2, Badge.MONSTERS_SLAIN_3, Badge.MONSTERS_SLAIN_4 );
-		leaveBest( filtered, Badge.GOLD_COLLECTED_1, Badge.GOLD_COLLECTED_2, Badge.GOLD_COLLECTED_3, Badge.GOLD_COLLECTED_4 );
+		leaveBest( filtered, Badge.MONSTERS_SLAIN_1, Badge.MONSTERS_SLAIN_2, Badge.MONSTERS_SLAIN_3, Badge.MONSTERS_SLAIN_4, Badge.MONSTERS_SLAIN_5 );
+		leaveBest( filtered, Badge.GOLD_COLLECTED_1, Badge.GOLD_COLLECTED_2, Badge.GOLD_COLLECTED_3, Badge.GOLD_COLLECTED_4, Badge.GOLD_COLLECTED_5 );
 		leaveBest( filtered, Badge.BOSS_SLAIN_1, Badge.BOSS_SLAIN_2, Badge.BOSS_SLAIN_3, Badge.BOSS_SLAIN_4 );
-		leaveBest( filtered, Badge.LEVEL_REACHED_1, Badge.LEVEL_REACHED_2, Badge.LEVEL_REACHED_3, Badge.LEVEL_REACHED_4 );
+		leaveBest( filtered, Badge.LEVEL_REACHED_1, Badge.LEVEL_REACHED_2, Badge.LEVEL_REACHED_3, Badge.LEVEL_REACHED_4, Badge.LEVEL_REACHED_5 );
 		leaveBest( filtered, Badge.STRENGTH_ATTAINED_1, Badge.STRENGTH_ATTAINED_2, Badge.STRENGTH_ATTAINED_3, Badge.STRENGTH_ATTAINED_4 );
 		leaveBest( filtered, Badge.FOOD_EATEN_1, Badge.FOOD_EATEN_2, Badge.FOOD_EATEN_3, Badge.FOOD_EATEN_4 );
 		leaveBest( filtered, Badge.ITEM_LEVEL_1, Badge.ITEM_LEVEL_2, Badge.ITEM_LEVEL_3, Badge.ITEM_LEVEL_4 );
-		leaveBest( filtered, Badge.POTIONS_COOKED_1, Badge.POTIONS_COOKED_2, Badge.POTIONS_COOKED_3, Badge.POTIONS_COOKED_4 );
+		leaveBest( filtered, Badge.POTIONS_COOKED_1, Badge.POTIONS_COOKED_2, Badge.POTIONS_COOKED_3, Badge.POTIONS_COOKED_4, Badge.POTIONS_COOKED_5 );
 		leaveBest( filtered, Badge.BOSS_SLAIN_1_ALL_CLASSES, Badge.BOSS_SLAIN_3_ALL_SUBCLASSES );
 		leaveBest( filtered, Badge.DEATH_FROM_FIRE, Badge.YASD );
 		leaveBest( filtered, Badge.DEATH_FROM_GAS, Badge.YASD );

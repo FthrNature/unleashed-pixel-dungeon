@@ -23,26 +23,26 @@ package com.shatteredpixel.pixeldungeonunleashed.sprites;
 public class ItemSpriteSheet {
 
 	// Row definers
-	private static final int ROW1 = 0*16;
-	private static final int ROW2 = 1*16;
-	private static final int ROW3 = 2*16;
-	private static final int ROW4 = 3*16;
-	private static final int ROW5 = 4*16;
-	private static final int ROW6 = 5*16;
-	private static final int ROW7 = 6*16;
-	private static final int ROW8 = 7*16;
-	private static final int ROW9 = 8*16;
-	private static final int ROW10 = 9*16;
-	private static final int ROW11 = 10*16;
-	private static final int ROW12 = 11*16;
-	private static final int ROW13 = 12*16;
-	private static final int ROW14 = 13*16;
-	private static final int ROW15 = 14*16;
-	private static final int ROW16 = 15*16;
+	private static final int ROW1 = 0;    // 0*16;
+	private static final int ROW2 = 16;   // 1*16;
+	private static final int ROW3 = 32;   // 2*16;
+	private static final int ROW4 = 48;   // 3*16;
+	private static final int ROW5 = 64;   // 4*16;
+	private static final int ROW6 = 80;   // 5*16;
+	private static final int ROW7 = 96;   // 6*16;
+	private static final int ROW8 = 112;  // 7*16;
+	private static final int ROW9 = 128;  // 8*16;
+	private static final int ROW10 = 144; // 9*16;
+	private static final int ROW11 = 160; // 10*16;
+	private static final int ROW12 = 176; // 11*16;
+	private static final int ROW13 = 192; // 12*16;
+	private static final int ROW14 = 208; // 13*16;
+	private static final int ROW15 = 224; // 14*16;
+	private static final int ROW16 = 240; // 15*16;
 
 	//Row One: Items which can't be obtained
 	//null warning occupies space 0, should only show up if there's a bug.
-	public static final int NULLWARN    = ROW1+0;
+	public static final int NULLWARN    = ROW1;
 	public static final int DEWDROP	    = ROW1+1;
 	public static final int PETAL	    = ROW1+2;
 	public static final int SANDBAG     = ROW1+3;
@@ -61,7 +61,7 @@ public class ItemSpriteSheet {
 	public static final int SMTH	= ROW1+14;
 
 	//Row Two: Miscellaneous single use items
-	public static final int GOLD	    = ROW2+0;
+	public static final int GOLD	    = ROW2;
 	public static final int TORCH	    = ROW2+1;
 	public static final int STYLUS	    = ROW2+2;
 	public static final int ANKH	    = ROW2+3;
@@ -81,7 +81,7 @@ public class ItemSpriteSheet {
 	public static final int SHATTPOT= ROW2+15;
 
 	//Row Three: Melee weapons
-	public static final int KNUCKLEDUSTER	= ROW3+0;
+	public static final int KNUCKLEDUSTER	= ROW3;
 	public static final int DAGGER			= ROW3+1;
 	public static final int SHORT_SWORD		= ROW3+2;
 	public static final int MAGES_STAFF     = ROW3+3;
@@ -95,7 +95,7 @@ public class ItemSpriteSheet {
 	public static final int GLAIVE			= ROW3+11;
 
 	//Row Four: Missile weapons
-	public static final int DART			= ROW4+0;
+	public static final int DART			= ROW4;
 	public static final int BOOMERANG		= ROW4+1;
 	public static final int INCENDIARY_DART	= ROW4+2;
 	public static final int SHURIKEN		= ROW4+3;
@@ -104,7 +104,7 @@ public class ItemSpriteSheet {
 	public static final int TOMAHAWK		= ROW4+6;
 
 	//Row Five: Armors
-	public static final int ARMOR_CLOTH		= ROW5+0;
+	public static final int ARMOR_CLOTH		= ROW5;
 	public static final int ARMOR_LEATHER	= ROW5+1;
 	public static final int ARMOR_MAIL		= ROW5+2;
 	public static final int ARMOR_SCALE		= ROW5+3;
@@ -115,7 +115,7 @@ public class ItemSpriteSheet {
 	public static final int ARMOR_HUNTRESS	= ROW5+8;
 
 	//Row Six: Wands
-	public static final int WAND_MAGIC_MISSILE	= ROW6+0;
+	public static final int WAND_MAGIC_MISSILE	= ROW6;
 	public static final int WAND_FIREBOLT		= ROW6+1;
 	public static final int WAND_FROST			= ROW6+2;
 	public static final int WAND_LIGHTNING		= ROW6+3;
@@ -130,7 +130,7 @@ public class ItemSpriteSheet {
 	public static final int WAND_TRANSFUSION	= ROW6+12;
 
 	//Row Seven: Rings
-	public static final int RING_GARNET		= ROW7+0;
+	public static final int RING_GARNET		= ROW7;
 	public static final int RING_RUBY		= ROW7+1;
 	public static final int RING_TOPAZ		= ROW7+2;
 	public static final int RING_EMERALD	= ROW7+3;
@@ -148,7 +148,7 @@ public class ItemSpriteSheet {
 	public static final int RING_IVY        = ROW7+15;
 
 	//Row Eight: Artifacts with Static Images
-	public static final int ARTIFACT_CLOAK      = ROW8+0;
+	public static final int ARTIFACT_CLOAK      = ROW8;
 	public static final int ARTIFACT_ARMBAND    = ROW8+1;
 	public static final int ARTIFACT_CAPE       = ROW8+2;
 	public static final int ARTIFACT_TALISMAN   = ROW8+3;
@@ -160,7 +160,7 @@ public class ItemSpriteSheet {
 	public static final int ARTIFACT_DEVOUR     = ROW8+9;
 
 	//Row Nine: Artifacts with Dynamic Images
-	public static final int ARTIFACT_HORN1      = ROW9+0;
+	public static final int ARTIFACT_HORN1      = ROW9;
 	public static final int ARTIFACT_HORN2      = ROW9+1;
 	public static final int ARTIFACT_HORN3      = ROW9+2;
 	public static final int ARTIFACT_HORN4      = ROW9+3;
@@ -176,7 +176,7 @@ public class ItemSpriteSheet {
 	public static final int ARTIFACT_ROSE3      = ROW9+13;
 
 	//Row Ten: Scrolls
-	public static final int SCROLL_KAUNAN	= ROW10+0;
+	public static final int SCROLL_KAUNAN	= ROW10;
 	public static final int SCROLL_SOWILO	= ROW10+1;
 	public static final int SCROLL_LAGUZ	= ROW10+2;
 	public static final int SCROLL_YNGVI	= ROW10+3;
@@ -194,7 +194,7 @@ public class ItemSpriteSheet {
 	public static final int SCROLL_JEAR     = ROW10+15;
 
 	//Row Eleven: Potions
-	public static final int POTION_CRIMSON		= ROW11+0;
+	public static final int POTION_CRIMSON		= ROW11;
 	public static final int POTION_AMBER		= ROW11+1;
 	public static final int POTION_GOLDEN		= ROW11+2;
 	public static final int POTION_JADE			= ROW11+3;
@@ -212,7 +212,7 @@ public class ItemSpriteSheet {
 	public static final int POTION_BUBBLY		= ROW11+15;
 
 	//Row Twelve: Seeds
-	public static final int SEED_ROTBERRY	= ROW12+0;
+	public static final int SEED_ROTBERRY	= ROW12;
 	public static final int SEED_FIREBLOOM	= ROW12+1;
 	public static final int SEED_STARFLOWER	= ROW12+2;
 	public static final int SEED_BLINDWEED	= ROW12+3;
@@ -226,7 +226,7 @@ public class ItemSpriteSheet {
 	public static final int SEED_BLANDFRUIT	= ROW12+11;
 
 	//Row Thirteen: Food
-	public static final int MEAT		= ROW13+0;
+	public static final int MEAT		= ROW13;
 	public static final int STEAK		= ROW13+1;
 	public static final int OVERPRICED	= ROW13+2;
 	public static final int CARPACCIO	= ROW13+3;
@@ -235,14 +235,14 @@ public class ItemSpriteSheet {
 	public static final int PASTY		= ROW13+6;
 
 	//Row Fourteen: Quest Items
-	public static final int SKULL	= ROW14+0;
+	public static final int SKULL	= ROW14;
 	public static final int DUST	= ROW14+1;
 	public static final int PICKAXE	= ROW14+2;
 	public static final int ORE		= ROW14+3;
 	public static final int TOKEN	= ROW14+4;
 
 	//Row Fifteen: Containers/Bags
-	public static final int VIAL	    = ROW15+0;
+	public static final int VIAL	    = ROW15;
 	public static final int POUCH	    = ROW15+1;
 	public static final int HOLDER	    = ROW15+2;
 	public static final int BANDOLIER   = ROW15+3;

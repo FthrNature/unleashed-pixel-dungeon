@@ -58,7 +58,7 @@ public class Necromancer extends Mob {
         while (mobsToSpawn > 0) {
             if (Random.Int(2) == 0) {
                 Mob mob = new Zombie();
-                if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+                if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
                     mob.infiniteScaleMob(Dungeon.depth + 5);
                 } else {
                     mob.scaleMob();
@@ -73,7 +73,7 @@ public class Necromancer extends Mob {
                 }
             } else {
                 Mob mob = new Skeleton();
-                if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+                if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
                     mob.infiniteScaleMob(Dungeon.depth + 5);
                 } else {
                     mob.scaleMob();

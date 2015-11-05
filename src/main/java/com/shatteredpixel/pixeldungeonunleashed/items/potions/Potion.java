@@ -153,6 +153,7 @@ public class Potion extends Item {
 			if (isKnown() && (
 					this instanceof PotionOfLiquidFlame ||
 					this instanceof PotionOfToxicGas ||
+					this instanceof PotionOfSlowness ||
 					this instanceof PotionOfParalyticGas)) {
 				
 					GameScene.show(

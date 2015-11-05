@@ -1,5 +1,7 @@
 package com.shatteredpixel.pixeldungeonunleashed.items.rings;
 
+import com.shatteredpixel.pixeldungeonunleashed.items.Item;
+
 public class RingOfSearching  extends Ring {
 
     {
@@ -7,6 +9,20 @@ public class RingOfSearching  extends Ring {
         levelCap = 0;
         cursed = false;
         level = 0;
+    }
+
+    @Override
+    public Item upgrade( int n ) {
+        this.level = 0;
+
+        updateQuickslot();
+
+        return this;
+    }
+
+    @Override
+    public Item upgrade() {
+        return this;
     }
 
     @Override

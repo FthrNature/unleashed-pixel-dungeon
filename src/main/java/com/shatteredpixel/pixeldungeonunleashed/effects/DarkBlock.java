@@ -20,11 +20,8 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.effects;
 
-import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.CharSprite;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.Gizmo;
-import com.watabou.noosa.audio.Sample;
 
 public class DarkBlock extends Gizmo{
 

@@ -263,7 +263,7 @@ public class ShopPainter extends Painter {
 
 		int seeds = 0, scrolls = 0, potions = 0, wands = 0;
 
-		if ((Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS) && (Dungeon.difficultyLevel != Dungeon.DIFF_TEST)) {
+		if ((Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS)) {
 			//count up items in the main bag, for bags which haven't yet been dropped.
 			for (Item item : pack.backpack.items) {
 				if (!Dungeon.limitedDrops.seedBag.dropped() && item instanceof Plant.Seed)

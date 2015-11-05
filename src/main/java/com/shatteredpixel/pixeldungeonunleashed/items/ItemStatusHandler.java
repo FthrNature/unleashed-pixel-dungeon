@@ -43,14 +43,14 @@ public class ItemStatusHandler<T extends Item> {
 		
 		this.images = new HashMap<Class<? extends T>, Integer>();
 		this.labels = new HashMap<Class<? extends T>, String>();
-		known = new HashSet<Class<? extends T>>();
+		known = new HashSet<>();
 		
-		ArrayList<String> labelsLeft = new ArrayList<String>( Arrays.asList( allLabels ) );
-		ArrayList<Integer> imagesLeft = new ArrayList<Integer>( Arrays.asList( allImages ) );
-		
+		ArrayList<String> labelsLeft = new ArrayList<>( Arrays.asList( allLabels ) );
+		ArrayList<Integer> imagesLeft = new ArrayList<>( Arrays.asList( allImages ) );
+
 		for (int i=0; i < items.length; i++) {
 			
-			Class<? extends T> item = (Class<? extends T>)(items[i]);
+			Class<? extends T> item = items[i];
 			
 			int index = Random.Int( labelsLeft.size() );
 			
@@ -68,7 +68,7 @@ public class ItemStatusHandler<T extends Item> {
 		
 		this.images = new HashMap<Class<? extends T>, Integer>();
 		this.labels = new HashMap<Class<? extends T>, String>();
-		known = new HashSet<Class<? extends T>>();
+		known = new HashSet<>();
 		
 		restore( bundle, labels, images );
 	}
@@ -88,12 +88,12 @@ public class ItemStatusHandler<T extends Item> {
 	
 	private void restore( Bundle bundle, String[] allLabels, Integer[] allImages ) {
 		
-		ArrayList<String> labelsLeft = new ArrayList<String>( Arrays.asList( allLabels ) );
-		ArrayList<Integer> imagesLeft = new ArrayList<Integer>( Arrays.asList( allImages ) );
+		ArrayList<String> labelsLeft = new ArrayList<>( Arrays.asList( allLabels ) );
+		ArrayList<Integer> imagesLeft = new ArrayList<>( Arrays.asList( allImages ) );
 		
 		for (int i=0; i < items.length; i++) {
 			
-			Class<? extends T> item = (Class<? extends T>)(items[i]);
+			Class<? extends T> item = items[i];
 			String itemName = item.toString();
 			
 			if (bundle.contains( itemName + PFX_LABEL ) && Dungeon.version > 4) {
@@ -160,7 +160,7 @@ public class ItemStatusHandler<T extends Item> {
 	}
 	
 	public HashSet<Class<? extends T>> unknown() {
-		HashSet<Class<? extends T>> result = new HashSet<Class<? extends T>>();
+		HashSet<Class<? extends T>> result = new HashSet<>();
 		for (Class<? extends T> i : items) {
 			if (!known.contains( i )) {
 				result.add( i );

@@ -27,7 +27,7 @@ import com.watabou.utils.Bundle;
 
 public class Journal {
 
-	public static enum Feature {
+	public enum Feature {
 		WELL_OF_HEALTH			( "Well of Health" ),
 		WELL_OF_AWARENESS		( "Well of Awareness" ),
 		WELL_OF_TRANSMUTATION	( "Well of Transmutation" ),
@@ -43,10 +43,10 @@ public class Journal {
 		
 		public String desc;
 		
-		private Feature( String desc ) {
+		Feature( String desc ) {
 			this.desc = desc;
 		}
-	};
+	}
 	
 	public static class Record implements Comparable<Record>, Bundlable {
 		
@@ -85,7 +85,7 @@ public class Journal {
 	public static ArrayList<Record> records;
 	
 	public static void reset() {
-		records = new ArrayList<Journal.Record>();
+		records = new ArrayList<>();
 	}
 	
 	private static final String JOURNAL	= "journal";
@@ -95,7 +95,7 @@ public class Journal {
 	}
 	
 	public static void restoreFromBundle( Bundle bundle ) {
-		records = new ArrayList<Record>();
+		records = new ArrayList<>();
 		for (Bundlable rec : bundle.getCollection( JOURNAL ) ) {
 			records.add( (Record) rec );
 		}

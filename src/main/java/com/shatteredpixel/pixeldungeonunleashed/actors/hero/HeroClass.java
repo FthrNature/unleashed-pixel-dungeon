@@ -31,13 +31,16 @@ import com.shatteredpixel.pixeldungeonunleashed.items.armor.ClothArmor;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.pixeldungeonunleashed.items.food.Food;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfExperience;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfFrost;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMight;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMindVision;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfSlowness;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfSpeed;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfStrength;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.Ring;
+import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfHaste;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfUpgrade;
@@ -149,12 +152,15 @@ public enum HeroClass {
 		hero.HT = 80;
 		hero.HP = 80;
 		// things we only want a few of..
+		Ring ring1 = (Ring) Generator.random(Generator.Category.RING);
+		ring1.collect();
+		Generator.random(Generator.Category.WAND).collect();
 		for (int i = 0; i < 3; i++) {
-			Ring ring1 = (Ring) Generator.random(Generator.Category.RING);
-			ring1.collect();
 			new PotionOfSpeed().collect();
+			new PotionOfSlowness().collect();
+			new PotionOfInvisibility().collect();
+			new ScrollOfMagicMapping().identify().collect();
 			new PotionOfMight().collect();
-			Generator.random(Generator.Category.WAND).collect();
 		}
 
 		// things we want a bunch of...
@@ -162,8 +168,8 @@ public enum HeroClass {
 			new Food().collect();
 			new ScrollOfIdentify().identify().collect();
 			new PotionOfHealing().identify().collect();
-			new ScrollOfMagicMapping().identify().collect();
 			new ScrollOfUpgrade().collect();
+			new PotionOfFrost().identify().collect();
 		}
 		try {
 			Weapon wpn2 = (Weapon) Generator.random(Generator.Category.WEAPON);
@@ -172,6 +178,7 @@ public enum HeroClass {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		new RingOfHaste().collect();
 
 
 	}

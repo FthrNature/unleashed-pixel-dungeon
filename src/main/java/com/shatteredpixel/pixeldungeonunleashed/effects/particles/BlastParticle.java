@@ -35,7 +35,7 @@ public class BlastParticle extends PixelParticle.Shrinking {
 		@Override
 		public boolean lightMode() {
 			return true;
-		};
+		}
 	};
 	
 	public BlastParticle() {

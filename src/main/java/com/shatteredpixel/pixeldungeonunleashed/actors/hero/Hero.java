@@ -1144,12 +1144,13 @@ public class Hero extends Char {
 			
 			curAction = new HeroAction.Unlock( cell );
 			
-		} else if (cell == Dungeon.level.exit && Dungeon.depth < Level.MAX_DEPTH) {
+		} else if (cell == Dungeon.level.exit &&
+				((Dungeon.depth < Level.MAX_DEPTH) || (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS))) {
 			
 			curAction = new HeroAction.Descend( cell );
 			
 		} else if (cell == Dungeon.level.entrance) {
-			if ((Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) && (Dungeon.difficultyLevel == Dungeon.DIFF_TEST)) {
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
 				curAction = new HeroAction.Move( cell );
 				lastAction = null;
 				WndStory.showChapter("The magic of this place compels you to go forever downwards.");
@@ -1434,7 +1435,7 @@ public class Hero extends Char {
 
 		int pos = Dungeon.hero.pos;
 
-		ArrayList<Integer> passable = new ArrayList<Integer>();
+		ArrayList<Integer> passable = new ArrayList<>();
 		for (Integer ofs : Level.NEIGHBOURS8) {
 			int cell = pos + ofs;
 			if ((Level.passable[cell] || Level.avoid[cell]) && Dungeon.level.heaps.get( cell ) == null) {
@@ -1541,7 +1542,12 @@ public class Hero extends Char {
 		if (intentional) {
 			RingOfSearching.EasySearch bonusSearch = buff( RingOfSearching.EasySearch.class );
 			if (bonusSearch != null) {
-				distance = 2;
+				if (bonusSearch.level >= 0) {
+					bonus = bonusSearch.level + 1;
+					distance = 2;
+				} else {
+					bonus = -1;
+				}
 			}
 		}
 
@@ -1649,7 +1655,7 @@ public class Hero extends Char {
 	
 	@Override
 	public HashSet<Class<?>> immunities() {
-		HashSet<Class<?>> immunities = new HashSet<Class<?>>();
+		HashSet<Class<?>> immunities = new HashSet<>();
 		for (Buff buff : buffs()){
 			for (Class<?> immunity : buff.immunities)
 				immunities.add(immunity);

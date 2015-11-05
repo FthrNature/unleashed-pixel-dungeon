@@ -172,7 +172,7 @@ public class UnstableSpellbook extends Artifact {
 				if (scrolls.size() > 1)
 					desc += "The book's index points to some pages which are blank. " +
 							"Those pages are listed as: " + scrolls.get(0) + " and "
-							+ scrolls.get(1) + ". Perhaps adding to the book will increase its power";
+							+ scrolls.get(1) + ". Perhaps adding scrolls to the book will increase its power";
 				else
 					desc += "The book's index has one remaining blank page. " +
 							"That page is listed as " + scrolls.get(0) + ".";

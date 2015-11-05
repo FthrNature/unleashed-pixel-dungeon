@@ -26,6 +26,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.armor.Armor;
 import com.shatteredpixel.pixeldungeonunleashed.items.keys.Key;
 import com.shatteredpixel.pixeldungeonunleashed.items.keys.SkeletonKey;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.Potion;
+import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfExperience;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMight;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfStrength;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.Scroll;
@@ -64,22 +65,22 @@ public class ItemSlot extends Button {
 
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
-		public int image() { return ItemSpriteSheet.CHEST; };
+		public int image() { return ItemSpriteSheet.CHEST; }
 	};
 	public static final Item LOCKED_CHEST = new Item() {
-		public int image() { return ItemSpriteSheet.LOCKED_CHEST; };
+		public int image() { return ItemSpriteSheet.LOCKED_CHEST; }
 	};
 	public static final Item CRYSTAL_CHEST = new Item() {
-		public int image() { return ItemSpriteSheet.CRYSTAL_CHEST; };
+		public int image() { return ItemSpriteSheet.CRYSTAL_CHEST; }
 	};
 	public static final Item TOMB = new Item() {
-		public int image() { return ItemSpriteSheet.TOMB; };
+		public int image() { return ItemSpriteSheet.TOMB; }
 	};
 	public static final Item SKELETON = new Item() {
-		public int image() { return ItemSpriteSheet.BONES; };
+		public int image() { return ItemSpriteSheet.BONES; }
 	};
 	public static final Item REMAINS = new Item() {
-		public int image() { return ItemSpriteSheet.REMAINS; };
+		public int image() { return ItemSpriteSheet.REMAINS; }
 	};
 	
 	public ItemSlot() {
@@ -195,7 +196,8 @@ public class ItemSlot extends Button {
 				bottomRight.measure();
 
 				if (item instanceof ScrollOfUpgrade || item instanceof ScrollOfMagicalInfusion
-						|| item instanceof PotionOfStrength || item instanceof PotionOfMight)
+						|| item instanceof PotionOfStrength || item instanceof PotionOfMight
+						|| item instanceof PotionOfExperience)
 					bottomRight.hardlight( UPGRADED );
 				else
 					bottomRight.hardlight( FADED );

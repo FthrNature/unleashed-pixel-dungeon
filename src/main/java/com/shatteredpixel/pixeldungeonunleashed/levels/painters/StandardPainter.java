@@ -169,7 +169,7 @@ public class StandardPainter extends Painter {
 			}
 		}
 		Point center = room.center();
-		set( level, room.center().x + center.y * level.WIDTH, Terrain.PEDESTAL );
+		set( level, center, Terrain.PEDESTAL );
 		if (Random.Int(2) != 0){
 			Item prize = level.findPrizeItem();
 			if (prize != null) {

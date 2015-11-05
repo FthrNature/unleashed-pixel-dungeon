@@ -321,7 +321,7 @@ public class CursedWand {
 			//inter-level teleportation
 			case 2:
 				if (Dungeon.depth > 1 && !Dungeon.bossLevel() &&
-						((Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS) && (Dungeon.difficultyLevel != Dungeon.DIFF_TEST))) {
+						(Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS)) {
 
 					Buff buff = Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class);
 					if (buff != null) buff.detach();

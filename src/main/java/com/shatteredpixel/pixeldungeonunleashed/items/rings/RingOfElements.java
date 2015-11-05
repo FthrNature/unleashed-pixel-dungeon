@@ -25,6 +25,7 @@ import java.util.HashSet;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.ToxicGas;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Burning;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Poison;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.BurningFist;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Eye;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Warlock;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Yog;
@@ -60,7 +61,7 @@ public class RingOfElements extends Ring {
 		FULL.add( LightningTrap.Electricity.class );
 		FULL.add( Warlock.class );
 		FULL.add( Eye.class );
-		FULL.add( Yog.BurningFist.class );
+		FULL.add( BurningFist.class );
 	}
 	
 	public class Resistance extends RingBuff {

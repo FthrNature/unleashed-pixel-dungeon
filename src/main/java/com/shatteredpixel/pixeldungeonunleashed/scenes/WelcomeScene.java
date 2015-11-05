@@ -37,7 +37,7 @@ public class WelcomeScene extends PixelScene {
 
 	private static final String TTL_Welcome = "Welcome!";
 
-	private static final String TTL_Update = "v0.2.2: Endless Mode!";
+	private static final String TTL_Update = "v0.2.3: Badges and More!";
 
 	private static final String TTL_Future = "Wait What?";
 
@@ -49,18 +49,30 @@ public class WelcomeScene extends PixelScene {
 			"Enjoy";
 
 	private static final String TXT_Update =
+			"v02.5: backing out changes to go on a bug hunt!\n\n"+
+			"v02.3: Badges and More!\n"+
+					"- new room blocked with eternal flame\n"+
+					"- fire damage scales slightly with depth\n"+
+					"- new mini-bosses in infinite levels\n"+
+					"- fixed some badge balance issues\n"+
+					"- standardized graphics on some badges\n"+
+					"- new badge just for Beta Testers\n"+
+					"- donation rewards are now easier to reach\n"+
+					"- throwing potions at mobs affect them\n"+
+					"- ring of searching now affects search speed\n"+
+					"- flavor text on tombstones\n"+
+					"- Endless mode goes past depth 31\n"+
+					"- stop the hero from ascending in Endless mode\n\n"+
 			"v02.2: Endless Mode!\n"+
 					"- Endless and Test modes added\n"+
-					"- fixed some summoned mobs not scaling\n"+
-					"- fixed some typos\n"+
+					"- fixed some summoned mobs not scaling\n\n"+
 			"v02.1: Rings and Potions and Mobs, oh my!\n"+
 					"- rings are now listed in the catalogue\n"+
 					"- potions of haste and slowness\n"+
 					"- tweaked how potions affect hunger\n"+
-					"- added dungeon snakes and the velocirooster\n"+
+					"- added dungeon snakes and the velocirooster\n\n"+
 			"v02.0: Fleshing out the Game\n"+
 					"- fix save file corruption\n"+
-					"- made the Open Levels a little less deadly\n"+
 					"- Necromancer Mini-Boss, Zombies and Clay Golems\n"+
 					"- hunger dmg now scales and prevents resting\n"+
 					"- don't pick up dewdrops if not needed\n"+
@@ -70,48 +82,31 @@ public class WelcomeScene extends PixelScene {
 					"- bug fixes\n\n"+
 			"v01.9: Squash Them Bugs\n"+
 					"- Fixes for various artifact bugs\n"+
-					"  - Chalice of Blood level 10 in Easy Mode\n"+
-					"  - Cloak of Shadows max charges on restore\n"+
-					"  - Lloyd's Beacon max charges on restore\n"+
-					"  - Timekeepers Hourglass max charges\n"+
-					"  - Unstable Spellbook max charges\n"+
 					"- prevent negative time delay crashes\n"+
 					"- Gods don't accept missile donations\n"+
 					"- Ring of Searching increases search radius\n"+
 					"- tweaked mob spawn tables and stats\n"+
-					"- starving damage scales with level\n"+
 					"- added Sewer Flies to complement tougher Swarms\n"+
 					"- temporary fix for ranking screen crashes\n\n"+
 			"v01.8: Open Levels\n"+
 					"- New Open Levels\n"+
 					"- Synched Trap Images\n"+
 					"- Allow falling into Special or Boss Levels\n"+
-					"- Tweaked the Midas Enchantments\n"+
-					"- More mobs in harder levels\n"+
-					"- General Code Cleanup\n\n"+
+					"- More mobs in harder levels\n\n"+
 			"v01.7: Enchantments and Glyphs\n"+
-					"- Midas Weapon Enchant\n"+
-					"- Vicious Weapon Enchantment\n"+
+					"- Midas and Vicious Weapons\n"+
 					"- Restance Armor Glyph\n"+
-					"- Ring of Magic speeds Wand Recharge\n"+
-					"- Ring of Sating slows Hunger checks\n"+
+					"- Rings of Magic and Sating\n"+
 					"- Weapon Enchantment Descriptions\n"+
-					"- test code improvements\n"+
 					"- code cleanup and bug fixes\n\n"+
 			"v01.6: Interim Build\n"+
-					"- graphics tweaks\n"+
-					"- buffed the mini-bosses\n"+
 					"- made traps visible in end levels\n"+
 					"- better mage staff imbuing\n"+
-					"- prep work for new items and infinite dungeons\n"+
 					"- fixed numerous bugs to improve stability\n\n"+
             "v01.5: Content Push - It's all about the Mobs!\n"+
-                    "- Red and Brown Slimes\n"+
-                    "- Robot Spiders\n"+
-                    "- Lost Souls\n"+
-                    "- Squids in the Pool Rooms\n"+
+                    "- New Slimes, Robot Spiders, Lost Souls and Squids\n"+
                     "- The Mad Tinkerer, Minotaur and the Chaos Mage\n"+
-                    "- dew vial helps sate hunger\n"+
+                    "- dew vial helps sate hunger\n\n"+
 			"v01.4: Difficulty Levels\n";
 	private static final String TXT_Future =
 			"It seems that your current saves are from a future version of Unleashed Pixel Dungeon!\n\n"+

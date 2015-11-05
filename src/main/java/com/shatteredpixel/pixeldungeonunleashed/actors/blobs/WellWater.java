@@ -56,20 +56,20 @@ public class WellWater extends Blob {
 		if (Dungeon.visible[pos]) {
 			if (this instanceof WaterOfAwareness) {
 				Journal.add( Feature.WELL_OF_AWARENESS );
-				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && Dungeon.tutorial_wellA_seen == false) {
+				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR && !Dungeon.tutorial_wellA_seen) {
 					Dungeon.tutorial_wellA_seen = true;
 					GameScene.show(new WndMessage("Taking a drink from a Well of Awareness identifies your equipped (and only " +
 						"your equipped) items, reveals secrets about this dungeon level, and any uncollected items. " +
 						"Or, you could also try throwing an unidentified item in and see what happens."));
 				}
-			} else if (this instanceof WaterOfHealth && Dungeon.tutorial_wellH_seen == false) {
+			} else if (this instanceof WaterOfHealth && !Dungeon.tutorial_wellH_seen) {
 				Dungeon.tutorial_wellH_seen = true;
 				Journal.add( Feature.WELL_OF_HEALTH );
 				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
 					GameScene.show(new WndMessage("Taking a drink from a Well of Health restores you to full health and " +
 						"satisfies your hunger."));
 				}
-			} else if (this instanceof WaterOfTransmutation && Dungeon.tutorial_wellT_seen == false) {
+			} else if (this instanceof WaterOfTransmutation && !Dungeon.tutorial_wellT_seen) {
 				Dungeon.tutorial_wellT_seen = true;
 				Journal.add( Feature.WELL_OF_TRANSMUTATION );
 				if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {

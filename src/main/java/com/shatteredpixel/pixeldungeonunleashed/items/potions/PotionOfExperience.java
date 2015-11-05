@@ -20,7 +20,11 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.items.potions;
 
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Glowing;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 
 public class PotionOfExperience extends Potion {
 
@@ -36,7 +40,22 @@ public class PotionOfExperience extends Potion {
 		setKnown();
 		hero.earnExp( hero.maxExp() );
 	}
-	
+
+	@Override
+	public void shatter( int cell ) {
+		for (Mob mob : Dungeon.level.mobs) {
+			if (mob.pos == cell) {
+				mob.atkSkill += (Dungeon.depth / 4);
+				mob.defenseSkill += (Dungeon.depth / 3);
+				mob.HT += Dungeon.depth;
+				mob.HP += Dungeon.depth;
+				GLog.w("The " + mob.description() + " looks tougher!");
+			}
+		}
+
+		super.shatter(cell);
+	}
+
 	@Override
 	public String desc() {
 		return

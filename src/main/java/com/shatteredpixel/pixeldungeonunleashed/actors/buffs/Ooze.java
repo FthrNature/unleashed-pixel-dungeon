@@ -25,7 +25,6 @@ import com.shatteredpixel.pixeldungeonunleashed.ResultDescriptions;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
-import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
 import com.watabou.utils.Random;
 
 public class Ooze extends Buff {

@@ -74,8 +74,11 @@ public class Burning extends Buff implements Hero.Doom {
 	public boolean act() {
 		
 		if (target.isAlive()) {
-			
-			target.damage( Random.Int( 1, 5 ), this );
+			// fire damage is scaled slightly with depth
+			// depth 1 (1-5) ==> depth 30 (4-15)
+			int minDmg = 1 + Dungeon.depth / 9;
+			int maxDmg = 5 + Dungeon.depth / 3;
+			target.damage( Random.Int( minDmg, maxDmg ), this );
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero) {
@@ -159,13 +162,10 @@ public class Burning extends Buff implements Hero.Doom {
 
 	@Override
 	public String desc() {
-		return "Few things are more distressing than being engulfed in flames.\n" +
-				"\n" +
+		return "Few things are more distressing than being engulfed in flames.\n\n" +
 				"Fire will deal damage every turn until it is put out by water, expires, or it is resisted. " +
-				"Fire can be extinquished by stepping into water, or from the splash of a shattering potion. \n" +
-				"\n" +
-				"Additionally, the fire may ignite flammable terrain or items that it comes into contact with.\n" +
-				"\n" +
+				"Fire can be extinquished by stepping into water, or from the splash of a shattering potion. \n\n" +
+				"Additionally, the fire may ignite flammable terrain or items that it comes into contact with.\n\n" +
 				"The burning will last for " + dispTurns(left) + ", or until it is resisted or extinquished.";
 	}
 

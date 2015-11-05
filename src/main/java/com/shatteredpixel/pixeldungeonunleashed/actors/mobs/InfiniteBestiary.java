@@ -124,7 +124,7 @@ public class InfiniteBestiary {
                     case 0:  return Zombie.class;
                     case 1:  return Skeleton.class;
                     case 2:  return Wraith.class;
-                    case 3:  return Warlock.class;
+                    case 3:  return Undead.class;
                     default: return LostSoul.class;
                 }
             case THEME_NATURAL:
@@ -187,7 +187,7 @@ public class InfiniteBestiary {
                switch (mobChoice) {
                    case 0:  return Zombie.class;
                    case 1:  return Skeleton.class;
-                   case 2:  return Bat.class;
+                   case 2:  return Larva.class;
                    case 3:  return Succubus.class;
                    default: return Warlock.class;
                }

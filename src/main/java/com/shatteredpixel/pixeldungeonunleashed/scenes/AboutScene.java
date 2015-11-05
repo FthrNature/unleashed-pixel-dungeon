@@ -46,7 +46,6 @@ public class AboutScene extends PixelScene {
 			"and the Original Pixel Dungeon by Watabou.";
 
 	private static final String LNK_UNLSH = "father-natures.blogspot.com";
-	private static final String LNK_SHPX = "ShatteredPixel.com";
 
 
 	private static final String TTL_WATA = "Original Pixel Dungeon";

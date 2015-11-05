@@ -229,7 +229,7 @@ public class StartScene extends PixelScene {
 		unlock = new Group();
 		add( unlock );
 
-		if (!(huntressUnlocked = Badges.isUnlocked( Badges.Badge.BOSS_SLAIN_3 ))) {
+		if (!(huntressUnlocked = (Badges.isUnlocked( Badges.Badge.BOSS_SLAIN_3 )  || Badges.isUnlocked(Badges.Badge.BETA_TESTER)))) {
 
 			BitmapTextMultiline text = PixelScene.createMultiline( TXT_UNLOCK, 9 );
 			text.maxWidth = (int)width;

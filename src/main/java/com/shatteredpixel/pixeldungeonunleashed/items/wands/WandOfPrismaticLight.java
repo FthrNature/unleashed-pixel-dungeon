@@ -66,18 +66,19 @@ public class WandOfPrismaticLight extends Wand {
 			//Any Location
 			Mimic.class, Wraith.class,
 			//Sewers
-			Ghost.FetidRat.class,
+			FetidRat.class,
 			Goo.class,
 			//Prison
 			Skeleton.class , Thief.class, Bandit.class,
 			//Caves
+			Tinkerer.class,
 
 			//City
-			Warlock.class, Monk.class, Senior.class,
-			King.class, King.Undead.class,
+			Warlock.class, Monk.class, Senior.class, Minotaur.class,
+			King.class, Undead.class,
 			//Halls
-			Succubus.class, Eye.class, Scorpio.class, Acidic.class,
-			Yog.class, Yog.RottingFist.class, Yog.BurningFist.class, Yog.Larva.class
+			Succubus.class, Eye.class, Scorpio.class, Acidic.class, ChaosMage.class,
+			Yog.class, RottingFist.class, BurningFist.class, Larva.class
 	));
 
 	@Override

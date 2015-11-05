@@ -20,7 +20,6 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.actors.buffs;
 
-import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
 
 public class Bless extends FlavourBuff {

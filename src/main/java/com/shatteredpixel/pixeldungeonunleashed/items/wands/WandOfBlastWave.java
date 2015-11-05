@@ -29,6 +29,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Paralysis;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Golem;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.King;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.RottingFist;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Yog;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Effects;
 import com.shatteredpixel.pixeldungeonunleashed.effects.MagicMissile;
@@ -105,7 +106,7 @@ public class WandOfBlastWave extends Wand {
 		int dist = Math.min(trajectory.dist, power);
 
 		//FIXME: sloppy
-		if ((ch instanceof King) || (ch instanceof Golem) || (ch instanceof Yog.RottingFist))
+		if ((ch instanceof King) || (ch instanceof Golem) || (ch instanceof RottingFist))
 			dist /= 2;
 
 		if (dist == 0 || ch instanceof Yog) return;

@@ -22,6 +22,7 @@ package com.shatteredpixel.pixeldungeonunleashed.actors.buffs;
 
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.CharSprite;
@@ -38,6 +39,9 @@ public class Invisibility extends FlavourBuff {
 	@Override
 	public boolean attachTo( Char target ) {
 		if (super.attachTo( target )) {
+			if (target instanceof Mob) {
+				((Mob) target).defenseSkill += 20;
+			}
 			target.invisible++;
 			return true;
 		} else {
@@ -49,6 +53,9 @@ public class Invisibility extends FlavourBuff {
 	public void detach() {
 		if (target.invisible > 0)
 			target.invisible--;
+		if (target instanceof Mob) {
+			((Mob) target).defenseSkill -= 20;
+		}
 		super.detach();
 	}
 	

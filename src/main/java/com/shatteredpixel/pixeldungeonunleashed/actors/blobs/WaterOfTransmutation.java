@@ -214,14 +214,14 @@ public class WaterOfTransmutation extends WellWater {
 	}
 	
 	private Potion changePotion( Potion p ) {
-		if (p instanceof PotionOfStrength) {
-			
-			return new PotionOfMight();
-			
-		} else if (p instanceof PotionOfMight) {
+		if (p instanceof PotionOfMight) {
 			
 			return new PotionOfStrength();
 			
+		} else if (p instanceof PotionOfStrength) {
+
+			return new PotionOfMight();
+
 		} else {
 			
 			Potion n;

@@ -182,7 +182,7 @@ public class CityBossLevel extends Level {
 			seal();
 			
 			King boss = new King();
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
 				boss.infiniteScaleMob(Dungeon.depth + 5);
 			} else {
 				boss.scaleMob();

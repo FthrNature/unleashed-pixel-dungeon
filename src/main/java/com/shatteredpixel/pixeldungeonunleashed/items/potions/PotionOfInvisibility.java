@@ -20,6 +20,8 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.items.potions;
 
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
@@ -37,7 +39,19 @@ public class PotionOfInvisibility extends Potion {
 		name = "Potion of Invisibility";
 		initials = "In";
 	}
-	
+
+	@Override
+	public void shatter( int cell ) {
+		for (Mob mob : Dungeon.level.mobs) {
+			if (mob.pos == cell) {
+				Buff.affect(mob, Invisibility.class, Invisibility.DURATION);
+				GLog.w("The " + mob.description() + " fades from view!");
+			}
+		}
+
+		super.shatter(cell);
+	}
+
 	@Override
 	public void apply( Hero hero ) {
 		setKnown();

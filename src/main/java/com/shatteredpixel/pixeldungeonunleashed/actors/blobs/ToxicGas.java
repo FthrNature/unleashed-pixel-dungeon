@@ -29,7 +29,6 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
 import com.shatteredpixel.pixeldungeonunleashed.effects.BlobEmitter;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Speck;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
-import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
 import com.watabou.utils.Random;
 
 public class ToxicGas extends Blob implements Hero.Doom {

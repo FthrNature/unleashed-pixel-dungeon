@@ -24,9 +24,6 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.effects.CellEmitter;
 import com.shatteredpixel.pixeldungeonunleashed.effects.particles.EarthParticle;
 import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
-import com.watabou.utils.Bundle;
-
-import java.util.HashSet;
 
 public class EarthImbue extends FlavourBuff {
 

@@ -316,14 +316,14 @@ public abstract class Level implements Bundlable {
 		
 		weakFloorCreated = false;
 		
-		adjustMapSize();
+		//adjustMapSize();
 
 		Collection<Bundlable> collection = bundle.getCollection( HEAPS );
 		for (Bundlable h : collection) {
 			Heap heap = (Heap)h;
-			if (resizingNeeded) {
-				heap.pos = adjustPos( heap.pos );
-			}
+			//if (resizingNeeded) {
+			//	heap.pos = adjustPos( heap.pos );
+			//}
 			if (!heap.isEmpty())
 				heaps.put( heap.pos, heap );
 		}
@@ -331,18 +331,18 @@ public abstract class Level implements Bundlable {
 		collection = bundle.getCollection( PLANTS );
 		for (Bundlable p : collection) {
 			Plant plant = (Plant)p;
-			if (resizingNeeded) {
-				plant.pos = adjustPos( plant.pos );
-			}
+			//if (resizingNeeded) {
+			//	plant.pos = adjustPos( plant.pos );
+			//}
 			plants.put( plant.pos, plant );
 		}
 
 		collection = bundle.getCollection( TRAPS );
 		for (Bundlable p : collection) {
 			Trap trap = (Trap)p;
-			if (resizingNeeded) {
-				trap.pos = adjustPos( trap.pos );
-			}
+			//if (resizingNeeded) {
+			//	trap.pos = adjustPos( trap.pos );
+			//}
 			traps.put( trap.pos, trap );
 		}
 		
@@ -350,13 +350,13 @@ public abstract class Level implements Bundlable {
 		for (Bundlable m : collection) {
 			Mob mob = (Mob)m;
 			if (mob != null) {
-				if (resizingNeeded) {
-					mob.pos = adjustPos( mob.pos );
-				}
+				//if (resizingNeeded) {
+				//	mob.pos = adjustPos( mob.pos );
+				//}
 				mobs.add( mob );
 			}
 		}
-		
+
 		collection = bundle.getCollection( BLOBS );
 		for (Bundlable b : collection) {
 			Blob blob = (Blob)b;
@@ -395,9 +395,11 @@ public abstract class Level implements Bundlable {
 	private void adjustMapSize() {
 		// For levels saved before 1.6.3
 		// Seeing as shattered started on 1.7.1 this is never used, but the code may be resused in future.
+
+		/*
 		if (map.length < LENGTH) {
 			
-			resizingNeeded = true;
+			resizingNeeded = false; // true;
 			loadedMapSize = (int)Math.sqrt( map.length );
 			
 			int[] map = new int[LENGTH];
@@ -424,6 +426,7 @@ public abstract class Level implements Bundlable {
 		} else {
 			resizingNeeded = false;
 		}
+		*/
 	}
 	
 	public int adjustPos( int pos ) {
@@ -745,13 +748,13 @@ public abstract class Level implements Bundlable {
 		plant = seed.couch( pos );
 		plants.put( pos, plant );
 		
-		GameScene.add( plant );
+		GameScene.add(plant);
 		
 		return plant;
 	}
 	
 	public void uproot( int pos ) {
-		plants.delete( pos );
+		plants.delete(pos);
 	}
 
 	public Trap setTrap( Trap trap, int pos ){
@@ -768,7 +771,7 @@ public abstract class Level implements Bundlable {
 	}
 
 	public void discover( int cell ) {
-		set( cell, Terrain.discover( map[cell] ) );
+		set(cell, Terrain.discover(map[cell]));
 		Trap trap = traps.get( cell );
 		if (trap != null)
 			trap.reveal();
@@ -896,7 +899,7 @@ public abstract class Level implements Bundlable {
 		if (sighted) {
 			ShadowCaster.castShadow( cx, cy, fieldOfView, c.viewDistance );
 		} else {
-			Arrays.fill( fieldOfView, false );
+			Arrays.fill(fieldOfView, false);
 		}
 		
 		int sense = 1;
@@ -1120,5 +1123,13 @@ public abstract class Level implements Bundlable {
 			if (map[n] == targetTerrain) return true;
 		}
 		return false;
+	}
+
+	public int findAdjacent(int pos, int targetTerrain) {
+		for (int j=0; j < NEIGHBOURS9.length; j++) {
+			int n = pos + NEIGHBOURS9[j];
+			if (map[n] == targetTerrain) return n;
+		}
+		return 0;
 	}
 }

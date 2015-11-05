@@ -26,9 +26,14 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Amok;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Corruption;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.BurningFist;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.DM300;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.FetidRat;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.GnollTrickster;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Goo;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.GreatCrab;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.King;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.RottingFist;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Tengu;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Yog;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Ghost;
@@ -54,9 +59,9 @@ public class WandOfCorruption extends Wand {
 
 	//FIXME: sloppy
 	private static HashSet<Class> bosses = new HashSet<Class>(Arrays.asList(
-			Ghost.FetidRat.class, Ghost.GnollTrickster.class, Ghost.GreatCrab.class,
+			FetidRat.class, GnollTrickster.class, GreatCrab.class,
 			Goo.class, Tengu.class, DM300.class, King.class,
-			Yog.class, Yog.BurningFist.class, Yog.RottingFist.class
+			Yog.class, BurningFist.class, RottingFist.class
 	));
 
 	@Override

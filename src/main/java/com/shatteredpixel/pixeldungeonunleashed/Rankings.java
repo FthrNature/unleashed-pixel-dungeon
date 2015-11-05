@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.watabou.noosa.Game;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
@@ -108,6 +107,9 @@ public enum Rankings {
 	private int score( boolean win ) {
 		int scoreMult = 100;
 		switch (Dungeon.difficultyLevel) {
+			case Dungeon.DIFF_TEST:
+				scoreMult = 10;
+				break;
 			case Dungeon.DIFF_TUTOR:
 			case Dungeon.DIFF_EASY:
 				scoreMult = 50;
@@ -148,7 +150,7 @@ public enum Rankings {
 			return;
 		}
 		
-		records = new ArrayList<Rankings.Record>();
+		records = new ArrayList<>();
 		
 		try {
 			InputStream input = Game.instance.openFileInput( RANKINGS_FILE );

@@ -98,7 +98,11 @@ public class TomeOfMastery extends Item {
 				GLog.w( "You learn more about being a %s!", Utils.capitalize( hero.subClass.title() ) );
 				hero.earnExp(hero.maxExp());
 
-				detach(curUser.belongings.backpack);
+				try { // investigate this a bit deeper...
+					this.detach(curUser.belongings.backpack);
+				} catch (Exception e) {
+
+				}
 				curUser.spend(TomeOfMastery.TIME_TO_READ);
 				curUser.busy();
 

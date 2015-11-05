@@ -24,6 +24,7 @@
 
 package com.shatteredpixel.pixeldungeonunleashed.levels.painters;
 
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Donations;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Room;

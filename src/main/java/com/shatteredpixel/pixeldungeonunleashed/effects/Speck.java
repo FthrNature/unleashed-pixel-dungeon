@@ -227,7 +227,7 @@ public class Speck extends Image {
 			scale.set( Random.Float( 1, 2 ) );
 			speed.set( 0, 64 );
 			lifespan = 0.2f;
-			y -= speed.y * lifespan;
+			y -= speed.y * lifespan; // DSM-xxxx look into this one...
 			break;
 			
 		case NOTE:
@@ -394,7 +394,7 @@ public class Speck extends Image {
 				break;
 				
 			case CHANGE:
-				am = (float)FloatMath.sqrt( (p < 0.5f ? p : 1 - p) * 2);
+				am = FloatMath.sqrt( (p < 0.5f ? p : 1 - p) * 2);
 				scale.y = (1 + p) * 0.5f;
 				scale.x = scale.y * FloatMath.cos( left * 15 );
 				break;

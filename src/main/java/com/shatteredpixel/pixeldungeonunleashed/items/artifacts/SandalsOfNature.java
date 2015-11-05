@@ -64,7 +64,7 @@ public class SandalsOfNature extends Artifact {
 	protected String inventoryTitle = "Select a seed";
 	protected WndBag.Mode mode = WndBag.Mode.SEED;
 
-	public ArrayList<String> seeds = new ArrayList<String>();
+	public ArrayList<String> seeds = new ArrayList<>();
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {

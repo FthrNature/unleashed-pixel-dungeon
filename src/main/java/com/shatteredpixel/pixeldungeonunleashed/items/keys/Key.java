@@ -21,7 +21,6 @@
 package com.shatteredpixel.pixeldungeonunleashed.items.keys;
 
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
-import com.shatteredpixel.pixeldungeonunleashed.items.bags.Bag;
 import com.watabou.utils.Bundle;
 
 public class Key extends Item {

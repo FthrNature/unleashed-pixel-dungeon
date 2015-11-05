@@ -75,15 +75,15 @@ public class WandOfTransfusion extends Wand {
 			//Any Location
 			Wraith.class,
 			//Sewers
-			Ghost.FetidRat.class,
+			FetidRat.class,
 			//Prison
 			Skeleton.class,
 			//City
 			Warlock.class, Monk.class, Senior.class,
-			King.class, King.Undead.class,
+			King.class, Undead.class,
 			//Halls
 			Succubus.class,
-			Yog.RottingFist.class
+			RottingFist.class
 	));
 
 	@Override

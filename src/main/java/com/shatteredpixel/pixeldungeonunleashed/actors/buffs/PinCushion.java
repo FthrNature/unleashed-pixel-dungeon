@@ -27,11 +27,10 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 public class PinCushion extends Buff {
 
-	private ArrayList<MissileWeapon> items = new ArrayList<MissileWeapon>();
+	private ArrayList<MissileWeapon> items = new ArrayList<>();
 
 	public void stick(MissileWeapon item){
 		items.add(item);
@@ -54,7 +53,7 @@ public class PinCushion extends Buff {
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
-		items = new ArrayList<MissileWeapon>((Collection<MissileWeapon>)((Collection<?>)bundle.getCollection( ITEMS )));
+		items = new ArrayList<>((Collection<MissileWeapon>)((Collection<?>)bundle.getCollection( ITEMS )));
 		super.restoreFromBundle( bundle );
 	}
 }

@@ -12,7 +12,8 @@ import com.watabou.utils.Bundle;
 
 public class MessageSpot extends Blob {
     public enum myMessage { NONE, FIRST_SIGN, FIRST_EXIT, FIRST_MOB, TACTICS_TIP, FIRST_FOOD, FIRST_TRAP,
-        FIRST_LOCKED, FIRST_BOSS, GARDEN_ROOM, ALTAR_ROOM, WELL_TRANSMUTE, WELL_HEALTH, WELL_AWARENESS };
+        FIRST_LOCKED, FIRST_BOSS, GARDEN_ROOM, ALTAR_ROOM, WELL_TRANSMUTE, WELL_HEALTH, WELL_AWARENESS }
+
     public myMessage messageType = myMessage.NONE;
     protected int pos;  // this blobs position on the dungeon map
 

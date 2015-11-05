@@ -115,16 +115,13 @@ public class LoadSaveScene extends PixelScene {
                 saveInstructions = "Games may not be saved in Nightmare mode.";
                 break;
             case Dungeon.DIFF_ENDLESS:
-            case Dungeon.DIFF_TEST:
-
-
                 diffLevel = "ENDLESS";
                 saveInstructions = "Games may not be saved in Endless mode.";
                 break;
-            //case Dungeon.DIFF_TEST:
-            //    diffLevel = "TEST";
-            //    saveInstructions = "In Test mode you may save anywhere.";
-            //    break;
+            case Dungeon.DIFF_TEST:
+                diffLevel = "TEST";
+                saveInstructions = "In Test mode you may save anywhere.";
+                break;
             default:
                 diffLevel = "NORMAL";
                 saveInstructions = "In Normal mode you may save at level entrance signs.";
@@ -177,7 +174,7 @@ public class LoadSaveScene extends PixelScene {
 
             // add the save button..
             if (Dungeon.hero.isAlive() &&
-                    (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) ||
+                    (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) || (Dungeon.difficultyLevel <= Dungeon.DIFF_TEST) ||
                     (Dungeon.difficultyLevel == Dungeon.DIFF_NORM &&
                             Dungeon.level.isAdjacentTo(Dungeon.hero.pos, Terrain.SIGN)) ||
                     (Dungeon.difficultyLevel == Dungeon.DIFF_HARD &&

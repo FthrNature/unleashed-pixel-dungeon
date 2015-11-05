@@ -26,8 +26,6 @@ import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
-import java.util.HashSet;
-
 public class ToxicImbue extends Buff {
 
 	public static final float DURATION	= 30f;
@@ -51,7 +49,7 @@ public class ToxicImbue extends Buff {
 
 	public void set( float duration ) {
 		this.left = duration;
-	};
+	}
 
 
 	@Override

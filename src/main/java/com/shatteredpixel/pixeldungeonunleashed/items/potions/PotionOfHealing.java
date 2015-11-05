@@ -27,6 +27,7 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Cripple;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Poison;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Weakness;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Speck;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 
@@ -38,6 +39,19 @@ public class PotionOfHealing extends Potion {
 
 		bones = true;
 	}
+
+	@Override
+	public void shatter( int cell ) {
+		for (Mob mob : Dungeon.level.mobs) {
+			if (mob.pos == cell) {
+				mob.HP = mob.HT;
+				GLog.w("The " + mob.description() + " is healed!");
+			}
+		}
+
+		super.shatter(cell);
+	}
+
 	
 	@Override
 	public void apply( Hero hero ) {

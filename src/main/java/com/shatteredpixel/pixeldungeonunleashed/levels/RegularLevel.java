@@ -260,11 +260,10 @@ public abstract class RegularLevel extends Level {
 					} else if (Dungeon.depth >= Dungeon.altarLevel && specials.contains( Type.ALTAR )) {
 
 						r.type = Type.ALTAR;
-						Dungeon.altarLevel = Dungeon.depth + Random.IntRange(3,5); // no more altars for at least a few levels
+						Dungeon.altarLevel = Dungeon.depth + Random.IntRange(3, 5); // no more altars for at least a few levels
 						if (Dungeon.difficultyLevel > Dungeon.DIFF_NORM) {
 							Dungeon.altarLevel += 1;
 						}
-
 					} else {
 
 							int n = specials.size();

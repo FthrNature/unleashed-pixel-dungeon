@@ -20,11 +20,8 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.mechanics;
 
-import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
-import com.shatteredpixel.pixeldungeonunleashed.levels.Terrain;
-import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 
 import java.util.ArrayList;
 import java.util.List;

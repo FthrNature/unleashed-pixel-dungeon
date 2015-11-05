@@ -84,7 +84,87 @@ public class WndInfoItem extends Window {
 				info = TXT_WONT_KNOW;
 			} else if (heap.type == Type.TOMB) {
 				title = TTL_TOMB;
-				info = TXT_OWNER;
+				int thisTomb = heap.pos % 25;
+				switch (thisTomb) {
+					case 0:
+						info = "'Gnoll Trickster, humanitarian, hero... left behind wife and 12 children.'\n\n" + TXT_OWNER;
+						break;
+					case 1:
+						info = "'Here lies Fred, once a hero, now he's dead'\n\n" + TXT_OWNER;
+						break;
+					case 2:
+						info = "'Jokes over. Let me out now!'\n\n" + TXT_OWNER;
+						break;
+					case 3:
+						info = "'Here lies Bob, he died from not forwarding that text message to 10 people.'\n\n" + TXT_OWNER;
+						break;
+					case 4:
+						info = "'Here lies Tom, he loved bacon.  Oh, and his wife and kids too.'\n\n" + TXT_OWNER;
+						break;
+					case 5:
+						info = "'Here lies my husband Tom, now I know where he is every night.'\n\n" + TXT_OWNER;
+						break;
+					case 6:
+						info = "'I told you I was sick!'\n\n" + TXT_OWNER;
+						break;
+					case 7:
+						info = "'Here lies Carl.  The second fastest draw in the west.'\n\n" + TXT_OWNER;
+						break;
+					case 8:
+						info = "'Here lies Rick, he forgot to use the door trick.'\n\n" + TXT_OWNER;
+						break;
+					case 9:
+						info = "'This was not in my job description'\n\n" + TXT_OWNER;
+						break;
+					case 10:
+						info = "'Here lies mister Jones, he should have paid off those Mafia loans.'\n\n" + TXT_OWNER;
+						break;
+					case 11:
+						info = "'I made some good deals and I made some bad ones.  I really went in the hole with this one.'\n\n" + TXT_OWNER;
+						break;
+					case 12:
+						info = "'Those weren't goldfish'\n\n" + TXT_OWNER;
+						break;
+					case 13:
+						info = "'That was not a potion of healing.'\n\n" + TXT_OWNER;
+						break;
+					case 14:
+						info = "'I came here without being consulted and I leave without my consent.'\n\n" + TXT_OWNER;
+						break;
+					case 15:
+						info = "'DM-299 died doing what he loved.  Killing humans.'\n\n" + TXT_OWNER;
+						break;
+					case 16:
+						info = "'Here lies Magda.  If you are reading this I must be dead.'\n\n" + TXT_OWNER;
+						break;
+					case 17:
+						info = "'... well this sucks.'\n\n" + TXT_OWNER;
+						break;
+					case 18:
+						info = "'Waldo'\n\n" + TXT_OWNER;
+						break;
+					case 19:
+						info = "'but it was just a flesh wound.'\n\n" + TXT_OWNER;
+						break;
+					case 20:
+						info = "'Let me out now!'\n\n" + TXT_OWNER;
+						break;
+					case 21:
+						info = "'Yul B. Next'\n\n" + TXT_OWNER;
+						break;
+					case 22:
+						info = "'He died like he lived, screaming and crying in the corner.'\n\n" + TXT_OWNER;
+						break;
+					case 23:
+						info = "'Barry A. Live - here he lies, but he never died!'\n\n" + TXT_OWNER;
+						break;
+					case 24:
+						info = "'That potion of levitation didn't last as long as I'd like it to.'\n\n" + TXT_OWNER;
+						break;
+					default:
+						info = TXT_OWNER;
+						break;
+				}
 			} else if (heap.type == Type.SKELETON) {
 				title = TTL_SKELETON;
 				info = TXT_SKELETON;

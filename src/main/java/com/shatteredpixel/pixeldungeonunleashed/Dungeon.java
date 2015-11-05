@@ -213,7 +213,6 @@ public class Dungeon {
 
 		switch (difficultyLevel) {
 			case DIFF_ENDLESS:
-			case DIFF_TEST:
 				transmutation = Random.IntRange( 6, 14 );
 				altarLevel = 5;
 				break;
@@ -230,6 +229,7 @@ public class Dungeon {
 				transmutation = Random.IntRange( 6, 15 );
 				altarLevel = Random.IntRange(3, 6);
 				break;
+			case DIFF_TEST:
 			case DIFF_NORM:
 			default:
 				transmutation = Random.IntRange( 6, 14 );
@@ -278,7 +278,7 @@ public class Dungeon {
 		Arrays.fill( visible, false );
 		Level level;
 
-		if (difficultyLevel == DIFF_ENDLESS || difficultyLevel == DIFF_TEST) {
+		if (difficultyLevel == DIFF_ENDLESS) {
 			if ((depth % 10) == 0) {
 				// time for a new boss level
 				switch (Random.Int(10)) {
@@ -303,7 +303,7 @@ public class Dungeon {
 						level = new HallsBossLevel();
 						break;
 				}
-			} else if (Random.Int(3) == 0 && (depth % 10 == 3 || depth % 10 == 4 || depth % 10 == 7 || depth % 10 == 8)) {
+			} else if (Random.Int(4) == 0 && (depth % 10 == 3 || depth % 10 == 5 || depth % 10 == 7 || depth % 10 == 8)) {
 				level = new InfiniteOpenLevel();
 			} else {
 				level = new InfiniteLevel();
@@ -330,7 +330,7 @@ public class Dungeon {
 				case 8:
 				case 9:
 				case 10:
-					if (specialLevel(depth) && Random.Int(3) == 0) {
+					if (specialLevel(depth) && Random.Int(5) == 0) {
 						level = new OpenLevel();
 					} else {
 						level = new PrisonLevel();
@@ -347,7 +347,7 @@ public class Dungeon {
 				case 15:
 				case 16:
 				case 17:
-					if (specialLevel(depth) && Random.Int(3) == 0) {
+					if (specialLevel(depth) && Random.Int(4) == 0) {
 						level = new OpenLevel();
 					} else {
 						level = new CavesLevel();
@@ -361,7 +361,7 @@ public class Dungeon {
 				case 21:
 				case 22:
 				case 23:
-					if (specialLevel(depth) && Random.Int(3) == 0) {
+					if (specialLevel(depth) && Random.Int(4) == 0) {
 						level = new OpenLevel();
 					} else {
 						level = new CityLevel();
@@ -377,7 +377,7 @@ public class Dungeon {
 				case 27:
 				case 28:
 				case 29:
-					if (specialLevel(depth) && Random.Int(3) == 0) {
+					if (specialLevel(depth) && Random.Int(4) == 0) {
 						level = new OpenLevel();
 					} else {
 						level = new HallsLevel();
@@ -571,7 +571,7 @@ public class Dungeon {
 			bundle.put( GOLD, gold );
 			bundle.put(DEPTH, depth);
 
-			if (difficultyLevel == DIFF_ENDLESS || difficultyLevel == DIFF_TEST) {
+			if (difficultyLevel == DIFF_ENDLESS) {
 				bundle.put(LVLTHEME, InfiniteBestiary.currentTheme);
 			}
 
@@ -741,7 +741,7 @@ public class Dungeon {
 			gold = bundle.getInt(GOLD);
 			depth = bundle.getInt(DEPTH);
 
-			if (difficultyLevel == DIFF_ENDLESS || difficultyLevel == DIFF_TEST) {
+			if (difficultyLevel == DIFF_ENDLESS) {
 				if (bundle.contains(LVLTHEME)) {
 					InfiniteBestiary.currentTheme = bundle.getEnum(LVLTHEME, InfiniteBestiary.Themes.class);
 				} else {

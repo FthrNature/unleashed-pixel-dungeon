@@ -65,7 +65,7 @@ public class DM300 extends Mob {
 
 		loot = new CapeOfThorns().identify();
 		lootChance = 0.333f;
-		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
 			lootChance = 0.001f;
 		}
 	}
@@ -130,7 +130,7 @@ public class DM300 extends Mob {
 		
 		Badges.validateBossSlain();
 
-		if (Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS && Dungeon.difficultyLevel != Dungeon.DIFF_TEST) {
+		if (Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS) {
 			LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
 			if (beacon != null) {
 				beacon.upgrade();

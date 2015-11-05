@@ -231,9 +231,7 @@ public class InterlevelScene extends PixelScene {
 		}
 
 		Level level;
-		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
-			level = Dungeon.newLevel(); // DSM-xxxx hook into endless levels here...
-		} else if (Dungeon.depth >= Statistics.deepestFloor) {
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.depth >= Statistics.deepestFloor) {
 			level = Dungeon.newLevel();
 		} else {
 			Dungeon.depth++;
@@ -248,9 +246,7 @@ public class InterlevelScene extends PixelScene {
 		Dungeon.saveLevel();
 
 		Level level;
-		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
-			level = Dungeon.newLevel(); // DSM-xxxx hook into endless levels here...
-		} else if (Dungeon.depth >= Statistics.deepestFloor) {
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.depth >= Statistics.deepestFloor) {
 			level = Dungeon.newLevel();
 		} else {
 			Dungeon.depth++;
@@ -305,13 +301,8 @@ public class InterlevelScene extends PixelScene {
 		if (Dungeon.level.locked) {
 			Dungeon.hero.resurrect( Dungeon.depth );
 			Dungeon.depth--;
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
-				Level level = Dungeon.newLevel(); // DSM-xxxx hook into endless levels here...
-				Dungeon.switchLevel( level, level.entrance );
-			} else {
-				Level level = Dungeon.newLevel();
-				Dungeon.switchLevel( level, level.entrance );
-			}
+			Level level = Dungeon.newLevel();
+			Dungeon.switchLevel( level, level.entrance );
 		} else {
 			Dungeon.hero.resurrect( -1 );
 			Dungeon.resetLevel();

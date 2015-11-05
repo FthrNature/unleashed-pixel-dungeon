@@ -313,7 +313,7 @@ public class GameScene extends PixelScene {
 			Chasm.heroLand();
 			break;
 		case DESCEND:
-			if ((Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS) && (Dungeon.difficultyLevel != Dungeon.DIFF_TEST)) {
+			if (Dungeon.difficultyLevel != Dungeon.DIFF_ENDLESS) {
 				switch (Dungeon.depth) {
 					case 1:
 						if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {

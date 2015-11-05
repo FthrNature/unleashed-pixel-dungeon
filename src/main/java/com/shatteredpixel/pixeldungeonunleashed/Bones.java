@@ -26,7 +26,6 @@ import com.shatteredpixel.pixeldungeonunleashed.items.Gold;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.Artifact;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.pixeldungeonunleashed.ui.QuickSlotButton;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -98,7 +97,7 @@ public class Bones {
 
 			Iterator<Item> iterator = hero.belongings.backpack.iterator();
 			Item curItem;
-			ArrayList<Item> items = new ArrayList<Item>();
+			ArrayList<Item> items = new ArrayList<>();
 			while (iterator.hasNext()){
 				curItem = iterator.next();
 				if (curItem.bones)
@@ -172,14 +171,12 @@ public class Bones {
 				if (item.isUpgradable()) {
 					item.cursed = true;
 					item.cursedKnown = true;
-					if (item.isUpgradable()) {
-						//gain 1 level every 3.333 floors down plus one additional level.
-						int lvl = 1 + ((Dungeon.depth * 3) / 10);
-						if (lvl < item.level) {
-							item.degrade( item.level - lvl );
-						}
-						item.levelKnown = false;
+					//gain 1 level every 3.333 floors down plus one additional level.
+					int lvl = 1 + ((Dungeon.depth * 3) / 10);
+					if (lvl < item.level) {
+						item.degrade(item.level - lvl);
 					}
+					item.levelKnown = false;
 				}
 				
 				item.syncVisuals();

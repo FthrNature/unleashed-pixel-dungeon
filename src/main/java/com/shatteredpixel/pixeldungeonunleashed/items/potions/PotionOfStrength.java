@@ -21,7 +21,9 @@
 package com.shatteredpixel.pixeldungeonunleashed.items.potions;
 
 import com.shatteredpixel.pixeldungeonunleashed.Badges;
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.CharSprite;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 
@@ -33,7 +35,19 @@ public class PotionOfStrength extends Potion {
 
 		bones = true;
 	}
-	
+
+	@Override
+	public void shatter( int cell ) {
+		for (Mob mob : Dungeon.level.mobs) {
+			if (mob.pos == cell) {
+				mob.dmgMax += Dungeon.depth;
+				GLog.w("The " + mob.description() + " looks stronger!");
+			}
+		}
+
+		super.shatter(cell);
+	}
+
 	@Override
 	public void apply( Hero hero ) {
 		setKnown();

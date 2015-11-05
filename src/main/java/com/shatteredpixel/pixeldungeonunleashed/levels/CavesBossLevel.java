@@ -223,7 +223,7 @@ public class CavesBossLevel extends Level {
 			seal();
 			
 			DM300 boss = new DM300();
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
 				boss.infiniteScaleMob(Dungeon.depth + 5);
 			} else {
 				boss.scaleMob();

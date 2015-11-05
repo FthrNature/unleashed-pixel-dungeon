@@ -23,12 +23,11 @@ package com.shatteredpixel.pixeldungeonunleashed;
 import com.shatteredpixel.pixeldungeonunleashed.actors.hero.HeroClass;
 import com.watabou.utils.Bundle;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class GamesInProgress {
 
-	private static HashMap<HeroClass, Info> state = new HashMap<HeroClass, Info>();
+	private static HashMap<HeroClass, Info> state = new HashMap<>();
 	
 	public static Info check( HeroClass cl ) {
 		

@@ -1,11 +1,8 @@
 package com.shatteredpixel.pixeldungeonunleashed.sprites;
 
-import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.Dart;
-import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.watabou.noosa.TextureFilm;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
-import com.watabou.utils.Callback;
 
 public class SquidSprite extends MobSprite {
 

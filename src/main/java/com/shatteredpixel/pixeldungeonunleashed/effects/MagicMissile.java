@@ -186,7 +186,7 @@ public class MagicMissile extends Emitter {
 			@Override
 			public boolean lightMode() {
 				return true;
-			};
+			}
 		};
 		
 		public MagicParticle() {
@@ -257,7 +257,7 @@ public class MagicMissile extends Emitter {
 			@Override
 			public boolean lightMode() {
 				return true;
-			};
+			}
 		};
 		
 		public WhiteParticle() {
@@ -297,7 +297,7 @@ public class MagicMissile extends Emitter {
 			@Override
 			public boolean lightMode() {
 				return true;
-			};
+			}
 		};
 		
 		public SlowParticle() {
@@ -379,7 +379,7 @@ public class MagicMissile extends Emitter {
 			@Override
 			public boolean lightMode() {
 				return true;
-			};
+			}
 		};
 		
 		public ColdParticle() {

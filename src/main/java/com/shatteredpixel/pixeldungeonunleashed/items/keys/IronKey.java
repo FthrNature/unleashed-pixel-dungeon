@@ -21,7 +21,6 @@
 package com.shatteredpixel.pixeldungeonunleashed.items.keys;
 
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
-import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.bags.Bag;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.ItemSpriteSheet;
 import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;

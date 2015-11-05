@@ -28,15 +28,14 @@ public class ExitPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
 
-		fill( level, room, Terrain.WALL );
-		fill( level, room, 1, Terrain.EMPTY );
+		fill(level, room, Terrain.WALL);
+		fill(level, room, 1, Terrain.EMPTY);
 		
 		for (Room.Door door : room.connected.values()) {
 			door.set( Room.Door.Type.ARCHWAY );
 		}
 		
 		level.exit = room.random( 1 );
-		set( level, level.exit, Terrain.EXIT );
+		set(level, level.exit, Terrain.EXIT);
 	}
-	
 }

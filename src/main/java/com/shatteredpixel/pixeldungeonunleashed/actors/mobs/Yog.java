@@ -31,16 +31,12 @@ import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Blob;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Fire;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.ToxicGas;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Amok;
-import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Burning;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Charm;
-import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Ooze;
-import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Poison;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Sleep;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Terror;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Vertigo;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Pushing;
-import com.shatteredpixel.pixeldungeonunleashed.effects.particles.ShadowParticle;
 import com.shatteredpixel.pixeldungeonunleashed.items.keys.SkeletonKey;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfPsionicBlast;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Death;
@@ -49,8 +45,6 @@ import com.shatteredpixel.pixeldungeonunleashed.mechanics.Ballistica;
 import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.BurningFistSprite;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.CharSprite;
-import com.shatteredpixel.pixeldungeonunleashed.sprites.LarvaSprite;
-import com.shatteredpixel.pixeldungeonunleashed.sprites.RottingFistSprite;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.YogSprite;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
@@ -81,7 +75,7 @@ public class Yog extends Mob {
 	public void spawnFists() {
 		RottingFist fist1 = new RottingFist();
 		BurningFist fist2 = new BurningFist();
-		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+		if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
 			fist1.infiniteScaleMob(Dungeon.depth + 5);
 			fist2.infiniteScaleMob(Dungeon.depth + 5);
 		} else {
@@ -141,7 +135,7 @@ public class Yog extends Mob {
 		
 		if (spawnPoints.size() > 0) {
 			Larva larva = new Larva();
-			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS || Dungeon.difficultyLevel == Dungeon.DIFF_TEST) {
+			if (Dungeon.difficultyLevel == Dungeon.DIFF_ENDLESS) {
 				larva.infiniteScaleMob(Dungeon.depth + 5);
 			} else {
 				larva.scaleMob();
@@ -212,200 +206,5 @@ public class Yog extends Mob {
 	public HashSet<Class<?>> immunities() {
 		return IMMUNITIES;
 	}
-	
-	public static class RottingFist extends Mob {
-	
-		private static final int REGENERATION	= 4;
-		
-		{
-			name = "rotting fist";
-			spriteClass = RottingFistSprite.class;
-			
-			HP = HT = 300;
-			defenseSkill = 25;
-			atkSkill = 36;
-			dmgRed = 15;
-			dmgMin = 24;
-			dmgMax = 36;
 
-			EXP = 0;
-			
-			state = WANDERING;
-		}
-		
-		@Override
-		public int attackProc( Char enemy, int damage ) {
-			if (Random.Int( 3 ) == 0) {
-				Buff.affect( enemy, Ooze.class );
-				enemy.sprite.burst( 0xFF000000, 5 );
-			}
-			
-			return damage;
-		}
-		
-		@Override
-		public boolean act() {
-			
-			if (Level.water[pos] && HP < HT) {
-				sprite.emitter().burst( ShadowParticle.UP, 2 );
-				HP += REGENERATION;
-			}
-			
-			return super.act();
-		}
-		
-		@Override
-		public String description() {
-			return TXT_DESC;
-				
-		}
-		
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add( ToxicGas.class );
-			RESISTANCES.add( Death.class );
-			RESISTANCES.add( ScrollOfPsionicBlast.class );
-		}
-		
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-		
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add( Amok.class );
-			IMMUNITIES.add( Sleep.class );
-			IMMUNITIES.add( Terror.class );
-			IMMUNITIES.add( Poison.class );
-			IMMUNITIES.add( Vertigo.class );
-		}
-		
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
-	}
-	
-	public static class BurningFist extends Mob {
-		
-		{
-			name = "burning fist";
-			spriteClass = BurningFistSprite.class;
-			
-			HP = HT = 200;
-			atkSkill = 36;
-			defenseSkill = 25;
-			dmgRed = 15;
-			dmgMin = 20;
-			dmgMax = 32;
-			
-			EXP = 0;
-			
-			state = WANDERING;
-		}
-		
-		@Override
-		protected boolean canAttack( Char enemy ) {
-			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
-		}
-		
-		@Override
-		public boolean attack( Char enemy ) {
-			
-			if (!Level.adjacent( pos, enemy.pos )) {
-				spend( attackDelay() );
-				
-				if (hit( this, enemy, true )) {
-					
-					int dmg =  damageRoll();
-					enemy.damage( dmg, this );
-					
-					enemy.sprite.bloodBurstA( sprite.center(), dmg );
-					enemy.sprite.flash();
-					
-					if (!enemy.isAlive() && enemy == Dungeon.hero) {
-						Dungeon.fail( Utils.format( ResultDescriptions.UNIQUE, name ) );
-						GLog.n( TXT_KILL, name );
-					}
-					return true;
-					
-				} else {
-					
-					enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
-					return false;
-				}
-			} else {
-				return super.attack( enemy );
-			}
-		}
-		
-		@Override
-		public boolean act() {
-			
-			for (int i=0; i < Level.NEIGHBOURS9.length; i++) {
-				GameScene.add( Blob.seed( pos + Level.NEIGHBOURS9[i], 2, Fire.class ) );
-			}
-			
-			return super.act();
-		}
-		
-		@Override
-		public String description() {
-			return TXT_DESC;
-				
-		}
-		
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add( ToxicGas.class );
-			RESISTANCES.add( Death.class );
-
-		}
-		
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-		
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add( Amok.class );
-			IMMUNITIES.add( Sleep.class );
-			IMMUNITIES.add( Terror.class );
-			IMMUNITIES.add( Burning.class );
-			IMMUNITIES.add( ScrollOfPsionicBlast.class );
-			IMMUNITIES.add( Vertigo.class );
-		}
-		
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
-	}
-	
-	public static class Larva extends Mob {
-		
-		{
-			name = "god's larva";
-			spriteClass = LarvaSprite.class;
-			
-			HP = HT = 25;
-			defenseSkill = 20;
-			atkSkill = 30;
-			dmgRed = 8;
-			dmgMin = 15;
-			dmgMax = 20;
-			
-			EXP = 0;
-			
-			state = HUNTING;
-		}
-		
-		@Override
-		public String description() {
-			return TXT_DESC;
-				
-		}
-	}
 }

@@ -4,8 +4,15 @@ import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.BurningFist;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.ChaosMage;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.FetidRat;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.GnollTrickster;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.InfiniteBestiary;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Minotaur;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.RottingFist;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Tinkerer;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfWealth;
@@ -254,6 +261,38 @@ public class InfiniteOpenLevel extends Level {
             mob.pos = randomDestination();
             mobsToSpawn--;
             mobs.add(mob);
+        }
+
+        Mob miniBoss = null;
+        if (Dungeon.depth % 10 == 5) {
+            switch (Random.Int(7)) {
+                case 0:
+                    miniBoss = new BurningFist();
+                    break;
+                case 1:
+                    miniBoss = new RottingFist();
+                    break;
+                case 2:
+                    miniBoss = new GnollTrickster();
+                    break;
+                case 3:
+                    miniBoss = new FetidRat();
+                    break;
+                case 4:
+                    miniBoss = new Tinkerer();
+                    break;
+                case 5:
+                    miniBoss = new Minotaur();
+                    break;
+                default:
+                    miniBoss = new ChaosMage();
+                    break;
+            }
+            miniBoss.infiniteScaleMob(Dungeon.depth + 3);
+            do {
+                miniBoss.pos = randomRespawnCell();
+            } while (miniBoss.pos == -1);
+            mobs.add(miniBoss);
         }
     }
 

@@ -92,7 +92,7 @@ public class Generator {
 		Category.GOLD.probs = new float[]{ 1 };
 		
 		Category.SCROLL.classes = new Class<?>[]{
-			ScrollOfIdentify.class,       // 26
+			ScrollOfIdentify.class,       // 22
 			ScrollOfRemoveCurse.class,    // 15
 			ScrollOfRecharging.class,     // 15
 			ScrollOfMagicMapping.class,   // 15
@@ -105,10 +105,10 @@ public class Generator {
 			ScrollOfUpgrade.class,        //  0 - uses special drop table
 			ScrollOfMagicalInfusion.class //  0 - need special circumstances to get
 		};
-		Category.SCROLL.probs = new float[]{ 26, 15, 15, 15, 12, 10, 10, 8, 8, 4, 0, 0 };
+		Category.SCROLL.probs = new float[]{ 22, 15, 15, 15, 12, 10, 10, 8, 8, 4, 0, 0 };
 		
 		Category.POTION.classes = new Class<?>[]{
-			PotionOfHealing.class,        // 40
+			PotionOfHealing.class,        // 36
 			PotionOfMindVision.class,     // 20
 			PotionOfToxicGas.class,       // 15
 			PotionOfLiquidFlame.class,    // 15
@@ -123,7 +123,7 @@ public class Generator {
 			PotionOfStrength.class,       //  0 - uses special drop table
 			PotionOfMight.class           //  0 - need special circumstances to get
 		};
-		Category.POTION.probs = new float[]{ 40, 20, 15, 15, 12, 10, 10, 10, 10, 10, 10, 4, 0, 0 };
+		Category.POTION.probs = new float[]{ 36, 20, 15, 15, 12, 10, 10, 10, 10, 10, 10, 4, 0, 0 };
 
 		//TODO: add last ones when implemented
 		Category.WAND.classes = new Class<?>[]{

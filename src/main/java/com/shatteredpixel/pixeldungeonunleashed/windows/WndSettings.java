@@ -74,10 +74,10 @@ public class WndSettings extends Window {
 		super();
 		Badges.loadGlobal();
 
-		if (Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_4)) {
+		if (Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_4) || Badges.isUnlocked(Badges.Badge.BETA_TESTER)) {
 			endlessUnlocked = true;
 		}
-		if (Badges.isUnlocked(Badges.Badge.HAPPY_END)) {
+		if (Badges.isUnlocked(Badges.Badge.HAPPY_END) || Badges.isUnlocked(Badges.Badge.BETA_TESTER)) {
 			testUnlocked = true;
 		}
 		CheckBox btnImmersive = null;

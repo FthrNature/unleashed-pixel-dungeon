@@ -56,12 +56,11 @@ public class Boomerang extends MissileWeapon {
 	public Item upgrade( int n ) {
 		cursed = false;
 		cursedKnown = true;
+		STR = 10;
+		MIN = 1 + n;
+		MAX = 5 + (n * 2);
 		this.level = n;
 
-		for (int i = 0; i < n; i++) {
-			MIN += 1;
-			MAX += 2;
-		}
 		updateQuickslot();
 
 		return this;

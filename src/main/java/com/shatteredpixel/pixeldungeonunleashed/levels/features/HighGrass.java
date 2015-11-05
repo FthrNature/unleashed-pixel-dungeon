@@ -59,12 +59,12 @@ public class HighGrass {
 				unusualDrop = 80;
 				break;
 			case Dungeon.DIFF_NORM:
+			case Dungeon.DIFF_TEST:
 				naturalDrop = 18;
 				foodDrop = 80;
 				unusualDrop = 125;
 				break;
 			case Dungeon.DIFF_ENDLESS:
-			case Dungeon.DIFF_TEST:
 				naturalDrop = 20;
 				foodDrop = 100;
 				unusualDrop = 200;

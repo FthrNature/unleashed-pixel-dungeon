@@ -25,7 +25,6 @@ import com.shatteredpixel.pixeldungeonunleashed.ResultDescriptions;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Splash;
 import com.shatteredpixel.pixeldungeonunleashed.ui.BuffIndicator;
 import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
-import com.shatteredpixel.pixeldungeonunleashed.utils.Utils;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
@@ -55,7 +54,7 @@ public class Bleeding extends Buff {
 	
 	public void set( int level ) {
 		this.level = level;
-	};
+	}
 	
 	@Override
 	public int icon() {

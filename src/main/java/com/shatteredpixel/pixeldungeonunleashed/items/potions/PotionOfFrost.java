@@ -20,6 +20,8 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.items.potions;
 
+import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.EternalFlame;
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
@@ -40,9 +42,9 @@ public class PotionOfFrost extends Potion {
 	
 	@Override
 	public void shatter( int cell ) {
-		
+
 		PathFinder.buildDistanceMap( cell, BArray.not( Level.losBlocking, null ), DISTANCE );
-		
+
 		Fire fire = (Fire)Dungeon.level.blobs.get( Fire.class );
 
 		boolean visible = false;
@@ -50,6 +52,14 @@ public class PotionOfFrost extends Potion {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				visible = Freezing.affect( i, fire ) || visible;
 			}
+		}
+
+		EternalFlame eternalFlame = (EternalFlame)Dungeon.level.blobs.get( EternalFlame.class );
+		if (eternalFlame != null) {
+			if (eternalFlame.cur[cell] > 0) {
+				GLog.i("The potion extinguishes the magical flames");
+			}
+			eternalFlame.clear(cell);
 		}
 
 		if (visible) {
