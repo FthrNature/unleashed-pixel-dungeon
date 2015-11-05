@@ -17,8 +17,6 @@
 
 package com.watabou.utils;
 
-import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -75,11 +73,15 @@ public class Bundle {
 	public boolean contains( String key ) {
 		return !data.isNull( key );
 	}
-	
+
 	public boolean getBoolean( String key ) {
 		return data.optBoolean( key );
 	}
-	
+
+	public boolean getBoolean( String key, boolean defaultValue ) {
+		return data.optBoolean( key, defaultValue );
+	}
+
 	public int getInt( String key ) {
 		return data.optInt(key);
 	}
@@ -236,12 +238,9 @@ public class Bundle {
 			try {
 				Bundle bundle = new Bundle();
 				bundle.put( CLASS_NAME, object.getClass().getName() );
-				GLog.i("Bundle.put( " + key + ", " + object.toString());
 				object.storeInBundle( bundle );
-				GLog.i("data stored...");
 				data.put( key, bundle.data );
 			} catch (JSONException e) {
-				GLog.i(e.toString());
 			}
 		}
 	}

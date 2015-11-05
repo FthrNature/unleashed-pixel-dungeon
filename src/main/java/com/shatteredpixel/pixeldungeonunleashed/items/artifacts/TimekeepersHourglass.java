@@ -39,7 +39,6 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 
 public class TimekeepersHourglass extends Artifact {
-
 	private static final String TXT_HGLASS	= "Timekeeper's Hourglass";
 	private static final String TXT_STASIS	= "Put myself in stasis";
 	private static final String TXT_FREEZE	= "Freeze time around me";
@@ -308,11 +307,14 @@ public class TimekeepersHourglass extends Artifact {
 
 		@Override
 		public boolean attachTo(Char target) {
-			if (Dungeon.level != null)
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
-					mob.sprite.add(CharSprite.State.PARALYSED);
-			GameScene.freezeEmitters = true;
-			return super.attachTo(target);
+			if (target != null) {
+				if (Dungeon.level != null)
+					for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
+						mob.sprite.add(CharSprite.State.PARALYSED);
+				GameScene.freezeEmitters = true;
+				return super.attachTo(target);
+			}
+			return false;
 		}
 
 		@Override

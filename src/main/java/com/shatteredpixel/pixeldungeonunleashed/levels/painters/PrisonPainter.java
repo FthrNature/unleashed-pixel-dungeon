@@ -1,12 +1,6 @@
 /*
- * Pixel Dungeon
- * Copyright (C) 2012-2015  Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2015 Evan Debenham
- *
  * Unleashed Pixel Dungeon
- * Copyright (C) 2015 David Mitchell
+ * Copyright (C) 2015  David Mitchell
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
 package com.shatteredpixel.pixeldungeonunleashed.levels.painters;
 
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Gold;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
+import com.shatteredpixel.pixeldungeonunleashed.items.bags.AnkhChain;
 import com.shatteredpixel.pixeldungeonunleashed.items.keys.IronKey;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Room;
@@ -52,7 +46,7 @@ public class PrisonPainter extends Painter {
         ) ), remains).type = Heap.Type.SKELETON;
 
         // drop 1-3 additional skeletons in the room
-        int n = Random.IntRange( 2, 4 );
+        int n = Random.IntRange( 3, 4 );
         int pos = room.random();
         for (int i=0; i <= n; i++) {
             // keep looking til we find an empty spot for our skeleton
@@ -60,6 +54,14 @@ public class PrisonPainter extends Painter {
                 pos = room.random();
             }
             level.drop(new Gold().random(), pos).type = Heap.Type.SKELETON;
+        }
+
+        if (Random.Int(2)==0 && !Dungeon.limitedDrops.ankhChain.dropped()){
+            do {
+                pos = room.random();
+            } while (level.heaps.get(pos) != null);
+            level.drop(new AnkhChain(), pos);
+            Dungeon.limitedDrops.ankhChain.drop();
         }
 
         // lock the door and place the key somewhere on the level

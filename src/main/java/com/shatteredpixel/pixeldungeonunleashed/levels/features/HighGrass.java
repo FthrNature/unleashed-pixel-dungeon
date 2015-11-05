@@ -47,6 +47,7 @@ import com.watabou.utils.Random;
 public class HighGrass {
 
 	public static void trample( Level level, int pos, Char ch ) {
+		//the lower the number, the more likely you will receive a dropped item
 		int naturalDrop = 18;  // used for seed and dew drops
 		int foodDrop = 80;     // used for food, id scrolls and healing potions
 		int unusualDrop = 125; // used for scrolls, potions and rings
@@ -55,23 +56,17 @@ public class HighGrass {
 			case Dungeon.DIFF_TUTOR:
 			case Dungeon.DIFF_EASY:
 				naturalDrop = 16;
-				foodDrop = 22;
+				foodDrop = 30;
 				unusualDrop = 80;
-				break;
-			case Dungeon.DIFF_NORM:
-			case Dungeon.DIFF_TEST:
-				naturalDrop = 18;
-				foodDrop = 80;
-				unusualDrop = 125;
 				break;
 			case Dungeon.DIFF_ENDLESS:
 				naturalDrop = 20;
-				foodDrop = 100;
+				foodDrop = 110;
 				unusualDrop = 200;
 				break;
 			case Dungeon.DIFF_HARD:
 				naturalDrop = 24;
-				foodDrop = 125;
+				foodDrop = 130;
 				unusualDrop = 800;
 				break;
 			case Dungeon.DIFF_NTMARE:
@@ -79,10 +74,12 @@ public class HighGrass {
 				foodDrop = 300;
 				unusualDrop = 1200;
 				break;
+			case Dungeon.DIFF_NORM:
+			case Dungeon.DIFF_TEST:
 			default:
 				naturalDrop = 18;
-				foodDrop = 80;
-				unusualDrop = 125;
+				foodDrop = 100;
+				unusualDrop = 140;
 				break;
 		}
 		Level.set( pos, Terrain.GRASS );
@@ -174,7 +171,7 @@ public class HighGrass {
 		int leaves = 4;
 		
 		// Barkskin
-		if (ch instanceof Hero && ((Hero)ch).subClass == HeroSubClass.WARDEN) {
+		if (ch != null && ch instanceof Hero && ((Hero)ch).subClass == HeroSubClass.WARDEN) {
 			Buff.affect( ch, Barkskin.class ).level( ch.HT / 3 );
 			leaves = 8;
 		}

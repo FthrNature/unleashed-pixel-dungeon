@@ -70,4 +70,8 @@ public class Death extends Weapon.Enchantment {
 		return String.format( TXT_GRIM, weaponName );
 	}
 
+	@Override
+	public String enchDesc() {
+		return "Grim weapons can suck all of the life out of an enemy in one hit.";
+	}
 }

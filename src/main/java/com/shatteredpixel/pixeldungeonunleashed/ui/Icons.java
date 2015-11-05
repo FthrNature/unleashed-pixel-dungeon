@@ -56,7 +56,8 @@ public enum Icons {
 	EXIT,
 	CHALLENGE_OFF,
 	CHALLENGE_ON,
-	RESUME;
+	RESUME,
+    ANKH_CHAIN;
 
 	public Image get() {
 		return get( this );
@@ -157,6 +158,9 @@ public enum Icons {
 			break;
 		case RESUME:
 			icon.frame( icon.texture.uvRect( 13, 53, 24, 64 ) );
+			break;
+		case ANKH_CHAIN:
+			icon.frame(icon.texture.uvRect(65, 29, 75, 39));
 			break;
 		}
 		return icon;

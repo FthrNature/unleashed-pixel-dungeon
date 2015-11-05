@@ -50,9 +50,9 @@ public class WndWandmaker extends Window {
 		super();
 		
 		IconTitle titlebar = new IconTitle();
-		titlebar.icon( new ItemSprite( item.image(), null ) );
-		titlebar.label( Utils.capitalize( item.name() ) );
-		titlebar.setRect( 0, 0, WIDTH, 0 );
+		titlebar.icon(new ItemSprite(item.image(), null));
+		titlebar.label(Utils.capitalize(item.name()));
+		titlebar.setRect(0, 0, WIDTH, 0);
 		add( titlebar );
 		
 		BitmapTextMultiline message = PixelScene.createMultiline( TXT_MESSAGE, 6 );
@@ -60,7 +60,12 @@ public class WndWandmaker extends Window {
 		message.measure();
 		message.y = titlebar.bottom() + GAP;
 		add( message );
-		
+
+		// something went wrong during initialization, one more try to select our wands
+		if (Wandmaker.Quest.wand1 == null || Wandmaker.Quest.wand2 == null) {
+			Wandmaker.Quest.selectWands();
+		}
+
 		RedButton btnWand1 = new RedButton( Wandmaker.Quest.wand1.name() ) {
 			@Override
 			protected void onClick() {
@@ -103,3 +108,11 @@ public class WndWandmaker extends Window {
 		Wandmaker.Quest.complete();
 	}
 }
+/*
+	at com.shatteredpixel.pixeldungeonunleashed.windows.WndWandmaker.<init>(WndWandmaker.java:64)
+	at com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Wandmaker.interact(Wandmaker.java:123)
+	at com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero.actInteract(Hero.java:591)
+	at com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero.act(Hero.java:484)
+	at com.shatteredpixel.pixeldungeonunleashed.actors.hero.Hero.handle(Hero.java:1168)
+
+ */

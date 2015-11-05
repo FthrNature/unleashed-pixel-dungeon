@@ -189,6 +189,7 @@ public class Ghost extends NPC {
 				case 3:
 					if (Dungeon.level.feeling == Level.Feeling.BURNT) {
 						questBoss = new GnollTrickster();
+						Quest.type = 2;
 						txt_quest = Utils.format(TXT_GNOLL1, Dungeon.hero.givenName()); break;
 					} else {
 						questBoss = new GreatCrab();
@@ -345,6 +346,13 @@ public class Ghost extends NPC {
 		public static void process() {
 			if (spawned && given && !processed && (depth == Dungeon.depth)) {
 				GLog.n("sad ghost: Thank you... come find me...");
+
+				// make it easier on the Hero, tell the Ghost to try to find the Hero as well
+				for (Mob mob : Dungeon.level.mobs){
+					if (mob instanceof Ghost)
+						mob.beckon(Dungeon.hero.pos);
+					}
+
 				Sample.INSTANCE.play( Assets.SND_GHOST );
 				processed = true;
 				Generator.Category.ARTIFACT.probs[10] = 1; //flags the dried rose as spawnable.

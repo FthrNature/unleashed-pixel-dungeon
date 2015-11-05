@@ -115,7 +115,8 @@ public class Dungeon {
 		seedBag,
 		scrollBag,
 		potionBag,
-		wandBag;
+		wandBag,
+        ankhChain;
 
 		public int count = 0;
 
@@ -253,12 +254,12 @@ public class Dungeon {
 
 		StartScene.curClass.initHero( hero );
 
-		// remove in progress game files..
-		for(String fileName : Game.instance.fileList()){
-			if(fileName.startsWith("game_") || fileName.endsWith(".dat") && (fileName.startsWith(hero.heroClass.title()))){
-				Game.instance.deleteFile(fileName);
-			}
-		}
+		// remove in progress game files.. // DSM-xxxx this is what is destroying our Rankings scene
+		//for(String fileName : Game.instance.fileList()){
+		//	if(fileName.startsWith("game_") || fileName.endsWith(".dat") && (fileName.startsWith(hero.heroClass.title()))){
+		//		Game.instance.deleteFile(fileName);
+		//	}
+		//}
 	}
 
 	public static boolean isChallenged( int mask ) {
@@ -784,7 +785,7 @@ public class Dungeon {
 			GLog.i("Save File corrupt...\n\nthe gremlins have won this round!");
 		}
 	}
-	
+
 	public static Level loadLevel( HeroClass cl ) throws IOException {
 		Dungeon.level = null;
 		Actor.clear();

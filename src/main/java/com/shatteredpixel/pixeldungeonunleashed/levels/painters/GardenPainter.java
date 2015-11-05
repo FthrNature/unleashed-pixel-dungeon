@@ -23,6 +23,7 @@ package com.shatteredpixel.pixeldungeonunleashed.levels.painters;
 import com.shatteredpixel.pixeldungeonunleashed.Challenges;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Foliage;
+import com.shatteredpixel.pixeldungeonunleashed.items.bags.AnkhChain;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Room;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Terrain;
@@ -55,7 +56,7 @@ public class GardenPainter extends Painter {
 				level.plant(new BlandfruitBush.Seed(), room.random());
 			}
 		}
-		
+
 		Foliage light = (Foliage)level.blobs.get( Foliage.class );
 		if (light == null) {
 			light = new Foliage();

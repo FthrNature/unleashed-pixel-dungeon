@@ -24,6 +24,7 @@ import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.BitmapTextMultiline;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.ui.Button;
@@ -40,6 +41,8 @@ import com.shatteredpixel.pixeldungeonunleashed.ui.Window;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndError;
 import com.shatteredpixel.pixeldungeonunleashed.windows.WndRanking;
 import com.watabou.utils.GameMath;
+
+import java.io.File;
 
 public class RankingsScene extends PixelScene {
 	
@@ -179,9 +182,10 @@ public class RankingsScene extends PixelScene {
 		
 		public Record( int pos, boolean latest, Rankings.Record rec ) {
 			super();
-			
+
+            // <shield + position>   <description of how you died>     <depth/steps> <class/level>
 			this.rec = rec;
-			
+
 			if (latest) {
 				flare = new Flare( 6, 24 );
 				flare.angularSpeed = 90;
@@ -196,7 +200,6 @@ public class RankingsScene extends PixelScene {
 			position.measure();
 			
 			desc.text( rec.info ); // DSM-xxxx start debugging crashes around here...
-
 			desc.measure();
 
 			int odd = pos % 2;
@@ -238,23 +241,18 @@ public class RankingsScene extends PixelScene {
 			try {
 				super.createChildren();
 
+                // <shield + position>   <description of how you died>     <depth/steps> <class/level>
 				shield = new ItemSprite(ItemSpriteSheet.TOMB, null);
-				//add(shield);
-
 				position = new BitmapText(PixelScene.font1x);
 				position.alpha(0.8f);
-				//add(position);
 
 				desc = createMultiline(7);
-				//add( desc );
 
 				depth = new BitmapText(PixelScene.font1x);
 				depth.alpha(0.8f);
-
 				steps = new Image();
 
 				classIcon = new Image();
-
 
 				add(shield);
 				add(position);
@@ -270,28 +268,24 @@ public class RankingsScene extends PixelScene {
 		
 		@Override
 		protected void layout() {
-			
 			super.layout();
-			
-			shield.x = x;
+
+            // <shield + position>   <description of how you died>     <depth/steps> <class/level>
+            shield.x = x;
 			shield.y = y + (height - shield.height) / 2;
-			
 			position.x = align( shield.x + (shield.width - position.width()) / 2 );
 			position.y = align( shield.y + (shield.height - position.height()) / 2 + 1 );
-			
 			if (flare != null) {
 				flare.point( shield.center() );
 			}
 
 			classIcon.x = align(x + width - classIcon.width);
 			classIcon.y = shield.y;
-
 			level.x = align( classIcon.x + (classIcon.width - level.width()) / 2 );
 			level.y = align( classIcon.y + (classIcon.height - level.height()) / 2 + 1 );
 
 			steps.x = align(x + width - steps.width - classIcon.width);
 			steps.y = shield.y;
-
 			depth.x = align( steps.x + (steps.width - depth.width()) / 2 );
 			depth.y = align( steps.y + (steps.height - depth.height()) / 2 + 1 );
 
@@ -303,15 +297,15 @@ public class RankingsScene extends PixelScene {
 		
 		@Override
 		protected void onClick() {
-			// DSM-xxxx check if we are sending over the correct record here...
-			/*
-			if (rec.gameFile.length() > 0) {
-				GLog.i("Record: " + rec.gameFile);
-				parent.add( new WndRanking( rec.gameFile ) );
-			} else {
-				parent.add( new WndError( TXT_NO_INFO ) );
+			// DSM-xxxx - try this next part...
+			if (Game.instance.getFileStreamPath(rec.gameFile).exists()) {
+				if (rec.gameFile.length() > 0) {
+					GLog.i("Record: " + rec.gameFile);
+					parent.add(new WndRanking(rec.gameFile));
+				} else {
+					parent.add(new WndError(TXT_NO_INFO));
+				}
 			}
-			*/
 		}
 	}
 }

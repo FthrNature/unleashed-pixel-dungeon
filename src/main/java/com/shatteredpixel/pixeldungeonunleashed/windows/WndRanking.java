@@ -23,6 +23,7 @@ package com.shatteredpixel.pixeldungeonunleashed.windows;
 import java.util.Locale;
 
 
+import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
@@ -237,6 +238,7 @@ public class WndRanking extends WndTabbed {
 			} catch (Exception ex) {
 			    // something went wrong... null pointer exception
 				// back out to the previous screen
+				GLog.i(ex.toString());
 				hide();
 			}
 		}
@@ -298,6 +300,7 @@ public class WndRanking extends WndTabbed {
 				}
 			} catch (Exception ex) {
 				// something went very wrong here... nullPointer exception?
+				GLog.i(ex.toString());
 				hide();
 			}
 		}

@@ -198,10 +198,10 @@ public class Bestiary {
 			chances = new float[]{ 1 };
 			classes = new Class<?>[]{ Eye.class };
 		}
-		
+
 		return classes[ Random.chances( chances )];
 	}
-	
+
 	public static boolean isUnique( Char mob ) {
 		return mob instanceof Goo || mob instanceof Tengu || mob instanceof DM300 || mob instanceof King
 				|| mob instanceof BurningFist || mob instanceof RottingFist || mob instanceof FetidRat

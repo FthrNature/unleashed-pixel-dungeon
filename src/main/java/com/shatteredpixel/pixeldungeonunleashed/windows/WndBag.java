@@ -30,6 +30,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.EquipableItem;
 import com.shatteredpixel.pixeldungeonunleashed.items.Gold;
 import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.armor.Armor;
+import com.shatteredpixel.pixeldungeonunleashed.items.bags.AnkhChain;
 import com.shatteredpixel.pixeldungeonunleashed.items.bags.Bag;
 import com.shatteredpixel.pixeldungeonunleashed.items.bags.PotionBandolier;
 import com.shatteredpixel.pixeldungeonunleashed.items.bags.ScrollHolder;
@@ -130,7 +131,8 @@ public class WndBag extends WndTabbed {
 			stuff.getItem( SeedPouch.class ),
 			stuff.getItem( ScrollHolder.class ),
 			stuff.getItem( PotionBandolier.class ),
-			stuff.getItem( WandHolster.class )};
+			stuff.getItem( WandHolster.class ),
+            stuff.getItem( AnkhChain.class )};
 
 		for (Bag b : bags) {
 			if (b != null) {
@@ -284,6 +286,8 @@ public class WndBag extends WndTabbed {
 				return Icons.get( Icons.WAND_HOLSTER );
 			} else if (bag instanceof PotionBandolier) {
 				return Icons.get( Icons.POTION_BANDOLIER );
+			} else if (bag instanceof AnkhChain) {
+				return Icons.get(Icons.ANKH_CHAIN);
 			} else {
 				return Icons.get( Icons.BACKPACK );
 			}

@@ -29,29 +29,29 @@ import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.TomeOfMastery;
 import com.shatteredpixel.pixeldungeonunleashed.items.armor.ClothArmor;
 import com.shatteredpixel.pixeldungeonunleashed.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.pixeldungeonunleashed.items.bags.AnkhChain;
 import com.shatteredpixel.pixeldungeonunleashed.items.food.Food;
-import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfExperience;
-import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfFrost;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
-import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMight;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfMindVision;
-import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfSlowness;
-import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfSpeed;
-import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfStrength;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.Ring;
-import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfHaste;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfPsionicBlast;
+import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfPrismaticLight;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Holy;
+import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Hunting;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.Dagger;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.ShortSword;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.Dart;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.Boomerang;
+import com.shatteredpixel.pixeldungeonunleashed.plants.Blindweed;
 import com.watabou.utils.Bundle;
 
 public enum HeroClass {
@@ -155,12 +155,11 @@ public enum HeroClass {
 		hero.HT = 80;
 		hero.HP = 80;
 		// things we only want a few of..
-		Ring ring1 = (Ring) Generator.random(Generator.Category.RING);
-		ring1.collect();
-		Generator.random(Generator.Category.WAND).collect();
+		new WandOfPrismaticLight().collect();
 		for (int i = 0; i < 3; i++) {
-			new PotionOfSlowness().collect();
 			new PotionOfMight().collect();
+			new PotionOfMindVision().identify().collect();
+			new ScrollOfPsionicBlast().identify().collect();
 		}
 
 		// things we want a bunch of...
@@ -172,12 +171,15 @@ public enum HeroClass {
 			new ScrollOfUpgrade().collect();
 		}
 		try {
-			Weapon wpn2 = (Weapon) Generator.random(Generator.Category.WEAPON);
-			wpn2.upgrade(true);
-			wpn2.collect();
+			Weapon wpn = (Weapon) Generator.random(Generator.Category.MELEE);
+			wpn.enchant(Holy.class.newInstance()).collect();
+			Weapon wpn2 = (Weapon) Generator.random(Generator.Category.MELEE);
+			wpn2.enchant(Hunting.class.newInstance()).collect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		new ScrollOfRemoveCurse().collect();
+		new AnkhChain().collect();
 	}
 
 	public Badges.Badge masteryBadge() {

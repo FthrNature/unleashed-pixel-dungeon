@@ -146,7 +146,7 @@ public abstract class Scroll extends Item {
 				curUser = hero;
 				curItem = detach( hero.belongings.backpack );
 				doRead();
-				if ((Dungeon.hero.heroClass == HeroClass.WARRIOR) && (Random.Int(5) == 0)) {
+				if ((Dungeon.hero.heroClass == HeroClass.WARRIOR) && (Random.Int(8) == 0)) {
 					GLog.w("As a Warrior, deciphering the strange runes causes you pain");
 					switch (Dungeon.difficultyLevel) {
 						case Dungeon.DIFF_TUTOR:
@@ -154,13 +154,13 @@ public abstract class Scroll extends Item {
 							Dungeon.hero.damage(Random.Int(1,3), this);
 							break;
 						case Dungeon.DIFF_HARD:
-							Dungeon.hero.damage(Random.Int(2, (Dungeon.hero.HT / 6 + 3)), this);
+							Dungeon.hero.damage(Random.Int(2, (Dungeon.hero.HT / 8 + 3)), this);
 							break;
 						case Dungeon.DIFF_NTMARE:
-							Dungeon.hero.damage(Random.Int(2, (Dungeon.hero.HT / 4 + 3)), this);
+							Dungeon.hero.damage(Random.Int(2, (Dungeon.hero.HT / 5 + 3)), this);
 							break;
 						default:
-							Dungeon.hero.damage(Random.Int(1, (Dungeon.hero.HT / 10 + 3)), this);
+							Dungeon.hero.damage(Random.Int(1, (Dungeon.hero.HT / 12 + 3)), this);
 							break;
 					}
 					Sample.INSTANCE.play( Assets.SND_DEATH );

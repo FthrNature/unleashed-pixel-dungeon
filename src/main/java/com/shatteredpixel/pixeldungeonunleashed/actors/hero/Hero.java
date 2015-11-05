@@ -273,7 +273,7 @@ public class Hero extends Char {
 		exp = bundle.getInt( EXPERIENCE );
 		donatedLoot = bundle.getInt( DONATE );
 		
-		belongings.restoreFromBundle( bundle );
+		belongings.restoreFromBundle(bundle);
 	}
 	
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
@@ -342,17 +342,17 @@ public class Hero extends Char {
 		} else {
 			
 			if (heroClass == HeroClass.ROGUE) {
-				if (belongings.armor.STR > 14) {
+				if (belongings.armor != null && belongings.armor.STR > 14) {
 					return (int) ((defenseSkill - (aEnc * 4)) * evasion);
 				} else {
 					return (int) ((defenseSkill - (aEnc * 2)) * evasion);
 				}
-			} else if (heroClass == HeroClass.MAGE){
-				if (belongings.armor.STR > 14) {
-					return (int) ((defenseSkill - (aEnc * 4)) * evasion);
-				} else {
-					return (int) ((defenseSkill - aEnc) * evasion);
-				}
+			} else if (heroClass == HeroClass.MAGE) {
+					if (belongings.armor != null && belongings.armor.STR > 14) {
+						return (int) ((defenseSkill - (aEnc * 2)) * evasion);
+					} else {
+						return (int)(defenseSkill * evasion);
+					}
 			} else {
 				return (int)(defenseSkill * evasion);
 			}
@@ -451,7 +451,7 @@ public class Hero extends Char {
 		spend(time);
 		next();
 	}
-	
+
 	@Override
 	public boolean act() {
 		

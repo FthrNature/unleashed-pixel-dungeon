@@ -123,7 +123,7 @@ public class EtherealChains extends Artifact {
 							if (passThroughSolid) {
 								charge = 0;
 								Buff.affect(curUser, Vertigo.class);
-								Buff.prolong(curUser, Vertigo.class, 3);
+								Buff.prolong(curUser, Vertigo.class, 6);
 								GLog.w("that was unpleasant");
 							} else {
 								charge -= chargeUse;
@@ -167,7 +167,7 @@ public class EtherealChains extends Artifact {
 							if (passThroughSolid) {
 								charge = 0;
 								Buff.affect(curUser, Vertigo.class);
-								Buff.prolong(curUser, Vertigo.class, 4);
+								Buff.prolong(curUser, Vertigo.class, 8);
 								curUser.damage(Random.Int(1, (curUser.HT / 5)), this);
 								GLog.w("that was weird...");
 							} else {

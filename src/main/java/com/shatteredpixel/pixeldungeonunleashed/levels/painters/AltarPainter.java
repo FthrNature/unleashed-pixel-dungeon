@@ -1,12 +1,6 @@
 /*
- * Pixel Dungeon
- * Copyright (C) 2012-2015  Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2015 Evan Debenham
- *
  * Unleashed Pixel Dungeon
- * Copyright (C) 2015 David Mitchell
+ * Copyright (C) 2015  David Mitchell
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,10 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
 package com.shatteredpixel.pixeldungeonunleashed.levels.painters;
 
-import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.blobs.Donations;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Level;
 import com.shatteredpixel.pixeldungeonunleashed.levels.Room;

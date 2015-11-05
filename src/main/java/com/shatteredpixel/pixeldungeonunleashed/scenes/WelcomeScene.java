@@ -1,9 +1,6 @@
 /*
- * Pixel Dungeon
- * Copyright (C) 2012-2015  Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2015 Evan Debenham
+ * Unleashed Pixel Dungeon
+ * Copyright (C) 2015  David Mitchell
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +34,7 @@ public class WelcomeScene extends PixelScene {
 
 	private static final String TTL_Welcome = "Welcome!";
 
-	private static final String TTL_Update = "v0.2.3: Badges and More!";
+	private static final String TTL_Update = "v0.2.6: All the Cool Kids are doing it!";
 
 	private static final String TTL_Future = "Wait What?";
 
@@ -49,12 +46,32 @@ public class WelcomeScene extends PixelScene {
 			"Enjoy";
 
 	private static final String TXT_Update =
-			"v02.5: Beta Test Version\n"+
-					"- class rebalincing\n"+
-					"- made mini-bosses tougher\n"+
-					"- tweaked open level spawn rates\n"+
-					"- reduced frequency of open levels\n\n"+
-			"v02.4: backing out changes to go on a bug hunt!\n\n"+
+			"v02.6: All the Cool Kids are doing it!\n"+
+					"- look for the jewelry chain in the prison rooms\n"+
+					"- items remain visible in the dungeon after they are seen\n"+
+					"- new Holy and Hunting weapon enchantments\n"+
+					"- enchantment description updates\n"+
+					"- killing wraiths can now get you a reward\n"+
+					"- slightly more special rooms per level\n"+
+					"- food drops reduced slightly\n"+
+					"- blinded creatures are now blind\n"+
+					"- mindless mobs not affected by psionics\n"+
+					"- graphics tweaks\n"+
+					"- fix for the Rankings Screens\n"+
+					"- Bug fixes\n\n"+
+			"v02.5: A Balancing Act\n"+
+					"- class rebalancing\n"+
+					"     - Warrior can get psychic damage from reading scrolls\n"+
+					"     - Mage wands charge faster, and know scroll of identify\n"+
+					"     - Rogues get a +1 dagger, and know potion of toxic gas\n"+
+					"     - Huntress starts with more HP and gets better drops\n"+
+					"     - berserker fury now kicks in sooner\n"+
+					"- mini-bosses are a little tougher\n"+
+					"- open levels have less mobs and are a little less common\n"+
+					"- ethereal chains tweaks\n"+
+					"- better altar donation rewards\n"+
+					"- bug fixes\n\n"+
+			"v02.4: A Bug hunt!\n\n"+
 			"v02.3: Badges and More!\n"+
 					"- new room blocked with eternal flame\n"+
 					"- fire damage scales slightly with depth\n"+
@@ -86,32 +103,10 @@ public class WelcomeScene extends PixelScene {
 					"- adjusted monk disarm logic\n"+
 					"- bug fixes\n\n"+
 			"v01.9: Squash Them Bugs\n"+
-					"- Fixes for various artifact bugs\n"+
-					"- prevent negative time delay crashes\n"+
-					"- Gods don't accept missile donations\n"+
-					"- Ring of Searching increases search radius\n"+
-					"- tweaked mob spawn tables and stats\n"+
-					"- added Sewer Flies to complement tougher Swarms\n"+
-					"- temporary fix for ranking screen crashes\n\n"+
 			"v01.8: Open Levels\n"+
-					"- New Open Levels\n"+
-					"- Synched Trap Images\n"+
-					"- Allow falling into Special or Boss Levels\n"+
-					"- More mobs in harder levels\n\n"+
 			"v01.7: Enchantments and Glyphs\n"+
-					"- Midas and Vicious Weapons\n"+
-					"- Restance Armor Glyph\n"+
-					"- Rings of Magic and Sating\n"+
-					"- Weapon Enchantment Descriptions\n"+
-					"- code cleanup and bug fixes\n\n"+
 			"v01.6: Interim Build\n"+
-					"- made traps visible in end levels\n"+
-					"- better mage staff imbuing\n"+
-					"- fixed numerous bugs to improve stability\n\n"+
             "v01.5: Content Push - It's all about the Mobs!\n"+
-                    "- New Slimes, Robot Spiders, Lost Souls and Squids\n"+
-                    "- The Mad Tinkerer, Minotaur and the Chaos Mage\n"+
-                    "- dew vial helps sate hunger\n\n"+
 			"v01.4: Difficulty Levels\n";
 	private static final String TXT_Future =
 			"It seems that your current saves are from a future version of Unleashed Pixel Dungeon!\n\n"+

@@ -413,7 +413,7 @@ public abstract class Wand extends Item {
 		
 		@Override
 		public boolean attachTo( Char target ) {
-			super.attachTo(target);
+			super.attachTo( target );
 			
 			return true;
 		}

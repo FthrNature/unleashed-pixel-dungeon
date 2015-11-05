@@ -172,7 +172,7 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 			int v = Dungeon.hero.visibleEnemies();
 			if (v > 0) {
 				for (int i = 0; i < v; i++) {
-					Mob mob = Dungeon.hero.visibleEnemy(i);
+					Mob mob = Dungeon.hero.visibleEnemy(i);  // DSM-xxxx - do a path check to the target mob
 					int mobX = mob.pos % Level.WIDTH;
 					int mobY = mob.pos / Level.WIDTH;
 

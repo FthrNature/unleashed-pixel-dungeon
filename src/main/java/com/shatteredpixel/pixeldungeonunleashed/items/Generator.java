@@ -58,7 +58,8 @@ public class Generator {
 		ARTIFACT( 10,   Artifact.class),
 		SEED	( 0,	Plant.Seed.class ),
 		FOOD	( 0,	Food.class ),
-		GOLD	( 500,	Gold.class );
+		GOLD	( 500,	Gold.class ),
+		MELEE   ( 0,    MeleeWeapon.class );
 		
 		public Class<?>[] classes;
 		public float[] probs;
@@ -160,7 +161,22 @@ public class Generator {
 			Boomerang.class,      // set to 0 - huntress-only weapon
 			Tamahawk.class };
 		Category.WEAPON.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1 };
-		
+
+		Category.MELEE.classes = new Class<?>[]{
+				Dagger.class,
+				Knuckles.class,
+				Quarterstaff.class,
+				Spear.class,
+				Mace.class,
+				Sword.class,
+				Longsword.class,
+				BattleAxe.class,
+				WarHammer.class,
+				Glaive.class,
+				ShortSword.class};
+		Category.MELEE.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 };
+
+
 		Category.ARMOR.classes = new Class<?>[]{
 			ClothArmor.class,
 			LeatherArmor.class,
@@ -182,7 +198,7 @@ public class Generator {
 			RingOfForce.class,
 			RingOfFuror.class,
 			RingOfHaste.class,
-			RingOfMagic.class,    // DSM-xxxx test out putting this one back in...
+			RingOfMagic.class,
 			RingOfMight.class,
 			RingOfSharpshooting.class,
 			RingOfTenacity.class,
@@ -247,6 +263,8 @@ public class Generator {
 				return randomArmor();
 			case WEAPON:
 				return randomWeapon();
+			case MELEE:
+				return randomMelee();
 			case ARTIFACT:
 				Item item = randomArtifact();
 				//if we're out of artifacts, return a ring instead.
@@ -307,6 +325,29 @@ public class Generator {
 
 		try {
 			Category cat = Category.WEAPON;
+
+			Weapon w1 = (Weapon)cat.classes[Random.chances( cat.probs )].newInstance();
+			Weapon w2 = (Weapon)cat.classes[Random.chances( cat.probs )].newInstance();
+
+			w1.random();
+			w2.random();
+
+			return Math.abs( targetStr - w1.STR ) < Math.abs( targetStr - w2.STR ) ? w1 : w2;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public static Weapon randomMelee(){
+		int curStr = Hero.STARTING_STR + Dungeon.limitedDrops.strengthPotions.count;
+
+		return randomMelee(curStr);
+	}
+
+	public static Weapon randomMelee(int targetStr) {
+
+		try {
+			Category cat = Category.MELEE;
 
 			Weapon w1 = (Weapon)cat.classes[Random.chances( cat.probs )].newInstance();
 			Weapon w2 = (Weapon)cat.classes[Random.chances( cat.probs )].newInstance();

@@ -70,10 +70,9 @@ public class MagesStaff extends MeleeWeapon {
 		//tier 1 weapon with poor base stats.
 		super(1, 1f, 1f);
 		MIN = 1;
-		MAX = 5;
+		MAX = 6;
 		levelCap = 8;
 
-		GLog.i("Initializing mage staff... setting wand to null"); // DSM-xxxx
 		wand = null;
 	}
 
@@ -121,7 +120,6 @@ public class MagesStaff extends MeleeWeapon {
 		if (wand != null && Dungeon.hero.subClass == HeroSubClass.BATTLEMAGE) {
 			if (wand.curCharges < wand.maxCharges) wand.partialCharge += 0.33f;
 			ScrollOfRecharging.charge((Hero)attacker);
-			damage = (int) (damage * 1.1);
 			wand.onHit(this, attacker, defender, damage);
 		}
 		super.proc(attacker, defender, damage);
@@ -144,11 +142,11 @@ public class MagesStaff extends MeleeWeapon {
 		if (wand != null) wand.stopCharging();
 	}
 
-	public Item imbueWand(Wand newWand, Char owner){
+	public Item imbueWand(Wand wand, Char owner){
 
-		GLog.p("You imbue your staff with the " + newWand.name());
+		this.wand = null;
 
-		//this.wand = null;
+		GLog.p("You imbue your staff with the " + wand.name());
 
 		if (enchantment != null) {
 			GLog.w("The conflicting magics erase the enchantment on your staff.");
@@ -156,11 +154,11 @@ public class MagesStaff extends MeleeWeapon {
 		}
 
 		//syncs the level of the two items.
-		int targetLevel = ((this.level + newWand.level) / 2) + 1;
+		int targetLevel = ((this.level + wand.level) / 2) + 1;
 		this.upgrade(targetLevel);
-		newWand.upgrade(targetLevel);
+		wand.upgrade(targetLevel);
 
-		wand = newWand;
+		this.wand = wand;
 		setStaffCharges();
 
 		wand.identify();
@@ -275,26 +273,18 @@ public class MagesStaff extends MeleeWeapon {
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
-		if (wand != null) {
-			GLog.i("storing imbued wand in bundle... " + wand.getClass().getName()); // DSM-xxxx
-			GLog.i(bundle.toString()); // DSM-xxxx
-			super.storeInBundle(bundle);
-			bundle.put(WAND, wand);
-		}
+		super.storeInBundle(bundle);
+		bundle.put(WAND, wand);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		GLog.i(bundle.toString()); // DSM-xxxx
 		wand = (Wand) bundle.get(WAND);
 		if (wand != null) {
 			int staffCurrentCharges = wand.curCharges;
 			setStaffCharges();
 			wand.curCharges = staffCurrentCharges;
-			GLog.i("Restoring from bundle - wand: " + wand.toString() + ", level: " + wand.level()); // DSM-xxxx
-		} else {
-			GLog.i("Restoring from bundle - Wand not found for mage staff..."); // DSM-xxxx
 		}
 	}
 

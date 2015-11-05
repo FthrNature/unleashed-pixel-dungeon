@@ -90,7 +90,7 @@ public abstract class Char extends Actor {
 		
 		super.storeInBundle( bundle );
 		
-		bundle.put( POS, pos );
+		bundle.put(POS, pos);
 		bundle.put( TAG_HP, HP );
 		bundle.put( TAG_HT, HT );
 		bundle.put( BUFFS, buffs );
@@ -157,8 +157,10 @@ public abstract class Char extends Actor {
 			if (buff(EarthImbue.class) != null)
 				buff(EarthImbue.class).proc(enemy);
 
-			enemy.sprite.bloodBurstA( sprite.center(), effectiveDamage );
-			enemy.sprite.flash();
+			if (enemy.sprite != null) {
+				enemy.sprite.bloodBurstA(sprite.center(), effectiveDamage);
+				enemy.sprite.flash();
+			}
 
 			if (!enemy.isAlive() && visibleFight) {
 				if (enemy == Dungeon.hero) {
@@ -269,10 +271,12 @@ public abstract class Char extends Actor {
 		
 		HP -= dmg;
 		if (dmg > 0 || src instanceof Char) {
-			sprite.showStatus( HP > HT / 2 ?
-				CharSprite.WARNING :
-				CharSprite.NEGATIVE,
-				Integer.toString( dmg ) );
+			if (sprite != null) {
+				sprite.showStatus(HP > HT / 2 ?
+								CharSprite.WARNING :
+								CharSprite.NEGATIVE,
+						Integer.toString(dmg));
+			}
 		}
 		if (HP <= 0) {
 			die( src );

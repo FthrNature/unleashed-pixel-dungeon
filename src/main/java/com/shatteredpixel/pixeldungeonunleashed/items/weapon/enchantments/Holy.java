@@ -18,16 +18,13 @@
 package com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments;
 
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
-import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
-import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Light;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.ItemSprite;
-import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.utils.Random;
 
-public class Glowing extends Weapon.Enchantment {
-
-    private static final String TXT_GLOWING	= "Glowing %s";
+public class Holy extends Weapon.Enchantment {
+    private static final String TXT_HOLY	= "Holy %s";
 
     private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing( 0xFFFFFF );
 
@@ -36,20 +33,25 @@ public class Glowing extends Weapon.Enchantment {
         int curDamage = 0;
         int level = Math.max( 0, weapon.level );
 
-        if (Random.Int(level + 4) >= 3) {
-            Buff.affect( attacker, Light.class, (level + 5f) );
-            GLog.i("Your " + weapon.name() + " glows brightly.");
-            curDamage = Random.Int(0, level);
-            defender.damage(curDamage, this);
-            return true;
-        } else {
-            return false;
+        if (defender.TYPE_UNDEAD) {
+            if (Random.Int(level + 4) >= 3) {
+                curDamage += Random.Int(0, damage + weapon.level);
+                defender.damage(curDamage, this);
+                return true;
+            }
+        } else if (defender.TYPE_EVIL) {
+            if (Random.Int(level + 4) >= 5) {
+                curDamage += Random.Int(0, ((damage + weapon.level) / 2));
+                defender.damage(curDamage, this);
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
     public String name( String weaponName) {
-        return String.format( TXT_GLOWING, weaponName );
+        return String.format( TXT_HOLY, weaponName );
     }
 
     @Override
@@ -59,7 +61,6 @@ public class Glowing extends Weapon.Enchantment {
 
     @Override
     public String enchDesc() {
-        return "This weapon glows with a soft light illuminating the dungeon.";
+        return "Holy weapons inflict great pain upon the undead and truly evil of this world.";
     }
-
 }

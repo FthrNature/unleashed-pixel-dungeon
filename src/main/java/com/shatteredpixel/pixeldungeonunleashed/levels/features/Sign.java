@@ -45,11 +45,11 @@ public class Sign {
 				"you can also lower equipment strength requirements with Scrolls of Upgrade.\n\n\n" +
 				"Items found in the dungeon will often be unidentified. Some items will have unknown effects, others " +
 				"may be upgraded, or degraded and cursed! Unidentified items are unpredictable, so be careful!",
-		"Your game auto-saves when you leave, but you can also Save your game into a save-slot when you are adjacent" +
-			    " to one of these signs!\n\nYou can reload a saved game at any point through the action menu!",
 		"Charging forward recklessly is a great way to get killed.\n\n" +
 				"Slowing down a bit to examine enemies and use the environment and items to your advantage can make a" +
 				" big difference.\n\nThe dungeon is full of traps and hidden passageways as well, keep your eyes open!",
+		"Your game auto-saves when you leave, but you can also Save your game into a save-slot when you are adjacent" +
+			    " to one of these signs!\n\nYou can reload a saved game at any point through the action menu!",
 		"Levelling up is important!\n\nBeing about the same level as the floor you are on is a good idea. " +
 				"Hunger may keep you moving in search of more food, but don't be afraid to slow down a little and train." +
 				"\n\n\nHunger and health are both resources, and using them well can mean starving yourself in order" +
@@ -95,10 +95,10 @@ public class Sign {
 		"Pixel-Mart. Special prices for demon hunters!",
 
 		//hmm.. I wonder what this is?
-		"standOfF roW",
-		"fraCtion doWnpOur",
-		"gaffe MaSts",
-		"reTicul4ting sP1n3s"
+		"Gur haqrnq znfgre jvyy evfr fbba",
+		"N qrzba funyy pbzr gb grfg lbh",
+		"Gur ebbz funyy snyy hcba lbhe urnq",
+		"Gur qbbef gurzfryirf funyy qrprvir lbh"
 	};
 	
 	private static final String TXT_BURN =

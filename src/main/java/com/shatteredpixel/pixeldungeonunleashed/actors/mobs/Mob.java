@@ -369,7 +369,7 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public void add( Buff buff ) {
-		super.add( buff );
+		super.add(buff);
 		if (buff instanceof Amok) {
 			if (sprite != null) {
 				sprite.showStatus( CharSprite.NEGATIVE, TXT_RAGE );
@@ -388,7 +388,9 @@ public abstract class Mob extends Char {
 	public void remove( Buff buff ) {
 		super.remove(buff);
 		if (buff instanceof Terror) {
-			sprite.showStatus( CharSprite.NEGATIVE, TXT_RAGE );
+			if (sprite != null) {
+				sprite.showStatus(CharSprite.NEGATIVE, TXT_RAGE);
+			}
 			state = HUNTING;
 		}
 	}
@@ -645,9 +647,11 @@ public abstract class Mob extends Char {
 	}
 	
 	public void notice() {
-		sprite.showAlert();
+		if (sprite != null) {
+			sprite.showAlert();
+		}
 	}
-	
+
 	public void yell( String str ) {
 		GLog.n( "%s: \"%s\" ", name, str );
 	}
@@ -677,9 +681,12 @@ public abstract class Mob extends Char {
 				target = enemy.pos;
 
 				if (Dungeon.isChallenged( Challenges.SWARM_INTELLIGENCE )) {
-					for (Mob mob : Dungeon.level.mobs) {
-						if (mob != Mob.this) {
-							mob.beckon( target );
+					// there is a slight chance that there are no mobs on this level...
+					if (! Dungeon.level.mobs.isEmpty()) {
+						for (Mob mob : Dungeon.level.mobs) {
+							if (mob != Mob.this) {
+								mob.beckon(target);
+							}
 						}
 					}
 				}
@@ -699,7 +706,7 @@ public abstract class Mob extends Char {
 
 				enemySeen = false;
 
-				spend( TICK );
+				spend(TICK);
 
 			}
 			return true;

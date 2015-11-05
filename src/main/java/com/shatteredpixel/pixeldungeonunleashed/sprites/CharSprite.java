@@ -143,6 +143,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 	
 	public void move( int from, int to ) {
+		turnTo(from, to);
+
 		play( run );
 		
 		motion = new PosTweener( this, worldToCamera( to ), MOVE_INTERVAL );

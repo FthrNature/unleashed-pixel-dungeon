@@ -232,7 +232,7 @@ public abstract class RegularLevel extends Level {
 
 				if (specials.size() > 0 &&
 					r.width() > 3 && r.height() > 3 &&
-					Random.Int( specialRooms * specialRooms + 2 ) < 2) {
+					Random.Int( specialRooms * specialRooms + 2 ) < 3) {
 
 					if (pitRoomNeeded) {
 
@@ -322,7 +322,6 @@ public abstract class RegularLevel extends Level {
 
 
 		/*
-		//DSM-xxxx this following chunk is for debug purposes...
 		GLog.i("Feeling: " + feeling.toString());
 		count = 0;
 		for (Room r : rooms) {

@@ -82,6 +82,7 @@ public class Heap implements Bundlable {
 	public int pos = 0;
 	
 	public ItemSprite sprite;
+	public boolean seen = false;
 	
 	public LinkedList<Item> items = new LinkedList<>();
 	
@@ -171,7 +172,7 @@ public class Heap implements Bundlable {
 	
 	public void drop( Item item ) {
 		
-		if (item.stackable) {
+		if (item.stackable && type != Type.FOR_SALE) {
 			
 			for (Item i : items) {
 				if (i.isSimilar( item )) {
@@ -463,6 +464,7 @@ public class Heap implements Bundlable {
 	}
 
 	private static final String POS		= "pos";
+	private static final String SEEN	= "seen";
 	private static final String TYPE	= "type";
 	private static final String ITEMS	= "items";
 	
@@ -470,6 +472,7 @@ public class Heap implements Bundlable {
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		pos = bundle.getInt( POS );
+		seen = bundle.getBoolean( SEEN, false );
 		type = Type.valueOf( bundle.getString( TYPE ) );
 		items = new LinkedList<>( (Collection<Item>) ((Collection<?>) bundle.getCollection( ITEMS )) );
 		items.removeAll(Collections.singleton(null));
@@ -478,6 +481,7 @@ public class Heap implements Bundlable {
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		bundle.put( POS, pos );
+		bundle.put( SEEN, seen );
 		bundle.put( TYPE, type.toString() );
 		bundle.put( ITEMS, items );
 	}

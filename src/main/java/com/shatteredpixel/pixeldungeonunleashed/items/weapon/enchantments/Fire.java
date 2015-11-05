@@ -70,4 +70,8 @@ public class Fire extends Weapon.Enchantment {
 		return String.format( TXT_BLAZING, weaponName );
 	}
 
+	@Override
+	public String enchDesc() {
+		return "Blazing weapons can burst into flames during combat and burn your enemies.";
+	}
 }

@@ -268,9 +268,9 @@ public class Weapon extends KindOfWeapon {
 
 		private static final Class<?>[] enchants = new Class<?>[]{
 			Fire.class, Poison.class, Death.class, Paralysis.class, Leech.class,
-			Slow.class, Shock.class, Instability.class, Horror.class, Luck.class,
-			Ancient.class, Glowing.class, Vicious.class, Midas.class };
-		private static final float[] chances= new float[]{ 10, 10, 2, 4, 2, 4, 8, 5, 4, 4, 3, 6, 3, 2 };
+			Slow.class, Shock.class, Instability.class, Horror.class, Hunting.class, Luck.class,
+			Ancient.class, Glowing.class, Vicious.class, Midas.class, Holy.class };
+		private static final float[] chances= new float[]{ 10, 10, 2, 4, 2, 4, 8, 5, 5, 4, 4, 3, 6, 3, 2, 2 };
 			
 		public abstract boolean proc( Weapon weapon, Char attacker, Char defender, int damage );
 		

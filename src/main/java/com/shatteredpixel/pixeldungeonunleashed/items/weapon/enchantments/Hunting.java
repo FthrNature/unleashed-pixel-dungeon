@@ -17,49 +17,48 @@
  */
 package com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments;
 
+import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
-import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
-import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Light;
+import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
+import com.shatteredpixel.pixeldungeonunleashed.items.food.MysteryMeat;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
 import com.shatteredpixel.pixeldungeonunleashed.sprites.ItemSprite;
-import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.utils.Random;
 
-public class Glowing extends Weapon.Enchantment {
+public class Hunting extends Weapon.Enchantment {
+    private static final String TXT_HUNTING	= "Hunting %s";
 
-    private static final String TXT_GLOWING	= "Glowing %s";
-
-    private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing( 0xFFFFFF );
+    private static ItemSprite.Glowing RED = new ItemSprite.Glowing( 0xFF3333 );
 
     @Override
     public boolean proc( Weapon weapon, Char attacker, Char defender, int damage ) {
         int curDamage = 0;
         int level = Math.max( 0, weapon.level );
 
-        if (Random.Int(level + 4) >= 3) {
-            Buff.affect( attacker, Light.class, (level + 5f) );
-            GLog.i("Your " + weapon.name() + " glows brightly.");
-            curDamage = Random.Int(0, level);
+        if (defender.TYPE_ANIMAL) {
+            curDamage += Random.Int(0, weapon.level + 3);
             defender.damage(curDamage, this);
+
+            if (damage >= defender.HP && (Random.Int(level + 4) >= 3)) {
+                Dungeon.level.drop( new MysteryMeat(), defender.pos ).sprite.drop();
+            }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
     public String name( String weaponName) {
-        return String.format( TXT_GLOWING, weaponName );
+        return String.format( TXT_HUNTING, weaponName );
     }
 
     @Override
     public ItemSprite.Glowing glowing() {
-        return WHITE;
+        return RED;
     }
 
     @Override
     public String enchDesc() {
-        return "This weapon glows with a soft light illuminating the dungeon.";
+        return "This weapon is designed to effectively butcher animals and turn them into tasty, tasty meat.";
     }
-
 }
