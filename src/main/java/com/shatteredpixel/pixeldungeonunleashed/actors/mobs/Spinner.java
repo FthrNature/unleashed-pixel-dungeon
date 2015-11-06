@@ -52,6 +52,7 @@ public class Spinner extends Mob {
 
 		loot = new MysteryMeat();
 		lootChance = 0.125f;
+		TYPE_ANIMAL = true;
 
 		FLEEING = new Fleeing();
 		mobType = MOBTYPE_DEBUFF;

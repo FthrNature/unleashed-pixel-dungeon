@@ -33,6 +33,7 @@ public class GreenSnake extends Mob {
         dmgMax = 4;
         EXP = 2;
 
+        TYPE_ANIMAL = true;
         maxLvl = 6;
     }
 

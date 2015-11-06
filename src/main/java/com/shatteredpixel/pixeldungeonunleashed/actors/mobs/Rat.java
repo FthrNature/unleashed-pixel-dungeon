@@ -37,6 +37,7 @@ public class Rat extends Mob {
 		dmgMax = 4;
 
 		maxLvl = 6;
+		TYPE_ANIMAL = true;
 	}
 	
 	@Override

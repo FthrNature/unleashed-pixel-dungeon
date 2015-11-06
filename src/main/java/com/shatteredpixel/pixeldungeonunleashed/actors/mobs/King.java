@@ -64,6 +64,7 @@ public class King extends Mob {
 		dmgMin = 20;
 		dmgMax = 38;
 		mobType = MOBTYPE_TOUGH;
+		TYPE_EVIL = true;
 
 		Undead.count = 0;
 	}
@@ -212,7 +213,7 @@ public class King extends Mob {
 		return
 			"The last king of dwarves was known for his deep understanding of processes of life and death. " +
 			"He has persuaded members of his court to participate in a ritual, that should have granted them " +
-			"eternal youthfulness. In the end he was the only one, who got it - and an army of undead " +
+			"eternal youthfulness. In the end he was the only one who got it - and an army of undead " +
 			"as a bonus.";
 	}
 	

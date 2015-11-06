@@ -53,6 +53,7 @@ public class Swarm extends Mob {
 		dmgMax = 4;
 
 		maxLvl = 12;
+		TYPE_ANIMAL = true;
 		
 		flying = true;
 

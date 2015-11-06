@@ -68,6 +68,7 @@ public class ChaosMage extends Mob {
         viewDistance = Light.DISTANCE;
 
         baseSpeed = 2f;
+        TYPE_EVIL = true;
         state = HUNTING;
         mobType = MOBTYPE_RANGED;
     }

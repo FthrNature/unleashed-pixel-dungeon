@@ -262,7 +262,7 @@ public enum Badge {
 			}
 		}
 		// the following applies the badge as soon as we load our global data
-		//global.add(Badge.BETA_TESTER); // DSM-xxxx remove this after BETA testing is complete...
+		global.add(Badge.BETA_TESTER); // DSM-xxxx remove this after BETA testing is complete...
 	}
 	
 	public static void saveGlobal() {

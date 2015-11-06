@@ -681,7 +681,7 @@ public abstract class Level implements Bundlable {
 			//effectively nullifies whatever the logic calling this wants to do, including dropping items.
 			Heap heap = new Heap();
 			ItemSprite sprite = heap.sprite = new ItemSprite();
-			sprite.link(heap);
+			sprite.link( heap );
 			return heap;
 
 		}
@@ -721,7 +721,7 @@ public abstract class Level implements Bundlable {
 			return drop( item, n );
 			
 		}
-		heap.drop(item);
+		heap.drop( item );
 		
 		if (Dungeon.level != null) {
 			press( cell, null );
@@ -759,8 +759,8 @@ public abstract class Level implements Bundlable {
 	}
 
 	public Trap setTrap( Trap trap, int pos ){
-		trap.set(pos);
-		traps.put(pos, trap);
+		trap.set( pos );
+		traps.put( pos, trap );
 		GameScene.add(trap);
 		return trap;
 	}
@@ -931,18 +931,16 @@ public abstract class Level implements Bundlable {
 		if (c.isAlive()) {
 			if (c.buff( MindVision.class ) != null) {
 				for (Mob mob : mobs) {
-					if (! mob.TYPE_MINDLESS) {
-						int p = mob.pos;
-						fieldOfView[p] = true;
-						fieldOfView[p + 1] = true;
-						fieldOfView[p - 1] = true;
-						fieldOfView[p + WIDTH + 1] = true;
-						fieldOfView[p + WIDTH - 1] = true;
-						fieldOfView[p - WIDTH + 1] = true;
-						fieldOfView[p - WIDTH - 1] = true;
-						fieldOfView[p + WIDTH] = true;
-						fieldOfView[p - WIDTH] = true;
-					}
+					int p = mob.pos;
+					fieldOfView[p] = true;
+					fieldOfView[p + 1] = true;
+					fieldOfView[p - 1] = true;
+					fieldOfView[p + WIDTH + 1] = true;
+					fieldOfView[p + WIDTH - 1] = true;
+					fieldOfView[p - WIDTH + 1] = true;
+					fieldOfView[p - WIDTH - 1] = true;
+					fieldOfView[p + WIDTH] = true;
+					fieldOfView[p - WIDTH] = true;
 				}
 			} else if (c == Dungeon.hero && ((Hero)c).heroClass == HeroClass.HUNTRESS) {
 				for (Mob mob : mobs) {

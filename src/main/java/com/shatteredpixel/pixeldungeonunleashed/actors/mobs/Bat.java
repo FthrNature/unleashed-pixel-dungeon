@@ -48,6 +48,7 @@ public class Bat extends Mob {
 		EXP = 7;
 		maxLvl = 18;
 
+		TYPE_ANIMAL = true;
 		flying = true;
 		
 		loot = new PotionOfHealing();

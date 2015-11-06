@@ -43,6 +43,7 @@ public class Assassin extends Mob {
 
         EXP = 6;
         maxLvl = 15;
+        TYPE_EVIL = true;
     }
 
     @Override

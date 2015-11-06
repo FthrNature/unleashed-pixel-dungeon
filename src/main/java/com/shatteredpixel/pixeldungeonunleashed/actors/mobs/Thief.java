@@ -59,6 +59,7 @@ public class Thief extends Mob {
 		loot = new MasterThievesArmband().identify();
 		lootChance = 0.01f;
 
+		TYPE_EVIL = true;
 		FLEEING = new Fleeing();
 		mobType = MOBTYPE_SPECIAL;
 	}

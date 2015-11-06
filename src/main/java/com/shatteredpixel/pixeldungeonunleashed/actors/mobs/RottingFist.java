@@ -52,6 +52,7 @@ public class RottingFist extends Mob {
 
         EXP = 0;
 
+        TYPE_EVIL = true;
         state = WANDERING;
     }
 

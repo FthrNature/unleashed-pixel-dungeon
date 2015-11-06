@@ -55,6 +55,7 @@ public class BurningFist extends Mob {
 
         EXP = 0;
 
+        TYPE_EVIL = true;
         state = WANDERING;
     }
 

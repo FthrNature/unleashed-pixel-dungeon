@@ -47,8 +47,9 @@ public class Wraith extends Mob {
 		
 		HP = HT = 1;
 		dmgMin = 1;
-		EXP = 0;
-		
+		EXP = 1;
+		TYPE_UNDEAD = true;
+		TYPE_EVIL = true;
 		flying = true;
 	}
 	

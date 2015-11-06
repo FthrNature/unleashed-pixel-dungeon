@@ -42,6 +42,7 @@ public class Crab extends Mob {
 		
 		loot = new MysteryMeat();
 		lootChance = 0.167f;
+		TYPE_ANIMAL = true;
 		mobType = MOBTYPE_TOUGH;
 	}
 	

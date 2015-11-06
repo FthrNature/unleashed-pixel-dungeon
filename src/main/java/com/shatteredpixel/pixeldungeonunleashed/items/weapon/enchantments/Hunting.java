@@ -35,7 +35,7 @@ public class Hunting extends Weapon.Enchantment {
         int curDamage = 0;
         int level = Math.max( 0, weapon.level );
 
-        if (defender.TYPE_ANIMAL) {
+        if (defender instanceof Mob && ((Mob) defender).TYPE_ANIMAL) {
             curDamage += Random.Int(0, weapon.level + 3);
             defender.damage(curDamage, this);
 

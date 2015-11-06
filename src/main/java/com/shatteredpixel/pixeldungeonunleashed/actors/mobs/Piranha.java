@@ -44,6 +44,7 @@ public class Piranha extends Mob {
 		dmgRed = Dungeon.depth;
 
 		baseSpeed = 2f;
+		TYPE_ANIMAL = true;
 		
 		EXP = 0;
 	}

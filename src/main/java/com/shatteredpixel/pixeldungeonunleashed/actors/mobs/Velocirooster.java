@@ -36,6 +36,7 @@ public class Velocirooster extends Mob {
 
         EXP = 4;
         maxLvl = 11;
+        TYPE_ANIMAL = true;
 
         loot = new MysteryMeat();
         lootChance = 0.167f;

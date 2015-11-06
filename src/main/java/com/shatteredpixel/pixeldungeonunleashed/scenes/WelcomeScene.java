@@ -52,12 +52,7 @@ public class WelcomeScene extends PixelScene {
 					"- new Holy and Hunting weapon enchantments\n"+
 					"- enchantment description updates\n"+
 					"- killing wraiths can now get you a reward\n"+
-					"- slightly more special rooms per level\n"+
 					"- food drops reduced slightly\n"+
-					"- blinded creatures are now blind\n"+
-					"- mindless mobs not affected by psionics\n"+
-					"- graphics tweaks\n"+
-					"- fix for the Rankings Screens\n"+
 					"- Bug fixes\n\n"+
 			"v02.5: A Balancing Act\n"+
 					"- class rebalancing\n"+
@@ -103,10 +98,32 @@ public class WelcomeScene extends PixelScene {
 					"- adjusted monk disarm logic\n"+
 					"- bug fixes\n\n"+
 			"v01.9: Squash Them Bugs\n"+
+					"- Fixes for various artifact bugs\n"+
+					"- prevent negative time delay crashes\n"+
+					"- Gods don't accept missile donations\n"+
+					"- Ring of Searching increases search radius\n"+
+					"- tweaked mob spawn tables and stats\n"+
+					"- added Sewer Flies to complement tougher Swarms\n"+
+					"- temporary fix for ranking screen crashes\n\n"+
 			"v01.8: Open Levels\n"+
+					"- New Open Levels\n"+
+					"- Synched Trap Images\n"+
+					"- Allow falling into Special or Boss Levels\n"+
+					"- More mobs in harder levels\n\n"+
 			"v01.7: Enchantments and Glyphs\n"+
+					"- Midas and Vicious Weapons\n"+
+					"- Restance Armor Glyph\n"+
+					"- Rings of Magic and Sating\n"+
+					"- Weapon Enchantment Descriptions\n"+
+					"- code cleanup and bug fixes\n\n"+
 			"v01.6: Interim Build\n"+
+					"- made traps visible in end levels\n"+
+					"- better mage staff imbuing\n"+
+					"- fixed numerous bugs to improve stability\n\n"+
             "v01.5: Content Push - It's all about the Mobs!\n"+
+                    "- New Slimes, Robot Spiders, Lost Souls and Squids\n"+
+                    "- The Mad Tinkerer, Minotaur and the Chaos Mage\n"+
+                    "- dew vial helps sate hunger\n\n"+
 			"v01.4: Difficulty Levels\n";
 	private static final String TXT_Future =
 			"It seems that your current saves are from a future version of Unleashed Pixel Dungeon!\n\n"+

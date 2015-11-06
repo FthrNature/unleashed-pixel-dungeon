@@ -55,6 +55,7 @@ public class Necromancer extends Mob {
         EXP = 8;
         maxLvl = 18;
         mobType = MOBTYPE_SPECIAL;
+        TYPE_EVIL = true;
     }
 
     @Override

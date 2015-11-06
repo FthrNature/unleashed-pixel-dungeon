@@ -59,6 +59,7 @@ public class Warlock extends Mob implements Callback {
 
 		EXP = 11;
 		maxLvl = 26;
+		TYPE_EVIL = true;
 		
 		loot = Generator.Category.POTION;
 		lootChance = 0.83f;

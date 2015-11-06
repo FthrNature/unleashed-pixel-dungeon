@@ -52,6 +52,7 @@ public class Brute extends Mob {
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
+		TYPE_EVIL = true;
 		mobType = MOBTYPE_TOUGH;
 	}
 	

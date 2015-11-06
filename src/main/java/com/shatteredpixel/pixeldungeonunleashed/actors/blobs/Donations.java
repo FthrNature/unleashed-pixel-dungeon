@@ -130,7 +130,7 @@ public class Donations extends Blob {
             } else if (hero.donatedLoot >= 125) {
                 if (Random.Int(3) == 0) {
                     // upgrade an item
-                    Weapon wpn = (Weapon) Generator.random(Generator.Category.MELEE);
+                    Weapon wpn = (Weapon) Generator.random(Generator.Category.WEAPON);
                     try {
                         switch (Random.Int(4)) {
                             case 0:

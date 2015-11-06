@@ -55,6 +55,9 @@ public class Skeleton extends Mob {
 		dmgMax = 8;
 		dmgRed = 5;
 
+		TYPE_UNDEAD = true;
+		TYPE_EVIL = true;
+
 		loot = Generator.Category.WEAPON;
 		lootChance = 0.2f;
 

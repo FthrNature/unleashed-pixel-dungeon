@@ -65,6 +65,7 @@ public class Eye extends Mob {
 		
 		loot = new Dewdrop();
 		lootChance = 0.5f;
+		TYPE_EVIL = true;
 		mobType = MOBTYPE_RANGED;
 	}
 	

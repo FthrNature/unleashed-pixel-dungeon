@@ -50,6 +50,7 @@ public class SewerFly extends Mob {
         dmgMax = 4;
 
         maxLvl = 9;
+        TYPE_ANIMAL = true;
 
         flying = true;
 

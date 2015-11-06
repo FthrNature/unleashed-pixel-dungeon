@@ -39,6 +39,7 @@ public class GreatCrab extends Crab {
 
         EXP = 6;
 
+        TYPE_ANIMAL = true;
         state = WANDERING;
     }
 

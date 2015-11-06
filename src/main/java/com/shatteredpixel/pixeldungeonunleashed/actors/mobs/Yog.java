@@ -59,6 +59,7 @@ public class Yog extends Mob {
 		HP = HT = 300;
 
 		EXP = 50;
+		TYPE_EVIL = true;
 		
 		state = PASSIVE;
 	}

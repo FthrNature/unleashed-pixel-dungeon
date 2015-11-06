@@ -39,7 +39,8 @@ public class Bee extends Mob {
 		spriteClass = BeeSprite.class;
 		
 		viewDistance = 4;
-		
+
+		TYPE_ANIMAL = true;
 		flying = true;
 		state = WANDERING;
 		mobType = MOBTYPE_NIMBLE;

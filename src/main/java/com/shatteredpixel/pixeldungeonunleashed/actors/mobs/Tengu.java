@@ -63,6 +63,7 @@ public class Tengu extends Mob {
 		dmgRed = 5;
 		dmgMin = 8;
 		dmgMax = 15;
+		TYPE_EVIL = true;
 		mobType = MOBTYPE_NIMBLE;
 	}
 	

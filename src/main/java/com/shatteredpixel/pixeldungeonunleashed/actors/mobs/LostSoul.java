@@ -51,6 +51,8 @@ public class LostSoul  extends Mob {
         baseSpeed = 2f;
         flying = true;
         mobType = MOBTYPE_DEBUFF;
+        TYPE_UNDEAD = true;
+        TYPE_EVIL = true;
     }
 
     @Override

@@ -34,6 +34,8 @@ public class Larva extends Mob {
 
         EXP = 0;
 
+        TYPE_ANIMAL = true;
+        TYPE_EVIL = true;
         state = HUNTING;
     }
     private String TXT_DESC = "The Larva is the offspring of an ancient god.";

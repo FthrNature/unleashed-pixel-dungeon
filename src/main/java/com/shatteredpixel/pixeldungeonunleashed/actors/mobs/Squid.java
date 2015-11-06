@@ -44,6 +44,7 @@ public class Squid extends Mob {
         dmgRed = Dungeon.depth;
         dmgMin = Dungeon.depth * 2;
         dmgMax = 4 + Dungeon.depth * 3;
+        TYPE_ANIMAL = true;
 
         baseSpeed = 2f;
 

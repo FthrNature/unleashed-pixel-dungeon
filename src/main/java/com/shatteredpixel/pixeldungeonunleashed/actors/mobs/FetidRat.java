@@ -42,6 +42,7 @@ public class FetidRat extends Rat {
 
         EXP = 4;
 
+        TYPE_ANIMAL = true;
         state = WANDERING;
     }
 

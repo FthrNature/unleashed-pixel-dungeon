@@ -61,6 +61,8 @@ public class Succubus extends Mob {
 		
 		EXP = 12;
 		maxLvl = 30;
+
+		TYPE_EVIL = true;
 		
 		loot = new ScrollOfLullaby();
 		lootChance = 0.05f;
