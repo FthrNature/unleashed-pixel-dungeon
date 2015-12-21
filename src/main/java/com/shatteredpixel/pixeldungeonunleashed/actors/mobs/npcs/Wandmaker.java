@@ -186,7 +186,7 @@ public class Wandmaker extends NPC {
 				node.put(GIVEN, given );
 				
 				node.put( WAND1, wand1 );
-				node.put( WAND2, wand2 );
+				node.put(WAND2, wand2);
 			}
 			
 			bundle.put( NODE, node );
@@ -208,7 +208,17 @@ public class Wandmaker extends NPC {
 				reset();
 			}
 		}
-		
+
+		public static void selectWands() {
+			wand1 = (Wand) Generator.random(Generator.Category.WAND);
+			wand1.upgrade();
+
+			do {
+				wand2 = (Wand) Generator.random(Generator.Category.WAND);
+			} while (wand2.getClass().equals(wand1.getClass()));
+			wand2.upgrade();
+		}
+
 		public static void spawn( PrisonLevel level, Room room ) {
 			if (!spawned && Dungeon.depth > 7 && Random.Int( 12 - Dungeon.depth ) == 0) {
 				
@@ -222,13 +232,7 @@ public class Wandmaker extends NPC {
 				alternative = Random.Int( 2 ) == 0;
 				
 				given = false;
-				wand1 = (Wand) Generator.random(Generator.Category.WAND);
-				wand1.upgrade();
-
-				do {
-					wand2 = (Wand) Generator.random(Generator.Category.WAND);
-				} while (wand2.getClass().equals(wand1.getClass()));
-				wand2.upgrade();
+				selectWands();
 			}
 		}
 		

@@ -40,6 +40,7 @@ public class Zombie extends Mob {
         dmgRed = 4;
         TYPE_EVIL = true;
         TYPE_UNDEAD = true;
+        TYPE_MINDLESS = true;
     }
 
     @Override

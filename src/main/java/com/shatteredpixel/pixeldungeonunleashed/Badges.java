@@ -138,6 +138,7 @@ public enum Badge {
 		BOSS_SLAIN_2( "2nd boss slain", 12 ),
 		BOSS_SLAIN_3( "3rd boss slain", 12 ),
 		BOSS_SLAIN_4( "4th boss slain", 12 ),
+	    BOSS_SLAIN_5( "5th boss slain", 12 ),
 		BOSS_SLAIN_1_WARRIOR,
 		BOSS_SLAIN_1_MAGE,
 		BOSS_SLAIN_1_ROGUE,
@@ -663,6 +664,9 @@ public enum Badge {
 		case 24:
 			badge = Badge.BOSS_SLAIN_4;
 			break;
+		case 30:
+			badge = Badge.BOSS_SLAIN_5;
+			break;
 		}
 		
 		if (badge != null) {
@@ -975,7 +979,7 @@ public enum Badge {
 		
 		leaveBest( filtered, Badge.MONSTERS_SLAIN_1, Badge.MONSTERS_SLAIN_2, Badge.MONSTERS_SLAIN_3, Badge.MONSTERS_SLAIN_4, Badge.MONSTERS_SLAIN_5 );
 		leaveBest( filtered, Badge.GOLD_COLLECTED_1, Badge.GOLD_COLLECTED_2, Badge.GOLD_COLLECTED_3, Badge.GOLD_COLLECTED_4, Badge.GOLD_COLLECTED_5 );
-		leaveBest( filtered, Badge.BOSS_SLAIN_1, Badge.BOSS_SLAIN_2, Badge.BOSS_SLAIN_3, Badge.BOSS_SLAIN_4 );
+		leaveBest( filtered, Badge.BOSS_SLAIN_1, Badge.BOSS_SLAIN_2, Badge.BOSS_SLAIN_3, Badge.BOSS_SLAIN_4, Badge.BOSS_SLAIN_5 );
 		leaveBest( filtered, Badge.LEVEL_REACHED_1, Badge.LEVEL_REACHED_2, Badge.LEVEL_REACHED_3, Badge.LEVEL_REACHED_4, Badge.LEVEL_REACHED_5 );
 		leaveBest( filtered, Badge.STRENGTH_ATTAINED_1, Badge.STRENGTH_ATTAINED_2, Badge.STRENGTH_ATTAINED_3, Badge.STRENGTH_ATTAINED_4 );
 		leaveBest( filtered, Badge.FOOD_EATEN_1, Badge.FOOD_EATEN_2, Badge.FOOD_EATEN_3, Badge.FOOD_EATEN_4 );

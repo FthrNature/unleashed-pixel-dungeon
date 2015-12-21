@@ -38,15 +38,15 @@ public class LostSoul  extends Mob {
         name = "lost soul";
         spriteClass = LostSoulSprite.class;
 
-        HP = HT = 80;
-        defenseSkill = 25;
-        atkSkill = 40;
-        dmgRed = 10;
-        dmgMin = 18;
-        dmgMax = 25;
+        HP = HT = 100;
+        defenseSkill = 32;
+        atkSkill = 46;
+        dmgRed = 15;
+        dmgMin = 22;
+        dmgMax = 35;
 
         EXP = 12;
-        maxLvl = 30;
+        maxLvl = 32;
 
         baseSpeed = 2f;
         flying = true;

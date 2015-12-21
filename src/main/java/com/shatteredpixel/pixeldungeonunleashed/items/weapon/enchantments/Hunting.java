@@ -35,11 +35,11 @@ public class Hunting extends Weapon.Enchantment {
         int curDamage = 0;
         int level = Math.max( 0, weapon.level );
 
-        if (defender instanceof Mob && ((Mob) defender).TYPE_ANIMAL) {
+        if (defender.TYPE_ANIMAL) {
             curDamage += Random.Int(0, weapon.level + 3);
             defender.damage(curDamage, this);
 
-            if (damage >= defender.HP && (Random.Int(level + 4) >= 3)) {
+            if (damage >= defender.HP && (Random.Int(level + 5) >= 5)) {
                 Dungeon.level.drop( new MysteryMeat(), defender.pos ).sprite.drop();
             }
             return true;

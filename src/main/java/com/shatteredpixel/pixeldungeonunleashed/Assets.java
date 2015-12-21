@@ -74,6 +74,7 @@ public class Assets {
 	public static final String DM300	= "dm300.png";
 	public static final String WRAITH	= "wraith.png";
 	public static final String ELEMENTAL= "elemental.png";
+	public static final String ELEMENTAL2= "elementals2.png";
 	public static final String MONK		= "monk.png";
 	public static final String WARLOCK	= "warlock.png";
 	public static final String GOLEM	= "golem.png";
@@ -99,6 +100,9 @@ public class Assets {
 	public static final String LOSTSOUL = "lost_souls.png";
 	public static final String SQUID    = "squid.png";
 	public static final String CHAOS    = "chaos_mage.png";
+	public static final String WOLF     = "wolf.png";
+	public static final String ICEDEMON = "icedemon.png";
+	public static final String EVILLORD = "demonlord.png";
 
 	public static final String ITEMS	= "items.png";
 	public static final String PLANTS	= "plants.png";
@@ -108,14 +112,16 @@ public class Assets {
 	public static final String TILES_PRISON	= "tiles1.png";
 	public static final String TILES_CAVES	= "tiles2.png";
 	public static final String TILES_CITY	= "tiles3.png";
-	public static final String TILES_HALLS	= "tiles4.png";
-	
+	public static final String TILES_FROZEN = "tiles4.png";
+	public static final String TILES_HALLS	= "tiles5.png";
+
 	public static final String WATER_SEWERS	= "water0.png";
 	public static final String WATER_PRISON	= "water1.png";
 	public static final String WATER_CAVES	= "water2.png";
 	public static final String WATER_CITY	= "water3.png";
-	public static final String WATER_HALLS	= "water4.png";
-	
+	public static final String WATER_FROZEN = "water4.png";
+	public static final String WATER_HALLS	= "water5.png";
+
 	public static final String BUFFS_SMALL	= "buffs.png";
 	public static final String BUFFS_LARGE	= "large_buffs.png";
 	public static final String SPELL_ICONS	= "spell_icons.png";

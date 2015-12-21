@@ -47,6 +47,7 @@ public class Golem extends Mob {
 		EXP = 12;
 		maxLvl = 27;
 		mobType = MOBTYPE_TOUGH;
+		TYPE_MINDLESS = true;
 	}
 	
 	@Override

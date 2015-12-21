@@ -139,9 +139,11 @@ public abstract class Actor implements Bundlable {
 	public static void init() {
 		
 		addDelayed( Dungeon.hero, -Float.MIN_VALUE );
-		
-		for (Mob mob : Dungeon.level.mobs) {
-			add( mob );
+
+		if (Dungeon.level.mobs != null) {
+			for (Mob mob : Dungeon.level.mobs) {
+				add(mob);
+			}
 		}
 		
 		for (Blob blob : Dungeon.level.blobs.values()) {

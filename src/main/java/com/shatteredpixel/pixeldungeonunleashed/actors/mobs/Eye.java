@@ -49,17 +49,17 @@ public class Eye extends Mob {
 		name = "evil eye";
 		spriteClass = EyeSprite.class;
 		
-		HP = HT = 100;
-		defenseSkill = 20;
-		atkSkill = 30;
-		dmgRed = 10;
+		HP = HT = 115;
+		defenseSkill = 22;
+		atkSkill = 32;
+		dmgRed = 14;
 		dmgMin = 14;
-		dmgMax = 20;
+		dmgMax = 22;
 
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 13;
-		maxLvl = 30;
+		maxLvl = 32;
 		
 		flying = true;
 		

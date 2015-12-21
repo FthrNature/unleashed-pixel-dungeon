@@ -24,14 +24,14 @@ public class InfiniteBestiary {
 
     public enum Themes { THEME_SLIMES, THEME_UNDEAD, THEME_NATURAL, THEME_BANDITS, THEME_EARTH, THEME_AIR,
                   THEME_FIRE, THEME_WATER, THEME_SPIRIT, THEME_DEMONS, THEME_SEWERS, THEME_PRISON,
-                  THEME_CAVES, THEME_CITY, THEME_HALLS
+                  THEME_CAVES, THEME_CITY, THEME_HALLS, THEME_FROZEN
     };
 
     public static Themes currentTheme;
 
     public static void pickNewTheme() {
-        // 1-5 = sewers, 6-10 = prison, 11-15 = caves, 16-20 = city, 21-25 = halls...
-        int Tileset = (((Dungeon.depth -1) / 5) % 5);
+        // 1-5 = sewers, 6-10 = prison, 11-15 = caves, 16-20 = city, 21-25 = frozen, 26-30 = halls...
+        int Tileset = (((Dungeon.depth -1) / 5) % 6);
         switch (Tileset) {
             case 0: // sewer levels
                 switch (Random.Int(4)) {
@@ -63,6 +63,14 @@ public class InfiniteBestiary {
                     case 2: currentTheme = Themes.THEME_FIRE; break;
                     case 3: currentTheme = Themes.THEME_BANDITS; break;
                     default: currentTheme = Themes.THEME_SEWERS; break;
+                }
+                break;
+            case 4: // frozen levels
+                switch (Random.Int(4)) {
+                    case 1: currentTheme = Themes.THEME_WATER; break;
+                    case 2: currentTheme = Themes.THEME_AIR; break;
+                    case 3: currentTheme = Themes.THEME_FROZEN; break;
+                    default: currentTheme = Themes.THEME_EARTH; break;
                 }
                 break;
             default: // halls levels
@@ -239,6 +247,14 @@ public class InfiniteBestiary {
                    case 2:  return Monk.class;
                    case 3:  return Warlock.class;
                    default: return Succubus.class;
+               }
+           case THEME_FROZEN:
+               switch (mobChoice) {
+                   case 0:  return BrownWolf.class;
+                   case 1:  return GrayWolf.class;
+                   case 2:  return AirElemental.class;
+                   case 3:  return Yeti.class;
+                   default: return Eye.class;
                }
            case THEME_HALLS:
            default:

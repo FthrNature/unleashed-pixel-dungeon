@@ -22,6 +22,7 @@ package com.shatteredpixel.pixeldungeonunleashed.scenes;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.shatteredpixel.pixeldungeonunleashed.*;
 import com.shatteredpixel.pixeldungeonunleashed.items.Honeypot;
@@ -319,7 +320,12 @@ public class GameScene extends PixelScene {
 						if (Dungeon.difficultyLevel == Dungeon.DIFF_TUTOR) {
 							WndStory.showChapter(WndStory.ID_TUTOR_1);
 						} else {
-							WndStory.showChapter(WndStory.ID_SEWERS);
+							final Calendar calendar = Calendar.getInstance();
+							if (calendar.get(Calendar.MONTH) == 11 && calendar.get(Calendar.WEEK_OF_MONTH) > 2) { // DSM-xxxx
+								WndStory.showChapter(WndStory.ID_SPECIAL_1);
+							} else {
+								WndStory.showChapter(WndStory.ID_SEWERS);
+							}
 						}
 						break;
 					case 6:
@@ -338,6 +344,9 @@ public class GameScene extends PixelScene {
 						WndStory.showChapter(WndStory.ID_METROPOLIS);
 						break;
 					case 25:
+						WndStory.showChapter(WndStory.ID_FROZEN);
+						break;
+					case 31:
 						WndStory.showChapter(WndStory.ID_HALLS);
 						break;
 				}
@@ -443,14 +452,14 @@ public class GameScene extends PixelScene {
 		}
 
 		if (tagResume) {
-			resume.setPos( uiCamera.width - resume.width(), pos - resume.height() );
+			resume.setPos(uiCamera.width - resume.width(), pos - resume.height());
 		}
 	}
 	
 	@Override
 	protected void onBackPressed() {
 		if (!cancel()) {
-			add( new WndGame() );
+			add(new WndGame());
 		}
 	}
 	
@@ -485,7 +494,7 @@ public class GameScene extends PixelScene {
 		heap.sprite = (DiscardedItemSprite)heaps.recycle( DiscardedItemSprite.class );
 		heap.sprite.revive();
 		heap.sprite.link( heap );
-		heaps.add( heap.sprite );
+		heaps.add(heap.sprite);
 	}
 	
 	private void addPlantSprite( Plant plant ) {
@@ -505,9 +514,9 @@ public class GameScene extends PixelScene {
 	
 	private void addMobSprite( Mob mob ) {
 		CharSprite sprite = mob.sprite();
-		sprite.visible = Dungeon.visible[mob.pos];
-		mobs.add( sprite );
-		sprite.link( mob );
+		sprite.visible = Dungeon.visible[mob.pos]; // DSM-xxxx this can crash...
+		mobs.add(sprite);
+		sprite.link(mob);
 	}
 	
 	private void prompt( String text ) {

@@ -27,6 +27,7 @@ import com.shatteredpixel.pixeldungeonunleashed.Statistics;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Amok;
+import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Blindness;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Corruption;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Sleep;
@@ -89,11 +90,7 @@ public abstract class Mob extends Char {
 	public int dmgMin = 1;
 	public int dmgMax = 3;
 	public int mobType = MOBTYPE_NORMAL;
-
-	public boolean TYPE_ANIMAL = false;
-	public boolean TYPE_EVIL = false;
-	public boolean TYPE_UNDEAD = false;
-
+	
 	protected int EXP = 1;
 	protected int maxLvl = Hero.MAX_LEVEL;
 	
@@ -181,88 +178,58 @@ public abstract class Mob extends Char {
 	public void infiniteScaleMob(int depth) {
 		this.maxLvl = depth + 3;
 		if (mobType == MOBTYPE_NORMAL) {
-			// LEV   HT/HP   DEF   ATK   DR   DAMAGE         XP
-			//  1      8      2     8     0    1-4   (2.5)    1
-			// 10     44     11    17     2    1-13   (7)     3
-			// 20     84     21    27     4    1-23  (12)     5
-			// 30    124     31    37     6    1-33  (17)     7
-			this.HT = (int) (4 + (depth * 4));
+			this.HT = (4 + (depth * 4));
 			this.HP = this.HT;
 			this.defenseSkill = 1 + depth;
 			this.atkSkill = 7 + depth;
-			this.dmgRed = (depth / 5);
-			this.dmgMin = 1;
-			this.dmgMax = 3 + depth;
+			this.dmgRed = (depth / 3);
+			this.dmgMin = ((depth + 1) / 2);
+			this.dmgMax = ((depth * 3) / 2);
 			this.EXP = 1 + (depth/5);
 		} else if (mobType == MOBTYPE_NIMBLE) {
-			// LEV   HT/HP   DEF   ATK   DR   DAMAGE         XP
-			//  1      8      8     8     0    1-7   (2.5)    3
-			// 10     44     20    17     1    1-13   (7)     5
-			// 20     84     33    27     3    1-23  (12)     8
-			// 30    124     47    37     5    1-33  (17)    10
-			this.HT = (int) (4 + (depth * 4));
+			this.HT = (4 + (depth * 4));
 			this.HP = this.HT;
 			this.defenseSkill = 7 + (4 * depth / 3);
 			this.atkSkill = 7 + depth;
-			this.dmgRed = (depth / 6);
-			this.dmgMin = 1;
-			this.dmgMax = 3 + depth;
+			this.dmgRed = (depth / 3);
+			this.dmgMin = (depth + 1) / 2;
+			this.dmgMax = 5 + depth;
 			this.EXP = 3 + (depth / 4);
 		} else if (mobType == MOBTYPE_TOUGH) {
-			// LEV   HT/HP   DEF   ATK   DR   DAMAGE         XP
-			//  1     12      1     6     1    1-7    (4)     3
-			// 10     66      6    12     4    3-16  (9.5)    5
-			// 20    126     11    19     7    6-26  (16)     8
-			// 30    186     16    26    11    8-36  (22)    10
-			this.HT = (int) (6 + (depth * 6));
+			this.HT = (6 + (depth * 6));
 			this.HP = this.HT;
-			this.defenseSkill = 1 + (depth / 2);
+			this.defenseSkill = depth + 10;
 			this.atkSkill = 6 + (2 * depth / 3);
-			this.dmgRed = 1 + (depth / 3);
+			this.dmgRed = 1 + (depth / 2);
 			this.dmgMin = 1 + (depth / 4);
-			this.dmgMax = 6 + depth;
+			this.dmgMax = depth * 2;
 			this.EXP = 3 + (depth / 4);
 		} else if (mobType == MOBTYPE_RANGED) {
-			// LEV   HT/HP   DEF   ATK   DR   DAMAGE         XP
-			//  1      8      1     8     0    1-7   (2.5)    3
-			// 10     44      6    17     1    1-13   (7)     5
-			// 20     84     11    27     3    1-23  (12)     8
-			// 30    124     16    37     5    1-33  (17)    10
-			this.HT = (int) (4 + (depth * 4));
+			this.HT = (4 + (depth * 4));
 			this.HP = this.HT;
-			this.defenseSkill = 1 + (depth / 2);
+			this.defenseSkill = 5 + (depth / 2);
 			this.atkSkill = 7 + depth;
-			this.dmgRed = (depth / 6);
-			this.dmgMin = 1;
-			this.dmgMax = 3 + depth;
+			this.dmgRed = (depth / 3);
+			this.dmgMin = 5 + (depth / 3);
+			this.dmgMax = 10 + depth;
 			this.EXP = 3 + (depth / 4);
 		} else if (mobType == MOBTYPE_DEBUFF) {
-			// LEV   HT/HP   DEF   ATK   DR   DAMAGE         XP
-			//  1      8      2     8     0    1-4   (2.5)    1
-			// 10     44     11    17     2    1-13   (7)     3
-			// 20     84     21    27     4    1-23  (12)     5
-			// 30    124     31    37     6    1-33  (17)     7
-			this.HT = (int) (4 + (depth * 4));
+			this.HT = (4 + (depth * 4));
 			this.HP = this.HT;
-			this.defenseSkill = 1 + depth;
-			this.atkSkill = 7 + depth;
-			this.dmgRed = (depth / 5);
+			this.defenseSkill = 5 + depth;
+			this.atkSkill = 10 + depth;
+			this.dmgRed = (depth / 3);
 			this.dmgMin = 1;
-			this.dmgMax = 3 + depth;
+			this.dmgMax = 5 + depth;
 			this.EXP = 3 + (depth / 4);
 		} else if (mobType == MOBTYPE_SPECIAL) {
-			// LEV   HT/HP   DEF   ATK   DR   DAMAGE         XP
-			//  1     10      8     8     0    1-7    (4)     3
-			// 10     55     20    17     2    3-13   (8)     6
-			// 20    105     33    27     5    6-23 (14.5)    9
-			// 30    155     47    37     7    8-33 (20.5)   13
-			this.HT = (int) (5 + (depth * 5));
+			this.HT = (5 + (depth * 5));
 			this.HP = this.HT;
 			this.defenseSkill = 7 + (4 * depth / 3);
 			this.atkSkill = 7 + depth;
-			this.dmgRed = (depth / 4);
-			this.dmgMin = 1 + (depth / 4);
-			this.dmgMax = 3 + depth;
+			this.dmgRed = (depth / 2);
+			this.dmgMin = 1 + (depth / 3);
+			this.dmgMax = 1 + (depth * 2);
 			this.EXP = 3 + (depth / 3);
 		}
 	}
@@ -293,7 +260,8 @@ public abstract class Mob extends Char {
 		
 		enemy = chooseEnemy();
 		
-		boolean enemyInFOV = enemy != null && enemy.isAlive() && Level.fieldOfView[enemy.pos] && enemy.invisible <= 0;
+		boolean enemyInFOV = enemy != null && enemy.isAlive() && Level.fieldOfView[enemy.pos] &&
+				enemy.invisible <= 0 && this.buff(Blindness.class) == null;
 
 		return state.act( enemyInFOV, justAlerted );
 	}

@@ -22,6 +22,7 @@ package com.shatteredpixel.pixeldungeonunleashed.actors.mobs;
 
 import java.util.HashSet;
 
+import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
 import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
@@ -51,6 +52,9 @@ public class Wraith extends Mob {
 		TYPE_UNDEAD = true;
 		TYPE_EVIL = true;
 		flying = true;
+
+		loot = Generator.Category.SCROLL;
+		lootChance = 0.25f;
 	}
 	
 	private static final String LEVEL = "level";

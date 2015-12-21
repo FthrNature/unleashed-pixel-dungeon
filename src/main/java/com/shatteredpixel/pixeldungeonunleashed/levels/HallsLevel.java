@@ -40,8 +40,12 @@ public class HallsLevel extends RegularLevel {
 	{
 		minRoomSize = 6;
 		
-		viewDistance = Math.max( 30 - Dungeon.depth, 1 );
-		
+		viewDistance = Math.max( 36 - Dungeon.depth, 1 );
+		if (viewDistance < 1) {
+			viewDistance = 1;
+		} else if (viewDistance > 8) {
+			viewDistance = 8;
+		}
 		color1 = 0x801500;
 		color2 = 0xa68521;
 	}

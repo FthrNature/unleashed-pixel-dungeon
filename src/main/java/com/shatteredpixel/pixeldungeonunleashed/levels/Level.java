@@ -89,8 +89,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public abstract class Level implements Bundlable {
-	
-	public static enum Feeling {
+
+	public enum Feeling {
 		NONE,
 		CHASM,
 		WATER,
@@ -101,7 +101,7 @@ public abstract class Level implements Bundlable {
 	
 	public static final int WIDTH = 40;
 	public static final int HEIGHT = 38;
-	public static final int MAX_DEPTH = 31;
+	public static final int MAX_DEPTH = 37;
 	public static final int LENGTH = WIDTH * HEIGHT;
 	
 	public static final int[] NEIGHBOURS4 = {-WIDTH, +1, +WIDTH, -1};
@@ -391,64 +391,13 @@ public abstract class Level implements Bundlable {
 	public int tunnelTile() {
 		return feeling == Feeling.CHASM ? Terrain.EMPTY_SP : Terrain.EMPTY;
 	}
-	
-	private void adjustMapSize() {
-		// For levels saved before 1.6.3
-		// Seeing as shattered started on 1.7.1 this is never used, but the code may be resused in future.
 
-		/*
-		if (map.length < LENGTH) {
-			
-			resizingNeeded = false; // true;
-			loadedMapSize = (int)Math.sqrt( map.length );
-			
-			int[] map = new int[LENGTH];
-			Arrays.fill( map, Terrain.WALL );
-			
-			boolean[] visited = new boolean[LENGTH];
-			Arrays.fill( visited, false );
-			
-			boolean[] mapped = new boolean[LENGTH];
-			Arrays.fill( mapped, false );
-			
-			for (int i=0; i < loadedMapSize; i++) {
-				System.arraycopy( this.map, i * loadedMapSize, map, i * WIDTH, loadedMapSize );
-				System.arraycopy( this.visited, i * loadedMapSize, visited, i * WIDTH, loadedMapSize );
-				System.arraycopy( this.mapped, i * loadedMapSize, mapped, i * WIDTH, loadedMapSize );
-			}
-			
-			this.map = map;
-			this.visited = visited;
-			this.mapped = mapped;
-			
-			entrance = adjustPos( entrance );
-			exit = adjustPos( exit );
-		} else {
-			resizingNeeded = false;
-		}
-		*/
-	}
-	
-	public int adjustPos( int pos ) {
-		return (pos / loadedMapSize) * WIDTH + (pos % loadedMapSize);
-	}
-	
 	public String tilesTex() {
 		return null;
 	}
 	
 	public String waterTex() {
 		return null;
-	}
-
-	public<T extends Item> boolean isItemOnLevel(Class<T> itemClass) {
-		for (Heap heap : Dungeon.level.heaps.values())
-		{
-			if (itemClass.isInstance(heap.peek())) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	abstract protected boolean build();
@@ -508,12 +457,14 @@ public abstract class Level implements Bundlable {
 				if (mobs.size() < nMobs()) {
 
 					Mob mob = Bestiary.mutable( Dungeon.depth );
-					mob.state = mob.WANDERING;
-					mob.pos = randomRespawnCell();
-					if (Dungeon.hero.isAlive() && mob.pos != -1) {
-						GameScene.add( mob );
-						if (Statistics.amuletObtained) {
-							mob.beckon( Dungeon.hero.pos );
+					if (mob != null) {
+						mob.state = mob.WANDERING;
+						mob.pos = randomRespawnCell();
+						if (Dungeon.hero.isAlive() && mob.pos != -1) {
+							GameScene.add(mob);
+							if (Statistics.amuletObtained) {
+								mob.beckon(Dungeon.hero.pos);
+							}
 						}
 					}
 				}
@@ -681,7 +632,7 @@ public abstract class Level implements Bundlable {
 			//effectively nullifies whatever the logic calling this wants to do, including dropping items.
 			Heap heap = new Heap();
 			ItemSprite sprite = heap.sprite = new ItemSprite();
-			sprite.link( heap );
+			sprite.link(heap);
 			return heap;
 
 		}
@@ -721,7 +672,7 @@ public abstract class Level implements Bundlable {
 			return drop( item, n );
 			
 		}
-		heap.drop( item );
+		heap.drop(item);
 		
 		if (Dungeon.level != null) {
 			press( cell, null );
@@ -759,8 +710,8 @@ public abstract class Level implements Bundlable {
 	}
 
 	public Trap setTrap( Trap trap, int pos ){
-		trap.set( pos );
-		traps.put( pos, trap );
+		trap.set(pos);
+		traps.put(pos, trap);
 		GameScene.add(trap);
 		return trap;
 	}
@@ -843,7 +794,7 @@ public abstract class Level implements Bundlable {
 
 			trap.trigger();
 
-		} else if (trap != null && frozen){
+		} else if (trap != null){
 
 			Sample.INSTANCE.play(Assets.SND_TRAP);
 
@@ -898,7 +849,7 @@ public abstract class Level implements Bundlable {
 		boolean sighted = c.buff( Blindness.class ) == null && c.buff( Shadows.class ) == null
 						&& c.buff( TimekeepersHourglass.timeStasis.class ) == null && c.isAlive();
 		if (sighted) {
-			ShadowCaster.castShadow( cx, cy, fieldOfView, c.viewDistance );
+			ShadowCaster.castShadow( cx, cy, fieldOfView, Math.min(c.viewDistance, 8) );
 		} else {
 			Arrays.fill(fieldOfView, false);
 		}
@@ -931,16 +882,18 @@ public abstract class Level implements Bundlable {
 		if (c.isAlive()) {
 			if (c.buff( MindVision.class ) != null) {
 				for (Mob mob : mobs) {
-					int p = mob.pos;
-					fieldOfView[p] = true;
-					fieldOfView[p + 1] = true;
-					fieldOfView[p - 1] = true;
-					fieldOfView[p + WIDTH + 1] = true;
-					fieldOfView[p + WIDTH - 1] = true;
-					fieldOfView[p - WIDTH + 1] = true;
-					fieldOfView[p - WIDTH - 1] = true;
-					fieldOfView[p + WIDTH] = true;
-					fieldOfView[p - WIDTH] = true;
+					if (! mob.TYPE_MINDLESS) {
+						int p = mob.pos;
+						fieldOfView[p] = true;
+						fieldOfView[p + 1] = true;
+						fieldOfView[p - 1] = true;
+						fieldOfView[p + WIDTH + 1] = true;
+						fieldOfView[p + WIDTH - 1] = true;
+						fieldOfView[p - WIDTH + 1] = true;
+						fieldOfView[p - WIDTH - 1] = true;
+						fieldOfView[p + WIDTH] = true;
+						fieldOfView[p - WIDTH] = true;
+					}
 				}
 			} else if (c == Dungeon.hero && ((Hero)c).heroClass == HeroClass.HUNTRESS) {
 				for (Mob mob : mobs) {

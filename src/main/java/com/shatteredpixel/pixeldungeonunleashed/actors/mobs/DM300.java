@@ -62,6 +62,7 @@ public class DM300 extends Mob {
 		dmgRed = 10;
 		dmgMin = 18;
 		dmgMax = 24;
+		TYPE_MINDLESS = true;
 
 		loot = new CapeOfThorns().identify();
 		lootChance = 0.333f;

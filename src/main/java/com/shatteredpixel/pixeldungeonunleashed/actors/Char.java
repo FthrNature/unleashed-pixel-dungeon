@@ -71,7 +71,12 @@ public abstract class Char extends Actor {
 	public int invisible		= 0;
 	
 	public int viewDistance	= 8;
-	
+
+	public boolean TYPE_ANIMAL = false;
+	public boolean TYPE_EVIL = false;
+	public boolean TYPE_UNDEAD = false;
+	public boolean TYPE_MINDLESS = false;
+
 	private HashSet<Buff> buffs = new HashSet<Buff>();
 	
 	@Override
@@ -285,12 +290,14 @@ public abstract class Char extends Actor {
 	
 	public void destroy() {
 		HP = 0;
-		Actor.remove( this );
+		Actor.remove(this);
 	}
 	
 	public void die( Object src ) {
 		destroy();
-		sprite.die();
+		if (sprite != null) {
+			sprite.die();
+		}
 	}
 	
 	public boolean isAlive() {

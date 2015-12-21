@@ -40,7 +40,7 @@ import com.watabou.utils.Random;
 
 public class InfiniteOpenLevel extends Level {
 
-    private int THEME = (Dungeon.depth / 5) % 5;
+    private int THEME = (Dungeon.depth / 5) % 6;
     {
         switch (THEME) {
             case 0: // this is a sewer level
@@ -58,6 +58,10 @@ public class InfiniteOpenLevel extends Level {
             case 3: // this is a city level
                 color1 = 0x4b6636;
                 color2 = 0xf2f2f2;
+                break;
+            case 4: // this is a frozen level
+                color1 = 0x484876;
+                color2 = 0x4b5999;
                 break;
             default: // this is a halls level
                 color1 = 0x801500;
@@ -84,6 +88,8 @@ public class InfiniteOpenLevel extends Level {
                 return Assets.TILES_CAVES;
             case 3: // city
                 return Assets.TILES_CITY;
+            case 4: // frozen
+                return Assets.TILES_FROZEN;
             default: // halls
                 return Assets.TILES_HALLS;
         }
@@ -100,6 +106,8 @@ public class InfiniteOpenLevel extends Level {
                 return Assets.WATER_CAVES;
             case 3: // city
                 return Assets.WATER_CITY;
+            case 4: // frozen
+                return Assets.WATER_FROZEN;
             default: // halls
                 return Assets.WATER_HALLS;
         }
@@ -109,21 +117,21 @@ public class InfiniteOpenLevel extends Level {
     protected boolean build() {
         int topMost = Integer.MAX_VALUE;
 
-        for (int i=0; i < 12; i++) {
+        for (int i=0; i < 8; i++) {
             int left, right, top, bottom;
             if (Random.Int( 2 ) == 0) {
-                left = Random.Int( 1, ROOM_LEFT - 3 );
+                left = Random.Int( 6, ROOM_LEFT - 3 );
                 right = ROOM_RIGHT + 3;
             } else {
                 left = ROOM_LEFT - 3;
-                right = Random.Int( ROOM_RIGHT + 3, WIDTH - 1 );
+                right = Random.Int( ROOM_RIGHT + 3, WIDTH - 6 );
             }
             if (Random.Int( 2 ) == 0) {
-                top = Random.Int( 2, ROOM_TOP - 3 );
+                top = Random.Int( 6, ROOM_TOP - 3 );
                 bottom = ROOM_BOTTOM + 3;
             } else {
                 top = ROOM_LEFT - 3;
-                bottom = Random.Int( ROOM_TOP + 3, HEIGHT - 1 );
+                bottom = Random.Int( ROOM_TOP + 3, HEIGHT - 6 );
             }
 
             Painter.fill(this, left, top, right - left + 1, bottom - top + 1, Terrain.EMPTY);
@@ -135,12 +143,12 @@ public class InfiniteOpenLevel extends Level {
         }
 
         for (int i = 0; i < 3; i++) {
-            int left = Random.IntRange(6, WIDTH-6);
-            int top = Random.IntRange(topMost + 5, HEIGHT-8);
+            int left = Random.IntRange(10, WIDTH-10);
+            int top = Random.IntRange(topMost + 5, HEIGHT-12);
             Painter.fill(this, left, top, 3, 3, Terrain.WALL);
         }
         for (int i = 0; i < 6; i++) {
-            int left = Random.IntRange(6, WIDTH-6);
+            int left = Random.IntRange(10, WIDTH-10);
             int top = Random.IntRange(topMost + 4, HEIGHT-6);
             Painter.fill(this, left, top, 2, 2, Terrain.WALL);
         }
@@ -180,6 +188,7 @@ public class InfiniteOpenLevel extends Level {
 
         entrance = Random.Int( ROOM_LEFT + 1, ROOM_RIGHT - 1 ) +
                 Random.Int( ROOM_TOP + 1, ROOM_BOTTOM - 1 ) * WIDTH;
+        Painter.fill(this, (ROOM_LEFT - 2), (ROOM_TOP - 2), 5, 5, Terrain.EMPTY);
         map[entrance] = Terrain.ENTRANCE;
 
 
@@ -216,11 +225,13 @@ public class InfiniteOpenLevel extends Level {
         }
 
 
+        Painter.fill(this, (ROOM_LEFT - 2), (ROOM_TOP - 2), 5, 5, Terrain.EMPTY);
         int sign;
         do {
             sign = Random.Int( ROOM_LEFT, ROOM_RIGHT ) + Random.Int( ROOM_TOP, ROOM_BOTTOM ) * WIDTH;
         } while (sign == entrance);
         map[sign] = Terrain.SIGN;
+        map[entrance] = Terrain.ENTRANCE;
     }
 
     @Override
@@ -234,12 +245,6 @@ public class InfiniteOpenLevel extends Level {
         bonus = Math.min(bonus, 9);
         while (Random.Float() < (0.35f + bonus*0.05f)) {
             nItems++;
-        }
-
-        if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
-            nItems = nItems / 2;
-        } else if (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) {
-            nItems += 2;
         }
 
         for (int i=0; i < nItems; i++) {
@@ -274,10 +279,12 @@ public class InfiniteOpenLevel extends Level {
 
         while (mobsToSpawn > 0) {
             Mob mob = InfiniteBestiary.mob(Dungeon.depth);
-            mob.infiniteScaleMob(Dungeon.depth);
-            mob.pos = randomDestination();
-            mobsToSpawn--;
-            mobs.add(mob);
+            if (mob != null) {
+                mob.infiniteScaleMob(Dungeon.depth);
+                mob.pos = randomDestination();
+                mobsToSpawn--;
+                mobs.add(mob);
+            }
         }
 
         Mob miniBoss = null;
@@ -327,12 +334,14 @@ public class InfiniteOpenLevel extends Level {
                 while (mobs.size() < numMobs) {
 
                     Mob mob = InfiniteBestiary.mutable( Dungeon.depth );
-                    mob.infiniteScaleMob(Dungeon.depth);
+                    if (mob != null) {
+                        mob.infiniteScaleMob(Dungeon.depth);
 
-                    mob.state = mob.WANDERING;
-                    mob.pos = randomRespawnCell();
-                    if (Dungeon.hero.isAlive() && mob.pos != -1) {
-                        GameScene.add(mob);
+                        mob.state = mob.WANDERING;
+                        mob.pos = randomRespawnCell();
+                        if (Dungeon.hero.isAlive() && mob.pos != -1) {
+                            GameScene.add(mob);
+                        }
                     }
                 }
                 spend( 45 );
@@ -355,6 +364,9 @@ public class InfiniteOpenLevel extends Level {
                 break;
             case 3: // city
                 CityLevel.addVisuals( this, scene );
+                break;
+            case 4: // frozen
+                FrozenLevel.addVisuals(this, scene);
                 break;
             default: // halls
                 HallsLevel.addVisuals( this, scene );

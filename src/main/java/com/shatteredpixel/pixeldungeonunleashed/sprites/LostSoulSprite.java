@@ -29,7 +29,7 @@ public class LostSoulSprite extends MobSprite {
 
         texture( Assets.LOSTSOUL );
 
-        TextureFilm frames = new TextureFilm( texture, 12, 15 );
+        TextureFilm frames = new TextureFilm( texture, 12, 16 );
 
         idle = new Animation( 8, true );
         idle.frames( frames, 0, 1, 2, 3 );

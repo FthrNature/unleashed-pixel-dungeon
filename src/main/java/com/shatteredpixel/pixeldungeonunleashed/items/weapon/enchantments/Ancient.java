@@ -54,7 +54,7 @@ public class Ancient extends Weapon.Enchantment  {
         if ((weapon.level < weapon.levelCap) && ((curDamage + damage) >= defHP)) {
             // every 8 killing blows this weapon has a chance at an upgrade
             numKills++;
-            if (numKills > 8) {
+            if (numKills > 10) {
                 int testValue = weapon.levelCap * weapon.levelCap;
                 int failRate = testValue - (level * (level - 1));
                 if (level < 3) {
@@ -69,7 +69,7 @@ public class Ancient extends Weapon.Enchantment  {
                 else
                 {
                     // it will take a little longer til we get this upgrade
-                    numKills -= 4;
+                    numKills = 0;
                 }
             }
         }

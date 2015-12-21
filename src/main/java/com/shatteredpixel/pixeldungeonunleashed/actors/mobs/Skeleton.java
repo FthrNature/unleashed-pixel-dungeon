@@ -57,6 +57,7 @@ public class Skeleton extends Mob {
 
 		TYPE_UNDEAD = true;
 		TYPE_EVIL = true;
+		TYPE_MINDLESS = true;
 
 		loot = Generator.Category.WEAPON;
 		lootChance = 0.2f;

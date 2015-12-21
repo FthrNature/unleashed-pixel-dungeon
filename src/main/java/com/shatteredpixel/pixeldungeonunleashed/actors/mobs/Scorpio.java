@@ -43,23 +43,24 @@ public class Scorpio extends Mob {
 		name = "scorpio";
 		spriteClass = ScorpioSprite.class;
 		
-		HP = HT = 95;
-		defenseSkill = 24;
-		atkSkill = 36;
+		HP = HT = 135;
+		defenseSkill = 32;
+		atkSkill = 44;
 
-		dmgMin = 20;
-		dmgMax = 32;
-		dmgRed = 16;
+		dmgMin = 25;
+		dmgMax = 45;
+		dmgRed = 18;
 
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 14;
-		maxLvl = 30;
+		maxLvl = 32;
 		
 		loot = new PotionOfHealing();
 		lootChance = 0.2f;
 
 		TYPE_ANIMAL = true;
+		TYPE_EVIL = true;
 		mobType = MOBTYPE_DEBUFF;
 	}
 	

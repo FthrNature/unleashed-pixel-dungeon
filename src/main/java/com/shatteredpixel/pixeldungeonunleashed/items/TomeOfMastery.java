@@ -50,6 +50,7 @@ public class TomeOfMastery extends Item {
 		stackable = false;
 		name = "Tome of Mastery";
 		image = ItemSpriteSheet.MASTERY;
+		level = 1;
 		
 		unique = true;
 	}
@@ -70,9 +71,8 @@ public class TomeOfMastery extends Item {
 				return;
 			}
 
+			curUser = hero;
 			if (hero.subClass == HeroSubClass.NONE) {
-				curUser = hero;
-
 				HeroSubClass way1 = null;
 				HeroSubClass way2 = null;
 				switch (hero.heroClass) {
@@ -94,7 +94,8 @@ public class TomeOfMastery extends Item {
 						break;
 				}
 				GameScene.show(new WndChooseWay(this, way1, way2));
-			} else {
+			} else if (level == 1) {
+				level = 0;
 				GLog.w( "You learn more about being a %s!", Utils.capitalize( hero.subClass.title() ) );
 				hero.earnExp(hero.maxExp());
 
@@ -109,6 +110,8 @@ public class TomeOfMastery extends Item {
 				curUser.sprite.operate(curUser.pos);
 				Sample.INSTANCE.play(Assets.SND_MASTERY);
 				curUser.sprite.emitter().burst(Speck.factory(Speck.MASTERY), 12);
+			} else {
+				GLog.i("There is nothing more you can learn from this book");
 			}
 			
 		} else {
@@ -143,7 +146,7 @@ public class TomeOfMastery extends Item {
 	}
 	
 	public void choose( HeroSubClass way ) {
-		
+		level = 0;
 		detach( curUser.belongings.backpack );
 		
 		curUser.spend( TomeOfMastery.TIME_TO_READ );

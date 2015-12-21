@@ -38,8 +38,10 @@ import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.Ring;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfPsionicBlast;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.pixeldungeonunleashed.items.wands.WandOfPrismaticLight;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Holy;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.enchantments.Hunting;
@@ -49,6 +51,7 @@ import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.Dagger;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.melee.ShortSword;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.Dart;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.missiles.Boomerang;
+import com.shatteredpixel.pixeldungeonunleashed.plants.Blindweed;
 import com.watabou.utils.Bundle;
 
 public enum HeroClass {
@@ -152,31 +155,28 @@ public enum HeroClass {
 		hero.HT = 80;
 		hero.HP = 80;
 		// things we only want a few of..
-		Ring ring1 = (Ring) Generator.random(Generator.Category.RING);
-		ring1.collect();
-		Generator.random(Generator.Category.WAND).collect();
-		for (int i = 0; i < 3; i++) {
+		new WandOfPrismaticLight().collect();
+		for (int i = 0; i < 4; i++) {
 			new PotionOfMight().collect();
+			new PotionOfMindVision().identify().collect();
+			new ScrollOfRemoveCurse().collect();
 		}
 
 		// things we want a bunch of...
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 8; i++) {
 			new Food().collect();
 			new ScrollOfMagicMapping().identify().collect();
 			new ScrollOfIdentify().identify().collect();
 			new PotionOfHealing().identify().collect();
 			new ScrollOfUpgrade().collect();
 		}
+
 		try {
-			Weapon wpn = (Weapon) Generator.random(Generator.Category.WEAPON);
-			wpn.enchant(Holy.class.newInstance()).collect();
-			Weapon wpn2 = (Weapon) Generator.random(Generator.Category.WEAPON);
-			wpn2.enchant(Hunting.class.newInstance()).collect();
+			Generator.random(Generator.Category.WAND).collect();
+			Generator.random(Generator.Category.WAND).collect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		new ScrollOfRemoveCurse().collect();
-		new AnkhChain().collect();
 	}
 
 	public Badges.Badge masteryBadge() {

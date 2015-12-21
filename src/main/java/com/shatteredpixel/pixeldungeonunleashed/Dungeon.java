@@ -42,6 +42,8 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.CavesLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.CityBossLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.CityLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.DeadEndLevel;
+import com.shatteredpixel.pixeldungeonunleashed.levels.FrozenBossLevel;
+import com.shatteredpixel.pixeldungeonunleashed.levels.FrozenLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.HallsBossLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.HallsLevel;
 import com.shatteredpixel.pixeldungeonunleashed.levels.InfiniteLevel;
@@ -74,6 +76,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
 
 public class Dungeon {
@@ -277,122 +280,146 @@ public class Dungeon {
 		}
 		
 		Arrays.fill( visible, false );
-		Level level;
+		Level level = null;
 
-		if (difficultyLevel == DIFF_ENDLESS) {
-			if ((depth % 10) == 0) {
-				// time for a new boss level
-				switch (Random.Int(10)) {
-					case 0:
+		while (level == null) {
+			if (difficultyLevel == DIFF_ENDLESS) {
+				if ((depth % 10) == 0) {
+					// time for a new boss level
+					switch (Random.Int(10)) {
+						case 0:
+						case 1:
+						case 2:
+							level = new SewerBossLevel();
+							break;
+						case 3:
+						case 4:
+							level = new PrisonBossLevel();
+							break;
+						case 5:
+						case 6:
+						case 7:
+							level = new CavesBossLevel();
+							break;
+						case 8:
+							level = new CityBossLevel();
+							break;
+						default:
+							level = new HallsBossLevel();
+							break;
+					}
+				} else if (Random.Int(5) == 0 && (depth % 10 == 3 || depth % 10 == 5 || depth % 10 == 8)) {
+					level = new InfiniteOpenLevel();
+				} else {
+					level = new InfiniteLevel();
+				}
+			} else {
+
+
+				switch (depth) {
 					case 1:
-					case 2:
-						level = new SewerBossLevel();
+						final Calendar calendar = Calendar.getInstance();
+						GLog.i("Date: " + calendar.get(Calendar.MONTH));
+						if (calendar.get(Calendar.MONTH) == 11 && calendar.get(Calendar.WEEK_OF_MONTH) > 2) { // DSM-xxxx
+							level = new FrozenLevel();
+						} else {
+							level = new SewerLevel();
+						}
 						break;
+					case 2:
 					case 3:
 					case 4:
+					case 5:
+						if (specialLevel(depth)) { // level 5 is gauranteed to be an Open Level
+							level = new OpenLevel();
+						} else {
+							level = new SewerLevel();
+						}
+						break;
+					case 6:
+						level = new SewerBossLevel();
+						break;
+					case 7:
+					case 8:
+					case 9:
+					case 10:
+						if (specialLevel(depth) && Random.Int(6) == 0) {
+							level = new OpenLevel();
+						} else {
+							level = new PrisonLevel();
+						}
+						break;
+					case 11:
+						level = new OpenLevel();
+						break;
+					case 12:
 						level = new PrisonBossLevel();
 						break;
-					case 5:
-					case 6:
-					case 7:
+					case 13:
+					case 14:
+					case 15:
+					case 16:
+					case 17:
+						if (specialLevel(depth) && Random.Int(5) == 0) {
+							level = new OpenLevel();
+						} else {
+							level = new CavesLevel();
+						}
+						break;
+					case 18:
 						level = new CavesBossLevel();
 						break;
-					case 8:
+					case 19:
+					case 20:
+					case 21:
+					case 22:
+					case 23:
+						if (specialLevel(depth) && Random.Int(5) == 0) {
+							level = new OpenLevel();
+						} else {
+							level = new CityLevel();
+						}
+						break;
+					case 24:
 						level = new CityBossLevel();
 						break;
-					default:
+					case 25:
+					case 26:
+					case 27:
+					case 28:
+					case 29:
+						if (specialLevel(depth) && Random.Int(5) == 0) {
+							level = new OpenLevel();
+						} else {
+							level = new FrozenLevel();
+						}
+						break;
+					case 30:
+						level = new FrozenBossLevel();
+						break;
+					case 31:
+						level = new LastShopLevel();
+						break;
+					case 32:
+					case 33:
+					case 34:
+					case 35:
+						if (specialLevel(depth) && Random.Int(5) == 0) {
+							level = new OpenLevel();
+						} else {
+							level = new HallsLevel();
+						}
+						break;
+					case 36:
 						level = new HallsBossLevel();
 						break;
+					case Level.MAX_DEPTH:
+						level = new LastLevel();
+						break;
+					default:
+						level = new DeadEndLevel();
+						Statistics.deepestFloor--;
 				}
-			} else if (Random.Int(5) == 0 && (depth % 10 == 3 || depth % 10 == 5 || depth % 10 == 8)) {
-				level = new InfiniteOpenLevel();
-			} else {
-				level = new InfiniteLevel();
-			}
-		} else {
-
-
-			switch (depth) {
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-				case 5:
-					if (specialLevel(depth)) { // level 5 is gauranteed to be an Open Level
-						level = new OpenLevel();
-					} else {
-						level = new SewerLevel();
-					}
-					break;
-				case 6:
-					level = new SewerBossLevel();
-					break;
-				case 7:
-				case 8:
-				case 9:
-				case 10:
-					if (specialLevel(depth) && Random.Int(6) == 0) {
-						level = new OpenLevel();
-					} else {
-						level = new PrisonLevel();
-					}
-					break;
-				case 11:
-					level = new OpenLevel();
-					break;
-				case 12:
-					level = new PrisonBossLevel();
-					break;
-				case 13:
-				case 14:
-				case 15:
-				case 16:
-				case 17:
-					if (specialLevel(depth) && Random.Int(5) == 0) {
-						level = new OpenLevel();
-					} else {
-						level = new CavesLevel();
-					}
-					break;
-				case 18:
-					level = new CavesBossLevel();
-					break;
-				case 19:
-				case 20:
-				case 21:
-				case 22:
-				case 23:
-					if (specialLevel(depth) && Random.Int(5) == 0) {
-						level = new OpenLevel();
-					} else {
-						level = new CityLevel();
-					}
-					break;
-				case 24:
-					level = new CityBossLevel();
-					break;
-				case 25:
-					level = new LastShopLevel();
-					break;
-				case 26:
-				case 27:
-				case 28:
-				case 29:
-					if (specialLevel(depth) && Random.Int(5) == 0) {
-						level = new OpenLevel();
-					} else {
-						level = new HallsLevel();
-					}
-					break;
-				case 30:
-					level = new HallsBossLevel();
-					break;
-				case Level.MAX_DEPTH:
-					level = new LastLevel();
-					break;
-				default:
-					level = new DeadEndLevel();
-					Statistics.deepestFloor--;
 			}
 		}
 		
@@ -413,7 +440,7 @@ public class Dungeon {
 	}
 	
 	public static boolean shopOnLevel() {
-		return depth == 7 || depth == 13 || depth == 19;
+		return depth == 7 || depth == 13 || depth == 19 || depth == 25 || depth == 31;
 	}
 	
 	public static boolean bossLevel() {
@@ -427,7 +454,7 @@ public class Dungeon {
 
 	public static boolean specialLevel( int depth ) {
 		// this level is allowed to have a special layout
-		return depth == 5 || depth == 10 || depth == 11 || depth == 15 || depth == 21 || depth == 27;
+		return depth == 5 || depth == 10 || depth == 11 || depth == 15 || depth == 21 || depth == 27 || depth == 33;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -479,8 +506,8 @@ public class Dungeon {
 	
 	public static boolean souNeeded() {
 		// adjusted slightly to account for larger dungeon, level caps and upgrade failures
-		if (Dungeon.depth < 30) {
-			int[] quota = {6, 4, 12, 8, 18, 13, 24, 16, 29, 18};
+		if (Dungeon.depth < 36) {
+			int[] quota = {6, 4, 12, 8, 18, 13, 24, 16, 29, 18, 35, 20};
 			return chance(quota, limitedDrops.upgradeScrolls.count);
 		} else {
 			return Random.Float() < (float)(((depth / 2) + 3) - limitedDrops.upgradeScrolls.count) / (depth + 1);

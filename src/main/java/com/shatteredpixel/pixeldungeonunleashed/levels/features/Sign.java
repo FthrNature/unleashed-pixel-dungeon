@@ -91,6 +91,12 @@ public class Sign {
 		"The minotaur likes to hide around corners, try luring him into the open.",
 
 		"No weapons allowed in the presence of His Majesty!",
+		"Beware, wolves tend to travel in packs.",
+		"Deep dwellers have a special attack",
+		"Most Badges can't be earned in the Easy difficulty level.",
+		"Have you ever thrown a potion at a mob?",
+		"Sign writers wanted, please apply at the Yog level!",
+		"The Yog moved downstairs...",
 
 		"Pixel-Mart. Special prices for demon hunters!",
 
@@ -117,11 +123,11 @@ public class Sign {
 		} else {
 			
 			int index = Dungeon.depth - 1;
-			
+
 			if (index < TIPS.length) {
 				GameScene.show( new WndMessage( TIPS[index] ) );
 
-				if (index >= 26) {
+				if (index >= 31) {
 
 					Level.set( pos, Terrain.EMBERS );
 					GameScene.updateMap( pos );

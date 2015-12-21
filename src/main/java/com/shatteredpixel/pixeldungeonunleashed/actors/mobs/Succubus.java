@@ -50,17 +50,17 @@ public class Succubus extends Mob {
 		name = "succubus";
 		spriteClass = SuccubusSprite.class;
 		
-		HP = HT = 80;
-		defenseSkill = 25;
-		atkSkill = 40;
-		dmgRed = 10;
-		dmgMin = 15;
-		dmgMax = 25;
+		HP = HT = 120;
+		defenseSkill = 34;
+		atkSkill = 48;
+		dmgRed = 15;
+		dmgMin = 20;
+		dmgMax = 32;
 
 		viewDistance = Light.DISTANCE;
 		
 		EXP = 12;
-		maxLvl = 30;
+		maxLvl = 32;
 
 		TYPE_EVIL = true;
 		

@@ -46,7 +46,6 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.traps.LightningTrap;
 import com.shatteredpixel.pixeldungeonunleashed.levels.traps.ParalyticTrap;
 import com.shatteredpixel.pixeldungeonunleashed.levels.traps.PoisonTrap;
 import com.shatteredpixel.pixeldungeonunleashed.levels.traps.ToxicTrap;
-import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
@@ -58,10 +57,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
 public class InfiniteLevel  extends Level {
 
-    private int THEME = (Dungeon.depth / 5) % 5;
+    private int THEME = (Dungeon.depth / 5) % 6;
     {
         switch (THEME) {
             case 0: // this is a sewer level
@@ -79,6 +77,10 @@ public class InfiniteLevel  extends Level {
             case 3: // this is a city level
                 color1 = 0x4b6636;
                 color2 = 0xf2f2f2;
+                break;
+            case 4: // this is a frozen level
+                color1 = 0x484876;
+                color2 = 0x4b5999;
                 break;
             default: // this is a halls level
                 color1 = 0x801500;
@@ -100,6 +102,8 @@ public class InfiniteLevel  extends Level {
                 return Assets.TILES_CAVES;
             case 3: // city
                 return Assets.TILES_CITY;
+            case 4: // frozen
+                return Assets.TILES_FROZEN;
             default: // halls
                 return Assets.TILES_HALLS;
         }
@@ -116,6 +120,8 @@ public class InfiniteLevel  extends Level {
                 return Assets.WATER_CAVES;
             case 3: // city
                 return Assets.WATER_CITY;
+            case 4: // frozen
+                return Assets.WATER_FROZEN;
             default: // halls
                 return Assets.WATER_HALLS;
         }
@@ -254,7 +260,7 @@ public class InfiniteLevel  extends Level {
             }
         }
 
-        specials = new ArrayList<Room.Type>( Room.SPECIALS );
+        specials = new ArrayList<>( Room.SPECIALS );
         specials.remove( Room.Type.PIT); // we can't go up levels so this would be pointless
 
         if (Dungeon.isChallenged( Challenges.NO_ARMOR )){
@@ -338,7 +344,7 @@ public class InfiniteLevel  extends Level {
                         r.width() > 3 && r.height() > 3 &&
                         Random.Int( specialRooms * specialRooms + 2 ) < 2) {
 
-                    if (Dungeon.depth % 6 == 2 && specials.contains( Room.Type.LABORATORY )) {
+                    if (Dungeon.depth % 10 == 2 && specials.contains( Room.Type.LABORATORY )) {
 
                         r.type = Room.Type.LABORATORY;
 
@@ -498,7 +504,7 @@ public class InfiniteLevel  extends Level {
     }
 
     protected int nTraps() {
-        return Dungeon.depth <= 1 ? 0 : Random.Int( 1, rooms.size() + Dungeon.depth );
+        return Dungeon.depth <= 1 ? 0 : Random.Int( 1, rooms.size() + Math.max(Dungeon.depth, 20) );
     }
 
     protected float[] trapChances() {
@@ -608,7 +614,7 @@ public class InfiniteLevel  extends Level {
                     if (Dungeon.depth <= 1) {
                         map[door] = Terrain.DOOR;
                     } else {
-                        boolean secret = (Dungeon.depth < 6 ? Random.Int( 12 - Dungeon.depth ) : Random.Int( 6 )) == 0;
+                        boolean secret = (Random.Int( 6 )) == 0;
                         map[door] = secret ? Terrain.SECRET_DOOR : Terrain.DOOR;
                         if (secret) {
                             secretDoors++;
@@ -713,22 +719,13 @@ public class InfiniteLevel  extends Level {
             Room roomToSpawn = stdRoomIter.next();
 
             Mob mob = InfiniteBestiary.mob(Dungeon.depth);
-            mob.infiniteScaleMob(Dungeon.depth);
-            mob.pos = roomToSpawn.random();
+            if (mob != null) {
+                mob.infiniteScaleMob(Dungeon.depth);
+                mob.pos = roomToSpawn.random();
 
-            if (findMob(mob.pos) == null && Level.passable[mob.pos]) {
-                mobsToSpawn--;
-                mobs.add(mob);
-
-                if (mobsToSpawn > 0 && Random.Int(4) == 0){
-                    mob = InfiniteBestiary.mob(Dungeon.depth);
-                    mob.infiniteScaleMob(Dungeon.depth);
-                    mob.pos = roomToSpawn.random();
-
-                    if (findMob(mob.pos)  == null && Level.passable[mob.pos]) {
-                        mobsToSpawn--;
-                        mobs.add(mob);
-                    }
+                if (findMob(mob.pos) == null && Level.passable[mob.pos]) {
+                    mobsToSpawn--;
+                    mobs.add(mob);
                 }
             }
         }
@@ -821,12 +818,6 @@ public class InfiniteLevel  extends Level {
             nItems++;
         }
 
-        if (Dungeon.difficultyLevel == Dungeon.DIFF_NTMARE) {
-            nItems = nItems / 2;
-        } else if (Dungeon.difficultyLevel <= Dungeon.DIFF_EASY) {
-            nItems += 2;
-        }
-
         for (int i=0; i < nItems; i++) {
             Heap.Type type = null;
             switch (Random.Int( 20 )) {
@@ -914,7 +905,7 @@ public class InfiniteLevel  extends Level {
     }
 
     @Override
-    public void storeInBundle( Bundle bundle ) {
+    public void storeInBundle( Bundle bundle) {
         super.storeInBundle( bundle );
         bundle.put( "rooms", rooms );
     }
@@ -948,37 +939,12 @@ public class InfiniteLevel  extends Level {
             case 3: // city
                 CityLevel.addVisuals( this, scene );
                 break;
+            case 4: // frozen
+                FrozenLevel.addVisuals(this, scene);
+                break;
             default: // halls
                 HallsLevel.addVisuals( this, scene );
                 break;
         }
-    }
-
-    @Override
-    public Actor respawner() {
-        return new Actor() {
-
-            {
-                actPriority = 1; //as if it were a buff.
-            }
-
-            @Override
-            protected boolean act() {
-                int numMobs = nMobs();
-                while (mobs.size() < numMobs) {
-
-                    Mob mob = InfiniteBestiary.mutable(Dungeon.depth);
-                    mob.infiniteScaleMob(Dungeon.depth);
-
-                    mob.state = mob.WANDERING;
-                    mob.pos = randomRespawnCell();
-                    if (Dungeon.hero.isAlive() && mob.pos != -1) {
-                        GameScene.add(mob);
-                    }
-                }
-                spend( Dungeon.level.feeling == Feeling.DARK ? TIME_TO_RESPAWN / 2 : TIME_TO_RESPAWN );
-                return true;
-            }
-        };
     }
 }

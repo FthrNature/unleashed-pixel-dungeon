@@ -33,19 +33,17 @@ public class Holy extends Weapon.Enchantment {
         int curDamage = 0;
         int level = Math.max( 0, weapon.level );
 
-        if (defender instanceof Mob && (((Mob) defender).TYPE_EVIL || ((Mob) defender).TYPE_UNDEAD)) {
-            if (((Mob) defender).TYPE_UNDEAD) {
-                if (Random.Int(level + 4) >= 3) {
-                    curDamage += Random.Int(0, damage + weapon.level);
-                    defender.damage(curDamage, this);
-                    return true;
-                }
-            } else if (((Mob) defender).TYPE_EVIL) {
-                if (Random.Int(level + 4) >= 5) {
-                    curDamage += Random.Int(0, ((damage + weapon.level) / 2));
-                    defender.damage(curDamage, this);
-                    return true;
-                }
+        if (defender.TYPE_UNDEAD) {
+            if (Random.Int(level + 4) >= 3) {
+                curDamage += Random.Int(0, damage + weapon.level);
+                defender.damage(curDamage, this);
+                return true;
+            }
+        } else if (defender.TYPE_EVIL) {
+            if (Random.Int(level + 4) >= 5) {
+                curDamage += Random.Int(0, ((damage + weapon.level) / 2));
+                defender.damage(curDamage, this);
+                return true;
             }
         }
         return false;

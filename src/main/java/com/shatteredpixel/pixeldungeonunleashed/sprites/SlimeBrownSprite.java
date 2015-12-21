@@ -29,16 +29,16 @@ public class SlimeBrownSprite  extends MobSprite {
         TextureFilm frames = new TextureFilm(texture, 20, 14);
 
         idle = new Animation(10, true);
-        idle.frames(frames, 26, 25, 24, 24, 25);
+        idle.frames(frames, 24, 23, 22, 22, 23);
 
         run = new Animation(10, true);
-        run.frames(frames, 27, 29, 25, 26);
+        run.frames(frames, 25, 27, 23, 24);
 
         attack = new Animation(10, false);
-        attack.frames(frames, 32, 31, 28, 31, 34);
+        attack.frames(frames, 30, 29, 26, 29, 32);
 
         die = new Animation(10, false);
-        die.frames(frames, 29, 30, 31);
+        die.frames(frames, 27, 28, 29);
 
         play(idle);
     }

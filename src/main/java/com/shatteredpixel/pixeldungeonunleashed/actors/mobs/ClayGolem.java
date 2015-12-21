@@ -39,6 +39,7 @@ public class ClayGolem extends Mob {
         EXP = 8;
         maxLvl = 18;
         mobType = MOBTYPE_TOUGH;
+        TYPE_MINDLESS = true;
     }
 
     @Override

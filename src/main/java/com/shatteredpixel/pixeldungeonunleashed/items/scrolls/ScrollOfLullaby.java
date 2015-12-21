@@ -47,8 +47,10 @@ public class ScrollOfLullaby extends Scroll {
 
 		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 			if (Level.fieldOfView[mob.pos]) {
-				Buff.affect( mob, Drowsy.class );
-				mob.sprite.centerEmitter().start( Speck.factory( Speck.NOTE ), 0.3f, 5 );
+				Buff.affect(mob, Drowsy.class);
+				if (mob.sprite != null) {
+					mob.sprite.centerEmitter().start(Speck.factory(Speck.NOTE), 0.3f, 5);
+				}
 			}
 		}
 

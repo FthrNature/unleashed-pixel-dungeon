@@ -45,9 +45,11 @@ public class WndStory extends Window {
 	public static final int ID_PRISON		= 1;
 	public static final int ID_CAVES		= 2;
 	public static final int ID_METROPOLIS	= 3;
-	public static final int ID_HALLS		= 4;
-	public static final int ID_TUTOR_1      = 5;
-	public static final int ID_TUTOR_2      = 6;
+	public static final int ID_FROZEN       = 4;
+	public static final int ID_HALLS		= 5;
+	public static final int ID_TUTOR_1      = 6;
+	public static final int ID_TUTOR_2      = 7;
+	public static final int ID_SPECIAL_1    = 8;
 
 	private static final SparseArray<String> CHAPTERS = new SparseArray<String>();
 	
@@ -74,7 +76,11 @@ public class WndStory extends Window {
 		"Dwarven Metropolis was once the greatest of dwarven city-states. In its heyday the mechanized army of dwarves " +
 		"has successfully repelled the invasion of the old god and his demon army. But it is said, that the returning warriors " +
 		"have brought seeds of corruption with them, and that victory was the beginning of the end for the underground kingdom." );
-		
+
+		CHAPTERS.put( ID_FROZEN,
+		"The air suddenly grows cold; This was once an extension of the dwarven empire but years of abandonment have let something "+
+		"else take over.  With the Undead Dwarven King behind you, it is time to press on.  The magic that pervades this place "+
+		"feels vaguely demonic\n\n");
 		CHAPTERS.put( ID_HALLS,
 		"In the past these levels were the outskirts of Metropolis. After the costly victory in the war with the old god " +
 		"dwarves were too weakened to clear them of remaining demons. Gradually demons have tightened their grip on this place " +
@@ -92,6 +98,12 @@ public class WndStory extends Window {
 		"This is your first Boss level.  On this level you will see a locked door leading to the next level, you will have to " +
 		"find the special Boss Key somewhere on this level before descending.");
 
+		CHAPTERS.put (ID_SPECIAL_1,
+		"The city above lies covered in snow, and the frost has descended to the first levels of the dungeon. "+
+		"The upper levels of the dungeon actually constitute the City's sewer system.\n\n " +
+		"As dark energy has crept up from below the usually harmless sewer creatures have become more and more " +
+		"dangerous. The city sends guard patrols down here to try and maintain safety for those above, but " +
+		"they are slowly failing.\n\n This place is dangerous, but at least the evil magic at work here is weak.");
 	};
 	
 	private BitmapTextMultiline tf;

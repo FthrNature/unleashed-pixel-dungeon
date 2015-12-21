@@ -21,8 +21,6 @@ package com.shatteredpixel.pixeldungeonunleashed.levels;
 
 import com.shatteredpixel.pixeldungeonunleashed.Assets;
 import com.shatteredpixel.pixeldungeonunleashed.Dungeon;
-import com.shatteredpixel.pixeldungeonunleashed.Statistics;
-import com.shatteredpixel.pixeldungeonunleashed.actors.Actor;
 import com.shatteredpixel.pixeldungeonunleashed.actors.buffs.Buff;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Bestiary;
 import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.Mob;
@@ -31,13 +29,12 @@ import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
 import com.shatteredpixel.pixeldungeonunleashed.items.rings.RingOfWealth;
 import com.shatteredpixel.pixeldungeonunleashed.levels.painters.Painter;
-import com.shatteredpixel.pixeldungeonunleashed.scenes.GameScene;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Random;
 
 public class OpenLevel extends Level {
 
-    private int THEME = (Dungeon.depth / 6) % 5;
+    private int THEME = (Dungeon.depth / 6) % 6;
     {
         switch (THEME) {
             case 0: // this is a sewer level
@@ -55,6 +52,10 @@ public class OpenLevel extends Level {
             case 3: // this is a city level
                 color1 = 0x4b6636;
                 color2 = 0xf2f2f2;
+                break;
+            case 4: // this is a frozen level
+                color1 = 0x484876;
+                color2 = 0x4b5999;
                 break;
             default: // this is a halls level
                 color1 = 0x801500;
@@ -81,6 +82,8 @@ public class OpenLevel extends Level {
                 return Assets.TILES_CAVES;
             case 3: // city
                 return Assets.TILES_CITY;
+            case 4: // frozen
+                return Assets.TILES_FROZEN;
             default: // halls
                 return Assets.TILES_HALLS;
         }
@@ -97,6 +100,8 @@ public class OpenLevel extends Level {
                 return Assets.WATER_CAVES;
             case 3: // city
                 return Assets.WATER_CITY;
+            case 4: // frozen
+                return Assets.WATER_FROZEN;
             default: // halls
                 return Assets.WATER_HALLS;
         }
@@ -106,21 +111,21 @@ public class OpenLevel extends Level {
     protected boolean build() {
         int topMost = Integer.MAX_VALUE;
 
-        for (int i=0; i < 12; i++) {
+        for (int i=0; i < 8; i++) {
             int left, right, top, bottom;
             if (Random.Int( 2 ) == 0) {
-                left = Random.Int( 1, ROOM_LEFT - 3 );
+                left = Random.Int( 6, ROOM_LEFT - 3 );
                 right = ROOM_RIGHT + 3;
             } else {
                 left = ROOM_LEFT - 3;
-                right = Random.Int( ROOM_RIGHT + 3, WIDTH - 1 );
+                right = Random.Int( ROOM_RIGHT + 3, WIDTH - 6 );
             }
             if (Random.Int( 2 ) == 0) {
-                top = Random.Int( 2, ROOM_TOP - 3 );
+                top = Random.Int( 6, ROOM_TOP - 3 );
                 bottom = ROOM_BOTTOM + 3;
             } else {
                 top = ROOM_LEFT - 3;
-                bottom = Random.Int( ROOM_TOP + 3, HEIGHT - 1 );
+                bottom = Random.Int( ROOM_TOP + 3, HEIGHT - 6 );
             }
 
             Painter.fill(this, left, top, right - left + 1, bottom - top + 1, Terrain.EMPTY);
@@ -132,12 +137,12 @@ public class OpenLevel extends Level {
         }
 
         for (int i = 0; i < 3; i++) {
-            int left = Random.IntRange(6, WIDTH-6);
-            int top = Random.IntRange(topMost + 5, HEIGHT-8);
+            int left = Random.IntRange(10, WIDTH-10);
+            int top = Random.IntRange(topMost + 5, HEIGHT-12);
             Painter.fill(this, left, top, 3, 3, Terrain.WALL);
         }
         for (int i = 0; i < 6; i++) {
-            int left = Random.IntRange(6, WIDTH-6);
+            int left = Random.IntRange(10, WIDTH-10);
             int top = Random.IntRange(topMost + 4, HEIGHT-6);
             Painter.fill(this, left, top, 2, 2, Terrain.WALL);
         }
@@ -175,8 +180,9 @@ public class OpenLevel extends Level {
                 }
         }
 
-        entrance = Random.Int( ROOM_LEFT + 1, ROOM_RIGHT - 1 ) +
-                Random.Int( ROOM_TOP + 1, ROOM_BOTTOM - 1 ) * WIDTH;
+        entrance = Random.Int( ROOM_LEFT + 3, ROOM_RIGHT - 3 ) +
+                Random.Int( ROOM_TOP + 3, ROOM_BOTTOM - 3 ) * WIDTH;
+        Painter.fill(this, (ROOM_LEFT - 2), (ROOM_TOP - 2), 5, 5, Terrain.EMPTY);
         map[entrance] = Terrain.ENTRANCE;
 
 
@@ -214,10 +220,12 @@ public class OpenLevel extends Level {
 
 
         int sign;
+        Painter.fill(this, (ROOM_LEFT - 2), (ROOM_TOP - 2), 5, 5, Terrain.EMPTY);
         do {
             sign = Random.Int( ROOM_LEFT, ROOM_RIGHT ) + Random.Int( ROOM_TOP, ROOM_BOTTOM ) * WIDTH;
         } while (sign == entrance);
         map[sign] = Terrain.SIGN;
+        map[entrance] = Terrain.ENTRANCE;
     }
 
     @Override
@@ -271,9 +279,11 @@ public class OpenLevel extends Level {
 
         while (mobsToSpawn > 0) {
             Mob mob = Bestiary.mob(Dungeon.depth);
-            mob.pos = randomDestination();
-            mobsToSpawn--;
-            mobs.add(mob);
+            if (mob != null) {
+                mob.pos = randomDestination();
+                mobsToSpawn--;
+                mobs.add(mob);
+            }
         }
 
         if (Dungeon.depth == 11) {
@@ -285,35 +295,6 @@ public class OpenLevel extends Level {
             mobs.add(necromancer);
 
         }
-    }
-
-    @Override
-    public Actor respawner() {
-        return new Actor() {
-
-            {
-                actPriority = 1; //as if it were a buff.
-            }
-
-            @Override
-            protected boolean act() {
-                int numMobs = nMobs();
-                while (mobs.size() < numMobs) {
-
-                    Mob mob = Bestiary.mutable( Dungeon.depth );
-                    mob.state = mob.WANDERING;
-                    mob.pos = randomRespawnCell();
-                    if (Dungeon.hero.isAlive() && mob.pos != -1) {
-                        GameScene.add(mob);
-                        if (Statistics.amuletObtained) {
-                            mob.beckon( Dungeon.hero.pos );
-                        }
-                    }
-                }
-                spend( Statistics.amuletObtained ? 25 : 45 );
-                return true;
-            }
-        };
     }
 
     @Override
@@ -330,6 +311,9 @@ public class OpenLevel extends Level {
                 break;
             case 3: // city
                 CityLevel.addVisuals( this, scene );
+                break;
+            case 4: // frozen
+                FrozenLevel.addVisuals(this, scene);
                 break;
             default: // halls
                 HallsLevel.addVisuals( this, scene );

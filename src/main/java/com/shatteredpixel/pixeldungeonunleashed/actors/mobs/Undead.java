@@ -48,6 +48,7 @@ public class Undead extends Mob {
         EXP = 0;
         TYPE_EVIL = true;
         TYPE_UNDEAD = true;
+        TYPE_MINDLESS = true;
 
         state = WANDERING;
     }

@@ -341,7 +341,7 @@ public class DriedRose extends Artifact {
 		}
 
 		public void sayBossBeaten(){
-			yell( Random.element( VOICE_BOSSBEATEN[ Dungeon.depth==30 ? 1 : 0 ] ) );
+			yell( Random.element( VOICE_BOSSBEATEN[ Dungeon.depth==36 ? 1 : 0 ] ) );
 			Sample.INSTANCE.play( Assets.SND_GHOST );
 		}
 

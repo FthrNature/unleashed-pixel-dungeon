@@ -21,7 +21,6 @@
 package com.shatteredpixel.pixeldungeonunleashed.actors.mobs;
 
 import com.shatteredpixel.pixeldungeonunleashed.actors.Char;
-import com.shatteredpixel.pixeldungeonunleashed.actors.mobs.npcs.Ghost;
 import com.watabou.utils.Random;
 
 public class Bestiary {
@@ -63,7 +62,7 @@ public class Bestiary {
 	
 	private static Class<?> mobClass( int depth ) {
 		
-		float[] chances;
+		float[] chances = null;
 		Class<?>[] classes;
 		
 		switch (depth) {
@@ -165,31 +164,54 @@ public class Bestiary {
 			chances = new float[]{ 1, 2, 0.5f, 3, 1, 0.02f };
 			classes = new Class<?>[]{ Elemental.class, Monk.class, Senior.class, Golem.class, Warlock.class, Succubus.class };
 			break;
-			
 		case 24:
 			chances = new float[]{ 1 };
 			classes = new Class<?>[]{ King.class };
 			break;
-			
+
 		case 25:
+			chances = new float[]{ 1, 1 };
+			classes = new Class<?>[]{ BrownWolf.class, GrayWolf.class };
+			break;
+		case 26:
+			chances = new float[]{ 1, 1, 1 };
+			classes = new Class<?>[]{ BrownWolf.class, GrayWolf.class, AirElemental.class };
+			break;
+		case 27:
+			chances = new float[]{ 1, 1, 2 };
+			classes = new Class<?>[]{ BrownWolf.class, GrayWolf.class, AirElemental.class };
+			break;
+		case 28:
+			chances = new float[]{ 1, 1, 1, 0.5f };
+			classes = new Class<?>[]{ BrownWolf.class, GrayWolf.class, AirElemental.class, Yeti.class };
+			break;
+		case 29:
+			chances = new float[]{ 1, 1, 2, 2, 0.5f };
+			classes = new Class<?>[]{ BrownWolf.class, GrayWolf.class, AirElemental.class, Yeti.class, IceDemon.class };
+			break;
+		case 30:
+			chances = new float[]{ 1 };
+			classes = new Class<?>[]{ DemonLord.class };
+			break;
+		case 31:
 			chances = new float[]{ 1, 1 };
 			classes = new Class<?>[]{ Succubus.class, Eye.class };
 			break;
-		case 26:
+		case 32:
 			chances = new float[]{ 1, 2, 1 };
 			classes = new Class<?>[]{ Succubus.class, Eye.class, Scorpio.class };
 			break;
-		case 27:
-		case 28:
+		case 33:
+		case 34:
 			chances = new float[]{ 1, 2, 3, 1 };
 			classes = new Class<?>[]{ Succubus.class, Eye.class, Scorpio.class, LostSoul.class };
 			break;
-		case 29:
+		case 35:
 			chances = new float[]{ 2, 4, 6, 2, 3 };
 			classes = new Class<?>[]{ Succubus.class, Eye.class, Scorpio.class, Acidic.class, LostSoul.class };
 			break;
 			
-		case 30:
+		case 36:
 			chances = new float[]{ 1 };
 			classes = new Class<?>[]{ Yog.class };
 			break;
@@ -197,6 +219,7 @@ public class Bestiary {
 		default:
 			chances = new float[]{ 1 };
 			classes = new Class<?>[]{ Eye.class };
+			break;
 		}
 
 		return classes[ Random.chances( chances )];

@@ -45,7 +45,6 @@ import com.shatteredpixel.pixeldungeonunleashed.levels.traps.LightningTrap;
 import com.shatteredpixel.pixeldungeonunleashed.levels.traps.ParalyticTrap;
 import com.shatteredpixel.pixeldungeonunleashed.levels.traps.PoisonTrap;
 import com.shatteredpixel.pixeldungeonunleashed.levels.traps.ToxicTrap;
-import com.shatteredpixel.pixeldungeonunleashed.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Random;
@@ -647,26 +646,29 @@ public abstract class RegularLevel extends Level {
 		Iterator<Room> stdRoomIter = stdRooms.iterator();
 
 		while (mobsToSpawn > 0) {
+			// cycle through the list of rooms
 			if (!stdRoomIter.hasNext())
 				stdRoomIter = stdRooms.iterator();
 			Room roomToSpawn = stdRoomIter.next();
 
+			// add one or two mobs each time through
 			Mob mob = Bestiary.mob( Dungeon.depth );
-			mob.pos = roomToSpawn.random();
+			if (mob != null) {
+				mob.pos = roomToSpawn.random();
 
-			if (findMob(mob.pos) == null && Level.passable[mob.pos]) {
-				mobsToSpawn--;
-				mobs.add(mob);
+				if (findMob(mob.pos) == null && Level.passable[mob.pos]) {
+					mobsToSpawn--;
+					mobs.add(mob);
 
-				//TODO: perhaps externalize this logic into a method. Do I want to make mobs more likely to clump deeper down?
-				if (mobsToSpawn > 0 && Random.Int(4) == 0){
-					mob = Bestiary.mob( Dungeon.depth );
-					mob.scaleMob();
-					mob.pos = roomToSpawn.random();
+					if (mobsToSpawn > 0 && Random.Int(4) == 0) {
+						mob = Bestiary.mob(Dungeon.depth);
+						mob.scaleMob();
+						mob.pos = roomToSpawn.random();
 
-					if (findMob(mob.pos)  == null && Level.passable[mob.pos]) {
-						mobsToSpawn--;
-						mobs.add(mob);
+						if (findMob(mob.pos) == null && Level.passable[mob.pos]) {
+							mobsToSpawn--;
+							mobs.add(mob);
+						}
 					}
 				}
 			}

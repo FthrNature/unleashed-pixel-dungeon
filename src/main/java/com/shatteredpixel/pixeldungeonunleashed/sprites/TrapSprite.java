@@ -35,13 +35,13 @@ public class TrapSprite extends Image {
 	private int pos = -1;
 
 	public TrapSprite() {
-		super( Assets.TRAPS );
+		super(Assets.TRAPS);
 
 		if (frames == null) {
 			frames = new TextureFilm( texture, 16, 16 );
 		}
 
-		origin.set( 8, 12 );
+		origin.set(8, 12);
 	}
 
 	public TrapSprite( int image ) {
@@ -52,8 +52,12 @@ public class TrapSprite extends Image {
 	public void reset( Trap trap ) {
 
 		revive();
-
-		reset( trap.image + (((Dungeon.depth-1) / 6) * 8) );
+// DSM-xxxx
+		if (Dungeon.depth == 1) {
+			reset(trap.image +24);
+		} else {
+			reset(trap.image + (((Dungeon.depth - 1) / 6) * 8));
+		}
 		alpha( 1f );
 
 		pos = trap.pos;

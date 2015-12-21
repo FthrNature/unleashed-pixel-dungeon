@@ -30,6 +30,7 @@ import com.shatteredpixel.pixeldungeonunleashed.effects.BlobEmitter;
 import com.shatteredpixel.pixeldungeonunleashed.effects.Speck;
 import com.shatteredpixel.pixeldungeonunleashed.items.Generator;
 import com.shatteredpixel.pixeldungeonunleashed.items.Heap;
+import com.shatteredpixel.pixeldungeonunleashed.items.Item;
 import com.shatteredpixel.pixeldungeonunleashed.items.potions.PotionOfHealing;
 import com.shatteredpixel.pixeldungeonunleashed.items.scrolls.Scroll;
 import com.shatteredpixel.pixeldungeonunleashed.items.weapon.Weapon;
@@ -82,26 +83,34 @@ public class Donations extends Blob {
         volume = cur[pos] = amount;
     }
 
+    private static boolean throwItem(int cell, Item thrownItem) {
+        // throw the item off of the Altar to avoid a redonation loop
+        int newPlace;
+        do {
+            newPlace = cell + Level.NEIGHBOURS8[Random.Int(8)];
+        } while (!Level.passable[newPlace] && !Level.avoid[newPlace]);
+        Dungeon.level.drop(thrownItem, newPlace).sprite.drop(cell);
+
+        return true;
+    }
+
     public static void donate( int cell ) {
         Hero hero = Dungeon.hero;
         Heap heap = Dungeon.level.heaps.get( cell );
+
         if (heap != null) {
             // don't allow accidental donations of important items such as keys or quest items
             // and don't insult the gods with insignificant donations
             if (heap.peek().unique || heap.peek().price() < 5 || (heap.peek() instanceof MissileWeapon)) {
                 GLog.p("The Gods refuse your offering.");
                 // throw the item off of the Altar to avoid a redonation loop
-                int newPlace;
-                do {
-                    newPlace = cell + Level.NEIGHBOURS8[Random.Int(8)];
-                } while (!Level.passable[newPlace] && !Level.avoid[newPlace]);
-                Dungeon.level.drop(heap.pickUp(), newPlace).sprite.drop(cell);
 
+                throwItem(cell, heap.pickUp());
                 return;
             }
 
             if (heap.peek() instanceof Scroll) {
-                hero.donatedLoot += (heap.peek().price() * heap.peek().quantity() * 3);
+                hero.donatedLoot += (heap.peek().price() * heap.peek().quantity() * 2);
             } else {
                 hero.donatedLoot += (heap.peek().price() * heap.peek().quantity());
             }
@@ -114,68 +123,74 @@ public class Donations extends Blob {
 
                 // the hero may not use this altar again during this run
                 hero.donatedLoot = 0;
-            } else if (hero.donatedLoot >= 300) {
+            } else if (hero.donatedLoot >= 350) {
                 // in order to get here you either have to donate a lot of goods all at once,
                 // or you have been doing a lot of donations and collecting the lower rewards
                 GLog.p("The Gods are very pleased and reward you!");
                 if (Random.Int(3) == 0) {
                     GLog.p("The Gods flood your mind with visions of battles past.");
                     hero.earnExp(hero.maxExp());
-                    hero.donatedLoot -= 300;
+                    hero.donatedLoot = 0;
                 } else {
-                    GLog.p("You are rewarded with an ancient Artifact!");
-                    Generator.random( Generator.Category.ARTIFACT ).collect();
-                    hero.donatedLoot -= 300;
+                    try {
+                        throwItem(cell, Generator.random(Generator.Category.ARTIFACT));
+                        GLog.p("You are rewarded with an ancient Artifact!");
+                        hero.donatedLoot = 0;
+                    } catch (Exception ex) {
+                    }
                 }
-            } else if (hero.donatedLoot >= 125) {
+            } else if (hero.donatedLoot >= 150) {
                 if (Random.Int(3) == 0) {
                     // upgrade an item
-                    Weapon wpn = (Weapon) Generator.random(Generator.Category.WEAPON);
+                    Weapon wpn = (Weapon) Generator.random(Generator.Category.MELEE);
                     try {
                         switch (Random.Int(4)) {
                             case 0:
-                                wpn.enchant(Glowing.class.newInstance()).collect();
+                                wpn.enchant(Glowing.class.newInstance());
                                 break;
                             case 1:
-                                wpn.enchant(Ancient.class.newInstance()).collect();
+                                wpn.enchant(Ancient.class.newInstance());
                                 break;
                             case 2:
-                                wpn.enchant(Holy.class.newInstance()).collect();
+                                wpn.enchant(Holy.class.newInstance());
                                 break;
                             default:
-                                wpn.enchant(Luck.class.newInstance()).collect();
+                                wpn.enchant(Luck.class.newInstance());
                                 break;
                         }
+                        throwItem(cell, wpn);
+                        hero.donatedLoot -= 150;
+                        GLog.i("you are rewarded with a magical weapon.");
+                    } catch (NullPointerException e) {
                     } catch (InstantiationException e) {
-                        wpn.enchant().collect();;
                     } catch (IllegalAccessException e) {
-                        wpn.enchant().collect();;
                     }
-                    hero.donatedLoot -= 125;
-                    GLog.i("you are rewarded with a magical weapon.");
+                    GLog.i("you feel very close to the gods.");
+                } else {
+                    GLog.i("you feel very close to the gods.");
                 }
-            } else if (hero.donatedLoot >= 40) {
+            } else if (hero.donatedLoot >= 50) {
                 // some type of reward may be given to the hero, if so reduce the total donation value
                 if (hero.HT < hero.HP) {
                     GLog.p("The Gods heal your wounds.");
                     PotionOfHealing.heal(hero);
-                    hero.donatedLoot -= 35;
+                    hero.donatedLoot -= 40;
                 } else if ((! hero.buffs().contains(Awareness.class)) && (Random.Int(6) == 0)) {
                     GLog.p("The Gods reveal secrets of your surroundings.");
                     Buff.affect(hero, Awareness.class, Awareness.DURATION * 2);
                     Dungeon.observe();
-                    hero.donatedLoot -= 30;
+                    hero.donatedLoot -= 35;
                 } else if ((! hero.buffs().contains(Bless.class)) && (Random.Int(6) == 0)){
                     GLog.p("The Gods bless you.");
                     hero.belongings.uncurseEquipped();
                     Buff.affect(hero, Bless.class);
                     Buff.prolong(hero, Bless.class, 120f);
-                    hero.donatedLoot -= 40;
+                    hero.donatedLoot -= 45;
                 } else {
                     GLog.p("The Gods seem happy...");
                 }
             } else {
-                GLog.p("The Gods seem happy...");
+                GLog.p("The Gods accept your donation...");
             }
 
             heap.donate();
