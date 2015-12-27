@@ -45,7 +45,7 @@ public class Weakness extends FlavourBuff {
 	
 	@Override
 	public boolean attachTo( Char target ) {
-		if (super.attachTo( target )) {
+		if (super.attachTo( target ) && target==Dungeon.hero) {
 			Hero hero = (Hero)target;
 			hero.weakened = true;
 			hero.belongings.discharge();

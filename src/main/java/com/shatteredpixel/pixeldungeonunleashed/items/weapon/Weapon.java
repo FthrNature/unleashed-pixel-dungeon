@@ -160,6 +160,21 @@ public class Weapon extends KindOfWeapon {
 			if (exStr > 0) {
 				damage += Random.IntRange( 0, exStr );
 			}
+			int lvlbonus = Math.round(hero.level/3);
+			if (lvlbonus > 0) {
+				damage += Random.IntRange( 0, lvlbonus );
+			}
+		}
+		
+		if (this instanceof MissileWeapon && hero.heroClass != HeroClass.HUNTRESS)) {
+			int exStr = Math.round((hero.STR() - STR)/3);
+			if (exStr > 0) {
+				damage += Random.IntRange( 0, exStr );
+			}
+			int lvlbonus = Math.round(hero.level/5);
+			if (lvlbonus > 0) {
+				damage += Random.IntRange( 0, lvlbonus );
+			}
 		}
 		
 		return Math.round(damage * (imbue == Imbue.LIGHT ? 0.7f : (imbue == Imbue.HEAVY ? 1.5f : 1f)));
