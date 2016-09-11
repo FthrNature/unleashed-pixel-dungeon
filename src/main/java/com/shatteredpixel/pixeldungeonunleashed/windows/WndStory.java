@@ -74,7 +74,7 @@ public class WndStory extends Window {
 		
 		CHAPTERS.put( ID_METROPOLIS,
 		"Dwarven Metropolis was once the greatest of dwarven city-states. In its heyday the mechanized army of dwarves " +
-		"has successfully repelled the invasion of the old god and his demon army. But it is said, that the returning warriors " +
+		"had successfully repelled the invasion of the old god and his demon army. But it is said, that the returning warriors " +
 		"have brought seeds of corruption with them, and that victory was the beginning of the end for the underground kingdom." );
 
 		CHAPTERS.put( ID_FROZEN,
